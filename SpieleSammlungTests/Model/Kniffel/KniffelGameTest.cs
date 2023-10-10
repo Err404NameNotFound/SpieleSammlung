@@ -24,7 +24,7 @@ namespace SpieleSammlungTests.Model.Kniffel
         {
             Players = new List<Player>
             {
-                new Player("player 1", false), new Player("player 2", false)
+                new("player 1", false), new("player 2", false)
             };
             _continuousGame = new KniffelGame(Players, 420);
             Rng = new RandomStub();
@@ -160,7 +160,7 @@ namespace SpieleSammlungTests.Model.Kniffel
         [TestMethod]
         public void Test16_ConstructorBotStrategy()
         {
-            _ = new KniffelGame(new List<Player> { new Player(), new Player() }, new BotStrategy());
+            _ = new KniffelGame(new List<Player> { new(), new() }, new BotStrategy());
         }
 
         [TestMethod]
@@ -289,7 +289,7 @@ namespace SpieleSammlungTests.Model.Kniffel
         public void TestRigged12_BotMoveExecutesAMoveForABot()
         {
             KniffelPlayer previous = RiggedGame.CurrentPlayer;
-            RiggedGame.DoBotMove(ints => { }, () => { });
+            RiggedGame.DoBotMove(_ => { }, () => { });
             Assert.AreNotEqual(previous, RiggedGame.CurrentPlayer);
         }
 

@@ -73,7 +73,7 @@ namespace SpieleSammlung.Model.Kniffel
 
         /// <summary>Creates a new instance and set up a playable game.</summary>
         /// <param name="names">Names of the players.</param>
-        public KniffelGame(IReadOnlyList<Player> names) : this(names, new DiceManager())
+        public KniffelGame(IReadOnlyCollection<Player> names) : this(names, new DiceManager())
         {
         }
 
@@ -82,7 +82,7 @@ namespace SpieleSammlung.Model.Kniffel
         /// </summary>
         /// <param name="names">Player for this Kniffel game</param>
         /// <param name="seed">Seed for the RNG</param>
-        public KniffelGame(IReadOnlyList<Player> names, int seed) : this(names, new DiceManager(seed))
+        public KniffelGame(IReadOnlyCollection<Player> names, int seed) : this(names, new DiceManager(seed))
         {
         }
 
@@ -91,7 +91,7 @@ namespace SpieleSammlung.Model.Kniffel
         /// </summary>
         /// <param name="names">Player for this Kniffel game</param>
         /// <param name="rng">The random number generator that produces the values for the dice</param>
-        public KniffelGame(IReadOnlyList<Player> names, Random rng) : this(names, new DiceManager(rng))
+        public KniffelGame(IReadOnlyCollection<Player> names, Random rng) : this(names, new DiceManager(rng))
         {
         }
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using SpieleSammlung.Properties;
 
 namespace SpieleSammlung.Model.Schafkopf
 {

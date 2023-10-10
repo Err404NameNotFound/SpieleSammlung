@@ -9,12 +9,12 @@ namespace SpieleSammlungTests.Model.Kniffel
     [TestClass]
     public class ShufflingOptionTest
     {
-        private static readonly DiceManager Dice1 = new DiceManager();
-        private static readonly List<WriteOption> WriteOptions1 = new List<WriteOption>();
-        private static readonly List<int> KillOptions1 = new List<int>();
-        private static readonly DiceManager Dice2 = new DiceManager();
-        private static readonly List<WriteOption> WriteOptions2 = new List<WriteOption>();
-        private static readonly List<int> KillOptions2 = new List<int>();
+        private static readonly DiceManager Dice1 = new();
+        private static readonly List<WriteOption> WriteOptions1 = new();
+        private static readonly List<int> KillOptions1 = new();
+        private static readonly DiceManager Dice2 = new();
+        private static readonly List<WriteOption> WriteOptions2 = new();
+        private static readonly List<int> KillOptions2 = new();
 
         [TestMethod]
         public void Test00_MaxOptionWithNoFields()
@@ -80,14 +80,14 @@ namespace SpieleSammlungTests.Model.Kniffel
         {
             List<WriteOption> writes = new List<WriteOption>
             {
-                new WriteOption(KniffelPointsTable.INDEX_CHANCE, 15),
-                new WriteOption(KniffelPointsTable.INDEX_PAIR_SIZE_4, 26)
+                new(KniffelPointsTable.INDEX_CHANCE, 15),
+                new(KniffelPointsTable.INDEX_PAIR_SIZE_4, 26)
             };
             List<WriteOption> writes2 = new List<WriteOption>
             {
-                new WriteOption(KniffelPointsTable.INDEX_CHANCE, 18),
-                new WriteOption(KniffelPointsTable.INDEX_PAIR_SIZE_4, 26),
-                new WriteOption(3, 8)
+                new(KniffelPointsTable.INDEX_CHANCE, 18),
+                new(KniffelPointsTable.INDEX_PAIR_SIZE_4, 26),
+                new(3, 8)
             };
             ShufflingOption option = new ShufflingOption(Dice1, writes, KillOptions1);
             ShufflingOption other = new ShufflingOption(Dice2, writes2, KillOptions2);
@@ -99,14 +99,14 @@ namespace SpieleSammlungTests.Model.Kniffel
         {
             List<WriteOption> writes = new List<WriteOption>
             {
-                new WriteOption(KniffelPointsTable.INDEX_CHANCE, 18),
-                new WriteOption(KniffelPointsTable.INDEX_PAIR_SIZE_4, 26),
-                new WriteOption(2, 6)
+                new(KniffelPointsTable.INDEX_CHANCE, 18),
+                new(KniffelPointsTable.INDEX_PAIR_SIZE_4, 26),
+                new(2, 6)
             };
             List<WriteOption> writes2 = new List<WriteOption>
             {
-                new WriteOption(KniffelPointsTable.INDEX_CHANCE, 15),
-                new WriteOption(KniffelPointsTable.INDEX_PAIR_SIZE_4, 26)
+                new(KniffelPointsTable.INDEX_CHANCE, 15),
+                new(KniffelPointsTable.INDEX_PAIR_SIZE_4, 26)
             };
             ShufflingOption option = new ShufflingOption(Dice1, writes, KillOptions1);
             ShufflingOption other = new ShufflingOption(Dice2, writes2, KillOptions2);
@@ -211,11 +211,7 @@ namespace SpieleSammlungTests.Model.Kniffel
         {
             List<WriteOption> writes = new List<WriteOption>
             {
-                new WriteOption(KniffelPointsTable.INDEX_CHANCE, 30),
-                new WriteOption(0, 1),
-                new WriteOption(1, 6),
-                new WriteOption(3, 8),
-                new WriteOption(5, 24)
+                new(KniffelPointsTable.INDEX_CHANCE, 30), new(0, 1), new(1, 6), new(3, 8), new(5, 24)
             };
             List<int> removable = new List<int> { 6, 8, 9, 11 };
             const string expected =
@@ -230,11 +226,11 @@ namespace SpieleSammlungTests.Model.Kniffel
         {
             List<WriteOption> writes = new List<WriteOption>
             {
-                new WriteOption(KniffelPointsTable.INDEX_CHANCE, 30),
-                new WriteOption(0, 1),
-                new WriteOption(1, 6),
-                new WriteOption(3, 8),
-                new WriteOption(5, 24)
+                new(KniffelPointsTable.INDEX_CHANCE, 30),
+                new(0, 1),
+                new(1, 6),
+                new(3, 8),
+                new(5, 24)
             };
             List<int> removable = new List<int> { 6, 8, 9, 11 };
             const string expected =
