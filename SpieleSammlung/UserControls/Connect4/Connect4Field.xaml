@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="SpieleSammlung.UserControls.Connect4.Connect4Field"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:connect4="clr-namespace:SpieleSammlung.UserControls.Connect4"
+             mc:Ignorable="d"
+             d:DesignHeight="55" d:DesignWidth="55">
+
+    <Button Background="White" Click="Btn_Click">
+        <Button.Resources>
+            <Style TargetType="Border">
+                <Setter Property="CornerRadius" Value="55" />
+            </Style>
+            <Style TargetType="ToggleButton">
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Button.Resources>
+        <connect4:Connect4Visual x:Name="BtnImage" Margin="-1" />
+    </Button>
+</UserControl>

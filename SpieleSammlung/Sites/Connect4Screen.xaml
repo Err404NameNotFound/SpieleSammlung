@@ -1,0 +1,90 @@
+﻿<UserControl x:Class="SpieleSammlung.Sites.Connect4Screen"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:properties="clr-namespace:SpieleSammlung.Properties"
+             mc:Ignorable="d"
+             d:DesignHeight="600" d:DesignWidth="1000">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="200" />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" x:Name="LeftGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Label Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" x:Name="LblPlayerLeft" HorizontalAlignment="Center"
+                   VerticalAlignment="Center" Style="{StaticResource StandardLabel}" />
+        </Grid>
+        <Grid Grid.Row="0" Grid.Column="1" Width="420" Height="360" x:Name="FieldGrid">
+            <Grid.Background>
+                <ImageBrush ImageSource="../../Images/Connect4/connect-4-background.png" />
+            </Grid.Background>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+        </Grid>
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center">
+            <ComboBox x:Name="CBoxLevelSelection" Margin="10" Padding="5" VerticalAlignment="Center" Width="50" />
+            <Button Content="{x:Static properties:Resources.Connect4_NewGame}"
+                    Click="Button_New_Click" Margin="10" Padding="5" VerticalAlignment="Center" Width="50" />
+            <Button Content="{x:Static properties:Resources.Connect4_SwitchStartPlayer}"
+                    Click="Button_Switch_Click" Margin="10" Padding="5" VerticalAlignment="Center" Width="50" />
+        </StackPanel>
+        <Grid Grid.Row="0" Grid.Column="2" x:Name="RightGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Label Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" x:Name="LblPlayerRight"
+                   HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource StandardLabel}" />
+        </Grid>
+    </Grid>
+</UserControl>

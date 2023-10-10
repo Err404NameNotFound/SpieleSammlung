@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="SpieleSammlung.UserControls.GameModeSelector"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:properties="clr-namespace:SpieleSammlung.Properties"
+             mc:Ignorable="d" d:DesignWidth="106" Height="96">
+    <Border BorderBrush="Transparent" BorderThickness="2" x:Name="ModeBorder">
+        <StackPanel Width="100" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <ComboBox Width="100" x:Name="CbMode" Padding="5" Margin="0,0,0,3" VerticalAlignment="Center"
+                      SelectionChanged="CbMode_SelectionChanged" />
+            <ComboBox Width="100" x:Name="CbColor" Padding="5" Margin="0,3" VerticalAlignment="Center"
+                      SelectionChanged="CbColor_SelectionChanged" />
+            <ToggleButton Width="100" VerticalAlignment="Center" Margin="0,3,0,0" Padding="5" x:Name="BtnSelectMode"
+                          Content="{x:Static properties:Resources.SKGameModeSelector_BtnChooseGame}" Click="BtnSelectMode_Click" />
+        </StackPanel>
+    </Border>
+</UserControl>

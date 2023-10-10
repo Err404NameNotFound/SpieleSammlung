@@ -1,0 +1,76 @@
+﻿<UserControl x:Class="SpieleSammlung.UserControls.Kniffel.KniffelPointsVisual"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:properties="clr-namespace:SpieleSammlung.Properties"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="180">
+    <StackPanel Orientation="Vertical" Height="450">
+        <ComboBox Width="180" x:Name="CBoxPlayerNames" IsEnabled="False"
+                  SelectionChanged="CBoxPlayerNames_SelectionChanged" Height="22.5" />
+        <Grid Height="427.5" Width="180" ShowGridLines="True" Background="White">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="130" />
+                <ColumnDefinition Width="50" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Content="{x:Static properties:Resources.KnifPointsVisual_Lbl_1}" />
+            <Label Grid.Row="1" Grid.Column="0" Content="{x:Static properties:Resources.KnifPointsVisual_Lbl_2}" />
+            <Label Grid.Row="2" Grid.Column="0" Content="{x:Static properties:Resources.KnifPointsVisual_Lbl_3}" />
+            <Label Grid.Row="3" Grid.Column="0" Content="{x:Static properties:Resources.KnifPointsVisual_Lbl_4}" />
+            <Label Grid.Row="4" Grid.Column="0" Content="{x:Static properties:Resources.KnifPointsVisual_Lbl_5}" />
+            <Label Grid.Row="5" Grid.Column="0" Content="{x:Static properties:Resources.KnifPointsVisual_Lbl_6}" />
+            <Label Grid.Row="6" Grid.Column="0" Content="{x:Static properties:Resources.KnifPointsVisual_Lbl_SumTop}" />
+            <Label Grid.Row="7" Grid.Column="0" Content="{x:Static properties:Resources.KnifPointsVisual_Lbl_BonusTop}" />
+            <Label Grid.Row="8" Grid.Column="0" Content="{x:Static properties:Resources.KnifPointsVisual_Lbl_Pair3}" />
+            <Label Grid.Row="9" Grid.Column="0" Content="{x:Static properties:Resources.KnifPointsVisual_Lbl_Pair4}" />
+            <Label Grid.Row="10" Grid.Column="0" Content="{x:Static properties:Resources.KnifPointsVisual_Lbl_FullHouse}" />
+            <Label Grid.Row="11" Grid.Column="0" Content="{x:Static properties:Resources.KnifPointsVisual_Lbl_SmallStreet}" />
+            <Label Grid.Row="12" Grid.Column="0" Content="{x:Static properties:Resources.KnifPointsVisual_Lbl_BigStreet}" />
+            <Label Grid.Row="13" Grid.Column="0" Content="{x:Static properties:Resources.KnifPointsVisual_Lbl_Kniffel}" />
+            <Label Grid.Row="14" Grid.Column="0" Content="{x:Static properties:Resources.KnifPointsVisual_Lbl_Chance}" />
+            <Label Grid.Row="15" Grid.Column="0" Content="{x:Static properties:Resources.Knif_PointsVisual_Lbl_SumBottom}" />
+            <Label Grid.Row="16" Grid.Column="0" Content="{x:Static properties:Resources.KnifPointsVisual_Lbl_SumTop}" />
+            <Label Grid.Row="17" Grid.Column="0" Content="{x:Static properties:Resources.Knif_PointsVisual_Lbl_Sum}" />
+
+            <Label Grid.Row="0" Grid.Column="1" Content="" x:Name="LblValue1" />
+            <Label Grid.Row="1" Grid.Column="1" Content="" x:Name="LblValue2" />
+            <Label Grid.Row="2" Grid.Column="1" Content="" x:Name="LblValue3" />
+            <Label Grid.Row="3" Grid.Column="1" Content="" x:Name="LblValue4" />
+            <Label Grid.Row="4" Grid.Column="1" Content="" x:Name="LblValue5" />
+            <Label Grid.Row="5" Grid.Column="1" Content="" x:Name="LblValue6" />
+            <Label Grid.Row="6" Grid.Column="1" Content="" x:Name="LblValueSumTop" />
+            <Label Grid.Row="7" Grid.Column="1" Content="" x:Name="LblValueBonus" />
+            <Label Grid.Row="8" Grid.Column="1" Content="" x:Name="LblValueTriple" />
+            <Label Grid.Row="9" Grid.Column="1" Content="" x:Name="LblValueQuad" />
+            <Label Grid.Row="10" Grid.Column="1" Content="" x:Name="LblValueFullH" />
+            <Label Grid.Row="11" Grid.Column="1" Content="" x:Name="LblValueSmallStreet" />
+            <Label Grid.Row="12" Grid.Column="1" Content="" x:Name="LblValueBigStreet" />
+            <Label Grid.Row="13" Grid.Column="1" Content="" x:Name="LblValueKniffel" />
+            <Label Grid.Row="14" Grid.Column="1" Content="" x:Name="LblValueChance" />
+            <Label Grid.Row="15" Grid.Column="1" Content="" x:Name="LblValueSumBot" />
+            <Label Grid.Row="16" Grid.Column="1" Content="" x:Name="LblValueSumTopTotal" />
+            <Label Grid.Row="17" Grid.Column="1" Content="" x:Name="LblValueSumTotal" />
+        </Grid>
+    </StackPanel>
+</UserControl>

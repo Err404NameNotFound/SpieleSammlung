@@ -1,0 +1,23 @@
+﻿<Window x:Class="SpieleSammlung.Windows.WindowsMode"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:properties="clr-namespace:SpieleSammlung.Properties"
+        mc:Ignorable="d"
+        Title="{x:Static properties:Resources.ConfirmationWindow_title}" Height="150" Width="280">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Column="0" Grid.Row="0" TextWrapping="Wrap" Margin="10" Grid.ColumnSpan="2" x:Name="LblWarnung" />
+        <Button Grid.Column="0" Grid.Row="1" Padding="10" Width="100" Margin="10" Content="{x:Static properties:Resources.ConfirmationWindow_Cancel}"
+                Click="BtnCancel_Click" />
+        <Button Grid.Column="1" Grid.Row="1" Padding="10" Width="100" Margin="10" Content="{x:Static properties:Resources.ConfirmationWindow_ConfirmAction}" Click="BtnOk_Click" />
+    </Grid>
+</Window>

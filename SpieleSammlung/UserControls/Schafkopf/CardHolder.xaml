@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="SpieleSammlung.UserControls.Schafkopf.CardHolder"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:schafkopf="clr-namespace:SpieleSammlung.UserControls.Schafkopf"
+             xmlns:properties="clr-namespace:SpieleSammlung.Properties"
+             mc:Ignorable="d"
+             d:DesignHeight="120" d:DesignWidth="580">
+    <Grid SizeChanged="Grid_SizeChanged" x:Name="CardsGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Border BorderBrush="Transparent" BorderThickness="2" x:Name="Border" Padding="5" Grid.Row="0" Grid.RowSpan="2"
+                Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal">
+                <schafkopf:SelectableCard x:Name="Card1" ToggleButton.Checked="Card1_Checked"
+                                          ToggleButton.Unchecked="Card1_Checked" Margin="0,0,5,0" />
+                <schafkopf:SelectableCard x:Name="Card2" ToggleButton.Checked="Card2_Checked"
+                                          ToggleButton.Unchecked="Card2_Checked" Margin="5,0" />
+                <schafkopf:SelectableCard x:Name="Card3" ToggleButton.Checked="Card3_Checked"
+                                          ToggleButton.Unchecked="Card3_Checked" Margin="5,0" />
+                <schafkopf:SelectableCard x:Name="Card4" ToggleButton.Checked="Card4_Checked"
+                                          ToggleButton.Unchecked="Card4_Checked" Margin="5,0" />
+                <schafkopf:SelectableCard x:Name="Card5" ToggleButton.Checked="Card5_Checked"
+                                          ToggleButton.Unchecked="Card5_Checked" Margin="5,0" Visibility="Hidden" />
+                <schafkopf:SelectableCard x:Name="Card6" ToggleButton.Checked="Card6_Checked"
+                                          ToggleButton.Unchecked="Card6_Checked" Margin="5,0" Visibility="Hidden" />
+                <schafkopf:SelectableCard x:Name="Card7" ToggleButton.Checked="Card7_Checked"
+                                          ToggleButton.Unchecked="Card7_Checked" Margin="5,0" Visibility="Hidden" />
+                <schafkopf:SelectableCard x:Name="Card8" ToggleButton.Checked="Card8_Checked"
+                                          ToggleButton.Unchecked="Card8_Checked" Margin="5,0,0,0" Visibility="Hidden" />
+            </StackPanel>
+        </Border>
+        <Button x:Name="BtnShowRest" Content="{x:Static properties:Resources.SKCardHolder_Btn_ShowRemaining}"
+                Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"
+                HorizontalAlignment="Center" Padding="5" Click="BtnShowRest_Click" />
+        <Button x:Name="BtnAufstellen" Content="{x:Static properties:Resources.SK_CardHolder_Btn_Aufstellen}"
+                Grid.Row="0" Grid.Column="1" VerticalAlignment="Center"
+                HorizontalAlignment="Center" Padding="5" Click="BtnAufstellen_Click" />
+    </Grid>
+
+</UserControl>

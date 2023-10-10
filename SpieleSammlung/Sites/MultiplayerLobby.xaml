@@ -1,0 +1,126 @@
+﻿<UserControl x:Class="SpieleSammlung.Sites.MultiplayerLobby"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:properties="clr-namespace:SpieleSammlung.Properties"
+             mc:Ignorable="d"
+             d:DesignHeight="600" d:DesignWidth="1000">
+
+    <StackPanel>
+        <Grid x:Name="GridStateDecision" Height="600" Visibility="Visible">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal"
+                        VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Label Content="{x:Static properties:Resources.MP_Name}" VerticalAlignment="Center"
+                       Background="White" />
+                <TextBox x:Name="PlayerName" Padding="5" Background="White" Margin="10" Width="400"
+                         TextChanged="Name_TextChanged" KeyDown="PlayerName_KeyDown" Loaded="Got_Loaded" />
+            </StackPanel>
+            <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal"
+                        VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Label Content="{x:Static properties:Resources.MP_Port}" VerticalAlignment="Center"
+                       Background="White" />
+                <TextBox x:Name="HostPort" Padding="5" Background="White" Margin="10" Width="60"
+                         TextChanged="HostPort_TextChanged" KeyDown="HostPort_KeyDown" />
+            </StackPanel>
+            <Button Grid.Row="3" Grid.Column="0" Padding="10" VerticalAlignment="Center" HorizontalAlignment="Right"
+                    Margin="0,0,50,0" x:Name="BtnHost" Content="{x:Static properties:Resources.MP_HostMatch}" Click="BtnHost_Click" IsEnabled="False" />
+            <Button Grid.Row="3" Grid.Column="1" Padding="10" VerticalAlignment="Center" HorizontalAlignment="Left"
+                    Margin="50,0,0,0" x:Name="BtnJoin" Content="{x:Static properties:Resources.MP_Btn_JoinMatch}" Click="BtnJoin_Click" IsEnabled="False" />
+        </Grid>
+        <Grid x:Name="MpViewClient" Height="600" Visibility="Collapsed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="150" />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Label Grid.Row="1" Grid.Column="1" Content="{x:Static properties:Resources.MP_HostIp}"
+                   Background="White" VerticalAlignment="Center" />
+            <TextBox Grid.Row="1" Grid.Column="2" x:Name="Ip" Padding="5" Background="White" Margin="10"
+                     TextChanged="IP_TextChanged" KeyDown="IP_KeyDown" />
+            <Label Grid.Row="2" Grid.Column="1" Content="{x:Static properties:Resources.MP_HostPort}"
+                   Background="White" VerticalAlignment="Center" />
+            <TextBox Grid.Row="2" Grid.Column="2" x:Name="Port" Padding="5" Background="White" Margin="10"
+                     TextChanged="Port_TextChanged" KeyDown="Port_KeyDown" />
+            <Button Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" x:Name="BtnTryJoin" Click="BtnTryJoin_Click"
+                    Content="{x:Static properties:Resources.MP_JoinMatch}" IsEnabled="False" Padding="10"
+                    VerticalAlignment="Center" HorizontalAlignment="Center" />
+            <Label Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" x:Name="LblError" Padding="10"
+                   VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Hidden" Background="White" />
+        </Grid>
+        <Grid x:Name="MpViewHost" Height="600" Visibility="Collapsed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.5*" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="160" />
+                <RowDefinition />
+                <RowDefinition Height="0.75*" />
+            </Grid.RowDefinitions>
+            <Label Grid.Row="1" Grid.Column="0" Background="White"
+                   Content="{x:Static properties:Resources.ML_Lbl_MinPlayerCount}"
+                   VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,5,0" Width="140" />
+            <Label Grid.Row="2" Grid.Column="0" Background="White"
+                   Content="{x:Static properties:Resources.ML_Lbl_MaxPlayerCount}"
+                   VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,5,0" Width="140" />
+            <Label Grid.Row="3" Grid.Column="0" Background="White"
+                   Content="{x:Static properties:Resources.ML_Lbl_CurrentPlayerCount}"
+                   VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,5,0" Width="140" />
+            <Label Grid.Row="1" Grid.Column="1" Background="White" x:Name="LblMinPlayer" VerticalAlignment="Center"
+                   HorizontalAlignment="Left" Content=" " Width="30" />
+            <Label Grid.Row="2" Grid.Column="1" Background="White" x:Name="LblMaxPlayer" VerticalAlignment="Center"
+                   HorizontalAlignment="Left" Content=" " Width="30" />
+            <Label Grid.Row="3" Grid.Column="1" Background="White" x:Name="LblCurPlayer" VerticalAlignment="Center"
+                   HorizontalAlignment="Left" Content=" " Width="30" />
+            <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center"
+                        x:Name="HostTools" VerticalAlignment="Center" Orientation="Horizontal" Width="600">
+                <Label Content="{x:Static properties:Resources.ML_Lbl_ActionForSelectedPlayer}" Background="White" />
+                <Button x:Name="BtnKickPlayer" Content="{x:Static properties:Resources.ML_Lbl_RemovePlayer}"
+                        Padding="5" Margin="5,0" Click="BtnKickPlayer_Click" />
+                <Button x:Name="BtnMovePlayerUp" Content="🠕" Padding="5" Margin="0,0,5,0"
+                        Click="BtnMovePlayerUp_Click" />
+                <Button x:Name="BtnMovePlayerDown" Content="🠗" Padding="5" Click="BtnMovePlayerDown_Click" />
+                <TextBox Width="174" x:Name="LblChangedName" Padding="5" Margin="5,0" KeyDown="LblChangedName_KeyDown" />
+                <Button x:Name="BtnRenamePlayer" Content="{x:Static properties:Resources.ML_Lbl_RenamePlayer}"
+                        Padding="5" Click="BtnRenamePlayer_Click" />
+            </StackPanel>
+            <ListBox Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" x:Name="PlayerList" Width="600"
+                     SelectionChanged="PlayerList_SelectionChanged" SelectionMode="Single" />
+            <Button Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" x:Name="BtnStartMatch"
+                    Content="{x:Static properties:Resources.ML_Lbl_WaitForOtherPlayers}"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Padding="10" Margin="10" IsEnabled="False" Click="BtnStartMatch_Click" />
+
+        </Grid>
+        <Grid x:Name="ConnectionLost" Height="600" Visibility="Collapsed">
+            <Label Content="{x:Static properties:Resources.MP_LostConnectionToHost}" Padding="5"
+                   HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Grid>
+    </StackPanel>
+</UserControl>
