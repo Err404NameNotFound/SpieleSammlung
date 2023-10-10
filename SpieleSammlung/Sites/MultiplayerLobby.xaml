@@ -35,9 +35,11 @@
                          TextChanged="HostPort_TextChanged" KeyDown="HostPort_KeyDown" />
             </StackPanel>
             <Button Grid.Row="3" Grid.Column="0" Padding="10" VerticalAlignment="Center" HorizontalAlignment="Right"
-                    Margin="0,0,50,0" x:Name="BtnHost" Content="{x:Static properties:Resources.MP_HostMatch}" Click="BtnHost_Click" IsEnabled="False" />
+                    Margin="0,0,50,0" x:Name="BtnHost" Content="{x:Static properties:Resources.MP_HostMatch}"
+                    Click="BtnHost_Click" IsEnabled="False" />
             <Button Grid.Row="3" Grid.Column="1" Padding="10" VerticalAlignment="Center" HorizontalAlignment="Left"
-                    Margin="50,0,0,0" x:Name="BtnJoin" Content="{x:Static properties:Resources.MP_Btn_JoinMatch}" Click="BtnJoin_Click" IsEnabled="False" />
+                    Margin="50,0,0,0" x:Name="BtnJoin" Content="{x:Static properties:Resources.MP_Btn_JoinMatch}"
+                    Click="BtnJoin_Click" IsEnabled="False" />
         </Grid>
         <Grid x:Name="MpViewClient" Height="600" Visibility="Collapsed">
             <Grid.ColumnDefinitions>

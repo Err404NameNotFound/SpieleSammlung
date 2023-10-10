@@ -10,7 +10,8 @@
         <Border x:Name="BorderFocused" BorderBrush="Transparent" BorderThickness="2" Padding="2">
             <StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <Label x:Name="LblPLayerName" Content="{x:Static properties:Resources.SKPlayerInfo_Name}" HorizontalAlignment="Center"
+                    <Label x:Name="LblPLayerName" Content="{x:Static properties:Resources.SKPlayerInfo_Name}"
+                           HorizontalAlignment="Center"
                            VerticalAlignment="Center" Background="White" Width="98" Padding="2"
                            HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="19"
                            Margin="0,1" />
@@ -18,7 +19,8 @@
                            Source="../../Images/Schafkopf/aufgestellt.png" Height="20" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <Label x:Name="LblPLayerState" Content="{x:Static properties:Resources.SKPlayerInfo_Status}" HorizontalAlignment="Center"
+                    <Label x:Name="LblPLayerState" Content="{x:Static properties:Resources.SKPlayerInfo_Status}"
+                           HorizontalAlignment="Center"
                            VerticalAlignment="Center" Background="White" Width="98" Padding="2"
                            HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="19"
                            Margin="0,1" />

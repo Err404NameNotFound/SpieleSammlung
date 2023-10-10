@@ -16,6 +16,7 @@ namespace SpieleSammlungTests.Model.Kniffel.Bot
         private readonly BotStrategy _strategy = new();
         private readonly KniffelPlayer _player = new(new Player());
         private static readonly List<Player> Players = new() { new Player(), new Player() };
+        private static readonly IntArrayComparer Comparer = new();
 
         [TestMethod]
         public void TestTriesToImproveToBigStreetShuffle1()
@@ -101,6 +102,70 @@ namespace SpieleSammlungTests.Model.Kniffel.Bot
         }
 
         [TestMethod]
+        public void TestBotFinderIndex0()
+        {
+            BotStrategy strategy = new BotStrategy(0);
+            KniffelGame game = CreateGame(2, 3, 3, 6, 5);
+            AssertAreEqual(new[] { 0, 2 }, strategy.GenerateIndexToShuffleForNextBestMove(game));
+        }
+
+        [TestMethod]
+        public void TestBotFinderIndex1()
+        {
+            BotStrategy strategy = new BotStrategy(1);
+            KniffelGame game = CreateGame(2, 3, 3, 6, 5);
+            AssertAreEqual(new[] { 0, 2 }, strategy.GenerateIndexToShuffleForNextBestMove(game));
+        }
+
+        [TestMethod]
+        public void TestBotFinderIndex2()
+        {
+            BotStrategy strategy = new BotStrategy(2);
+            KniffelGame game = CreateGame(2, 3, 3, 6, 5);
+            AssertAreEqual(new[] { 0, 1, 2, 4 }, strategy.GenerateIndexToShuffleForNextBestMove(game));
+        }
+
+        [TestMethod]
+        public void TestBotFinderIndex3()
+        {
+            BotStrategy strategy = new BotStrategy(3);
+            KniffelGame game = CreateGame(2, 3, 3, 6, 5);
+            AssertAreEqual(new[] { 0, 1, 2 }, strategy.GenerateIndexToShuffleForNextBestMove(game));
+        }
+
+        [TestMethod]
+        public void TestBotFinderIndex4()
+        {
+            BotStrategy strategy = new BotStrategy(4);
+            KniffelGame game = CreateGame(2, 3, 3, 6, 5);
+            AssertAreEqual(new[] { 0, 1, 2 }, strategy.GenerateIndexToShuffleForNextBestMove(game));
+        }
+
+        [TestMethod]
+        public void TestBotFinderIndex5()
+        {
+            BotStrategy strategy = new BotStrategy(5);
+            KniffelGame game = CreateGame(2, 3, 3, 6, 5);
+            AssertAreEqual(Array.Empty<int>(), strategy.GenerateIndexToShuffleForNextBestMove(game));
+        }
+
+        private void AssertAreEqual(int[] expected, int[] actual)
+        {
+            Assert.IsTrue(Comparer.Equals(expected, actual), "Expected: {0}, Actual: {1}", ArrayString(expected),
+                ArrayString(actual));
+        }
+
+        private string ArrayString(IEnumerable<int> array) => string.Join(", ", array);
+
+        [TestMethod]
+        public void TestBotFinderIndex6()
+        {
+            BotStrategy strategy = new BotStrategy(6);
+            KniffelGame game = CreateGame(2, 3, 3, 6, 5);
+            AssertAreEqual(new[] { 1, 2, 3, 4 }, strategy.GenerateIndexToShuffleForNextBestMove(game));
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(NotSupportedException))]
         public void TestExceptionThrownWhenNoMoveLeft()
         {
@@ -108,6 +173,27 @@ namespace SpieleSammlungTests.Model.Kniffel.Bot
             game.Shuffle();
             game.Shuffle();
             _strategy.GenerateIndexToShuffleForNextBestMove(game);
+        }
+
+        [TestMethod]
+        public void TestToString()
+        {
+            Assert.AreEqual(
+                "Not reached: 0, 13, 9, 12, 10, 11, 8, 1, 2, 3, 4, 5" +
+                "\nreached: 0, 1, 2, 13, 9, 12, 10, 11, 8, 3, 4, 5" +
+                "\nIndex: 4" +
+                "\nMin values: {Chance 15, Pair 3: 14, Pair 4: 13}",
+                _strategy.ToString());
+        }
+
+        [TestMethod]
+        public void TestChoosesSmallStreet()
+        {
+            KniffelGame game = CreateGame(3, 4, 5, 6, 6);
+            _strategy.ChooseBestField(game);
+            _strategy.ChooseBestField(game);
+            Assert.AreEqual(KniffelGame.VALUE_SMALL_STREET,
+                game.CurrentPlayer[KniffelPointsTable.INDEX_SMALL_STREET].Value);
         }
 
         private static DiceManager CreateDice(params int[] values) => new(new RandomStub(values));

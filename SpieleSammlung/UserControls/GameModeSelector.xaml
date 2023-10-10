@@ -12,7 +12,8 @@
             <ComboBox Width="100" x:Name="CbColor" Padding="5" Margin="0,3" VerticalAlignment="Center"
                       SelectionChanged="CbColor_SelectionChanged" />
             <ToggleButton Width="100" VerticalAlignment="Center" Margin="0,3,0,0" Padding="5" x:Name="BtnSelectMode"
-                          Content="{x:Static properties:Resources.SKGameModeSelector_BtnChooseGame}" Click="BtnSelectMode_Click" />
+                          Content="{x:Static properties:Resources.SKGameModeSelector_BtnChooseGame}"
+                          Click="BtnSelectMode_Click" />
         </StackPanel>
     </Border>
 </UserControl>

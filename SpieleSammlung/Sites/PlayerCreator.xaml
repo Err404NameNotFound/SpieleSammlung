@@ -23,20 +23,27 @@
             <ColumnDefinition Width="auto" />
         </Grid.ColumnDefinitions>
         <Label Grid.Column="0" Grid.Row="0" Height="36" VerticalAlignment="Center" VerticalContentAlignment="Center"
-               Content="{x:Static properties:Resources.PlayerCreator_PlayerName}" Style="{StaticResource StandardLabel}" />
+               Content="{x:Static properties:Resources.PlayerCreator_PlayerName}"
+               Style="{StaticResource StandardLabel}" />
         <TextBox Grid.Column="1" Grid.Row="0" Height="36" VerticalContentAlignment="Center" Margin="5"
                  x:Name="LblPlayerName" KeyDown="OnKeyDownHandler" Loaded="LblPlayerName_Loaded" />
-        <Button Grid.Column="2" Grid.Row="0" Padding="5" Content="{x:Static properties:Resources.PlayerCreator_Add}" Margin="10,10,5,10"
+        <Button Grid.Column="2" Grid.Row="0" Padding="5" Content="{x:Static properties:Resources.PlayerCreator_Add}"
+                Margin="10,10,5,10"
                 Click="BtnPlayerAdd_Click" />
-        <Button Grid.Column="3" Grid.Row="0" Padding="5" Content="{x:Static properties:Resources.PlayerCreator_Remove}" Margin="5,10" Click="BtnPlayerRemove_Click" />
-        <Button Grid.Column="4" Grid.Row="0" Padding="5" Content="{x:Static properties:Resources.PlayerCreator_Up}" Margin="5,10" Click="BtnPlayerUp_Click" />
-        <Button Grid.Column="5" Grid.Row="0" Padding="5" Content="{x:Static properties:Resources.PlayerCreator_Down}" Margin="5,10,10,10"
+        <Button Grid.Column="3" Grid.Row="0" Padding="5" Content="{x:Static properties:Resources.PlayerCreator_Remove}"
+                Margin="5,10" Click="BtnPlayerRemove_Click" />
+        <Button Grid.Column="4" Grid.Row="0" Padding="5" Content="{x:Static properties:Resources.PlayerCreator_Up}"
+                Margin="5,10" Click="BtnPlayerUp_Click" />
+        <Button Grid.Column="5" Grid.Row="0" Padding="5" Content="{x:Static properties:Resources.PlayerCreator_Down}"
+                Margin="5,10,10,10"
                 Click="BtnPlayerDown_Click" />
-        <Button Grid.Column="6" Grid.Row="0" Padding="5" x:Name="BtnAddBot" Content="{x:Static properties:Resources.PlayerCreator_AddBot}"
+        <Button Grid.Column="6" Grid.Row="0" Padding="5" x:Name="BtnAddBot"
+                Content="{x:Static properties:Resources.PlayerCreator_AddBot}"
                 Margin="5,10,10,10" Click="BtnAddBot_Click" />
         <ListBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="7" x:Name="LBoxPlayerNames" Margin="10" />
 
         <Button Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="7" Padding="5" x:Name="BtnPlayerDone"
-                Content="{x:Static properties:Resources.PlayerCreator_StartGame}" Margin="10" HorizontalAlignment="Right" Click="BtnPlayerDone_Click" />
+                Content="{x:Static properties:Resources.PlayerCreator_StartGame}" Margin="10"
+                HorizontalAlignment="Right" Click="BtnPlayerDone_Click" />
     </Grid>
 </UserControl>

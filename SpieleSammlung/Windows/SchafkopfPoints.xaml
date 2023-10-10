@@ -60,11 +60,13 @@
                         <Label Grid.Row="7" Grid.Column="2" Content="" x:Name="LblPointsPlayer7" />
                     </Grid>
                 </TabItem>
-                <TabItem Header="{x:Static properties:Resources.SKPoints_TabPointsSingle}" Width="{Binding ElementName=C1, Path=ActualWidth}">
+                <TabItem Header="{x:Static properties:Resources.SKPoints_TabPointsSingle}"
+                         Width="{Binding ElementName=C1, Path=ActualWidth}">
                     <DataGrid x:Name="GridSingle" CanUserAddRows="False" CanUserReorderColumns="False"
                               CanUserDeleteRows="False" CanUserResizeRows="False" />
                 </TabItem>
-                <TabItem Header="{x:Static properties:Resources.SKPoints_TabPointsCumulative}" Width="{Binding ElementName=C1, Path=ActualWidth}">
+                <TabItem Header="{x:Static properties:Resources.SKPoints_TabPointsCumulative}"
+                         Width="{Binding ElementName=C1, Path=ActualWidth}">
                     <DataGrid x:Name="GridCumulated" CanUserAddRows="False" CanUserReorderColumns="False"
                               CanUserDeleteRows="False" CanUserResizeRows="False" />
                 </TabItem>

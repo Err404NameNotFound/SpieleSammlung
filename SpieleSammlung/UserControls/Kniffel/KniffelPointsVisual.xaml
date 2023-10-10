@@ -44,12 +44,16 @@
             <Label Grid.Row="7" Grid.Column="0" Content="{x:Static properties:Resources.KnifPointsVisual_Lbl_BonusTop}" />
             <Label Grid.Row="8" Grid.Column="0" Content="{x:Static properties:Resources.KnifPointsVisual_Lbl_Pair3}" />
             <Label Grid.Row="9" Grid.Column="0" Content="{x:Static properties:Resources.KnifPointsVisual_Lbl_Pair4}" />
-            <Label Grid.Row="10" Grid.Column="0" Content="{x:Static properties:Resources.KnifPointsVisual_Lbl_FullHouse}" />
-            <Label Grid.Row="11" Grid.Column="0" Content="{x:Static properties:Resources.KnifPointsVisual_Lbl_SmallStreet}" />
-            <Label Grid.Row="12" Grid.Column="0" Content="{x:Static properties:Resources.KnifPointsVisual_Lbl_BigStreet}" />
+            <Label Grid.Row="10" Grid.Column="0"
+                   Content="{x:Static properties:Resources.KnifPointsVisual_Lbl_FullHouse}" />
+            <Label Grid.Row="11" Grid.Column="0"
+                   Content="{x:Static properties:Resources.KnifPointsVisual_Lbl_SmallStreet}" />
+            <Label Grid.Row="12" Grid.Column="0"
+                   Content="{x:Static properties:Resources.KnifPointsVisual_Lbl_BigStreet}" />
             <Label Grid.Row="13" Grid.Column="0" Content="{x:Static properties:Resources.KnifPointsVisual_Lbl_Kniffel}" />
             <Label Grid.Row="14" Grid.Column="0" Content="{x:Static properties:Resources.KnifPointsVisual_Lbl_Chance}" />
-            <Label Grid.Row="15" Grid.Column="0" Content="{x:Static properties:Resources.Knif_PointsVisual_Lbl_SumBottom}" />
+            <Label Grid.Row="15" Grid.Column="0"
+                   Content="{x:Static properties:Resources.Knif_PointsVisual_Lbl_SumBottom}" />
             <Label Grid.Row="16" Grid.Column="0" Content="{x:Static properties:Resources.KnifPointsVisual_Lbl_SumTop}" />
             <Label Grid.Row="17" Grid.Column="0" Content="{x:Static properties:Resources.Knif_PointsVisual_Lbl_Sum}" />
 

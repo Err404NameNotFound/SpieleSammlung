@@ -89,7 +89,7 @@ namespace SpieleSammlungTests.Model.Kniffel
             KniffelGame game = new KniffelGame(Players);
             for (int i = game.RemainingShuffles; i > 0; --i)
             {
-                game.Shuffle(new [] { 2, 3 });
+                game.Shuffle(new[] { 2, 3 });
             }
 
             game.Shuffle();
@@ -115,8 +115,8 @@ namespace SpieleSammlungTests.Model.Kniffel
         public void Test09_PlayerChanges()
         {
             KniffelPlayer previousPlayer = _continuousGame.CurrentPlayer;
-            _continuousGame.Shuffle(new [] { 0 });
-            _continuousGame.Shuffle(new [] { 0 });
+            _continuousGame.Shuffle(new[] { 0 });
+            _continuousGame.Shuffle(new[] { 0 });
             _continuousGame.WriteField(3);
             Assert.AreNotEqual(previousPlayer, _continuousGame.CurrentPlayer);
         }
@@ -238,7 +238,7 @@ namespace SpieleSammlungTests.Model.Kniffel
         }
 
         [TestMethod]
-        public void TestRigged07_KillKniffel()
+        public void TestRigged08_KillKniffel()
         {
             KniffelPlayer previous = RiggedGame.CurrentPlayer;
             RiggedGame.KillFieldOption(3);
@@ -246,14 +246,14 @@ namespace SpieleSammlungTests.Model.Kniffel
         }
 
         [TestMethod]
-        public void TestRigged08_ShufflesLeft()
+        public void TestRigged09_ShufflesLeft()
         {
             Assert.IsTrue(RiggedGame.AreShufflesLeft);
             Assert.IsFalse(RiggedGame.AreNoShufflesLeft);
         }
 
         [TestMethod]
-        public void TestRigged09_NoShufflesLeft()
+        public void TestRigged10_NoShufflesLeft()
         {
             RiggedGame.Shuffle();
             RiggedGame.Shuffle();
@@ -262,7 +262,7 @@ namespace SpieleSammlungTests.Model.Kniffel
         }
 
         [TestMethod]
-        public void TestRigged09_GetDice()
+        public void TestRigged11_GetDice()
         {
             Rng.SetNext(5, 5, 3, 2, 1);
             RiggedGame.KillFieldOption(0);
@@ -270,7 +270,7 @@ namespace SpieleSammlungTests.Model.Kniffel
         }
 
         [TestMethod]
-        public void TestRigged10_GetDiceValue()
+        public void TestRigged12_GetDiceValue()
         {
             Assert.AreEqual(1, RiggedGame.GetDiceValue(4));
             Assert.AreEqual(5, RiggedGame.GetDiceValue(0));
@@ -278,7 +278,7 @@ namespace SpieleSammlungTests.Model.Kniffel
         }
 
         [TestMethod]
-        public void TestRigged11_GetDiceIsACopy()
+        public void TestRigged13_GetDiceIsACopy()
         {
             Rng.SetNext(1, 1, 1, 1, 1);
             RiggedGame.Dice.Shuffle();
@@ -286,7 +286,7 @@ namespace SpieleSammlungTests.Model.Kniffel
         }
 
         [TestMethod]
-        public void TestRigged12_BotMoveExecutesAMoveForABot()
+        public void TestRigged14_BotMoveExecutesAMoveForABot()
         {
             KniffelPlayer previous = RiggedGame.CurrentPlayer;
             RiggedGame.DoBotMove(_ => { }, () => { });
@@ -294,7 +294,7 @@ namespace SpieleSammlungTests.Model.Kniffel
         }
 
         [TestMethod]
-        public void TestRigged13_BotMoveInstantExecutesAMoveForABot()
+        public void TestRigged15_BotMoveInstantExecutesAMoveForABot()
         {
             KniffelPlayer previous = RiggedGame.CurrentPlayer;
             RiggedGame.DoBotMoveInstant();
@@ -302,14 +302,14 @@ namespace SpieleSammlungTests.Model.Kniffel
         }
 
         [TestMethod]
-        public void TestRigged14_GetRandomValueHasRightBounds()
+        public void TestRigged16_GetRandomValueHasRightBounds()
         {
             Assert.IsTrue(RiggedGame.RandomDiceValue() >= Dice.LOWEST_VALUE);
             Assert.IsTrue(RiggedGame.RandomDiceValue() < Dice.HIGHEST_VALUE);
         }
 
         [TestMethod]
-        public void TestRigged15_KillFieldGlobal()
+        public void TestRigged17_KillFieldGlobal()
         {
             RiggedGame.Shuffle();
             Rng.SetNext(1, 1, 1, 1, 1);

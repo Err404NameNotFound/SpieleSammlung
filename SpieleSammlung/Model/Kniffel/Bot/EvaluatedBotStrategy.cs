@@ -20,7 +20,6 @@ namespace SpieleSammlung.Model.Kniffel.Bot
         #region Private Members
 
         private MinMaxAvgEvaluator Scores { get; } = new(false);
-        private bool _mutated;
 
         #endregion
 
@@ -30,9 +29,8 @@ namespace SpieleSammlung.Model.Kniffel.Bot
         {
         }
 
-        public EvaluatedBotStrategy(int bestOptionFinder)
+        public EvaluatedBotStrategy(int bestOptionFinder) : base(bestOptionFinder)
         {
-            indexBestOptionFinder = bestOptionFinder;
         }
 
         private EvaluatedBotStrategy(BotStrategy other) : base(other)
@@ -43,7 +41,9 @@ namespace SpieleSammlung.Model.Kniffel.Bot
 
         #region Fitness
 
-        public double Fitness => Scores.Count == 0 ? RecalculateFitness() : Scores.AvgDouble;
+        public double Fitness => FitnessReady ? Scores.AvgDouble : RecalculateFitness();
+
+        private bool FitnessReady => Scores.Count > 0;
 
         public double RecalculateFitness(int threads = threadCount, int repetitions = count, Random random = null)
         {
@@ -61,10 +61,7 @@ namespace SpieleSammlung.Model.Kniffel.Bot
             }
 
             // Wait for all of the threads to finish.
-            foreach (Thread thread in threadPool)
-            {
-                thread.Join();
-            }
+            foreach (Thread thread in threadPool) thread.Join();
 
             Scores.Merge(evaluators);
             return Fitness;
@@ -109,17 +106,16 @@ namespace SpieleSammlung.Model.Kniffel.Bot
 
         #region Mutation
 
-        private EvaluatedBotStrategy CreateMutant()
+        public EvaluatedBotStrategy CreateMutantWithoutEvaluation()
         {
             var ret = new EvaluatedBotStrategy(this);
             const double probability = 1.0 / 5;
             if (rng.NextDouble() < probability) ret.MutateBestIndexToKillBonusReached();
             if (rng.NextDouble() < probability) ret.MutateBestIndexToKillBonusNotReached();
-            if (rng.NextDouble() < probability) MutateValueByDifference(ref minFieldValueChance, 1);
-            if (rng.NextDouble() < probability) MutateValueByDifference(ref minFieldValuePair3, 1);
-            if (rng.NextDouble() < probability) MutateValueByDifference(ref minFieldValuePair4, 1);
-            // if (rng.NextDouble() < probability) ret.MutateBestOptionSelector();
-            if (!ret._mutated) ret = CreateMutant();
+            if (rng.NextDouble() < probability) MutateValueByDifference(ref ret.minFieldValueChance, 1);
+            if (rng.NextDouble() < probability) MutateValueByDifference(ref ret.minFieldValuePair3, 1);
+            if (rng.NextDouble() < probability) MutateValueByDifference(ref ret.minFieldValuePair4, 1);
+            if (rng.NextDouble() < probability) ret.MutateBestOptionFinder();
             return ret;
         }
 
@@ -129,31 +125,29 @@ namespace SpieleSammlung.Model.Kniffel.Bot
             else value -= difference;
         }
 
-        public EvaluatedBotStrategy MutateAndEvaluate()
+        public EvaluatedBotStrategy MutateAndEvaluate(int threads = threadCount, int repetitions = count,
+            Random random = null)
         {
-            EvaluatedBotStrategy mutant = CreateMutant();
-            mutant.RecalculateFitness();
+            EvaluatedBotStrategy mutant = CreateMutantWithoutEvaluation();
+            mutant.RecalculateFitness(threads, repetitions, random);
             return mutant;
         }
 
         private void MutateBestOptionFinder()
         {
-            indexBestOptionFinder = DistinctRandomInt(indexBestOptionFinder, 4);
-            _mutated = true;
+            indexBestOptionFinder = DistinctRandomInt(indexBestOptionFinder, 5);
         }
 
         private void MutateBestIndexToKillBonusNotReached()
         {
             int n = rng.Next(1, 6);
             for (int i = 0; i < n; ++i) SwitchTwoRandomIndices(bestIndexToKillBonusReached);
-            _mutated = true;
         }
 
         private void MutateBestIndexToKillBonusReached()
         {
             int n = rng.Next(1, 4);
             for (var i = 0; i < n; ++i) SwitchTwoRandomIndices(bestIndexToKillBonusNotReached);
-            _mutated = true;
         }
 
         private static void SwitchTwoRandomIndices(int[] array)
@@ -170,9 +164,11 @@ namespace SpieleSammlung.Model.Kniffel.Bot
 
         #endregion
 
-        public override string ToString()
+        public override string ToString() => ToString(FitnessReady);
+
+        public string ToString(bool containFitness)
         {
-            return base.ToString() + "\nFitness: " + Fitness;
+            return containFitness ? base.ToString() + "\nFitness: " + Fitness : base.ToString();
         }
     }
 }

@@ -15,7 +15,8 @@ namespace SpieleSammlung.Model.Kniffel.Bot
             ModelLog.WriteToFile = true;
         }
 
-        private static void OptimiseOneStrategy(int count = 100) => OptimiseOneStrategy(new EvaluatedBotStrategy(), count);
+        private static void OptimiseOneStrategy(int count = 100) =>
+            OptimiseOneStrategy(new EvaluatedBotStrategy(), count);
 
         private static void OptimiseOneStrategy(EvaluatedBotStrategy start, int count)
         {
@@ -88,8 +89,5 @@ reached: 13, 11, 4, 10, 9, 12, 0, 3, 8, 5, 2, 1
 Index: 3
 Min values: {Chance 15, Pair 3: 18, Pair 4: 5}
 Fitness: 219,10865
-
-
-
  */
 }

@@ -65,7 +65,8 @@ namespace SpieleSammlung.Sites
             FieldsChoose.FillPlayerList(_game.Players);
             FieldsChoose.CBoxPlayerNames.SelectedIndex = 0;
             FieldsChoose.CBoxPlayerNames.IsEnabled = true;
-            _afterMatchPoints = new List<KniffelPointsVisual> { FieldsChangeable1, FieldsChangeable2, FieldsChangeable3 };
+            _afterMatchPoints = new List<KniffelPointsVisual>
+                { FieldsChangeable1, FieldsChangeable2, FieldsChangeable3 };
             BtnNextPlayer.Visibility = Visibility.Hidden;
             BtnNewTry.IsEnabled = true;
             ShowShuffledDices();

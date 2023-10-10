@@ -100,7 +100,8 @@ namespace SpieleSammlung.Model.Kniffel
         /// </summary>
         /// <param name="names">The players participating in this match</param>
         /// <param name="manager">The DiceManager managing the dice during the match</param>
-        private KniffelGame(IReadOnlyCollection<Player> names, DiceManager manager) : this(names, manager, new BotStrategy())
+        private KniffelGame(IReadOnlyCollection<Player> names, DiceManager manager) : this(names, manager,
+            new BotStrategy())
         {
         }
 

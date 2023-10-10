@@ -141,7 +141,8 @@
                 }
             }
 
-            _fields[ChangeableFields[1]].Value = _fields[ChangeableFields[0]].Value >= MIN_TOP6_FOR_BONUS ? BONUS_TOP6 : 0;
+            _fields[ChangeableFields[1]].Value =
+                _fields[ChangeableFields[0]].Value >= MIN_TOP6_FOR_BONUS ? BONUS_TOP6 : 0;
             _fields[ChangeableFields[2]].Value = 0;
             for (int i = 8; i < 15; ++i)
             {
@@ -151,8 +152,10 @@
                 }
             }
 
-            _fields[ChangeableFields[3]].Value = _fields[ChangeableFields[0]].Value + _fields[ChangeableFields[1]].Value;
-            _fields[ChangeableFields[4]].Value = _fields[ChangeableFields[2]].Value + _fields[ChangeableFields[3]].Value;
+            _fields[ChangeableFields[3]].Value =
+                _fields[ChangeableFields[0]].Value + _fields[ChangeableFields[1]].Value;
+            _fields[ChangeableFields[4]].Value =
+                _fields[ChangeableFields[2]].Value + _fields[ChangeableFields[3]].Value;
         }
 
         #endregion

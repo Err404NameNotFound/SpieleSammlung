@@ -27,6 +27,15 @@ namespace SpieleSammlung.Model.Kniffel.Bot
             indexBestOptionFinder = other.indexBestOptionFinder;
         }
 
+        /// <summary>
+        /// Creates a new Instance and sets the method of deciding which dices to shuffle.
+        /// </summary>
+        /// <param name="bestOptionFinder">Index of the possible methods</param>
+        public BotStrategy(int bestOptionFinder)
+        {
+            indexBestOptionFinder = bestOptionFinder;
+        }
+
         #endregion
 
         #region Fields
@@ -86,12 +95,12 @@ namespace SpieleSammlung.Model.Kniffel.Bot
             {
                 return Array.Empty<int>(); // there is nothing left to improve
             }
+
             if (dice.IsSmallStreetPossible() && player[KniffelPointsTable.INDEX_BIG_STREET].IsEmpty())
             {
                 return dice.IndexToFlipWhenOptimisingToBigStreet();
             }
 
-            
 
             List<ShufflingOption> options = DiceManager.GenerateAllOptions(player, dice);
             ShufflingOption best = BestOption(options);

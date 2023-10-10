@@ -60,7 +60,7 @@
     <ItemGroup>
         <Compile Include="Model\IllegalMoveExceptionTest.cs"/>
         <Compile Include="Model\Kniffel\Bot\BotStrategyTest.cs"/>
-        <Compile Include="Model\Kniffel\Bot\EvaluatedBotStrategyTest.cs" />
+        <Compile Include="Model\Kniffel\Bot\EvaluatedBotStrategyTest.cs"/>
         <Compile Include="Model\Kniffel\Count\CountOrderedListTest.cs"/>
         <Compile Include="Model\Kniffel\Count\DiceCounterTest.cs"/>
         <Compile Include="Model\Kniffel\Count\ValueOrderedListTest.cs"/>
@@ -75,6 +75,7 @@
         <Compile Include="Model\PlayerTest.cs"/>
         <Compile Include="Properties\AssemblyInfo.cs"/>
         <Compile Include="Utils\ArrayHelp.cs"/>
+        <Compile Include="Utils\IntArrayComparer.cs"/>
         <Compile Include="Utils\RandomStub.cs"/>
     </ItemGroup>
     <ItemGroup>

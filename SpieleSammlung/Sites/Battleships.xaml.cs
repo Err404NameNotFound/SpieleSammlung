@@ -21,7 +21,7 @@ namespace SpieleSammlung.Sites
             InitializeComponent();
             _activePlayer = 0;
             _mode = BattleshipsMode.PlaceShips;
-            _players = new List<BattleshipsPlayer> { new (player1), new (player2) };
+            _players = new List<BattleshipsPlayer> { new(player1), new(player2) };
             for (int i = 0; i < 10; ++i)
             {
                 for (int i1 = 0; i1 < 10; ++i1)

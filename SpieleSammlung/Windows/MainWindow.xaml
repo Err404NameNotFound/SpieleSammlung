@@ -21,7 +21,8 @@
                 <ImageBrush ImageSource="/Images/background1.jpg" />
             </Grid.Background>
         </Grid>
-        <Button x:Name="BtnCancel" Content="{x:Static properties:Resources.MW_LeaveGame}" Grid.Row="1" Visibility="Hidden"
+        <Button x:Name="BtnCancel" Content="{x:Static properties:Resources.MW_LeaveGame}" Grid.Row="1"
+                Visibility="Hidden"
                 HorizontalAlignment="Right" Margin="5" Padding="5" Click="BtnCancel_ClickAsync" Grid.Column="0" />
     </Grid>
 </Window>

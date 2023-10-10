@@ -11,7 +11,7 @@ namespace SpieleSammlungTests.Model
         {
             Assert.AreEqual("thisIsANameForAPlayer", new Player("thisIsANameForAPlayer", false).ToString());
         }
-        
+
         [TestMethod]
         public void TestDefaultPlayerIsBot()
         {

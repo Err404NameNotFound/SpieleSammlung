@@ -28,7 +28,7 @@ namespace SpieleSammlungTests.Model.Kniffel
 
         static DiceManagerTest()
         {
-            AllCombinations = new HashSet<int[]>(new Comparer());
+            AllCombinations = new HashSet<int[]>(new IntArrayComparer());
             int[] dice = new int[Dice.DICE_COUNT];
             for (int i = 0; i < dice.Length; ++i)
             {
@@ -52,7 +52,7 @@ namespace SpieleSammlungTests.Model.Kniffel
                 AllCombinations.Add((int[])dice.Clone());
             }
 
-            KniffelCombinations = new HashSet<int[]>(new Comparer());
+            KniffelCombinations = new HashSet<int[]>(new IntArrayComparer());
             for (int i = 1; i < 7; ++i)
             {
                 KniffelCombinations.Add(ArrayHelp.CreateIntArray(Dice.DICE_COUNT, i));
@@ -63,7 +63,7 @@ namespace SpieleSammlungTests.Model.Kniffel
         public void Initialise()
         {
             _rng.ClearOutputConstant();
-            _rng.ClearQueue();
+            _rng.ClearQueues();
             _player = new KniffelPlayer(new Player());
         }
 
@@ -318,7 +318,7 @@ namespace SpieleSammlungTests.Model.Kniffel
         {
             int[] expected = { 0, 1, 2, 3, 4 };
             int[] actual = DiceManager.AllDices;
-            Assert.IsTrue(new Comparer().Equals(expected, actual), "expected: {0}, actual: {1}",
+            Assert.IsTrue(new IntArrayComparer().Equals(expected, actual), "expected: {0}, actual: {1}",
                 string.Join(", ", expected), string.Join(", ", actual));
         }
 
@@ -952,7 +952,7 @@ namespace SpieleSammlungTests.Model.Kniffel
         [ExpectedException(typeof(ArgumentException))]
         public void TestThrowsExceptionWhenBigStreetNotPossible()
         {
-            _rng.SetNext(1,2,3,3,3);
+            _rng.SetNext(1, 2, 3, 3, 3);
             _dice.Shuffle();
             _dice.IndexToFlipWhenOptimisingToBigStreet();
         }
@@ -1055,40 +1055,4 @@ namespace SpieleSammlungTests.Model.Kniffel
     public delegate object CalculateActual(DiceManager dice);
 
     public delegate void AssertCombinationOk(DiceManager dice);
-
-    internal class Comparer : IEqualityComparer<int[]>
-    {
-        public bool Equals(int[] a, int[] b)
-        {
-            if (a == null)
-            {
-                return b == null;
-            }
-
-            if (b == null || a.Length != b.Length)
-            {
-                return false;
-            }
-
-            int i = 0;
-            while (i < a.Length && a[i] == b[i])
-            {
-                ++i;
-            }
-
-            return i == a.Length;
-        }
-
-        public int GetHashCode(int[] obj)
-        {
-            int sum = 0;
-            const int factor = Dice.HIGHEST_VALUE - Dice.LOWEST_VALUE + 1;
-            for (int i = obj.Length - 1; i >= 0; --i)
-            {
-                sum = (sum + obj[i] - Dice.LOWEST_VALUE) * factor;
-            }
-
-            return sum;
-        }
-    }
 }

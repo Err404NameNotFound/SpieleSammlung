@@ -16,8 +16,10 @@
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <TextBlock Grid.Column="0" Grid.Row="0" TextWrapping="Wrap" Margin="10" Grid.ColumnSpan="2" x:Name="LblWarnung" />
-        <Button Grid.Column="0" Grid.Row="1" Padding="10" Width="100" Margin="10" Content="{x:Static properties:Resources.ConfirmationWindow_Cancel}"
+        <Button Grid.Column="0" Grid.Row="1" Padding="10" Width="100" Margin="10"
+                Content="{x:Static properties:Resources.ConfirmationWindow_Cancel}"
                 Click="BtnCancel_Click" />
-        <Button Grid.Column="1" Grid.Row="1" Padding="10" Width="100" Margin="10" Content="{x:Static properties:Resources.ConfirmationWindow_ConfirmAction}" Click="BtnOk_Click" />
+        <Button Grid.Column="1" Grid.Row="1" Padding="10" Width="100" Margin="10"
+                Content="{x:Static properties:Resources.ConfirmationWindow_ConfirmAction}" Click="BtnOk_Click" />
     </Grid>
 </Window>

@@ -404,7 +404,7 @@ namespace SpieleSammlung.Model.Kniffel
         public double EOfChance() => SumOfAllDices + AVERAGE_VALUE * unSetCount;
 
         private static int IndexOfDiceConfiguration(DiceManager dice) => IndexOfDiceConfiguration(dice.dices);
-        
+
         private static int IndexOfDiceConfiguration(IReadOnlyList<int> dice)
         {
             const int factor = VALUE_SPAN + 1;
@@ -488,7 +488,7 @@ namespace SpieleSammlung.Model.Kniffel
 
             return ret;
         }
-        
+
         public int[] IndexToFlipWhenOptimisingToBigStreet()
         {
             for (int i = 0; i < DICE_COUNT; ++i)
@@ -497,7 +497,7 @@ namespace SpieleSammlung.Model.Kniffel
                 dices[i] = DICE_NOT_SET_VALUE;
                 int index = IndexOfDiceConfiguration(this);
                 dices[i] = previous;
-                if ((int)ExpectedValues[index][9] ==KniffelGame.VALUE_SMALL_STREET && ExpectedValues[index][10] > 0)
+                if ((int)ExpectedValues[index][9] == KniffelGame.VALUE_SMALL_STREET && ExpectedValues[index][10] > 0)
                 {
                     return new[] { i };
                 }
