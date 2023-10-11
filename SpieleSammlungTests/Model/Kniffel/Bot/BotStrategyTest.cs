@@ -21,7 +21,7 @@ namespace SpieleSammlungTests.Model.Kniffel.Bot
         [TestMethod]
         public void TestTriesToImproveToBigStreetShuffle1()
         {
-            DiceManager dice = CreateDice(3, 4, 5, 6, 1);
+            FlatDice dice = CreateDice(3, 4, 5, 6, 1);
             int[] shuffle = _strategy.GenerateIndexToShuffleForNextBestMove(dice, _player);
             Assert.AreEqual(1, shuffle.Length);
             Assert.AreEqual(1, dice[shuffle[0]]);
@@ -30,7 +30,7 @@ namespace SpieleSammlungTests.Model.Kniffel.Bot
         [TestMethod]
         public void TestTriesToImproveToBigStreetShuffle6()
         {
-            DiceManager dice = CreateDice(3, 4, 5, 6, 6);
+            FlatDice dice = CreateDice(3, 4, 5, 6, 6);
             int[] shuffle = _strategy.GenerateIndexToShuffleForNextBestMove(dice, _player);
             Assert.AreEqual(1, shuffle.Length);
             Assert.AreEqual(6, dice[shuffle[0]]);
@@ -196,7 +196,7 @@ namespace SpieleSammlungTests.Model.Kniffel.Bot
                 game.CurrentPlayer[KniffelPointsTable.INDEX_SMALL_STREET].Value);
         }
 
-        private static DiceManager CreateDice(params int[] values) => new(new RandomStub(values));
+        private static FlatDice CreateDice(params int[] values) => new(new RandomStub(values));
 
         private static KniffelGame CreateGame(params int[] values) =>
             new(Players, new RandomStub(new[] { 1, 1, 1, 1, 1 }.Concat(values)));

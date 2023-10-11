@@ -42,6 +42,13 @@ namespace SpieleSammlung.Model.Kniffel
 
         private static readonly double[][] ExpectedValues;
 
+        private const int INDEX_PAIR3 = 6;
+        private const int INDEX_PAIR4 = 7;
+        private const int INDEX_FULL_HOUSE = 8;
+        private const int INDEX_SMALL_STREET = 9;
+        private const int INDEX_BIG_STREET = 10;
+        private const int INDEX_KNIFFEL = 11;
+        private const int INDEX_CHANCE = 12;
         #endregion
 
         #region private member
@@ -121,10 +128,6 @@ namespace SpieleSammlung.Model.Kniffel
         {
         }
 
-        public DiceManager(int seed) : this(new Random(seed))
-        {
-        }
-
         public DiceManager(Random rng)
         {
             _countedDice = new int[HIGHEST_VALUE - LOWEST_VALUE];
@@ -136,7 +139,7 @@ namespace SpieleSammlung.Model.Kniffel
             Shuffle();
         }
 
-        public DiceManager(DiceManager other) : base(other) //TODO decide whether this should be tested
+        private DiceManager(DiceManager other) : base(other) //TODO decide whether this should be tested
         {
             _countedDice = (int[])other._countedDice.Clone();
             _rng = new Random();
@@ -249,7 +252,7 @@ namespace SpieleSammlung.Model.Kniffel
 
         #endregion
 
-        #region ecpected values
+        #region ecpected values of single fields
 
         public double EOfTop6(int value) => value * (_countedDice[value - 1] + unSetCount * PROBABILITY);
 
@@ -403,9 +406,13 @@ namespace SpieleSammlung.Model.Kniffel
 
         public double EOfChance() => SumOfAllDices + AVERAGE_VALUE * unSetCount;
 
+        #endregion
+
+        #region generation of options
+        
         private static int IndexOfDiceConfiguration(DiceManager dice) => IndexOfDiceConfiguration(dice.dices);
 
-        private static int IndexOfDiceConfiguration(IReadOnlyList<int> dice)
+        public static int IndexOfDiceConfiguration(IReadOnlyList<int> dice)
         {
             const int factor = VALUE_SPAN + 1;
             int index = 0;
@@ -427,13 +434,13 @@ namespace SpieleSammlung.Model.Kniffel
                 ret[i] = dice.EOfTop6(i + 1);
             }
 
-            ret[6] = dice.EOfPair(3);
-            ret[7] = dice.EOfPair(4);
-            ret[8] = dice.POfFullHouse() * KniffelGame.VALUE_FULL_HOUSE;
-            ret[9] = dice.POfSmallStreet() * KniffelGame.VALUE_SMALL_STREET;
-            ret[10] = dice.POfBigStreet() * KniffelGame.VALUE_BIG_STREET;
-            ret[11] = dice.POfKniffel() * KniffelGame.VALUE_KNIFFEL;
-            ret[12] = dice.EOfChance();
+            ret[INDEX_PAIR3] = dice.EOfPair(3);
+            ret[INDEX_PAIR4] = dice.EOfPair(4);
+            ret[INDEX_FULL_HOUSE] = dice.POfFullHouse() * KniffelGame.VALUE_FULL_HOUSE;
+            ret[INDEX_SMALL_STREET] = dice.POfSmallStreet() * KniffelGame.VALUE_SMALL_STREET;
+            ret[INDEX_BIG_STREET] = dice.POfBigStreet() * KniffelGame.VALUE_BIG_STREET;
+            ret[INDEX_KNIFFEL] = dice.POfKniffel() * KniffelGame.VALUE_KNIFFEL;
+            ret[INDEX_CHANCE] = dice.EOfChance();
             return ret;
         }
 
@@ -451,13 +458,13 @@ namespace SpieleSammlung.Model.Kniffel
                 Add(player, options, i, expected[i]);
             }
 
-            Add(player, options, KniffelPointsTable.INDEX_PAIR_SIZE_3, expected[6]);
-            Add(player, options, KniffelPointsTable.INDEX_PAIR_SIZE_4, expected[7]);
-            Add(player, options, KniffelPointsTable.INDEX_FULL_HOUSE, expected[8]);
-            Add(player, options, KniffelPointsTable.INDEX_SMALL_STREET, expected[9]);
-            Add(player, options, KniffelPointsTable.INDEX_BIG_STREET, expected[10]);
-            Add(player, options, KniffelPointsTable.INDEX_KNIFFEL, expected[11]);
-            Add(player, options, KniffelPointsTable.INDEX_CHANCE, expected[12]);
+            Add(player, options, KniffelPointsTable.INDEX_PAIR_SIZE_3, expected[INDEX_PAIR3]);
+            Add(player, options, KniffelPointsTable.INDEX_PAIR_SIZE_4, expected[INDEX_PAIR4]);
+            Add(player, options, KniffelPointsTable.INDEX_FULL_HOUSE, expected[INDEX_FULL_HOUSE]);
+            Add(player, options, KniffelPointsTable.INDEX_SMALL_STREET, expected[INDEX_SMALL_STREET]);
+            Add(player, options, KniffelPointsTable.INDEX_BIG_STREET, expected[INDEX_BIG_STREET]);
+            Add(player, options, KniffelPointsTable.INDEX_KNIFFEL, expected[INDEX_KNIFFEL]);
+            Add(player, options, KniffelPointsTable.INDEX_CHANCE, expected[INDEX_CHANCE]);
             return options;
         }
 
@@ -497,7 +504,7 @@ namespace SpieleSammlung.Model.Kniffel
                 dices[i] = DICE_NOT_SET_VALUE;
                 int index = IndexOfDiceConfiguration(this);
                 dices[i] = previous;
-                if ((int)ExpectedValues[index][9] == KniffelGame.VALUE_SMALL_STREET && ExpectedValues[index][10] > 0)
+                if ((int)EofSmallStreet(index) == KniffelGame.VALUE_SMALL_STREET && EofBigStreet(index) > 0)
                 {
                     return new[] { i };
                 }
@@ -505,6 +512,15 @@ namespace SpieleSammlung.Model.Kniffel
 
             throw new ArgumentException("The change of one dice does not suffice to get a big street");
         }
+
+        public static double EofTop6(int index, int value) => ExpectedValues[index][value];
+        public static double EofPairSize3(int index) => ExpectedValues[index][INDEX_PAIR3];
+        public static double EofPairSize4(int index) => ExpectedValues[index][INDEX_PAIR4];
+        public static double EofSmallStreet(int index) => ExpectedValues[index][INDEX_SMALL_STREET];
+        public static double EofBigStreet(int index) => ExpectedValues[index][INDEX_BIG_STREET];
+        public static double EofFullHouse(int index) => ExpectedValues[index][INDEX_FULL_HOUSE];
+        public static double EofKniffel(int index) => ExpectedValues[index][INDEX_KNIFFEL];
+        public static double EofChance(int index) => ExpectedValues[index][INDEX_CHANCE];
 
         // public static void FillAllOptions(ShufflingOption[] options, KniffelPlayer player, DiceManager dice)
         // {

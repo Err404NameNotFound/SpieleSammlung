@@ -5,12 +5,15 @@ namespace SpieleSammlung.Model.Kniffel.Bot
 {
     public class BestBotFinder
     {
+        public static int testAllCount = 1;
+        public static int testOneCount = 1;
+        
         public static void main()
         {
             ModelLog.WriteToConsole = false;
             ModelLog.WriteToFile = false;
-            TestAll();
-            // OptimiseOneStrategy(10);
+            TestAll(testAllCount);
+            OptimiseOneStrategy(testOneCount);
             ModelLog.WriteToConsole = false;
             ModelLog.WriteToFile = true;
         }

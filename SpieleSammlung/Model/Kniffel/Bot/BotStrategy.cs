@@ -88,7 +88,7 @@ namespace SpieleSammlung.Model.Kniffel.Bot
             return GenerateIndexToShuffleForNextBestMove(game.Dice, game.CurrentPlayer);
         }
 
-        public int[] GenerateIndexToShuffleForNextBestMove(DiceManager dice, KniffelPlayer player)
+        public int[] GenerateIndexToShuffleForNextBestMove(FlatDice dice, KniffelPlayer player)
         {
             if (dice.IsKniffelPossible() && player[KniffelPointsTable.INDEX_KNIFFEL].IsEmpty() ||
                 dice.IsBigStreetPossible() && player[KniffelPointsTable.INDEX_BIG_STREET].IsEmpty())
@@ -102,7 +102,7 @@ namespace SpieleSammlung.Model.Kniffel.Bot
             }
 
 
-            List<ShufflingOption> options = DiceManager.GenerateAllOptions(player, dice);
+            List<ShufflingOption> options = FlatDice.GenerateAllOptions(player, dice);
             ShufflingOption best = BestOption(options);
             if (ModelLog.Writes)
             {
@@ -116,7 +116,7 @@ namespace SpieleSammlung.Model.Kniffel.Bot
 
         public void ChooseBestField(KniffelGame game)
         {
-            ShufflingOption option = new(game.Dice, game.indexWritableField, game.indexKillableField);
+            ShufflingOption option = new(game.Dice.ToDice(), game.indexWritableField, game.indexKillableField);
             if (ModelLog.Writes)
             {
                 ModelLog.AppendLine("Bot has/wants to pick from: " + option.ToString(true, "\n"));

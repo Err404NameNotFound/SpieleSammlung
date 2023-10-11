@@ -29,22 +29,22 @@ namespace SpieleSammlungTests.Model.Kniffel
         static DiceManagerTest()
         {
             AllCombinations = new HashSet<int[]>(new IntArrayComparer());
-            int[] dice = new int[Dice.DICE_COUNT];
+            int[] dice = new int[DiceManager.DICE_COUNT];
             for (int i = 0; i < dice.Length; ++i)
             {
-                dice[i] = Dice.LOWEST_VALUE;
+                dice[i] = DiceManager.LOWEST_VALUE;
             }
 
-            int end = (int)(Math.Pow(Dice.VALUE_SPAN, Dice.DICE_COUNT) - 1);
+            int end = (int)(Math.Pow(DiceManager.VALUE_SPAN, DiceManager.DICE_COUNT) - 1);
             AllCombinations.Add((int[])dice.Clone());
-            const int highest = Dice.HIGHEST_VALUE - 1;
+            const int highest = DiceManager.HIGHEST_VALUE - 1;
             int startDice = dice.Length - 1;
             for (int i = 0; i < end; ++i)
             {
                 int index = startDice;
                 while (dice[index] == highest)
                 {
-                    dice[index] = Dice.LOWEST_VALUE;
+                    dice[index] = DiceManager.LOWEST_VALUE;
                     --index;
                 }
 
@@ -55,7 +55,7 @@ namespace SpieleSammlungTests.Model.Kniffel
             KniffelCombinations = new HashSet<int[]>(new IntArrayComparer());
             for (int i = 1; i < 7; ++i)
             {
-                KniffelCombinations.Add(ArrayHelp.CreateIntArray(Dice.DICE_COUNT, i));
+                KniffelCombinations.Add(ArrayHelp.CreateIntArray(DiceManager.DICE_COUNT, i));
             }
         }
 
@@ -245,10 +245,10 @@ namespace SpieleSammlungTests.Model.Kniffel
         public void TestConstants()
         {
             Assert.AreEqual(3.5, DiceManager.AVERAGE_VALUE);
-            Assert.AreEqual(5, Dice.DICE_COUNT);
-            Assert.AreEqual(7, Dice.HIGHEST_VALUE);
-            Assert.AreEqual(1, Dice.LOWEST_VALUE);
-            Assert.AreEqual(6, Dice.VALUE_SPAN);
+            Assert.AreEqual(5, DiceManager.DICE_COUNT);
+            Assert.AreEqual(7, DiceManager.HIGHEST_VALUE);
+            Assert.AreEqual(1, DiceManager.LOWEST_VALUE);
+            Assert.AreEqual(6, DiceManager.VALUE_SPAN);
         }
 
         [TestMethod]
@@ -276,12 +276,12 @@ namespace SpieleSammlungTests.Model.Kniffel
                 stub.SetNext(dice);
                 manager.Shuffle();
                 int sum = 0;
-                for (int i = 0; i < Dice.VALUE_SPAN; ++i)
+                for (int i = 0; i < DiceManager.VALUE_SPAN; ++i)
                 {
                     sum += manager.GetCountOfValue(i);
                 }
 
-                Assert.AreEqual(Dice.DICE_COUNT, sum);
+                Assert.AreEqual(DiceManager.DICE_COUNT, sum);
             }
         }
 
@@ -290,11 +290,11 @@ namespace SpieleSammlungTests.Model.Kniffel
         {
             RandomStub stub = new RandomStub();
             DiceManager manager = new DiceManager(stub);
-            for (int i = 0; i < Dice.VALUE_SPAN; ++i)
+            for (int i = 0; i < DiceManager.VALUE_SPAN; ++i)
             {
-                stub.SetOutputConstant(i + Dice.LOWEST_VALUE);
+                stub.SetOutputConstant(i + DiceManager.LOWEST_VALUE);
                 manager.Shuffle();
-                Assert.AreEqual(Dice.DICE_COUNT, manager.GetCountOfValue(i));
+                Assert.AreEqual(DiceManager.DICE_COUNT, manager.GetCountOfValue(i));
             }
         }
 

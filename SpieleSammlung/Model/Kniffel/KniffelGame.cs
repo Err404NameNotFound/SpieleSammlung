@@ -47,7 +47,7 @@ namespace SpieleSammlung.Model.Kniffel
         public KniffelPlayer CurrentPlayer => Players[ActivePlayer];
 
         /// <summary>A copy of the Dice of this game</summary>
-        public DiceManager Dice => new(_dice);
+        public FlatDice Dice => new(_dice);
 
         #endregion
 
@@ -60,10 +60,10 @@ namespace SpieleSammlung.Model.Kniffel
         internal readonly List<WriteOption> indexWritableField;
 
         /// <summary>Manages the dices.</summary>
-        private readonly DiceManager _dice;
+        private readonly FlatDice _dice;
 
         /// <summary>For generating additional dice values without interfering with the rng of the actual game.</summary>
-        private readonly DiceManager _diceGenerator;
+        private readonly FlatDice _diceGenerator;
 
         private readonly BotStrategy _botStrategy;
 
@@ -73,7 +73,7 @@ namespace SpieleSammlung.Model.Kniffel
 
         /// <summary>Creates a new instance and set up a playable game.</summary>
         /// <param name="names">Names of the players.</param>
-        public KniffelGame(IReadOnlyCollection<Player> names) : this(names, new DiceManager())
+        public KniffelGame(IReadOnlyCollection<Player> names) : this(names, new FlatDice())
         {
         }
 
@@ -82,7 +82,7 @@ namespace SpieleSammlung.Model.Kniffel
         /// </summary>
         /// <param name="names">Player for this Kniffel game</param>
         /// <param name="seed">Seed for the RNG</param>
-        public KniffelGame(IReadOnlyCollection<Player> names, int seed) : this(names, new DiceManager(seed))
+        public KniffelGame(IReadOnlyCollection<Player> names, int seed) : this(names, new FlatDice(seed))
         {
         }
 
@@ -91,35 +91,35 @@ namespace SpieleSammlung.Model.Kniffel
         /// </summary>
         /// <param name="names">Player for this Kniffel game</param>
         /// <param name="rng">The random number generator that produces the values for the dice</param>
-        public KniffelGame(IReadOnlyCollection<Player> names, Random rng) : this(names, new DiceManager(rng))
+        public KniffelGame(IReadOnlyCollection<Player> names, Random rng) : this(names, new FlatDice(rng))
         {
         }
 
         /// <summary>
-        /// Starts a new Kniffel game with the given DiceManager.
+        /// Starts a new Kniffel game with the given Dice.
         /// </summary>
         /// <param name="names">The players participating in this match</param>
-        /// <param name="manager">The DiceManager managing the dice during the match</param>
-        private KniffelGame(IReadOnlyCollection<Player> names, DiceManager manager) : this(names, manager,
+        /// <param name="dice">The DiceManager managing the dice during the match</param>
+        private KniffelGame(IReadOnlyCollection<Player> names, FlatDice dice) : this(names, dice,
             new BotStrategy())
         {
         }
 
-        public KniffelGame(IReadOnlyCollection<Player> names, BotStrategy bot) : this(names, new DiceManager(), bot)
+        public KniffelGame(IReadOnlyCollection<Player> names, BotStrategy bot) : this(names, new FlatDice(), bot)
         {
         }
 
 
         public KniffelGame(IReadOnlyCollection<Player> names, Random random, BotStrategy bot)
-            : this(names, new DiceManager(random), bot)
+            : this(names, new FlatDice(random), bot)
         {
         }
 
-        private KniffelGame(IReadOnlyCollection<Player> names, DiceManager manager, BotStrategy strategy)
+        private KniffelGame(IReadOnlyCollection<Player> names, FlatDice dice, BotStrategy strategy)
         {
             _botStrategy = strategy;
-            _diceGenerator = new DiceManager();
-            _dice = manager;
+            _diceGenerator = new FlatDice();
+            _dice = dice;
             indexKillableField = new List<int>();
             indexWritableField = new List<WriteOption>();
             if (names.Count < MIN_PLAYER_COUNT)

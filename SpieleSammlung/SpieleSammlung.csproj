@@ -93,6 +93,7 @@
         <Compile Include="Model\Kniffel\Count\DiceCounter.cs"/>
         <Compile Include="Model\Kniffel\Dice.cs"/>
         <Compile Include="Model\Kniffel\DiceManager.cs"/>
+        <Compile Include="Model\Kniffel\FlatDice.cs" />
         <Compile Include="Model\Kniffel\Fields\KniffelField.cs"/>
         <Compile Include="Model\Kniffel\Fields\KniffelFieldSingle.cs"/>
         <Compile Include="Model\Kniffel\Fields\KniffelFieldSum.cs"/>

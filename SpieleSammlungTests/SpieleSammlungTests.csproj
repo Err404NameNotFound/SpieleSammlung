@@ -66,6 +66,7 @@
         <Compile Include="Model\Kniffel\Count\ValueOrderedListTest.cs"/>
         <Compile Include="Model\Kniffel\DiceManagerTest.cs"/>
         <Compile Include="Model\Kniffel\Fields\KniffelFieldSingleTest.cs"/>
+        <Compile Include="Model\Kniffel\FlatDiceTest.cs" />
         <Compile Include="Model\Kniffel\KniffelGameTest.cs"/>
         <Compile Include="Model\Kniffel\KniffelPlayerTest.cs"/>
         <Compile Include="Model\Kniffel\ProbabilitiesTest.cs"/>

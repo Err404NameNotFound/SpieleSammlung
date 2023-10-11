@@ -23,7 +23,7 @@ namespace SpieleSammlung.Model.Kniffel
         public static readonly int COMBINATIONS_UNSET_DICE = (int)Math.Pow(2, DICE_COUNT);
 
         /// <summary>If a dice has this value it is not set.</summary>
-        protected const int DICE_NOT_SET_VALUE = 0;
+        internal const int DICE_NOT_SET_VALUE = 0;
 
         #endregion
 
@@ -112,9 +112,9 @@ namespace SpieleSammlung.Model.Kniffel
             return unset;
         }
 
-        protected bool IsDiceNotSet(int index) => dices[index] == DICE_NOT_SET_VALUE;
+        private bool IsDiceNotSet(int index) => dices[index] == DICE_NOT_SET_VALUE;
 
-        protected static Dice CreateFromDice(int[] values) => new(values);
+        internal static Dice CreateFromDice(int[] values) => new(values);
 
         /// <summary>Returns a string representation of this object representing the current dice values.</summary>
         /// <returns>String resembling the dice values.</returns>

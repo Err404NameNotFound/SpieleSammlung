@@ -43,7 +43,7 @@ namespace SpieleSammlung.Sites
         /// <summary>
         /// Stored for performance to prevent cloning for every access.
         /// </summary>
-        private readonly int[] _allDices = DiceManager.AllDices;
+        private readonly int[] _allDices = FlatDice.AllDices;
 
         #endregion
 

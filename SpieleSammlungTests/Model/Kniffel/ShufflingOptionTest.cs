@@ -238,7 +238,7 @@ namespace SpieleSammlungTests.Model.Kniffel
                 "writable fields: {\nChance -> 30, 6er -> 24, 4er -> 8, 2er -> 6, 1er -> 1\n}\nkillable Fields: " +
                 "{\nSumme oberer Teil -> 0, Dreierpasch -> 0, Viererpasch -> 0, kleine Straße -> 0\n}";
             RandomStub rng = new RandomStub(5, 5, 5, 5, 6);
-            DiceManager dice = new DiceManager(rng);
+            Dice dice = new DiceManager(rng);
             Assert.AreEqual(expected, new ShufflingOption(dice, writes, removable).ToString(true));
         }
     }
