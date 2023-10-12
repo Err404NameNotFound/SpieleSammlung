@@ -495,24 +495,7 @@ namespace SpieleSammlung.Model.Kniffel
 
             return ret;
         }
-
-        public int[] IndexToFlipWhenOptimisingToBigStreet()
-        {
-            for (int i = 0; i < DICE_COUNT; ++i)
-            {
-                int previous = this[i];
-                dices[i] = DICE_NOT_SET_VALUE;
-                int index = IndexOfDiceConfiguration(this);
-                dices[i] = previous;
-                if ((int)EofSmallStreet(index) == KniffelGame.VALUE_SMALL_STREET && EofBigStreet(index) > 0)
-                {
-                    return new[] { i };
-                }
-            }
-
-            throw new ArgumentException("The change of one dice does not suffice to get a big street");
-        }
-
+        
         public static double EofTop6(int index, int value) => ExpectedValues[index][value];
         public static double EofPairSize3(int index) => ExpectedValues[index][INDEX_PAIR3];
         public static double EofPairSize4(int index) => ExpectedValues[index][INDEX_PAIR4];

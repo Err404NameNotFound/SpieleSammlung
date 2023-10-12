@@ -153,7 +153,7 @@ namespace SpieleSammlungTests.Model.Kniffel
         [ExpectedException(typeof(ArgumentException))]
         public void Test15_RequiresAtLeast2Players()
         {
-            KniffelGame game = new KniffelGame(new List<Player> { new Player() });
+            KniffelGame game = new KniffelGame(new List<Player> { new() });
             Assert.AreEqual(6, game.WriteableFieldsCount);
         }
 

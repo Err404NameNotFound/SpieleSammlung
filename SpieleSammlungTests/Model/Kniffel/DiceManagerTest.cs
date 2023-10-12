@@ -948,15 +948,6 @@ namespace SpieleSammlungTests.Model.Kniffel
             }
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void TestThrowsExceptionWhenBigStreetNotPossible()
-        {
-            _rng.SetNext(1, 2, 3, 3, 3);
-            _dice.Shuffle();
-            _dice.IndexToFlipWhenOptimisingToBigStreet();
-        }
-
 
         //TODO: decide whether all inputs should be brute forced for combination of set/unset dice
 

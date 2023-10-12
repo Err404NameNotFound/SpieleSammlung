@@ -10,8 +10,8 @@ namespace SpieleSammlung.Model.Kniffel.Bot
     {
         #region Static fields and constants
 
-        private const int count = 10000;
-        private const int threadCount = 4;
+        public const int REPETITIONS = 50000;
+        public const int THREADS = 6;
         private static readonly List<Player> Players = new() { new Player(), new Player() };
         public static Random rng = new();
 
@@ -45,7 +45,7 @@ namespace SpieleSammlung.Model.Kniffel.Bot
 
         private bool FitnessReady => Scores.Count > 0;
 
-        public double RecalculateFitness(int threads = threadCount, int repetitions = count, Random random = null)
+        public double RecalculateFitness(int repetitions = REPETITIONS, int threads = THREADS, Random random = null)
         {
             Func<Random> randomGenerator = random == null ? () => new Random() : () => random;
             if (threads == 1) return RecalculateFitnessSingleThread(repetitions, randomGenerator);
@@ -115,7 +115,7 @@ namespace SpieleSammlung.Model.Kniffel.Bot
             if (rng.NextDouble() < probability) MutateValueByDifference(ref ret.minFieldValueChance, 1);
             if (rng.NextDouble() < probability) MutateValueByDifference(ref ret.minFieldValuePair3, 1);
             if (rng.NextDouble() < probability) MutateValueByDifference(ref ret.minFieldValuePair4, 1);
-            if (rng.NextDouble() < probability) ret.MutateBestOptionFinder();
+            if (rng.NextDouble() < 0.99) ret.MutateBestOptionFinder();
             return ret;
         }
 
@@ -125,11 +125,12 @@ namespace SpieleSammlung.Model.Kniffel.Bot
             else value -= difference;
         }
 
-        public EvaluatedBotStrategy MutateAndEvaluate(int threads = threadCount, int repetitions = count,
+        public EvaluatedBotStrategy MutateAndEvaluate(int repetitions = REPETITIONS,
+            int threads = THREADS,
             Random random = null)
         {
             EvaluatedBotStrategy mutant = CreateMutantWithoutEvaluation();
-            mutant.RecalculateFitness(threads, repetitions, random);
+            mutant.RecalculateFitness(repetitions: repetitions, threads: threads, random: random);
             return mutant;
         }
 

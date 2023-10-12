@@ -193,12 +193,7 @@ namespace SpieleSammlung.Model.Kniffel.Bot
                 < 6 => (index + 1) * 3,
                 KniffelPointsTable.INDEX_PAIR_SIZE_3 => minFieldValuePair3,
                 KniffelPointsTable.INDEX_PAIR_SIZE_4 => minFieldValuePair4,
-                KniffelPointsTable.INDEX_SMALL_STREET => KniffelGame.VALUE_SMALL_STREET,
-                KniffelPointsTable.INDEX_BIG_STREET => KniffelGame.VALUE_BIG_STREET,
-                KniffelPointsTable.INDEX_FULL_HOUSE => KniffelGame.VALUE_FULL_HOUSE,
-                KniffelPointsTable.INDEX_KNIFFEL => KniffelGame.VALUE_KNIFFEL,
                 KniffelPointsTable.INDEX_CHANCE => minFieldValueChance,
-                _ => throw new ArgumentException("this field is not supported by this method")
             };
         }
 

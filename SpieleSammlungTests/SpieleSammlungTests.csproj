@@ -59,6 +59,7 @@
     </Choose>
     <ItemGroup>
         <Compile Include="Model\IllegalMoveExceptionTest.cs"/>
+        <Compile Include="Model\Kniffel\Bot\BestBotFinderTest.cs" />
         <Compile Include="Model\Kniffel\Bot\BotStrategyTest.cs"/>
         <Compile Include="Model\Kniffel\Bot\EvaluatedBotStrategyTest.cs"/>
         <Compile Include="Model\Kniffel\Count\CountOrderedListTest.cs"/>

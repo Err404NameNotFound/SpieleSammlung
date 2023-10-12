@@ -20,7 +20,7 @@ namespace SpieleSammlungTests.Model.Kniffel.Bot
         [TestMethod]
         public void TestFitnessCalculated()
         {
-            Assert.AreNotEqual(0, _strategy.RecalculateFitness(1, 1));
+            Assert.AreNotEqual(0, _strategy.RecalculateFitness(repetitions: 1, threads: 1));
         }
 
         [TestMethod]
@@ -28,7 +28,7 @@ namespace SpieleSammlungTests.Model.Kniffel.Bot
         {
             RandomStub rng = new RandomStub();
             rng.SetOutputConstant(6);
-            Assert.AreEqual(30 * 4 + KniffelGame.VALUE_KNIFFEL, _strategy.RecalculateFitness(1, 2, rng));
+            Assert.AreEqual(30 * 4 + KniffelGame.VALUE_KNIFFEL, _strategy.RecalculateFitness(repetitions: 2, threads: 1, random: rng));
         }
 
         [TestMethod]
@@ -36,7 +36,7 @@ namespace SpieleSammlungTests.Model.Kniffel.Bot
         {
             RandomStub rng = new RandomStub();
             rng.SetOutputConstant(6);
-            Assert.AreEqual(30 * 4 + KniffelGame.VALUE_KNIFFEL, _strategy.RecalculateFitness(4, 10, rng));
+            Assert.AreEqual(30 * 4 + KniffelGame.VALUE_KNIFFEL, _strategy.RecalculateFitness(repetitions: 10, threads: 4, random: rng));
         }
 
         [TestMethod]
@@ -63,7 +63,7 @@ namespace SpieleSammlungTests.Model.Kniffel.Bot
             RandomStub rng = new RandomStub();
             rng.SetOutputConstant(6);
             Rng.SetNextDoubleOutputConstant(0.0);
-            EvaluatedBotStrategy mutant = _strategy.MutateAndEvaluate(1, 1, rng);
+            EvaluatedBotStrategy mutant = _strategy.MutateAndEvaluate(repetitions: 1, threads: 1, random: rng);
             Rng.ClearOutputConstant();
             Assert.AreNotEqual("", mutant.ToString());
         }

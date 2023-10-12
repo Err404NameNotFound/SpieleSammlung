@@ -498,6 +498,15 @@ namespace SpieleSammlungTests.Model.Kniffel
             player[KniffelPointsTable.INDEX_KNIFFEL].Value = 50;
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestThrowsExceptionWhenBigStreetNotPossible()
+        {
+            _rng.SetNext(1, 2, 3, 3, 3);
+            _dice.Shuffle();
+            _dice.IndexToFlipWhenOptimisingToBigStreet();
+        }
+
         #endregion
     }
 

@@ -3,33 +3,47 @@ using SpieleSammlung.Model.Util;
 
 namespace SpieleSammlung.Model.Kniffel.Bot
 {
-    public class BestBotFinder
+    public static class BestBotFinder
     {
-        public static int testAllCount = 1;
-        public static int testOneCount = 1;
+        public static int testAllCount;
+        public static int testOneCount;
+        public static int threads;
+        public static int repetitions;
+        public static Func<bool> shouldStop;
+
+        static BestBotFinder()
+        {
+            testAllCount = 10;
+            testOneCount = 10;
+            threads = EvaluatedBotStrategy.THREADS;
+            repetitions = EvaluatedBotStrategy.REPETITIONS;
+            shouldStop = () => Console.KeyAvailable;
+        }
         
         public static void main()
         {
+            bool console = ModelLog.WriteToConsole;
+            bool file = ModelLog.WriteToFile;
             ModelLog.WriteToConsole = false;
             ModelLog.WriteToFile = false;
             TestAll(testAllCount);
             OptimiseOneStrategy(testOneCount);
-            ModelLog.WriteToConsole = false;
-            ModelLog.WriteToFile = true;
+            ModelLog.WriteToConsole = console;
+            ModelLog.WriteToFile = file;
         }
-
-        private static void OptimiseOneStrategy(int count = 100) =>
+        
+        public static void OptimiseOneStrategy(int count = 100) =>
             OptimiseOneStrategy(new EvaluatedBotStrategy(), count);
 
         private static void OptimiseOneStrategy(EvaluatedBotStrategy start, int count)
         {
             ProgressPrinter printer = new ProgressPrinter(count, 1);
             EvaluatedBotStrategy best = start;
-            Console.WriteLine(best.Fitness);
+            Console.WriteLine(best.RecalculateFitness(repetitions, threads));
             for (int i = 1; i < count; i++)
             {
-                if (Console.KeyAvailable) break;
-                EvaluatedBotStrategy next = best.MutateAndEvaluate();
+                if (shouldStop()) break;
+                EvaluatedBotStrategy next = best.MutateAndEvaluate(repetitions, threads);
                 if (next.Fitness > best.Fitness) best = next;
                 string between = $"{next.Fitness:000.00000}; {best.Fitness:000.00000}";
                 printer.PrintProgressIfNecessary(i, between);
@@ -40,7 +54,7 @@ namespace SpieleSammlung.Model.Kniffel.Bot
             Console.WriteLine(best);
         }
 
-        private static void TestAll(int count = 10)
+        public static void TestAll(int count = 10)
         {
             MinMaxAvgEvaluator[] evaluators = new MinMaxAvgEvaluator[BotStrategy.BEST_OPTION_COUNT];
             EvaluatedBotStrategy[] bests = new EvaluatedBotStrategy[evaluators.Length];
@@ -48,15 +62,16 @@ namespace SpieleSammlung.Model.Kniffel.Bot
             {
                 evaluators[i] = new MinMaxAvgEvaluator(false);
                 bests[i] = new EvaluatedBotStrategy(i);
+                bests[i].RecalculateFitness(repetitions, threads);
             }
 
             ProgressPrinter printer = new ProgressPrinter(count * evaluators.Length, 1);
             for (int i = 0; i < count; ++i)
             {
-                if (Console.KeyAvailable) break;
+                if (shouldStop()) break;
                 for (int e = 0; e < evaluators.Length; e++)
                 {
-                    EvaluatedBotStrategy next = bests[e].MutateAndEvaluate();
+                    EvaluatedBotStrategy next = bests[e].MutateAndEvaluate(repetitions, threads);
                     if (next.Fitness > bests[e].Fitness) bests[e] = next;
                     string between = $"{e}: {next.Fitness:000.00000}; {bests[e].Fitness:000.00000}";
                     printer.PrintProgressIfNecessary(i * evaluators.Length + e, between);
@@ -86,11 +101,11 @@ min  ;   212;   212;   214;   216;   217;   161;   156
 sum  ; 2.138; 2.138; 2.167; 2.175; 2.177; 1.664; 1.593
 
 
-Elapsed time: 0d00:24:39
-Not reached: 3, 13, 9, 12, 10, 11, 8, 5, 2, 1, 4, 0
-reached: 13, 11, 4, 10, 9, 12, 0, 3, 8, 5, 2, 1
-Index: 3
-Min values: {Chance 15, Pair 3: 18, Pair 4: 5}
-Fitness: 219,10865
+Not reached: 0, 13, 9, 12, 10, 11, 8, 1, 2, 3, 4, 5
+reached: 0, 1, 2, 13, 9, 12, 10, 11, 8, 3, 4, 5
+Index: 2
+Min values: {Chance 15, Pair 3: 14, Pair 4: 13}
+Fitness: 219,7807
+
  */
 }
