@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using System.Text;
+using SpieleSammlung.Model.Schafkopf;
 
 namespace SpieleSammlung.Model.Util
 {
@@ -142,6 +145,21 @@ namespace SpieleSammlung.Model.Util
         {
             long max = MathHelp.Max(values);
             return GetNeededDigits(Math.Max(max, min));
+        }
+
+        public static string ArrayString(IEnumerable<object> array, string separator = ", ") =>
+            string.Join(separator, array);
+
+        public static string ArrayString(IEnumerable<int> array, string separator = ", ") =>
+            string.Join(separator, array);
+
+        public static string ArrayString(Func<int, string> array, int length, string separator = ", ")
+        {
+            if(length < 1) return string.Empty;
+            if (length == 1) return array(0);
+            StringBuilder builder = new StringBuilder().Append(array(0));
+            for (int i = 1; i < length; i++) builder.Append(separator).Append(array(i));
+            return builder.ToString();
         }
     }
 }

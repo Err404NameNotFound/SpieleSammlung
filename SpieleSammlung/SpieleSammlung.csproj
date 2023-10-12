@@ -114,6 +114,7 @@
         <Compile Include="Model\Schafkopf\GameModeSelectedEvent.cs"/>
         <Compile Include="Model\Schafkopf\PointsStorage.cs"/>
         <Compile Include="Model\Schafkopf\SchafkopfMatch.cs"/>
+        <Compile Include="Model\Schafkopf\SchafkopfMatchConfig.cs" />
         <Compile Include="Model\Schafkopf\SchafkopfMatchPossibility.cs"/>
         <Compile Include="Model\Schafkopf\SchafkopfPlayer.cs"/>
         <Compile Include="Model\Schafkopf\SchafkopfRound.cs"/>

@@ -32,7 +32,7 @@ namespace SpieleSammlung.Model.Schafkopf
             currentCards = new List<Card>(count);
             for (int i = 0; i < count; ++i)
             {
-                currentCards.Add(Card.allCards[int.Parse(msgParts[++index])]);
+                currentCards.Add(Card.GetCard(int.Parse(msgParts[++index])));
             }
 
             semiTrumpf = msgParts[++index];
@@ -72,7 +72,7 @@ namespace SpieleSammlung.Model.Schafkopf
             bob.Append(currentCards.Count).Append(separator);
             foreach (var card in currentCards)
             {
-                bob.Append(card.index).Append(separator);
+                bob.Append(card.Index).Append(separator);
             }
 
             bob.Append(semiTrumpf).Append(separator);

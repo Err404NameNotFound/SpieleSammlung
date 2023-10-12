@@ -59,9 +59,9 @@ namespace SpieleSammlung.Model.Schafkopf
                                 temp = new List<string>();
                                 for (int i = 0; i < 4; ++i)
                                 {
-                                    if (CanPlaySauspielWithColor(Card.ColorNames[i]))
+                                    if (CanPlaySauspielWithColor(Card.GetColor(i)))
                                     {
-                                        temp.Add(Card.ColorNames[i]);
+                                        temp.Add(Card.GetColor(i));
                                     }
 
                                     if (i == 1) i = 2;
@@ -93,9 +93,9 @@ namespace SpieleSammlung.Model.Schafkopf
             List<string> temp = new List<string>();
             for (int i = 0; i < 4; ++i)
             {
-                if (CanPlaySoloWithColor(Card.ColorNames[i]))
+                if (CanPlaySoloWithColor(Card.GetColor(i)))
                 {
-                    temp.Add(Card.ColorNames[i]);
+                    temp.Add(Card.GetColor(i));
                 }
             }
 
@@ -145,7 +145,7 @@ namespace SpieleSammlung.Model.Schafkopf
             int w = 0;
             while (w < playableCards.Count)
             {
-                if (playableCards[w].color.Equals(color) &&
+                if (playableCards[w].Color.Equals(color) &&
                     !(playableCards[w].IsOber() || playableCards[w].IsUnter()))
                 {
                     return true;
@@ -163,7 +163,7 @@ namespace SpieleSammlung.Model.Schafkopf
             bool hasColor = false;
             while (w < 8)
             {
-                if (playableCards[w].color.Equals(color))
+                if (playableCards[w].Color.Equals(color))
                 {
                     if (playableCards[w].IsSau()) return false;
                     if (!(playableCards[w].IsOber() || playableCards[w].IsUnter()))
@@ -179,19 +179,8 @@ namespace SpieleSammlung.Model.Schafkopf
         }
 
         public List<Card> GetPlayableCards() => playableCards.ToList();
-
-        public void SortCardsShort(SchafkopfMatch match)
-        {
-            var values = new Tuple<Card, int>[8];
-            for (int i = 0; i < values.Length; ++i)
-            {
-                values[i] = new Tuple<Card, int>(playableCards[i], playableCards[i].GetSortValueOfThisCard(match));
-            }
-            Array.Sort(values, (tuple1, tuple2) => tuple1.Item2.CompareTo(tuple2.Item2));
-            for (int i = 0; i < playableCards.Count; ++i) playableCards[i] = values[i].Item1;
-        }
         
-        public int[] SortCards(SchafkopfMatch match)
+        public int[] SortCards(SchafkopfMatchConfig match)
         {
             int[] values = new int[playableCards.Count];
             for (int i = 0; i < values.Length; ++i)
@@ -216,7 +205,7 @@ namespace SpieleSammlung.Model.Schafkopf
 
         public void SortCards(int m, int c)
         {
-            SortCards(new SchafkopfMatch(possibilities[m].mode, possibilities[m].colors[c]));
+            SortCards(new SchafkopfMatchConfig(possibilities[m].mode, possibilities[m].colors[c]));
         }
         
         public bool PlayCard(int index, SchafkopfMatch match)
@@ -228,9 +217,9 @@ namespace SpieleSammlung.Model.Schafkopf
                 int value = card.GetValueOfThisCard(match);
                 if (match.CurrentRound.currentCards.Count == 1)
                 {
-                    match.CurrentRound.semiTrumpf = card.color;
+                    match.CurrentRound.semiTrumpf = card.Color;
                     match.CurrentRound.NewHighestCard(number, card.GetValueOfThisCard(match));
-                    if (card.color.Equals(match.SauspielFarbe) && !card.IsSau() && HasGesuchte(match) &&
+                    if (card.Color.Equals(match.SauspielFarbe) && !card.IsSau() && HasGesuchte(match) &&
                         KannWeglaufen(match))
                     {
                         match.IsWegGelaufen = true;
@@ -248,12 +237,12 @@ namespace SpieleSammlung.Model.Schafkopf
             return false;
         }
 
-        public int FirstIndexOfColor(string color, SchafkopfMatch match)
+        private int FirstIndexOfColor(string color, SchafkopfMatchConfig match)
         {
             int w = 0;
             while (w < playableCards.Count)
             {
-                if (playableCards[w].color.Equals(color) && !playableCards[w].IsTrumpf(match))
+                if (playableCards[w].Color.Equals(color) && !playableCards[w].IsTrumpf(match))
                 {
                     return w;
                 }
@@ -264,12 +253,12 @@ namespace SpieleSammlung.Model.Schafkopf
             return -1;
         }
 
-        public bool HasColor(string color, SchafkopfMatch match)
+        private bool HasColor(string color, SchafkopfMatchConfig match)
         {
             return FirstIndexOfColor(color, match) != -1;
         }
 
-        public bool HasTrumpf(SchafkopfMatch match)
+        private bool HasTrumpf(SchafkopfMatchConfig match)
         {
             int w = 0;
             while (w < playableCards.Count)
@@ -285,7 +274,7 @@ namespace SpieleSammlung.Model.Schafkopf
             return false;
         }
 
-        public bool HasGesuchte(SchafkopfMatch match)
+        public bool HasGesuchte(SchafkopfMatchConfig match)
         {
             if (match.Mode == SchafkopfMode.Sauspiel)
             {
@@ -293,7 +282,7 @@ namespace SpieleSammlung.Model.Schafkopf
                 if (index == -1)
                 {
                 }
-                else if (playableCards[index].number.Equals("Sau"))
+                else if (playableCards[index].Number.Equals("Sau"))
                 {
                     return true;
                 }
@@ -302,7 +291,7 @@ namespace SpieleSammlung.Model.Schafkopf
             return false;
         }
 
-        public bool KannWeglaufen(SchafkopfMatch match)
+        private bool KannWeglaufen(SchafkopfMatchConfig match)
         {
             int index = FirstIndexOfColor(match.SauspielFarbe, match);
             int end = index + 4;
@@ -312,7 +301,7 @@ namespace SpieleSammlung.Model.Schafkopf
                 int w = index + 1;
                 while (w < end && has4)
                 {
-                    has4 = playableCards[w].color.Equals(match.SauspielFarbe);
+                    has4 = playableCards[w].Color.Equals(match.SauspielFarbe);
                     ++w;
                 }
 
@@ -334,7 +323,7 @@ namespace SpieleSammlung.Model.Schafkopf
             {
                 foreach (var card in playableCards)
                 {
-                    if (card.IsTrumpf(match) || !card.color.Equals(match.SauspielFarbe) ||
+                    if (card.IsTrumpf(match) || !card.Color.Equals(match.SauspielFarbe) ||
                         match.Mode != SchafkopfMode.Sauspiel)
                     {
                         playable.Add(true);
@@ -343,7 +332,7 @@ namespace SpieleSammlung.Model.Schafkopf
                     {
                         playable.Add(true);
                     }
-                    else if (card.number.Equals("Sau") || kannWeglaufen)
+                    else if (card.Number.Equals("Sau") || kannWeglaufen)
                     {
                         playable.Add(true);
                     }
@@ -355,7 +344,7 @@ namespace SpieleSammlung.Model.Schafkopf
             }
             else
             {
-                bool firstCardTrumpf = Card.IsTrumpf(match.CurrentRound.currentCards[0], match);
+                bool firstCardTrumpf = match.CurrentRound.currentCards[0].IsTrumpf(match);
                 bool hasFirstCardColor = HasColor(match.CurrentRound.semiTrumpf, match);
                 foreach (var card in playableCards)
                 {
@@ -382,13 +371,13 @@ namespace SpieleSammlung.Model.Schafkopf
                             playable.Add(false);
                         }
                     }
-                    else if (card.color.Equals(match.CurrentRound.semiTrumpf) && !card.IsTrumpf(match))
+                    else if (card.Color.Equals(match.CurrentRound.semiTrumpf) && !card.IsTrumpf(match))
                     {
-                        if (match.Mode != SchafkopfMode.Sauspiel || !card.color.Equals(match.SauspielFarbe))
+                        if (match.Mode != SchafkopfMode.Sauspiel || !card.Color.Equals(match.SauspielFarbe))
                         {
                             playable.Add(true);
                         }
-                        else if (!hasGesuchte || card.number.Equals("Sau") || match.IsWegGelaufen)
+                        else if (!hasGesuchte || card.Number.Equals("Sau") || match.IsWegGelaufen)
                         {
                             playable.Add(true);
                         }
@@ -434,13 +423,13 @@ namespace SpieleSammlung.Model.Schafkopf
             bob.Append(playableCards.Count).Append(separator);
             foreach (var card in playableCards)
             {
-                bob.Append(card.index).Append(separator);
+                bob.Append(card.Index).Append(separator);
             }
 
             bob.Append(_playedCards.Count).Append(separator);
             foreach (var card in _playedCards)
             {
-                bob.Append(card.index).Append(separator);
+                bob.Append(card.Index).Append(separator);
             }
 
             bob.Append(possibilities.Count).Append(separator);
@@ -471,13 +460,13 @@ namespace SpieleSammlung.Model.Schafkopf
             int length = int.Parse(msgParts[0]) + 1;
             for (index = 1; index < length; ++index)
             {
-                playableCards.Add(Card.allCards[int.Parse(msgParts[index])]);
+                playableCards.Add(Card.GetCard(int.Parse(msgParts[index])));
             }
 
             length = int.Parse(msgParts[index]) + index + 1;
             for (++index; index < length; ++index)
             {
-                _playedCards.Add(Card.allCards[int.Parse(msgParts[index])]);
+                _playedCards.Add(Card.GetCard(int.Parse(msgParts[index])));
             }
 
             possibilities = new List<SchafkopfMatchPossibility>();

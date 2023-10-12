@@ -153,8 +153,6 @@ namespace SpieleSammlung.Sites
             if (connection.IsHost) connection.HostEvent += HostEvents;
             else connection.ClientEvent += ClientEvents;
 
-            Card.InitializeAllCards();
-
             _match = new SchafkopfMatch(players);
 
             CanQuitNow = true;
@@ -721,7 +719,7 @@ namespace SpieleSammlung.Sites
             ModeSelector.Source = _match.CurrentPlayers[PlayerIndexCurRound].possibilities;
         }
 
-        private void SortCards(int index, SchafkopfMatch matchSort)
+        private void SortCards(int index, SchafkopfMatchConfig matchSort)
         {
             _match.CurrentPlayers[index].SortCards(matchSort);
             if (_isSpectating)
@@ -917,7 +915,7 @@ namespace SpieleSammlung.Sites
             {
                 for (int i = 0; i < 32; ++i)
                 {
-                    _match.CurrentPlayers[i % 4].playableCards.Add(Card.allCards[int.Parse(msgParts[i + 1])]);
+                    _match.CurrentPlayers[i % 4].playableCards.Add(Card.GetCard(int.Parse(msgParts[i + 1])));
                 }
             }
 

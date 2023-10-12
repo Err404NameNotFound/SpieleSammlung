@@ -435,4 +435,10 @@
     <data name="Knif_PointsTable_Top6AdditionEndOfNumber" xml:space="preserve">
         <value>er</value>
     </data>
+    <data name="SK_Wenz" xml:space="preserve">
+        <value>Wenz</value>
+    </data>
+    <data name="SK_PrefixSauspielToString" xml:space="preserve">
+        <value>auf</value>
+    </data>
 </root>

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace SpieleSammlung.Model.Schafkopf
 {
-    public class SchafkopfMatch
+    public class SchafkopfMatch : SchafkopfMatchConfig
     {
         public List<SchafkopfPlayer> Players { get; }
         public SchafkopfPlayer[] CurrentPlayers { get; }
@@ -17,10 +17,7 @@ namespace SpieleSammlung.Model.Schafkopf
 
         public DataTable PointsSingle { get; }
         public DataTable PointsCumulated { get; }
-
-        public SchafkopfMode Mode { get; private set; }
-        public string Trumpf { get; private set; }
-        public string SauspielFarbe { get; private set; }
+        
         public bool IsWegGelaufen { get; set; }
 
         public SchafkopfMode MinimumGame { get; set; }
@@ -134,7 +131,7 @@ namespace SpieleSammlung.Model.Schafkopf
                 for (int i = 0; i < 32; ++i)
                 {
                     var temp = _random.Next(0, cards.Count);
-                    CurrentPlayers[i % 4].playableCards.Add(Card.allCards[cards[temp]]);
+                    CurrentPlayers[i % 4].playableCards.Add(Card.GetCard(cards[temp]));
                     msg.Add(cards[temp].ToString());
                     cards.RemoveAt(temp);
                 }
@@ -445,24 +442,24 @@ namespace SpieleSammlung.Model.Schafkopf
             int sum = 0;
             for (int i = 0; i < 4; ++i)
             {
-                sum += round.currentCards[i].points;
+                sum += round.currentCards[i].Points;
             }
 
             _teams[CurrentPlayers[round.nextStartPlayer].teamIndex] += sum;
         }
 
-        public override string ToString()
-        {
-            return Mode switch
-            {
-                SchafkopfMode.Sauspiel => "auf " + SauspielFarbe,
-                SchafkopfMode.Solo => Trumpf + " Solo",
-                SchafkopfMode.Wenz => "Wenz",
-                SchafkopfMode.SoloTout => Trumpf + " SoloTout",
-                SchafkopfMode.WenzTout => "WenzTout",
-                _ => throw new ArgumentOutOfRangeException()
-            };
-        }
+        // public override string ToString()
+        // {
+        //     return Mode switch
+        //     {
+        //         SchafkopfMode.Sauspiel => "auf " + SauspielFarbe,
+        //         SchafkopfMode.Solo => Trumpf + " Solo",
+        //         SchafkopfMode.Wenz => "Wenz",
+        //         SchafkopfMode.SoloTout => Trumpf + " SoloTout",
+        //         SchafkopfMode.WenzTout => "WenzTout",
+        //         _ => throw new ArgumentOutOfRangeException()
+        //     };
+        // }
 
         public string InfoForRejoin(string separator)
         {
@@ -494,7 +491,7 @@ namespace SpieleSammlung.Model.Schafkopf
             {
                 for (int i = 0; i < 4; ++i)
                 {
-                    bob.Append(LastCards[i].index).Append(separator);
+                    bob.Append(LastCards[i].Index).Append(separator);
                 }
             }
 
@@ -546,7 +543,7 @@ namespace SpieleSammlung.Model.Schafkopf
             {
                 for (int i = 0; i < 4; ++i)
                 {
-                    LastCards[i] = Card.allCards[int.Parse(msgParts[index++])];
+                    LastCards[i] = Card.GetCard(int.Parse(msgParts[index++]));
                 }
             }
 

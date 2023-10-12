@@ -835,6 +835,24 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to auf.
+        /// </summary>
+        public static string SK_PrefixSauspielToString {
+            get {
+                return ResourceManager.GetString("SK_PrefixSauspielToString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wenz.
+        /// </summary>
+        public static string SK_Wenz {
+            get {
+                return ResourceManager.GetString("SK_Wenz", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rest ansehen.
         /// </summary>
         public static string SKCardHolder_Btn_ShowRemaining {
