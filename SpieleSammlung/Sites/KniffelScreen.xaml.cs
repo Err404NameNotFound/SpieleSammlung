@@ -72,7 +72,6 @@ namespace SpieleSammlung.Sites
             ShowShuffledDices();
             ShowCurrentPlayer();
             UpdateRoundNumber();
-            DoBotMoveIfRequired();
         }
 
         #endregion
@@ -322,7 +321,7 @@ namespace SpieleSammlung.Sites
             }
             else
             {
-                DoBotMoveIfRequired(); // TODO: find better solution (possibly at next player)
+                DoBotMoveIfRequired(); // TODO: find better solution to making first bot move
             }
         }
 

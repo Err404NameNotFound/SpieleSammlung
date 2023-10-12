@@ -30,7 +30,7 @@ namespace SpieleSammlung.Model.Schafkopf
                 SchafkopfMode.Solo or SchafkopfMode.SoloTout => $"{Trumpf} {Mode}",
                 SchafkopfMode.Sauspiel => $"{Resources.SK_PrefixSauspielToString} {SauspielFarbe}",
                 SchafkopfMode.Weiter => Mode.ToString(),
-                _ => throw new NotImplementedException("This mode has not been implemented yet")
+                _ => throw new NotSupportedException("This mode has not been implemented yet")
             };
         }
     }

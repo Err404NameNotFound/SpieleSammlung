@@ -433,28 +433,7 @@ namespace SpieleSammlungTests.Model.Kniffel
             }
         }
         
-
-        //TODO: decide whether all inputs should be brute forced for combination of set/unset dice
-
         #region HelpMethods
-
-        private static int CalculateExpectedValue(Func<FlatDice, bool> predicate)
-        {
-            RandomStub rng = new RandomStub();
-            FlatDice dice = new FlatDice(rng);
-            int sum = 0;
-            foreach (int[] values in AllCombinations)
-            {
-                rng.SetNext(values);
-                dice.Shuffle();
-                if (predicate(dice))
-                {
-                    sum += dice.SumOfAllDices;
-                }
-            }
-
-            return sum;
-        }
         
         private static void TestAllCombinations(IEnumerable<int[]> inputs, object expected, string messageTemplate,
             CalculateActual2 calculate)

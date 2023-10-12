@@ -1122,7 +1122,7 @@ namespace SpieleSammlung.Sites
             }
 
             return w == _match.Players.Count;
-            //TODO handlen wenn Spieler quiten
+            //TODO handle player leaving the match
         }
 
         private void UpdatePoints()
@@ -1220,7 +1220,7 @@ namespace SpieleSammlung.Sites
             _match.Players[_playerIndex].continueMatch = false;
             if (_connection.IsHost)
             {
-                /* TODO host will Spiel beenden */
+                /* TODO host wants to end the game */
             }
         }
 
