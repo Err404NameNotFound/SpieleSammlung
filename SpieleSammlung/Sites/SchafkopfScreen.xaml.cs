@@ -339,7 +339,7 @@ namespace SpieleSammlung.Sites
             }
             else if (e.Type == MultiplayerEventTypes.CClientDisconnected)
             {
-                LblConnectionLost.Content = "Verbindung zum Host verloren";
+                LblConnectionLost.Content = Properties.Resources.MP_LostConnectionToHost;
                 GridRoundSummary.Visibility = Visibility.Collapsed;
                 SpectatorView.Visibility = Visibility.Collapsed;
                 ViewPlaying.Visibility = Visibility.Collapsed;
@@ -361,7 +361,7 @@ namespace SpieleSammlung.Sites
 
         private void DebugLog()
         {
-            _connection.WriteLine(_match.WriteCurrentIndize().Append(", PICR: ").Append(PlayerIndexCurRound)
+            _connection.WriteLine(_match.WriteCurrentIndize().Append(", PlIndexCurRnd: ").Append(PlayerIndexCurRound)
                 .ToString());
         }
 
@@ -1019,12 +1019,12 @@ namespace SpieleSammlung.Sites
                 {
                     if (_match.CurrentPlayers[PlayerIndexCurRound].teamIndex == 1)
                     {
-                        BtnKontra.Content = "Kontra";
+                        BtnKontra.Content = Properties.Resources.SK_Btn_Kontra;
                         BtnKontra.Visibility = Visibility.Visible;
                     }
                     else
                     {
-                        BtnKontra.Content = "Re";
+                        BtnKontra.Content = Properties.Resources.SK_Btn_KontraRe;
                         BtnKontra.Visibility = Visibility.Hidden;
                     }
 

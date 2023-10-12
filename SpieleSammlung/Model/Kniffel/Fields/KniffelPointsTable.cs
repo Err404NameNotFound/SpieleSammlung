@@ -1,4 +1,6 @@
-﻿namespace SpieleSammlung.Model.Kniffel.Fields
+﻿using SpieleSammlung.Properties;
+
+namespace SpieleSammlung.Model.Kniffel.Fields
 {
     /// <summary>
     /// Table for storing the points of a Kniffel player for each different field.
@@ -78,25 +80,25 @@
             FIELD_NAMES = new string[18];
             for (int i = 0; i < 6; ++i)
             {
-                FIELD_NAMES[i] = i + 1 + "er";
+                FIELD_NAMES[i] = i + 1 + Resources.Knif_PointsTable_Top6AdditionEndOfNumber;
             }
 
-            FIELD_NAMES[ChangeableFields[0]] = "Summe oberer Teil";
-            FIELD_NAMES[ChangeableFields[1]] = "Bonus ab 63 Punkten";
-            FIELD_NAMES[ChangeableFields[2]] = "Summe oberer Teil";
-            FIELD_NAMES[ChangeableFields[3]] = "Summe unterer Teil";
-            FIELD_NAMES[ChangeableFields[4]] = "Gesamt";
-            FIELD_NAMES[INDEX_PAIR_SIZE_3] = "Dreierpasch";
-            FIELD_NAMES[INDEX_PAIR_SIZE_4] = "Viererpasch";
-            FIELD_NAMES[INDEX_FULL_HOUSE] = "Full House";
-            FIELD_NAMES[INDEX_SMALL_STREET] = "kleine Straße";
-            FIELD_NAMES[INDEX_BIG_STREET] = "große Straße";
-            FIELD_NAMES[INDEX_KNIFFEL] = "Kniffel";
-            FIELD_NAMES[INDEX_CHANCE] = "Chance";
+            FIELD_NAMES[ChangeableFields[0]] = Resources.Knif_PointsTable_SumTop;
+            FIELD_NAMES[ChangeableFields[1]] = Resources.Knif_PointsTable_Bonus;
+            FIELD_NAMES[ChangeableFields[2]] = Resources.Knif_PointsTable_SumTop;
+            FIELD_NAMES[ChangeableFields[3]] = Resources.Knif_PointsTable_SumBottom;
+            FIELD_NAMES[ChangeableFields[4]] = Resources.Knif_PointsTable_Sum;
+            FIELD_NAMES[INDEX_PAIR_SIZE_3] = Resources.Knif_PointsTable_PairSize3;
+            FIELD_NAMES[INDEX_PAIR_SIZE_4] = Resources.Knif_PointsTable_PairSize4;
+            FIELD_NAMES[INDEX_FULL_HOUSE] = Resources.Knif_PointsTable_FullHouse;
+            FIELD_NAMES[INDEX_SMALL_STREET] = Resources.Knif_PointsTable_SmallStreet;
+            FIELD_NAMES[INDEX_BIG_STREET] = Resources.Knif_PointsTable_BigStreet;
+            FIELD_NAMES[INDEX_KNIFFEL] = Resources.Knif_PointsTable_Kniffel;
+            FIELD_NAMES[INDEX_CHANCE] = Resources.Knif_PointsTable_Chance;
             UnChangeableFields = new int[FIELD_NAMES.Length - ChangeableFields.Length];
             int value = 0;
             int next = 0;
-            // fill indexes of unchangable fields
+            // fill indexes of unchangeable fields
             for (int i = 0; i < UnChangeableFields.Length; ++i)
             {
                 while (next < UnChangeableFields.Length && ChangeableFields[next] == value)

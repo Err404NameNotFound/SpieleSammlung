@@ -101,7 +101,7 @@ namespace SpieleSammlung.Model.Schafkopf
 
             if (temp.Count == 0)
             {
-                temp = new List<string> { "Eichel", "Gras", "Herz", "Schelle" };
+                temp = new List<string> { Card.EICHEL, Card.GRAS, Card.HERZ, Card.SCHELLE };
             }
 
             return temp;
@@ -143,10 +143,10 @@ namespace SpieleSammlung.Model.Schafkopf
         public bool CanPlaySoloWithColor(string color)
         {
             int w = 0;
-            while (w < 8)
+            while (w < playableCards.Count)
             {
                 if (playableCards[w].color.Equals(color) &&
-                    !(playableCards[w].number.Equals("Ober") || playableCards[w].number.Equals("Unter")))
+                    !(playableCards[w].IsOber() || playableCards[w].IsUnter()))
                 {
                     return true;
                 }
@@ -165,8 +165,8 @@ namespace SpieleSammlung.Model.Schafkopf
             {
                 if (playableCards[w].color.Equals(color))
                 {
-                    if (playableCards[w].number.Equals("Sau")) return false;
-                    if (!(playableCards[w].number.Equals("Ober") || playableCards[w].number.Equals("Unter")))
+                    if (playableCards[w].IsSau()) return false;
+                    if (!(playableCards[w].IsOber() || playableCards[w].IsUnter()))
                     {
                         hasColor = true;
                     }
@@ -180,22 +180,33 @@ namespace SpieleSammlung.Model.Schafkopf
 
         public List<Card> GetPlayableCards() => playableCards.ToList();
 
+        public void SortCardsShort(SchafkopfMatch match)
+        {
+            var values = new Tuple<Card, int>[8];
+            for (int i = 0; i < values.Length; ++i)
+            {
+                values[i] = new Tuple<Card, int>(playableCards[i], playableCards[i].GetSortValueOfThisCard(match));
+            }
+            Array.Sort(values, (tuple1, tuple2) => tuple1.Item2.CompareTo(tuple2.Item2));
+            for (int i = 0; i < playableCards.Count; ++i) playableCards[i] = values[i].Item1;
+        }
+        
         public int[] SortCards(SchafkopfMatch match)
         {
-            int[] values = new int[8];
-            for (int i = 0; i < 8; ++i)
+            int[] values = new int[playableCards.Count];
+            for (int i = 0; i < values.Length; ++i)
             {
                 values[i] = playableCards[i].GetSortValueOfThisCard(match);
             }
-
+            
             for (int i = 0; i < 7; ++i)
             {
                 for (int j = i + 1; j < 8; ++j)
                 {
                     if (values[j] > values[i])
                     {
-                        SwitchVariables(ref values[j], ref values[i]);
-                        SwitchCardIndex(j, i);
+                        (values[j], values[i]) = (values[i], values[j]);
+                        (playableCards[i], playableCards[j]) = (playableCards[j], playableCards[i]);
                     }
                 }
             }
@@ -207,17 +218,7 @@ namespace SpieleSammlung.Model.Schafkopf
         {
             SortCards(new SchafkopfMatch(possibilities[m].mode, possibilities[m].colors[c]));
         }
-
-        private static void SwitchVariables(ref int i, ref int j)
-        {
-            (i, j) = (j, i);
-        }
-
-        private void SwitchCardIndex(int i, int j)
-        {
-            (playableCards[i], playableCards[j]) = (playableCards[j], playableCards[i]);
-        }
-
+        
         public bool PlayCard(int index, SchafkopfMatch match)
         {
             if (number == match.CurrentRound.CurrentPlayer)
@@ -229,7 +230,7 @@ namespace SpieleSammlung.Model.Schafkopf
                 {
                     match.CurrentRound.semiTrumpf = card.color;
                     match.CurrentRound.NewHighestCard(number, card.GetValueOfThisCard(match));
-                    if (card.color.Equals(match.SauspielFarbe) && !card.number.Equals("Sau") && HasGesuchte(match) &&
+                    if (card.color.Equals(match.SauspielFarbe) && !card.IsSau() && HasGesuchte(match) &&
                         KannWeglaufen(match))
                     {
                         match.IsWegGelaufen = true;

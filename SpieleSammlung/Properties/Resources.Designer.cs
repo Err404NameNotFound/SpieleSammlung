@@ -177,6 +177,114 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to große Straße.
+        /// </summary>
+        public static string Knif_PointsTable_BigStreet {
+            get {
+                return ResourceManager.GetString("Knif_PointsTable_BigStreet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bonus ab 63 Punkten.
+        /// </summary>
+        public static string Knif_PointsTable_Bonus {
+            get {
+                return ResourceManager.GetString("Knif_PointsTable_Bonus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chance.
+        /// </summary>
+        public static string Knif_PointsTable_Chance {
+            get {
+                return ResourceManager.GetString("Knif_PointsTable_Chance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Full House.
+        /// </summary>
+        public static string Knif_PointsTable_FullHouse {
+            get {
+                return ResourceManager.GetString("Knif_PointsTable_FullHouse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kniffel.
+        /// </summary>
+        public static string Knif_PointsTable_Kniffel {
+            get {
+                return ResourceManager.GetString("Knif_PointsTable_Kniffel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dreierpasch.
+        /// </summary>
+        public static string Knif_PointsTable_PairSize3 {
+            get {
+                return ResourceManager.GetString("Knif_PointsTable_PairSize3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Viererpasch.
+        /// </summary>
+        public static string Knif_PointsTable_PairSize4 {
+            get {
+                return ResourceManager.GetString("Knif_PointsTable_PairSize4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to kleine Straße.
+        /// </summary>
+        public static string Knif_PointsTable_SmallStreet {
+            get {
+                return ResourceManager.GetString("Knif_PointsTable_SmallStreet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gesamt.
+        /// </summary>
+        public static string Knif_PointsTable_Sum {
+            get {
+                return ResourceManager.GetString("Knif_PointsTable_Sum", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Summe unterer Teil.
+        /// </summary>
+        public static string Knif_PointsTable_SumBottom {
+            get {
+                return ResourceManager.GetString("Knif_PointsTable_SumBottom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Summe oberer Teil.
+        /// </summary>
+        public static string Knif_PointsTable_SumTop {
+            get {
+                return ResourceManager.GetString("Knif_PointsTable_SumTop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to er.
+        /// </summary>
+        public static string Knif_PointsTable_Top6AdditionEndOfNumber {
+            get {
+                return ResourceManager.GetString("Knif_PointsTable_Top6AdditionEndOfNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gesamt.
         /// </summary>
         public static string Knif_PointsVisual_Lbl_Sum {
@@ -606,6 +714,15 @@ namespace SpieleSammlung.Properties {
         public static string SK_Btn_Kontra {
             get {
                 return ResourceManager.GetString("SK_Btn_Kontra", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Re.
+        /// </summary>
+        public static string SK_Btn_KontraRe {
+            get {
+                return ResourceManager.GetString("SK_Btn_KontraRe", resourceCulture);
             }
         }
         

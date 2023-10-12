@@ -396,4 +396,43 @@
     <data name="MP_Btn_JoinMatch" xml:space="preserve">
         <value>Join Match</value>
     </data>
+    <data name="SK_Btn_KontraRe" xml:space="preserve">
+        <value>Re</value>
+    </data>
+    <data name="Knif_PointsTable_SumTop" xml:space="preserve">
+        <value>Summe oberer Teil</value>
+    </data>
+    <data name="Knif_PointsTable_Bonus" xml:space="preserve">
+        <value>Bonus ab 63 Punkten</value>
+    </data>
+    <data name="Knif_PointsTable_SumBottom" xml:space="preserve">
+        <value>Summe unterer Teil</value>
+    </data>
+    <data name="Knif_PointsTable_Sum" xml:space="preserve">
+        <value>Gesamt</value>
+    </data>
+    <data name="Knif_PointsTable_PairSize3" xml:space="preserve">
+        <value>Dreierpasch</value>
+    </data>
+    <data name="Knif_PointsTable_PairSize4" xml:space="preserve">
+        <value>Viererpasch</value>
+    </data>
+    <data name="Knif_PointsTable_FullHouse" xml:space="preserve">
+        <value>Full House</value>
+    </data>
+    <data name="Knif_PointsTable_SmallStreet" xml:space="preserve">
+        <value>kleine Straße</value>
+    </data>
+    <data name="Knif_PointsTable_BigStreet" xml:space="preserve">
+        <value>große Straße</value>
+    </data>
+    <data name="Knif_PointsTable_Kniffel" xml:space="preserve">
+        <value>Kniffel</value>
+    </data>
+    <data name="Knif_PointsTable_Chance" xml:space="preserve">
+        <value>Chance</value>
+    </data>
+    <data name="Knif_PointsTable_Top6AdditionEndOfNumber" xml:space="preserve">
+        <value>er</value>
+    </data>
 </root>

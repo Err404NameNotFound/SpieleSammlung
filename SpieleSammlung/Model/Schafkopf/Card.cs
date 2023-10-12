@@ -4,18 +4,19 @@ namespace SpieleSammlung.Model.Schafkopf
 {
     public class Card
     {
-        private const string OBER = "Ober";
-        private const string UNTER = "Unter";
-        private const string EICHEL = "Eichel";
-        private const string GRAS = "Gras";
+        public const string SAU = "Sau";
+        public const string OBER = "Ober";
+        public const string UNTER = "Unter";
+        public const string EICHEL = "Eichel";
+        public const string GRAS = "Gras";
         public const string HERZ = "Herz";
-        private const string SCHELLE = "Schelle";
+        public const string SCHELLE = "Schelle";
         private const string CALCULATION_NOT_POSSIBLE = "Calculation not possible for mode shuffle";
         public static Card[] allCards;
         public static string[] ColorNames { get; } = { EICHEL, GRAS, HERZ, SCHELLE };
 
         private static readonly string[] NumberNames =
-            { "Sieben", "Acht", "Neun", "Koenig", "Zehn", "Sau", UNTER, OBER };
+            { "Sieben", "Acht", "Neun", "Koenig", "Zehn", SAU, UNTER, OBER };
 
         private static readonly int[] NumbersWenz = { 0, 1, 2, 7, 3, 4, 5, 6 };
         public readonly string color;
@@ -56,7 +57,10 @@ namespace SpieleSammlung.Model.Schafkopf
             }
         }
 
-
+        public bool IsOber() => number.Equals(OBER);
+        public bool IsUnter() => number.Equals(OBER);
+        public bool IsSau() => number.Equals(SAU);
+        
         public override string ToString() => color + " " + number;
 
         public static string IntToColor(int c) => ColorNames[c];
