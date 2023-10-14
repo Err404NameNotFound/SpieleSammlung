@@ -159,7 +159,7 @@ namespace SpieleSammlung.Model.Schafkopf
             }
         }
 
-        public int GetValueOfThisCard(SchafkopfMatch match) => GetValueOfThisCard(match, match.CurrentRound.semiTrumpf);
+        public int GetValueOfThisCard(SchafkopfMatch match) => GetValueOfThisCard(match, match.CurrentRound.SemiTrumpf);
 
         public int GetValueOfThisCard(SchafkopfMatchConfig match, string semiTrumpf)
         {

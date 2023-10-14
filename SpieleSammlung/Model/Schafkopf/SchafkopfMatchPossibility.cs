@@ -4,33 +4,25 @@ namespace SpieleSammlung.Model.Schafkopf
 {
     public class SchafkopfMatchPossibility
     {
-        public readonly SchafkopfMode mode;
-        public readonly List<string> colors;
+        public SchafkopfMode Mode { get; }
+        public readonly IReadOnlyList<string> colors;
 
-        public SchafkopfMatchPossibility(SchafkopfMode m, List<string> c)
+        public SchafkopfMatchPossibility(SchafkopfMode m, IReadOnlyList<string> c)
         {
-            mode = m;
+            Mode = m;
             colors = c;
         }
 
         public SchafkopfMatchPossibility(SchafkopfMode m)
         {
-            mode = m;
-            colors = new List<string> { "" };
+            Mode = m;
+            colors = new List<string>();
         }
 
         public override string ToString()
         {
-            string tmp = mode.ToString();
-            if (!colors[0].Equals(""))
-            {
-                tmp += ": ";
-                for (int i = 0; i < colors.Count; ++i)
-                {
-                    tmp += colors[i] + (i == colors.Count - 1 ? "" : ", ");
-                }
-            }
-
+            if (colors.Count == 0) return Mode.ToString();
+            string tmp = Mode + ": "+string.Join(", ", colors);
             return tmp;
         }
     }

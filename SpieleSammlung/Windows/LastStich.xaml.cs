@@ -20,14 +20,14 @@ namespace SpieleSammlung.Windows
             {
                 for (int i = 0; i < 4; ++i)
                 {
-                    Stich.AddCard(match.LastCards[i], match.Players[(startPlayer + i) % 4].number);
+                    Stich.AddCard(match.LastCards[i], match.Players[(startPlayer + i) % 4].Number);
                 }
             }
             else
             {
                 for (int i = 0; i < 4; ++i)
                 {
-                    Stich.AddCard(match.LastCards[i], (match.Players[(startPlayer + i) % 4].number + 4 - offsetUi) % 4);
+                    Stich.AddCard(match.LastCards[i], (match.Players[(startPlayer + i) % 4].Number + 4 - offsetUi) % 4);
                 }
             }
         }

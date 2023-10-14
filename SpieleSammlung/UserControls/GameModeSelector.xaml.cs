@@ -33,7 +33,7 @@ namespace SpieleSammlung.UserControls
             set
             {
                 _possibilities = value;
-                List<string> temp = value.Select(possibility => possibility.mode.ToString()).ToList();
+                List<string> temp = value.Select(possibility => possibility.Mode.ToString()).ToList();
                 CbMode.ItemsSource = temp;
                 CbMode.SelectedIndex = 0;
             }
@@ -116,7 +116,7 @@ namespace SpieleSammlung.UserControls
 
         private void ColorHasChanged()
         {
-            if (_possibilities[CbMode.SelectedIndex].mode != SchafkopfMode.Weiter && CbColor.SelectedIndex != -1)
+            if (_possibilities[CbMode.SelectedIndex].Mode != SchafkopfMode.Weiter && CbColor.SelectedIndex != -1)
             {
                 ColorChanged(new GameModeSelectedEvent(
                     SchafkopfMatch.StringToSchafkopfMode(CbMode.SelectedItem.ToString()),
@@ -154,7 +154,7 @@ namespace SpieleSammlung.UserControls
                 }
             }
 
-            Source = player.possibilities;
+            Source = player.Possibilities;
             if (modePlayer > mode)
             {
                 CbMode.SelectedIndex = player.PossibilityIndexOf(modePlayer);

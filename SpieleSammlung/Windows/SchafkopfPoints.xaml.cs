@@ -78,7 +78,7 @@ namespace SpieleSammlung.Windows
             int i = 0;
             while (true)
             {
-                bob.Append(_playerPoints[i].name);
+                bob.Append(_playerPoints[i].Name);
                 if (++i != _playerPoints.Count) bob.Append(SEPARATOR);
                 else break;
             }
@@ -108,7 +108,7 @@ namespace SpieleSammlung.Windows
             int i;
             for (i = 0; i < playerPoints.Count; ++i)
             {
-                _lblNames[i].Content = playerPoints[i].name;
+                _lblNames[i].Content = playerPoints[i].Name;
                 _lblPoints[i].Content = PointsToString(ref playerPoints[i].points);
                 _lblNames[i].Visibility = Visibility.Visible;
                 _lblPoints[i].Visibility = Visibility.Visible;

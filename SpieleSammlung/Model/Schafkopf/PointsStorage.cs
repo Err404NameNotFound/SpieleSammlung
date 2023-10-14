@@ -2,13 +2,13 @@
 {
     public class PointsStorage
     {
-        public readonly string name;
+        public string Name { get; }
         public int points;
 
         public PointsStorage(string name, int points)
         {
             this.points = points;
-            this.name = name;
+            Name = name;
         }
     }
 }

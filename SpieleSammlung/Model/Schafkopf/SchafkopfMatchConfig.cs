@@ -26,10 +26,9 @@ namespace SpieleSammlung.Model.Schafkopf
         {
             return Mode switch
             {
-                SchafkopfMode.Wenz or SchafkopfMode.WenzTout => Resources.SK_Wenz,
+                SchafkopfMode.Wenz or SchafkopfMode.WenzTout or SchafkopfMode.Weiter => Mode.ToString(),
                 SchafkopfMode.Solo or SchafkopfMode.SoloTout => $"{Trumpf} {Mode}",
                 SchafkopfMode.Sauspiel => $"{Resources.SK_PrefixSauspielToString} {SauspielFarbe}",
-                SchafkopfMode.Weiter => Mode.ToString(),
                 _ => throw new NotSupportedException("This mode has not been implemented yet")
             };
         }
