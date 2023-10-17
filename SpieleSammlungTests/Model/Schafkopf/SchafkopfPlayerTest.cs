@@ -404,8 +404,7 @@ namespace SpieleSammlungTests.Model.Schafkopf
                 ArrayString(i => Card.ALL_CARDS[expected[i]].ToString(), expected.Count), ArrayString(actual),
                 ArrayString(expected), ArrayString(i => actual[i].Index.ToString(), actual.Count));
         }
-
-
+        
         private static void AssertCheckPlayableCardsCorrectArgs(SchafkopfMode mode, string color, Card firstCard,
             bool isWegGelaufen, params bool[] expected)
         {

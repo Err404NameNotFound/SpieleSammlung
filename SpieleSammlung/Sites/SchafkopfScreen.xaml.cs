@@ -29,7 +29,7 @@ namespace SpieleSammlung.Sites
 
         public delegate void OnLostConnectionToHost();
 
-        public event OnLostConnectionToHost LostConnectionToHost; //TODO: this should probably have the other type
+        public event OnLostConnectionToHost LostConnectionToHost;
 
         #endregion
 
@@ -622,23 +622,10 @@ namespace SpieleSammlung.Sites
             string newId)
         {
             _match.Players[index].State = state;
-            if (state == MultiplayerPlayerState.Active)
-            {
-                _match.Players[index].Id = newId;
-            }
-
-            if (ViewPlaying.Visibility == Visibility.Visible)
-            {
-                _gridBeforeConnectionError = ViewPlaying;
-            }
-            else if (SpectatorView.Visibility == Visibility.Visible)
-            {
-                _gridBeforeConnectionError = ViewPlaying;
-            }
-            else
-            {
-                return;
-            }
+            if (state == MultiplayerPlayerState.Active) _match.Players[index].Id = newId;
+            if (ViewPlaying.Visibility == Visibility.Visible) _gridBeforeConnectionError = ViewPlaying;
+            else if (SpectatorView.Visibility == Visibility.Visible) _gridBeforeConnectionError = ViewPlaying;
+            else return;
 
             if (missingPlayerCount > 0)
             {
@@ -670,15 +657,8 @@ namespace SpieleSammlung.Sites
             {
                 for (int i = 0; i < 4; ++i)
                 {
-                    if (samePlayer)
-                    {
-                        _playerInfosSpectate[i].NewMatch();
-                    }
-                    else
-                    {
-                        _playerInfosSpectate[i].NewMatch(_match.CurrentPlayers[i].Name);
-                    }
-
+                    if (samePlayer) _playerInfosSpectate[i].NewMatch();
+                    else _playerInfosSpectate[i].NewMatch(_match.CurrentPlayers[i].Name);
                     _match.CurrentPlayers[i].UpdatePossibilities(_match);
                 }
 
@@ -688,26 +668,15 @@ namespace SpieleSammlung.Sites
             {
                 for (int i = 0; i < 4; ++i)
                 {
-                    if (samePlayer)
-                    {
-                        _playerInfos[GetUiPlayerIndex(i)].NewMatch();
-                    }
-                    else
-                    {
-                        _playerInfos[GetUiPlayerIndex(i)].NewMatch(_match.CurrentPlayers[i].Name);
-                    }
-
+                    if (samePlayer) _playerInfos[GetUiPlayerIndex(i)].NewMatch();
+                    else _playerInfos[GetUiPlayerIndex(i)].NewMatch(_match.CurrentPlayers[i].Name);
                     _match.CurrentPlayers[i].UpdatePossibilities(_match);
                 }
 
                 ApplyPossibilties();
                 ModeSelector.State = GameSelectorState.Hidden;
                 BtnKontra.Visibility = Visibility.Hidden;
-                if (VisualPlayer.Aufgestellt)
-                {
-                    CardHolder_ShowsAllCards(null, null);
-                }
-
+                if (VisualPlayer.Aufgestellt) CardHolder_ShowsAllCards(null, null);
                 _playerInfos[GetUiPlayerIndex(_match.CurrentRound.CurrentPlayer)].IsStartPlayer = true;
             }
 
@@ -722,23 +691,14 @@ namespace SpieleSammlung.Sites
         private void SortCards(int index, SchafkopfMatchConfig matchSort)
         {
             _match.CurrentPlayers[index].SortCards(matchSort);
-            if (_isSpectating)
-            {
-                _chSpectate[index].Cards = _match.CurrentPlayers[index].GetPlayableCards();
-            }
-            else
-            {
-                CardHolder.Cards = _match.CurrentPlayers[PlayerIndexCurRound].GetPlayableCards();
-            }
+            if (_isSpectating) _chSpectate[index].Cards = _match.CurrentPlayers[index].GetPlayableCards();
+            else CardHolder.Cards = _match.CurrentPlayers[PlayerIndexCurRound].GetPlayableCards();
         }
 
         private void MarkPlayableCards(bool update)
         {
             if (update) _match.UpdatePlayableCards();
-            if (!_isSpectating)
-            {
-                CardHolder.MarkSelectableCards(_match.PlayableCards[PlayerIndexCurRound]);
-            }
+            if (!_isSpectating) CardHolder.MarkSelectableCards(_match.PlayableCards[PlayerIndexCurRound]);
         }
 
         private void UpdateCardVisual(bool forceReset, bool tryReset)
@@ -747,21 +707,13 @@ namespace SpieleSammlung.Sites
             {
                 for (int i = 0; i < 4; ++i)
                 {
-                    if (forceReset || tryReset && !_chSpectate[i].Aufgestellt)
-                    {
-                        _chSpectate[i].Reset();
-                    }
-
+                    if (forceReset || tryReset && !_chSpectate[i].Aufgestellt) _chSpectate[i].Reset();
                     _chSpectate[i].Cards = _match.CurrentPlayers[i].GetPlayableCards();
                 }
             }
             else
             {
-                if (forceReset || tryReset && !CardHolder.Aufgestellt)
-                {
-                    CardHolder.Reset();
-                }
-
+                if (forceReset || tryReset && !CardHolder.Aufgestellt) CardHolder.Reset();
                 CardHolder.Cards = _match.CurrentPlayers[PlayerIndexCurRound].GetPlayableCards();
             }
         }
@@ -771,34 +723,19 @@ namespace SpieleSammlung.Sites
             int current = _match.CurrentRound.CurrentPlayer;
             if (_isSpectating)
             {
-                for (int i = 0; i < 4; ++i)
-                {
-                    _playerInfosSpectate[i].Focused = i == current;
-                }
-
+                for (int i = 0; i < 4; ++i)  _playerInfosSpectate[i].Focused = i == current;
                 if (cardHolder == true)
                 {
-                    for (int i = 0; i < 4; ++i)
-                    {
-                        _chSpectate[i].Focused = i == current;
-                    }
+                    for (int i = 0; i < 4; ++i)  _chSpectate[i].Focused = i == current;
                 }
             }
             else
             {
-                for (int i = 0; i < 4; ++i)
-                {
-                    _playerInfos[GetUiPlayerIndex(i)].Focused = i == current;
-                }
+                for (int i = 0; i < 4; ++i) _playerInfos[GetUiPlayerIndex(i)].Focused = i == current;
+                
+                if (cardHolder == true) CardHolder.Focused = current == PlayerIndexCurRound;
+                else if (cardHolder.HasValue) ModeSelector.SetGameSelectorFocus(current == PlayerIndexCurRound);
 
-                if (cardHolder == true)
-                {
-                    CardHolder.Focused = current == PlayerIndexCurRound;
-                }
-                else if (cardHolder.HasValue)
-                {
-                    ModeSelector.SetGameSelectorFocus(current == PlayerIndexCurRound);
-                }
             }
         }
 
@@ -913,7 +850,7 @@ namespace SpieleSammlung.Sites
             }
             else
             {
-                for (int i = 0; i < 32; ++i)
+                for (int i = 0; i < Card.ALL_CARDS.Count; ++i)
                 {
                     _match.CurrentPlayers[i % 4].PlayableCards.Add(Card.GetCard(int.Parse(msgParts[i + 1])));
                 }

@@ -118,10 +118,10 @@ namespace SpieleSammlung.Model.Schafkopf
         {
             if (!isHost) return null;
             List<int> cards = new List<int>();
-            for (int i = 0; i < 32; ++i) cards.Add(i);
+            for (int i = 0; i < Card.ALL_CARDS.Count; ++i) cards.Add(i);
 
             List<string> msg = new List<string> { codeClientShuffledCards };
-            for (int i = 0; i < 32; ++i)
+            for (int i = 0; i < Card.ALL_CARDS.Count; ++i)
             {
                 var temp = _random.Next(0, cards.Count);
                 CurrentPlayers[i % 4].PlayableCards.Add(Card.GetCard(cards[temp]));
@@ -136,11 +136,7 @@ namespace SpieleSammlung.Model.Schafkopf
         public void ChooseGame()
         {
             Mode = MinimumGame;
-            if (Mode != SchafkopfMode.Sauspiel)
-            {
-                SauspielFarbe = "";
-            }
-
+            if (Mode != SchafkopfMode.Sauspiel) SauspielFarbe = "";
             switch (Mode)
             {
                 case SchafkopfMode.Sauspiel:

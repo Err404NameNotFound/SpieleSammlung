@@ -193,7 +193,7 @@ namespace SpieleSammlung.Model.Schafkopf
             }
         }
 
-        public int GetSortValueOfThisCard(SchafkopfMatchConfig match)
+        private int GetSortValueOfThisCard(SchafkopfMatchConfig match)
         {
             switch (match.Mode)
             {
@@ -210,7 +210,7 @@ namespace SpieleSammlung.Model.Schafkopf
                         default:
                         {
                             if (Color.Equals(match.Trumpf)) return 18 + NumberNameToInt(Number);
-                            //27 - 4 - 5 = 18 (weder Ober noch unter)
+                            //27 - 4 - 5 = 18 (neither OBER nor UNTER)
                             int factor;
                             if (match.Mode is SchafkopfMode.Solo or SchafkopfMode.SoloTout)
                             {
