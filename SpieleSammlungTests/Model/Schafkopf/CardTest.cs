@@ -588,7 +588,7 @@ namespace SpieleSammlungTests.Model.Schafkopf
         [ExpectedException(typeof(NotSupportedException))]
         public void TestCannotSortCardsForWeiter()
         {
-            SortCardsShort(new SchafkopfMatchConfig(SchafkopfMode.Weiter, HERZ), ALL_CARDS.ToList());
+            SortCards(new SchafkopfMatchConfig(SchafkopfMode.Weiter, HERZ), ALL_CARDS.ToList());
         }
 
         private static List<Card> CardIndexToList(IReadOnlyCollection<int> cards)
@@ -603,7 +603,7 @@ namespace SpieleSammlungTests.Model.Schafkopf
             foreach (var cards in ShuffledCards)
             {
                 List<Card> actual = CardIndexToList(cards);
-                SortCardsShort(match, actual);
+                SortCards(match, actual);
                 AssertCardsEqual(expected, actual);
             }
         }

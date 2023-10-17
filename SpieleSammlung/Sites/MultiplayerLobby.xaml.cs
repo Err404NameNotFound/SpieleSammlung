@@ -85,14 +85,14 @@ namespace SpieleSammlung.Sites
                     case "1":
                         //1: client wants to tell his name
                         AddPlayer(msgParts[1], e.Sender);
-                        string temp = string.Concat(_players[0].name, SEPARATOR, _players[0].id);
+                        string temp = string.Concat(_players[0].Name, SEPARATOR, _players[0].Id);
                         for (int i = 1; i < _players.Count; ++i)
                         {
-                            temp = string.Concat(temp, SEPARATOR, _players[i].name, SEPARATOR, _players[i].id);
-                            if (!_players[i].id.Equals(e.Sender))
+                            temp = string.Concat(temp, SEPARATOR, _players[i].Name, SEPARATOR, _players[i].Id);
+                            if (!_players[i].Id.Equals(e.Sender))
                             {
                                 _connection.SendMessage(string.Concat("1", SEPARATOR, msgParts[1], SEPARATOR, e.Sender),
-                                    _players[i].id);
+                                    _players[i].Id);
                             }
                         }
 
@@ -177,7 +177,7 @@ namespace SpieleSammlung.Sites
         private void RemovePlayer(string id)
         {
             int w = 0;
-            while (w < _players.Count && !_players[w].id.Equals(id))
+            while (w < _players.Count && !_players[w].Id.Equals(id))
             {
                 ++w;
             }
@@ -305,21 +305,21 @@ namespace SpieleSammlung.Sites
 
         private void RenamePlayer(int index, string newName)
         {
-            _players[index].name = newName;
+            _players[index].Name = newName;
             PlayerList.Items[index] = newName;
             PlayerList.SelectedIndex = index;
         }
 
         private void SwitchIndex(int first, int second)
         {
-            string temp = _players[first].id;
-            _players[first].id = _players[second].id;
-            _players[second].id = temp;
-            temp = _players[first].name;
-            _players[first].name = _players[second].name;
-            _players[second].name = temp;
-            PlayerList.Items[first] = _players[first].name;
-            PlayerList.Items[second] = _players[second].name;
+            string temp = _players[first].Id;
+            _players[first].Id = _players[second].Id;
+            _players[second].Id = temp;
+            temp = _players[first].Name;
+            _players[first].Name = _players[second].Name;
+            _players[second].Name = temp;
+            PlayerList.Items[first] = _players[first].Name;
+            PlayerList.Items[second] = _players[second].Name;
         }
 
         private void BtnStartMatch_Click(object sender, RoutedEventArgs e)
@@ -330,7 +330,7 @@ namespace SpieleSammlung.Sites
                     _connection.HostEvent -= HostEvents;
                     for (int i = 1; i < _players.Count; ++i)
                     {
-                        _connection.SendMessage(new List<string> { "3", i.ToString() }, SEPARATOR, _players[i].id);
+                        _connection.SendMessage(new List<string> { "3", i.ToString() }, SEPARATOR, _players[i].Id);
                     }
 
                     StartMatch(GameMode.Schafkopf, _players, 0, _connection, false);
@@ -349,7 +349,7 @@ namespace SpieleSammlung.Sites
         private void PlayerList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             bool valid = PlayerList.SelectedIndex > -1;
-            BtnKickPlayer.IsEnabled = valid && !_players[PlayerList.SelectedIndex].id.Equals("host");
+            BtnKickPlayer.IsEnabled = valid && !_players[PlayerList.SelectedIndex].Id.Equals("host");
             BtnMovePlayerUp.IsEnabled = PlayerList.SelectedIndex > 1;
             BtnMovePlayerDown.IsEnabled = BtnKickPlayer.IsEnabled && PlayerList.SelectedIndex < _players.Count - 1;
             BtnRenamePlayer.IsEnabled = valid;
@@ -362,7 +362,7 @@ namespace SpieleSammlung.Sites
 
         private void BtnKickPlayer_Click(object sender, RoutedEventArgs e)
         {
-            _connection.DisconnectPlayer(_players[PlayerList.SelectedIndex].id);
+            _connection.DisconnectPlayer(_players[PlayerList.SelectedIndex].Id);
         }
 
         private void BtnRenamePlayer_Click(object sender, RoutedEventArgs e)

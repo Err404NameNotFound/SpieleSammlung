@@ -2,13 +2,13 @@
 {
     public class MultiplayerPlayer
     {
-        public string id;
-        public string name;
+        public string Id { get; set; }
+        public string Name { get; set; }
 
         public MultiplayerPlayer(string id, string name)
         {
-            this.id = id;
-            this.name = name;
+            Id = id;
+            Name = name;
         }
     }
 }

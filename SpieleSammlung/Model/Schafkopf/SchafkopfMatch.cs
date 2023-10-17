@@ -17,7 +17,7 @@ namespace SpieleSammlung.Model.Schafkopf
 
         public DataTable PointsSingle { get; }
         public DataTable PointsCumulated { get; }
-        
+
         public bool IsWegGelaufen { get; set; }
 
         public SchafkopfMode MinimumGame { get; set; }
@@ -27,7 +27,7 @@ namespace SpieleSammlung.Model.Schafkopf
 
         public List<SchafkopfRound> Rounds { get; private set; }
         public Card[] LastCards { get; }
-        public List<bool>[] PlayableCards { get; }
+        public IReadOnlyList<bool>[] PlayableCards { get; }
 
         private readonly int[] _teams;
         private readonly int[] _teamsAnzStiche;
@@ -43,7 +43,7 @@ namespace SpieleSammlung.Model.Schafkopf
             Players = new List<SchafkopfPlayer>();
             foreach (MultiplayerPlayer t in playerNames)
             {
-                Players.Add(new SchafkopfPlayer(t.id, t.name));
+                Players.Add(new SchafkopfPlayer(t.Id, t.Name));
             }
 
             _random = new Random();
@@ -69,8 +69,8 @@ namespace SpieleSammlung.Model.Schafkopf
             PointsCumulated = new DataTable();
             foreach (var player in Players)
             {
-                PointsSingle.Columns.Add(player.name);
-                PointsCumulated.Columns.Add(player.name);
+                PointsSingle.Columns.Add(player.Name);
+                PointsCumulated.Columns.Add(player.Name);
             }
         }
 
@@ -111,36 +111,26 @@ namespace SpieleSammlung.Model.Schafkopf
             AmountShuffle = 0;
             Rounds = new List<SchafkopfRound> { new() };
             ResetMode();
-            for (int i = 0; i < 4; ++i)
-            {
-                CurrentPlayers[i].NewMatch(i, sameRound);
-            }
+            for (int i = 0; i < 4; ++i) CurrentPlayers[i].NewMatch(i, sameRound);
         }
 
         public List<string> ShuffleCards(bool sameRound, bool isHost, string codeClientShuffledCards)
         {
-            if (isHost)
+            if (!isHost) return null;
+            List<int> cards = new List<int>();
+            for (int i = 0; i < 32; ++i) cards.Add(i);
+
+            List<string> msg = new List<string> { codeClientShuffledCards };
+            for (int i = 0; i < 32; ++i)
             {
-                List<int> cards = new List<int>();
-                for (int i = 0; i < 32; ++i)
-                {
-                    cards.Add(i);
-                }
-
-                List<string> msg = new List<string> { codeClientShuffledCards };
-                for (int i = 0; i < 32; ++i)
-                {
-                    var temp = _random.Next(0, cards.Count);
-                    CurrentPlayers[i % 4].PlayableCards.Add(Card.GetCard(cards[temp]));
-                    msg.Add(cards[temp].ToString());
-                    cards.RemoveAt(temp);
-                }
-
-                msg.Add(sameRound.ToString());
-                return msg;
+                var temp = _random.Next(0, cards.Count);
+                CurrentPlayers[i % 4].PlayableCards.Add(Card.GetCard(cards[temp]));
+                msg.Add(cards[temp].ToString());
+                cards.RemoveAt(temp);
             }
 
-            return null;
+            msg.Add(sameRound.ToString());
+            return msg;
         }
 
         public void ChooseGame()
@@ -171,11 +161,7 @@ namespace SpieleSammlung.Model.Schafkopf
                     break;
             }
 
-            int[][] values = new int[4][];
-            for (int i = 0; i < 4; ++i)
-            {
-                values[i] = CurrentPlayers[i].SortCards(this);
-            }
+            for (int i = 0; i < 4; ++i) CurrentPlayers[i].SortCards(this);
 
             UpdatePlayableCards();
             //TODO: A new round instance should probably be initiated here -> (SchafkopfRound.ResetRound can be removed)
@@ -285,7 +271,7 @@ namespace SpieleSammlung.Model.Schafkopf
             PointsCumulated.Rows.Add();
             for (int i = 0; i < Players.Count; ++i)
             {
-                int col = PointsSingle.Columns[Players[i].name].Ordinal;
+                int col = PointsSingle.Columns[Players[i].Name].Ordinal;
                 PointsSingle.Rows[row][col] = tmp[i];
                 PointsCumulated.Rows[row][col] = Players[i].Points;
             }
@@ -298,7 +284,7 @@ namespace SpieleSammlung.Model.Schafkopf
             StringBuilder summary = new StringBuilder();
             if (player == -1)
             {
-                summary.Append(CurrentPlayers[PlayerIndex].name).Append(" hat ");
+                summary.Append(CurrentPlayers[PlayerIndex].Name).Append(" hat ");
                 player = PlayerIndex;
             }
             else
@@ -317,7 +303,7 @@ namespace SpieleSammlung.Model.Schafkopf
                     ++w;
                 }
 
-                summary.Append(CurrentPlayers[w].name);
+                summary.Append(CurrentPlayers[w].Name);
             }
             else if (teamIndex != 0)
             {
@@ -328,7 +314,7 @@ namespace SpieleSammlung.Model.Schafkopf
                 {
                     if (CurrentPlayers[w].TeamIndex == teamIndex && w != player)
                     {
-                        summary.Append(CurrentPlayers[w].name);
+                        summary.Append(CurrentPlayers[w].Name);
                         if (1 == ++index)
                         {
                             summary.Append(" und ");
@@ -421,7 +407,7 @@ namespace SpieleSammlung.Model.Schafkopf
             return (_personalPointsSummary.Equals("") ? _generalPointsSummary : _personalPointsSummary) + _matchSummary;
         }
 
-        public void ResetMode()
+        private void ResetMode()
         {
             Mode = SchafkopfMode.Weiter;
             MinimumGame = SchafkopfMode.Weiter;
@@ -579,7 +565,7 @@ namespace SpieleSammlung.Model.Schafkopf
             bob.Append("] -> [");
             for (int i = 0; i < 4; ++i)
             {
-                bob.Append(CurrentPlayers[i].name);
+                bob.Append(CurrentPlayers[i].Name);
                 if (i != 3)
                 {
                     bob.Append(", ");

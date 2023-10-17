@@ -32,7 +32,7 @@ namespace SpieleSammlung.Model.Schafkopf
             State = MultiplayerPlayerState.Active;
             Possibilities = new List<SchafkopfMatchPossibility>();
         }
-        
+
         #region CalculatingPossibilites
 
         public void UpdatePossibilities(SchafkopfMatch match)
@@ -75,11 +75,17 @@ namespace SpieleSammlung.Model.Schafkopf
                     Possibilities.Add(new SchafkopfMatchPossibility(SchafkopfMode.Solo, temp));
                 }
 
-                Possibilities.Add(new SchafkopfMatchPossibility(SchafkopfMode.WenzTout));
+                if (HasEichelUnter())
+                    Possibilities.Add(new SchafkopfMatchPossibility(SchafkopfMode.WenzTout));
             }
 
-            Possibilities.Add(new SchafkopfMatchPossibility(SchafkopfMode.SoloTout, solo));
+            if (HasEichelOber())
+                Possibilities.Add(new SchafkopfMatchPossibility(SchafkopfMode.SoloTout, solo));
         }
+
+        private bool HasEichelUnter() => PlayableCards.Any(t => t.IsUnter() && t.Color == Card.EICHEL);
+
+        private bool HasEichelOber() => PlayableCards.Any(t => t.IsOber() && t.Color == Card.EICHEL);
 
         private List<string> SoloPossibilities()
         {
@@ -172,7 +178,7 @@ namespace SpieleSammlung.Model.Schafkopf
         }
 
         #endregion
-        
+
         #region New Match
 
         public void NewMatch(int n, bool sameRound)
@@ -185,36 +191,10 @@ namespace SpieleSammlung.Model.Schafkopf
             TeamIndex = -1;
         }
 
-        public int[] SortCards(SchafkopfMatchConfig match)
-        {
-            int[] values = new int[PlayableCards.Count];
-            for (int i = 0; i < values.Length; ++i)
-            {
-                values[i] = PlayableCards[i].GetSortValueOfThisCard(match);
-            }
-
-            for (int i = 0; i < 7; ++i)
-            {
-                for (int j = i + 1; j < 8; ++j)
-                {
-                    if (values[j] > values[i])
-                    {
-                        (values[j], values[i]) = (values[i], values[j]);
-                        (PlayableCards[i], PlayableCards[j]) = (PlayableCards[j], PlayableCards[i]);
-                    }
-                }
-            }
-
-            return values;
-        }
-
-        public void SortCards(int m, int c)
-        {
-            SortCards(new SchafkopfMatchConfig(Possibilities[m].Mode, Possibilities[m].colors[c]));
-        }
+        public void SortCards(SchafkopfMatchConfig match) => Card.SortCards(match, PlayableCards);
 
         #endregion
-        
+
         #region Playing Cards
 
         public List<Card> GetPlayableCards() => PlayableCards.ToList();
@@ -250,10 +230,7 @@ namespace SpieleSammlung.Model.Schafkopf
             while (w < PlayableCards.Count)
             {
                 if (PlayableCards[w].Color.Equals(color) && !PlayableCards[w].IsTrumpf(match))
-                {
                     return w;
-                }
-
                 ++w;
             }
 
@@ -283,42 +260,28 @@ namespace SpieleSammlung.Model.Schafkopf
 
         public bool HasGesuchte(SchafkopfMatchConfig match)
         {
-            if (match.Mode == SchafkopfMode.Sauspiel)
-            {
-                int index = FirstIndexOfColor(match.SauspielFarbe, match);
-                if (index == -1)
-                {
-                }
-                else if (PlayableCards[index].Number.Equals("Sau"))
-                {
-                    return true;
-                }
-            }
-
-            return false;
+            if (match.Mode != SchafkopfMode.Sauspiel) return false;
+            int index = FirstIndexOfColor(match.SauspielFarbe, match);
+            return index != -1 && PlayableCards[index].Number.Equals("Sau");
         }
 
         private bool KannWeglaufen(SchafkopfMatchConfig match)
         {
             int index = FirstIndexOfColor(match.SauspielFarbe, match);
             int end = index + 4;
-            if (index != -1 && PlayableCards.Count >= end)
+            if (index == -1 || PlayableCards.Count < end) return false;
+            bool has4 = true;
+            int w = index + 1;
+            while (w < end && has4)
             {
-                bool has4 = true;
-                int w = index + 1;
-                while (w < end && has4)
-                {
-                    has4 = PlayableCards[w].Color.Equals(match.SauspielFarbe);
-                    ++w;
-                }
-
-                return has4;
+                has4 = PlayableCards[w].Color.Equals(match.SauspielFarbe);
+                ++w;
             }
 
-            return false;
+            return has4;
         }
 
-        public List<bool> CheckPlayableCards(SchafkopfMatch match)
+        public IReadOnlyList<bool> CheckPlayableCards(SchafkopfMatchConfig match, Card firstCard, bool isWegGelaufen)
         {
             if (PlayableCards.Count == 1) return new List<bool> { true };
 
@@ -326,96 +289,53 @@ namespace SpieleSammlung.Model.Schafkopf
             bool hasTrumpf = HasTrumpf(match);
             bool kannWeglaufen = hasGesuchte && KannWeglaufen(match);
             List<bool> playable = new List<bool>();
-            if (match.CurrentRound.currentCards.Count == 0)
+            if (firstCard == null)
             {
-                foreach (var card in PlayableCards)
-                {
-                    if (card.IsTrumpf(match) || !card.Color.Equals(match.SauspielFarbe) ||
-                        match.Mode != SchafkopfMode.Sauspiel)
-                    {
-                        playable.Add(true);
-                    }
-                    else if (!hasGesuchte)
-                    {
-                        playable.Add(true);
-                    }
-                    else if (card.Number.Equals("Sau") || kannWeglaufen)
-                    {
-                        playable.Add(true);
-                    }
-                    else
-                    {
-                        playable.Add(false);
-                    }
-                }
+                playable.AddRange(PlayableCards.Select(card =>
+                    !hasGesuchte
+                    || card.IsTrumpf(match)
+                    || card.IsNotGesuchte(match)
+                    || kannWeglaufen));
             }
             else
             {
-                bool firstCardTrumpf = match.CurrentRound.currentCards[0].IsTrumpf(match);
-                bool hasFirstCardColor = HasColor(match.CurrentRound.SemiTrumpf, match);
+                bool firstCardTrumpf = firstCard.IsTrumpf(match);
+                bool hasFirstCardColor = HasColor(firstCard.Color, match);
                 foreach (var card in PlayableCards)
                 {
+                    bool canPlayCard;
+                    bool notGesuchteOrWeggelaufen = match.Mode != SchafkopfMode.Sauspiel || card.IsNotGesuchte(match) ||
+                                                    isWegGelaufen;
                     if (firstCardTrumpf)
                     {
-                        if (card.IsTrumpf(match))
-                        {
-                            playable.Add(true);
-                        }
-                        else if (hasTrumpf)
-                        {
-                            playable.Add(false);
-                        }
-                        else if (match.Mode != SchafkopfMode.Sauspiel)
-                        {
-                            playable.Add(true);
-                        }
-                        else if (!card.ToString().Equals(match.SauspielFarbe + " Sau") || match.IsWegGelaufen)
-                        {
-                            playable.Add(true);
-                        }
-                        else
-                        {
-                            playable.Add(false);
-                        }
+                        canPlayCard = card.IsTrumpf(match)
+                                      || !hasTrumpf
+                                      && notGesuchteOrWeggelaufen;
                     }
-                    else if (card.Color.Equals(match.CurrentRound.SemiTrumpf) && !card.IsTrumpf(match))
+                    else if (card.Color.Equals(firstCard.Color) && !card.IsTrumpf(match))
                     {
-                        if (match.Mode != SchafkopfMode.Sauspiel || !card.Color.Equals(match.SauspielFarbe))
-                        {
-                            playable.Add(true);
-                        }
-                        else if (!hasGesuchte || card.Number.Equals("Sau") || match.IsWegGelaufen)
-                        {
-                            playable.Add(true);
-                        }
-                        else
-                        {
-                            playable.Add(false);
-                        }
+                        canPlayCard = match.Mode != SchafkopfMode.Sauspiel 
+                                      || !card.Color.Equals(match.SauspielFarbe)
+                                      || card.IsSau()
+                                      || isWegGelaufen;
                     }
                     else
                     {
-                        if (hasFirstCardColor)
-                        {
-                            playable.Add(false);
-                        }
-                        else if (match.Mode != SchafkopfMode.Sauspiel)
-                        {
-                            playable.Add(true);
-                        }
-                        else if (!card.ToString().Equals(match.SauspielFarbe + " Sau") || match.IsWegGelaufen)
-                        {
-                            playable.Add(true);
-                        }
-                        else
-                        {
-                            playable.Add(false);
-                        }
+                        canPlayCard = !hasFirstCardColor && notGesuchteOrWeggelaufen;
                     }
+
+                    playable.Add(canPlayCard);
                 }
             }
 
             return playable;
+        }
+
+        public IReadOnlyList<bool> CheckPlayableCards(SchafkopfMatch match)
+        {
+            return match.CurrentRound.currentCards.Count == 0
+                ? CheckPlayableCards(match, null, match.IsWegGelaufen)
+                : CheckPlayableCards(match, match.CurrentRound.currentCards[0], match.IsWegGelaufen);
         }
 
         private void RemovePlayableCard(int index)
@@ -510,8 +430,8 @@ namespace SpieleSammlung.Model.Schafkopf
         }
 
         #endregion
-        
-        public PointsStorage PlayerPoints => new(name, Points);
+
+        public PointsStorage PlayerPoints => new(Name, Points);
 
         public static MultiplayerPlayerState Convert(string state)
         {

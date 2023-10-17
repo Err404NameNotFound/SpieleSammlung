@@ -125,7 +125,7 @@ namespace SpieleSammlung.Model.Schafkopf
             return w;
         }
         
-        public static void SortCardsShort(SchafkopfMatchConfig match, List<Card> cards)
+        public static void SortCards(SchafkopfMatchConfig match, List<Card> cards)
         {
             var values = new Tuple<Card, int>[cards.Count];
             for (int i = 0; i < values.Length; ++i)
@@ -143,6 +143,9 @@ namespace SpieleSammlung.Model.Schafkopf
         public bool IsOber() => Number.Equals(OBER);
         public bool IsUnter() => Number.Equals(UNTER);
         public bool IsSau() => Number.Equals(SAU);
+
+        public bool IsGesuchte(SchafkopfMatchConfig match) => Color.Equals(match.SauspielFarbe) && IsSau();
+        public bool IsNotGesuchte(SchafkopfMatchConfig match) => !Color.Equals(match.SauspielFarbe) || !Number.Equals(SAU);
 
         public override string ToString() => $"{Color} {Number}";
 

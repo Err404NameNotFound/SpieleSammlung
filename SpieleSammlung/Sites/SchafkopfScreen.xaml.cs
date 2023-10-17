@@ -179,12 +179,12 @@ namespace SpieleSammlung.Sites
                 case MultiplayerEventTypes.HClientReConnected:
                 {
                     int w = 0;
-                    while (!e.Message.Equals(_match.Players[w].name)) ++w;
+                    while (!e.Message.Equals(_match.Players[w].Name)) ++w;
                     List<string> message = new List<string> { MultiplayerLobby.CLIENT_LATE_JOIN, w.ToString() };
                     foreach (var player in _match.Players)
                     {
-                        message.Add(player.name);
-                        message.Add(player.id);
+                        message.Add(player.Name);
+                        message.Add(player.Id);
                     }
 
                     _connection.SendMessage(message, MultiplayerLobby.SEPARATOR, e.Sender);
@@ -195,7 +195,7 @@ namespace SpieleSammlung.Sites
                     int i = 0;
                     while (i < _match.Players.Count)
                     {
-                        if (e.Sender.Equals(_match.Players[i].id))
+                        if (e.Sender.Equals(_match.Players[i].Id))
                         {
                             if (GridRoundSummary.Visibility == Visibility.Visible)
                             {
@@ -425,7 +425,7 @@ namespace SpieleSammlung.Sites
                     SpectatorView.Visibility = Visibility.Visible;
                     for (int i = 0; i < 4; ++i)
                     {
-                        _playerInfosSpectate[i].Name = _match.CurrentPlayers[i].name;
+                        _playerInfosSpectate[i].Name = _match.CurrentPlayers[i].Name;
                         _playerInfosSpectate[i].Aufgestellt = _match.CurrentPlayers[i].Aufgestellt;
                         _playerInfosSpectate[i].Kontra = _match.CurrentPlayers[i].Kontra;
                         if (state[i].Equals(SkPlayerInfo.STATE_EMPTY))
@@ -462,7 +462,7 @@ namespace SpieleSammlung.Sites
                     for (int i = 0; i < 4; ++i)
                     {
                         var index = GetUiPlayerIndex(i);
-                        _playerInfos[index].PlayerName = _match.CurrentPlayers[i].name;
+                        _playerInfos[index].PlayerName = _match.CurrentPlayers[i].Name;
                         _playerInfos[index].Aufgestellt = _match.CurrentPlayers[i].Aufgestellt;
                         _playerInfos[index].Kontra = _match.CurrentPlayers[i].Kontra;
                         if (state[i].Equals(SkPlayerInfo.STATE_EMPTY))
@@ -624,7 +624,7 @@ namespace SpieleSammlung.Sites
             _match.Players[index].State = state;
             if (state == MultiplayerPlayerState.Active)
             {
-                _match.Players[index].id = newId;
+                _match.Players[index].Id = newId;
             }
 
             if (ViewPlaying.Visibility == Visibility.Visible)
@@ -676,7 +676,7 @@ namespace SpieleSammlung.Sites
                     }
                     else
                     {
-                        _playerInfosSpectate[i].NewMatch(_match.CurrentPlayers[i].name);
+                        _playerInfosSpectate[i].NewMatch(_match.CurrentPlayers[i].Name);
                     }
 
                     _match.CurrentPlayers[i].UpdatePossibilities(_match);
@@ -694,7 +694,7 @@ namespace SpieleSammlung.Sites
                     }
                     else
                     {
-                        _playerInfos[GetUiPlayerIndex(i)].NewMatch(_match.CurrentPlayers[i].name);
+                        _playerInfos[GetUiPlayerIndex(i)].NewMatch(_match.CurrentPlayers[i].Name);
                     }
 
                     _match.CurrentPlayers[i].UpdatePossibilities(_match);
@@ -843,7 +843,7 @@ namespace SpieleSammlung.Sites
                 }
 
                 _cvNextMatch[i].IsChecked = _match.Players[i].continueMatch;
-                _lblPlayerSummaryNames[i].Content = _match.Players[i].name;
+                _lblPlayerSummaryNames[i].Content = _match.Players[i].Name;
                 _lblPlayerSummaryPoints[i].Content = _match.Players[i].Points;
                 _gridColsSummary[i].Width = new GridLength(1, GridUnitType.Star);
             }
@@ -919,7 +919,7 @@ namespace SpieleSammlung.Sites
                 }
             }
 
-            //unnötog durch umstellung auf playInCurRou { get {...}} playerIndexCurRound = match.players[playerIndex].number;
+            //unnötig durch umstellung auf playInCurRou { get {...}} playerIndexCurRound = match.players[playerIndex].number;
             if (_match.Players[_playerIndex].Number == -1)
             {
                 _isSpectating = true;

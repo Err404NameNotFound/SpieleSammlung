@@ -90,9 +90,9 @@ namespace SpieleSammlung.Model.Multiplayer
             int i = 0;
             while (i < lostClients.Count)
             {
-                if (id.IndexOf(lostClients[i].name) == 3)
+                if (id.IndexOf(lostClients[i].Name) == 3)
                 {
-                    _mpEvent = new MultiplayerEvent(MultiplayerEventTypes.HClientReConnected, id, lostClients[i].name);
+                    _mpEvent = new MultiplayerEvent(MultiplayerEventTypes.HClientReConnected, id, lostClients[i].Name);
                     EventLog();
                     HostEvent?.Invoke(_mpEvent);
                     lostClients.RemoveAt(i);
@@ -110,7 +110,7 @@ namespace SpieleSammlung.Model.Multiplayer
         private void Server_lostConnection(string id)
         {
             int i = 0;
-            while (!_activeClients[i].id.Equals(id))
+            while (!_activeClients[i].Id.Equals(id))
             {
                 ++i;
             }

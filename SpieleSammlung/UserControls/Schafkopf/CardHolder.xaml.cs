@@ -108,7 +108,7 @@ namespace SpieleSammlung.UserControls.Schafkopf
             return null;
         }
 
-        public void MarkSelectableCards(List<bool> playableCards)
+        public void MarkSelectableCards(IReadOnlyList<bool> playableCards)
         {
             for (int i = 0; i < playableCards.Count; ++i)
             {
