@@ -1,4 +1,5 @@
-﻿using SpieleSammlung.Model.Schafkopf;
+﻿using System.Linq;
+using SpieleSammlung.Model.Schafkopf;
 using System.Windows;
 using SpieleSammlung.UserControls.Schafkopf;
 
@@ -15,17 +16,17 @@ namespace SpieleSammlung.Windows
         {
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            int startPlayer = match.Rounds[match.Rounds.Count - 2].StartPlayer;
+            int startPlayer = match.PreviousRound.StartPlayer;
             if (offsetUi == -1)
             {
-                for (int i = 0; i < 4; ++i)
+                for (int i = 0; i < match.LastCards.Count; ++i)
                 {
                     Stich.AddCard(match.LastCards[i], match.Players[(startPlayer + i) % 4].Number);
                 }
             }
             else
             {
-                for (int i = 0; i < 4; ++i)
+                for (int i = 0; i < match.LastCards.Count; ++i)
                 {
                     Stich.AddCard(match.LastCards[i], (match.Players[(startPlayer + i) % 4].Number + 4 - offsetUi) % 4);
                 }

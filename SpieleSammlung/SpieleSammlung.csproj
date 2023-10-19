@@ -161,11 +161,11 @@
         <Compile Include="UserControls\Connect4\Connect4Visual.xaml.cs">
             <DependentUpon>Connect4Visual.xaml</DependentUpon>
         </Compile>
-        <Compile Include="UserControls\GameModeSelector.xaml.cs">
-            <DependentUpon>GameModeSelector.xaml</DependentUpon>
-        </Compile>
         <Compile Include="UserControls\Kniffel\KniffelPointsVisual.xaml.cs">
             <DependentUpon>KniffelPointsVisual.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="UserControls\Schafkopf\GameModeSelector.xaml.cs">
+          <DependentUpon>GameModeSelector.xaml</DependentUpon>
         </Compile>
         <Compile Include="UserControls\Schafkopf\SelectableCard.xaml.cs">
             <DependentUpon>SelectableCard.xaml</DependentUpon>
@@ -235,13 +235,13 @@
             <SubType>Designer</SubType>
             <Generator>MSBuild:Compile</Generator>
         </Page>
-        <Page Include="UserControls\GameModeSelector.xaml">
-            <SubType>Designer</SubType>
-            <Generator>MSBuild:Compile</Generator>
-        </Page>
         <Page Include="UserControls\Kniffel\KniffelPointsVisual.xaml">
             <SubType>Designer</SubType>
             <Generator>MSBuild:Compile</Generator>
+        </Page>
+        <Page Include="UserControls\Schafkopf\GameModeSelector.xaml">
+          <SubType>Designer</SubType>
+          <Generator>MSBuild:Compile</Generator>
         </Page>
         <Page Include="UserControls\Schafkopf\SelectableCard.xaml">
             <SubType>Designer</SubType>

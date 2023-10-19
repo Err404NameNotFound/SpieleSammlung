@@ -13,16 +13,6 @@ namespace SpieleSammlungTests.Model.Schafkopf
     {
         private static readonly SchafkopfPlayer Player = new("id", "name");
 
-        private static readonly List<MultiplayerPlayer> Players = new()
-        {
-            new MultiplayerPlayer("id1", "player1"),
-            new MultiplayerPlayer("id2", "player2"),
-            new MultiplayerPlayer("id3", "player3"),
-            new MultiplayerPlayer("id4", "player4"),
-        };
-
-        private static readonly SchafkopfMatch Match = new(Players);
-
         private static readonly IReadOnlyList<string> SauspielColors = new[] { Card.EICHEL, Card.GRAS, Card.SCHELLE };
 
         private static readonly IReadOnlyList<bool> AllEightTrue = new List<bool>
@@ -82,7 +72,7 @@ namespace SpieleSammlungTests.Model.Schafkopf
         public void TestOpportunitiesCalculatedCorrectlyOnlyGrasSoloAndWenz()
         {
             SetCards(15, 23, 31, 13, 11, 10, 9, 8);
-            Player.UpdatePossibilities(Match);
+            Player.UpdatePossibilities(SchafkopfMode.Weiter);
             AssertPossibilityCountCorrect(3);
             AssertPossibilityIsWenz(1);
             AssertPossibilityCorrect(SchafkopfMode.Solo, new[] { Card.GRAS }, 2);
@@ -92,7 +82,7 @@ namespace SpieleSammlungTests.Model.Schafkopf
         public void TestOpportunitiesCalculatedCorrectlyOnlyHerzEichelSoloToutAndWenz()
         {
             SetCards(7, 15, 23, 31, 5, 4, 3, 17);
-            Player.UpdatePossibilities(Match);
+            Player.UpdatePossibilities(SchafkopfMode.Weiter);
             AssertPossibilityCountCorrect(4);
             AssertPossibilityIsWenz(1);
             string[] colors = { Card.EICHEL, Card.HERZ };
@@ -104,7 +94,7 @@ namespace SpieleSammlungTests.Model.Schafkopf
         public void TestOpportunitiesCalculatedCorrectlyOnlyHerzSchelleGrasSoloToutAndWenzTout()
         {
             SetCards(7, 15, 23, 31, 6, 13, 21, 29);
-            Player.UpdatePossibilities(Match);
+            Player.UpdatePossibilities(SchafkopfMode.Weiter);
             AssertPossibilityCountCorrect(5);
             AssertPossibilityIsWenz(1);
             string[] colors = { Card.GRAS, Card.HERZ, Card.SCHELLE };
@@ -117,7 +107,7 @@ namespace SpieleSammlungTests.Model.Schafkopf
         public void TestOpportunitiesCalculatedCorrectlyEverything()
         {
             SetCards(7, 15, 23, 6, 0, 8, 16, 24);
-            Player.UpdatePossibilities(Match);
+            Player.UpdatePossibilities(SchafkopfMode.Weiter);
             AssertPossibilityCountCorrect(6);
             AssertPossibilityCorrect(SchafkopfMode.Sauspiel, SauspielColors, 1);
             AssertPossibilityIsWenz(2);
@@ -130,7 +120,7 @@ namespace SpieleSammlungTests.Model.Schafkopf
         public void TestOpportunitiesBestCards()
         {
             SetCards(7, 15, 23, 31, 6, 14, 22, 30);
-            Player.UpdatePossibilities(Match);
+            Player.UpdatePossibilities(SchafkopfMode.Weiter);
             AssertPossibilityCountCorrect(5);
             AssertPossibilityIsWenz(1);
             AssertPossibilityCorrect(SchafkopfMode.Solo, Card.COLOR_NAMES, 2);
@@ -141,18 +131,16 @@ namespace SpieleSammlungTests.Model.Schafkopf
         [TestMethod]
         public void TestCanOnlyPlayWeiter()
         {
-            SchafkopfMatch match = new SchafkopfMatch(Players) { MinimumGame = SchafkopfMode.SoloTout };
             SetCards(7, 15, 23, 6, 0, 8, 16, 24);
-            Player.UpdatePossibilities(match);
+            Player.UpdatePossibilities(SchafkopfMode.SoloTout);
             AssertPossibilityCountCorrect(1);
         }
 
         [TestMethod]
         public void TestCanOnlyPlaySoloTout()
         {
-            SchafkopfMatch match = new SchafkopfMatch(Players) { MinimumGame = SchafkopfMode.WenzTout };
             SetCards(7, 15, 23, 6, 0, 8, 16, 24);
-            Player.UpdatePossibilities(match);
+            Player.UpdatePossibilities(SchafkopfMode.WenzTout);
             AssertPossibilityCountCorrect(2);
             AssertPossibilityCorrect(SchafkopfMode.SoloTout, Card.COLOR_NAMES, 1);
         }
@@ -160,9 +148,8 @@ namespace SpieleSammlungTests.Model.Schafkopf
         [TestMethod]
         public void TestCanOnlyPlayTout()
         {
-            SchafkopfMatch match = new SchafkopfMatch(Players) { MinimumGame = SchafkopfMode.Solo };
             SetCards(7, 15, 23, 6, 0, 8, 16, 24);
-            Player.UpdatePossibilities(match);
+            Player.UpdatePossibilities(SchafkopfMode.Solo);
             AssertPossibilityCountCorrect(3);
             AssertPossibilityIsWenzTout(1);
             AssertPossibilityCorrect(SchafkopfMode.SoloTout, Card.COLOR_NAMES, 2);
@@ -171,9 +158,8 @@ namespace SpieleSammlungTests.Model.Schafkopf
         [TestMethod]
         public void TestCanOnlyPlaySoloOrHigher()
         {
-            SchafkopfMatch match = new SchafkopfMatch(Players) { MinimumGame = SchafkopfMode.Wenz };
             SetCards(7, 15, 23, 6, 0, 8, 16, 24);
-            Player.UpdatePossibilities(match);
+            Player.UpdatePossibilities(SchafkopfMode.Wenz);
             AssertPossibilityCountCorrect(4);
             AssertPossibilityCorrect(SchafkopfMode.Solo, Card.COLOR_NAMES, 1);
             AssertPossibilityIsWenzTout(2);
@@ -183,9 +169,8 @@ namespace SpieleSammlungTests.Model.Schafkopf
         [TestMethod]
         public void TestCanOnlyPlayWenzOrHigher()
         {
-            SchafkopfMatch match = new SchafkopfMatch(Players) { MinimumGame = SchafkopfMode.Sauspiel };
             SetCards(7, 15, 23, 6, 0, 8, 16, 24);
-            Player.UpdatePossibilities(match);
+            Player.UpdatePossibilities(SchafkopfMode.Sauspiel);
             AssertPossibilityCountCorrect(5);
             AssertPossibilityIsWenz(1);
             AssertPossibilityCorrect(SchafkopfMode.Solo, Card.COLOR_NAMES, 2);
@@ -404,7 +389,7 @@ namespace SpieleSammlungTests.Model.Schafkopf
                 ArrayString(i => Card.ALL_CARDS[expected[i]].ToString(), expected.Count), ArrayString(actual),
                 ArrayString(expected), ArrayString(i => actual[i].Index.ToString(), actual.Count));
         }
-        
+
         private static void AssertCheckPlayableCardsCorrectArgs(SchafkopfMode mode, string color, Card firstCard,
             bool isWegGelaufen, params bool[] expected)
         {

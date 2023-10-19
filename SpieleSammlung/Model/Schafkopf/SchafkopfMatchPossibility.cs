@@ -16,13 +16,13 @@ namespace SpieleSammlung.Model.Schafkopf
         public SchafkopfMatchPossibility(SchafkopfMode m)
         {
             Mode = m;
-            colors = new List<string>();
+            colors = new List<string> { "" };
         }
 
         public override string ToString()
         {
-            if (colors.Count == 0) return Mode.ToString();
-            string tmp = Mode + ": "+string.Join(", ", colors);
+            if (colors.Count == 1 && colors[0].Equals("")) return Mode.ToString();
+            string tmp = Mode + ": " + string.Join(", ", colors);
             return tmp;
         }
     }

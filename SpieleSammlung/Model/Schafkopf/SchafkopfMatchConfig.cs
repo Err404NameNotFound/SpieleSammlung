@@ -32,5 +32,18 @@ namespace SpieleSammlung.Model.Schafkopf
                 _ => throw new NotSupportedException("This mode has not been implemented yet")
             };
         }
+
+        public static SchafkopfMode StringToSchafkopfMode(string game)
+        {
+            return game switch
+            {
+                "Sauspiel" => SchafkopfMode.Sauspiel,
+                "Solo" => SchafkopfMode.Solo,
+                "Wenz" => SchafkopfMode.Wenz,
+                "SoloTout" => SchafkopfMode.SoloTout,
+                "WenzTout" => SchafkopfMode.WenzTout,
+                _ => SchafkopfMode.Weiter
+            };
+        }
     }
 }

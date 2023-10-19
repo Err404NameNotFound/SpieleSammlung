@@ -130,18 +130,9 @@ namespace SpieleSammlung.Model.Multiplayer
             else _host.SendData(id, ConvertStringToBytes(message));
         }
 
-        public void SendMessage(List<string> values, char separator, string id = null)
+        public void SendMessage(IEnumerable<string> values, char separator, string id = null)
         {
-            StringBuilder bob = new StringBuilder();
-            int i = 0;
-            while (true)
-            {
-                bob.Append(values[i]);
-                if (++i < values.Count) bob.Append(separator);
-                else break;
-            }
-
-            SendMessage(bob.ToString(), id);
+            SendMessage(string.Join(separator.ToString(), values), id);
         }
 
 

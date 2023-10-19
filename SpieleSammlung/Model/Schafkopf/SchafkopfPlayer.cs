@@ -35,30 +35,32 @@ namespace SpieleSammlung.Model.Schafkopf
 
         #region CalculatingPossibilites
 
-        public void UpdatePossibilities(SchafkopfMatch match)
+        public void UpdatePossibilities(SchafkopfMatch match) => UpdatePossibilities(match.MinimumGame);
+        
+        public void UpdatePossibilities(SchafkopfMode minimumGame)
         {
             Possibilities = new List<SchafkopfMatchPossibility> { new(SchafkopfMode.Weiter) };
-            if (match.MinimumGame == SchafkopfMode.SoloTout) return;
+            if (minimumGame == SchafkopfMode.SoloTout) return;
             List<string> solo = SoloPossibilities();
-            if (match.MinimumGame != SchafkopfMode.WenzTout)
+            if (minimumGame != SchafkopfMode.WenzTout)
             {
                 // add WenzTout
-                if (match.MinimumGame != SchafkopfMode.Solo)
+                if (minimumGame != SchafkopfMode.Solo)
                 {
                     List<string> temp;
-                    if (match.MinimumGame != SchafkopfMode.Wenz)
+                    if (minimumGame != SchafkopfMode.Wenz)
                     {
-                        if (match.MinimumGame != SchafkopfMode.Sauspiel)
+                        if (minimumGame != SchafkopfMode.Sauspiel)
                         {
                             temp = new List<string>();
-                            for (int i = 0; i < 4; ++i)
+                            for (int i = 0; i < Card.COLOR_NAMES.Count; ++i)
                             {
-                                if (CanPlaySauspielWithColor(Card.GetColor(i)))
+                                if (CanPlaySauspielWithColor(Card.COLOR_NAMES[i]))
                                 {
-                                    temp.Add(Card.GetColor(i));
+                                    temp.Add(Card.COLOR_NAMES[i]);
                                 }
 
-                                if (i == 1) i = 2;
+                                if (i == 1) i = 2; // skip Card.Heart
                             }
 
                             if (temp.Count > 0)
@@ -205,14 +207,14 @@ namespace SpieleSammlung.Model.Schafkopf
             Card card = PlayableCards[index];
             match.CurrentRound.currentCards.Add(card);
             int value = card.GetValueOfThisCard(match);
-            if (match.CurrentRound.currentCards.Count == 1)
+            if (match.CurrentCardCount == 1)
             {
                 match.CurrentRound.SemiTrumpf = card.Color;
                 match.CurrentRound.NewHighestCard(Number, card.GetValueOfThisCard(match));
                 if (card.Color.Equals(match.SauspielFarbe) && !card.IsSau() && HasGesuchte(match) &&
                     KannWeglaufen(match))
                 {
-                    match.IsWegGelaufen = true;
+                    match.SetIsWegGelaufen();
                 }
             }
             else if (value > match.CurrentRound.HighestValue)
@@ -333,7 +335,7 @@ namespace SpieleSammlung.Model.Schafkopf
 
         public IReadOnlyList<bool> CheckPlayableCards(SchafkopfMatch match)
         {
-            return match.CurrentRound.currentCards.Count == 0
+            return match.CurrentCardCount == 0
                 ? CheckPlayableCards(match, null, match.IsWegGelaufen)
                 : CheckPlayableCards(match, match.CurrentRound.currentCards[0], match.IsWegGelaufen);
         }

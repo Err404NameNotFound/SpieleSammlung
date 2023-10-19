@@ -156,7 +156,6 @@ namespace SpieleSammlung.Model.Util
         public static string ArrayString(Func<int, string> array, int length, string separator = ", ")
         {
             if(length < 1) return string.Empty;
-            if (length == 1) return array(0);
             StringBuilder builder = new StringBuilder().Append(array(0));
             for (int i = 1; i < length; i++) builder.Append(separator).Append(array(i));
             return builder.ToString();

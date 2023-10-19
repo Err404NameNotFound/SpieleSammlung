@@ -15,7 +15,7 @@ namespace SpieleSammlung.Windows
     {
         private DataTable _single;
         private DataTable _cumulated;
-        private List<PointsStorage> _playerPoints;
+        private IReadOnlyList<PointsStorage> _playerPoints;
 
         private const char SEPARATOR = ';';
         private const string PUNKTE_CSV = "punkte.csv";
@@ -26,7 +26,7 @@ namespace SpieleSammlung.Windows
         private readonly List<Label> _lblNames;
         private readonly List<Label> _lblPoints;
 
-        public SchafkopfPoints(List<PointsStorage> playerPoints, DataTable single, DataTable cumulated)
+        public SchafkopfPoints(IReadOnlyList<PointsStorage> playerPoints, DataTable single, DataTable cumulated)
         {
             InitializeComponent();
             _canPrint = new bool[3];
@@ -97,7 +97,7 @@ namespace SpieleSammlung.Windows
             return ret;
         }
 
-        public void Update(List<PointsStorage> playerPoints, DataTable single, DataTable cumulated)
+        public void Update(IReadOnlyList<PointsStorage> playerPoints, DataTable single, DataTable cumulated)
         {
             BtnPrint.IsEnabled = _canPrint[0] = _canPrint[1] = _canPrint[2] = true;
             _single = single;

@@ -1,11 +1,12 @@
-﻿using SpieleSammlung.Model.Schafkopf;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using SpieleSammlung.Model.Schafkopf;
 
-namespace SpieleSammlung.UserControls
+namespace SpieleSammlung.UserControls.Schafkopf
 {
     /// <summary>
     /// Interaktionslogik für GameModeSelector.xaml
@@ -14,6 +15,9 @@ namespace SpieleSammlung.UserControls
     {
         private List<SchafkopfMatchPossibility> _possibilities;
         private GameSelectorState _state;
+
+        private SchafkopfMode SelectedMode =>
+            SchafkopfMatchConfig.StringToSchafkopfMode(CbMode.SelectedItem.ToString());
 
         public delegate void OnModeSelectedEvent(GameModeSelectedEvent e);
 
@@ -96,15 +100,17 @@ namespace SpieleSammlung.UserControls
         {
             if (BtnSelectMode.IsChecked == true)
             {
-                ModeSelected(new GameModeSelectedEvent(
-                    SchafkopfMatch.StringToSchafkopfMode(CbMode.SelectedItem.ToString()),
-                    CbColor.SelectedItem.ToString()));
+                if (ModeSelected == null) throw new NotSupportedException("This should have been set");
+                ModeSelected(CreateEventArgs());
             }
             else
             {
                 State = GameSelectorState.Visible;
             }
         }
+
+        private GameModeSelectedEvent CreateEventArgs() => new(SelectedMode, CbColor.SelectedItem.ToString());
+
 
         public void TrySelect()
         {
@@ -118,15 +124,13 @@ namespace SpieleSammlung.UserControls
         {
             if (_possibilities[CbMode.SelectedIndex].Mode != SchafkopfMode.Weiter && CbColor.SelectedIndex != -1)
             {
-                ColorChanged(new GameModeSelectedEvent(
-                    SchafkopfMatch.StringToSchafkopfMode(CbMode.SelectedItem.ToString()),
-                    CbColor.SelectedItem.ToString()));
+                ColorChanged(CreateEventArgs());
             }
         }
 
         public void CheckIfSelectedStillValid(SchafkopfMode mode, SchafkopfMatch match, SchafkopfPlayer player)
         {
-            SchafkopfMode modePlayer = SchafkopfMatch.StringToSchafkopfMode(CbMode.SelectedItem.ToString());
+            SchafkopfMode modePlayer = SelectedMode;
             string colorPlayer = CbColor.SelectedItem.ToString();
             if (mode > modePlayer && modePlayer != SchafkopfMode.Weiter)
             {

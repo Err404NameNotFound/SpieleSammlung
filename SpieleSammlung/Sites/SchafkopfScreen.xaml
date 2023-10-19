@@ -28,7 +28,7 @@
                 <RowDefinition Height="50" />
             </Grid.RowDefinitions>
 
-            <local1:GameModeSelector x:Name="ModeSelector" Margin="1" Grid.Column="2" Grid.Row="5"
+            <schafkopf:GameModeSelector x:Name="ModeSelector" Margin="1" Grid.Column="2" Grid.Row="5"
                                      HorizontalAlignment="Right" />
             <Button x:Name="BtnKontra" Content="{x:Static properties:Resources.SK_Btn_Kontra}" Padding="5"
                     Grid.Column="2" Grid.Row="5" Width="50"
