@@ -54,8 +54,8 @@ namespace SpieleSammlung.Model.Multiplayer
             if (File.Exists(pathHost))
             {
                 int n = 1;
-                while (File.Exists("host" + n + ".txt")) ++n;
-                _path = "host" + n + ".txt";
+                while (File.Exists("./LogMP/host" + n + ".txt")) ++n;
+                _path = "./LogMP/host" + n + ".txt";
             }
             else
             {
@@ -67,7 +67,7 @@ namespace SpieleSammlung.Model.Multiplayer
         {
             Id = player;
             IsHost = false;
-            _path = string.Concat("client_", Id, ".txt");
+            _path = string.Concat("./LogMP/client_", Id, ".txt");
             _client = new Client();
             _client.Connected += Client_Connected;
             _client.Disconnected += Client_Disconnected;
