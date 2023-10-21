@@ -110,10 +110,7 @@ namespace SpieleSammlung.Model.Multiplayer
         private void Server_lostConnection(string id)
         {
             int i = 0;
-            while (!_activeClients[i].Id.Equals(id))
-            {
-                ++i;
-            }
+            while (!_activeClients[i].Id.Equals(id)) ++i;
 
             lostClients.Add(_activeClients[i]);
             _activeClients.RemoveAt(i);

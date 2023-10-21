@@ -822,7 +822,6 @@ namespace SpieleSammlung.Sites
             if (!sameRound)
             {
                 BtnLastStich.IsEnabled = false;
-                _match.NextMatch();
             }
 
             GridRoundSummary.Visibility = Visibility.Collapsed;
@@ -878,7 +877,7 @@ namespace SpieleSammlung.Sites
             if (_isSpectating) _playerInfosSpectate[index].State = mode.ToString();
             else _playerInfos[GetUiPlayerIndex(index)].State = mode.ToString();
 
-            Tuple<bool, bool> result = _match.ChoseGameMode(index, mode, color);
+            Tuple<bool, bool> result = _match.ChoseGameMode(mode, color, index);
             if (result.Item1) return true;
             if (result.Item2)
             {
@@ -934,7 +933,7 @@ namespace SpieleSammlung.Sites
 
         private bool PlayCard(int player, int selected, Card card)
         {
-            if (_match.PlayCard(player, selected))
+            if (_match.PlayCard(selected, player))
             {
                 if (_match.CurrentCardCount == 1)
                 {

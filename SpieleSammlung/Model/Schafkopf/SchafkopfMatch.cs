@@ -37,8 +37,8 @@ namespace SpieleSammlung.Model.Schafkopf
         public int CurrentCardCount => CurrentRound.currentCards.Count;
         public SchafkopfRound CurrentRound => _rounds[_rounds.Count - 1];
 
-        public SchafkopfRound PreviousRound => _rounds.Count < 2 ? null
-            : _rounds.Count == 8 && CurrentCardCount == PLAYER_PER_ROUND ? CurrentRound : _rounds[_rounds.Count - 1];
+        public SchafkopfRound PreviousRound =>
+            _rounds.Count < 2 ? null : IsGameOver ? CurrentRound : _rounds[_rounds.Count - 2];
 
         public bool IsGameOver => _rounds.Count == ROUNDS_COUNT && CurrentCardCount == PLAYER_PER_ROUND;
         public bool HasLastStich => !IsGameOver && _rounds.Count > 1;
@@ -56,7 +56,6 @@ namespace SpieleSammlung.Model.Schafkopf
         private int _laufende;
         private int _loser;
         private string _matchSummary;
-        private string _personalPointsSummary;
         private string _generalPointsSummary;
 
         #endregion
@@ -76,7 +75,7 @@ namespace SpieleSammlung.Model.Schafkopf
             ResetMode();
             _currentPlayerIndexes = Players.Count switch
             {
-                < 6 => new[] { 3, 0, 1, 2 }, //next match gleich zu begin ->  0, 1, 2, 3
+                < 6 => new[] { 4, 0, 1, 2 }, //next match gleich zu begin ->  0, 1, 2, 3
                 6 => new[] { 5, 1, 2, 4 }, //next match gleich zu begin ->  0, 2, 3, 5
                 _ => new[] { 6, 1, 3, 5 } //next match gleich zu begin ->  0, 2, 4, 6
             };
@@ -101,15 +100,22 @@ namespace SpieleSammlung.Model.Schafkopf
 
         #region Public Methods
 
-        public Tuple<bool, bool> ChoseGameMode(int index, SchafkopfMode mode, string color)
+        public Tuple<bool, bool> ChoseGameMode(SchafkopfMode mode, string color, int index)
+        {
+            if (index != CurrentRound.CurrentPlayer) throw new IllegalMoveException("It is not this players turn");
+            return ChoseGameMode(mode, color);
+        }
+
+        public Tuple<bool, bool> ChoseGameMode(SchafkopfMode mode, string color)
         {
             if (mode > MinimumGame)
             {
                 MinimumGame = mode;
-                PlayerIndex = index;
+                PlayerIndex = CurrentRound.CurrentPlayer;
                 Color = color;
             }
 
+            CurrentRound.SetNextPlayer();
             if (mode == SchafkopfMode.Weiter) ++AmountShuffle;
             if (AmountShuffle == PLAYER_PER_ROUND) return new Tuple<bool, bool>(true, true);
             if (AmountShuffle == 3 && MinimumGame != SchafkopfMode.Weiter)
@@ -138,18 +144,13 @@ namespace SpieleSammlung.Model.Schafkopf
                 return new Tuple<bool, bool>(false, true);
             }
 
-            CurrentRound.SetNextPlayer();
             return new Tuple<bool, bool>(false, false);
         }
 
-        // TODO make method private
-        public IEnumerable<string> ShuffleCards(bool sameRound, string codeClientShuffledCards)
+        public IEnumerable<string> ShuffleCards(bool sameRound = false, string codeClientShuffledCards = "")
         {
             if (!_isHost) throw new NotSupportedException("A client cannot shuffle the cards.");
-            AmountShuffle = 0;
-            _rounds = new List<SchafkopfRound> { new() };
-            ResetMode();
-            for (int i = 0; i < PLAYER_PER_ROUND; ++i) CurrentPlayers[i].NewMatch(i, sameRound);
+            PrepareShuffle(sameRound);
             List<int> cards = new List<int>();
             for (int i = 0; i < Card.ALL_CARDS.Count; ++i) cards.Add(i);
 
@@ -157,23 +158,19 @@ namespace SpieleSammlung.Model.Schafkopf
             for (int i = 0; i < Card.ALL_CARDS.Count; ++i)
             {
                 int temp = _random.Next(0, cards.Count);
-                CurrentPlayers[i % PLAYER_PER_ROUND].PlayableCards.Add(Card.GetCard(cards[temp]));
+                CurrentPlayers[i % PLAYER_PER_ROUND].PlayableCards.Add(Card.ALL_CARDS[cards[temp]]);
                 msg.Add(cards[temp].ToString());
                 cards.RemoveAt(temp);
             }
 
             foreach (var player in CurrentPlayers) player.UpdatePossibilities(this);
-
             msg.Add(sameRound.ToString());
             return msg;
         }
 
         public void ShuffleCards(IReadOnlyList<string> msgParts, bool sameRound)
         {
-            AmountShuffle = 0;
-            _rounds = new List<SchafkopfRound> { new() };
-            ResetMode();
-            for (int i = 0; i < PLAYER_PER_ROUND; ++i) CurrentPlayers[i].NewMatch(i, sameRound);
+            PrepareShuffle(sameRound);
             for (int i = 0; i < Card.ALL_CARDS.Count; ++i)
             {
                 CurrentPlayers[i % PLAYER_PER_ROUND].PlayableCards.Add(Card.GetCard(int.Parse(msgParts[i + 1])));
@@ -182,26 +179,27 @@ namespace SpieleSammlung.Model.Schafkopf
             foreach (var player in CurrentPlayers) player.UpdatePossibilities(this);
         }
 
-        public bool PlayCard(int player, int selected)
+        public bool PlayCard(int selected, int player)
         {
-            if (player != CurrentRound.CurrentPlayer || !CurrentPlayers[player].PlayCard(selected, this)) return false;
+            return player == CurrentRound.CurrentPlayer && PlayCard(selected);
+        }
+
+        public bool PlayCard(int selected)
+        {
+            if (!CurrentPlayers[CurrentRound.CurrentPlayer].PlayCard(selected, this)) return false;
             UpdatePlayableCards();
             if (CurrentCardCount < PLAYER_PER_ROUND) CurrentRound.SetNextPlayer();
             else
             {
                 LastCards = CurrentRound.currentCards.ToList();
-                if (_rounds.Count < ROUNDS_COUNT) NextRound();
-                else
-                {
-                    Evaluation();
-                    return false;
-                }
+                NextRound();
+                if (IsGameOver) Evaluation();
             }
 
             return true;
         }
 
-        public void NextMatch()
+        private void NextMatch()
         {
             ResetMode();
             _teams[0] = _teams[1] = _teamsAnzStiche[0] = _teamsAnzStiche[1] = 0;
@@ -214,14 +212,13 @@ namespace SpieleSammlung.Model.Schafkopf
             }
 
             CurrentPlayers = newList;
-
-            // TODO check if the cards should be shuffled here
         }
 
         public string FullSummary(int playerIndex)
         {
-            _personalPointsSummary ??= PointsSummary(_loser, playerIndex);
-            return (_personalPointsSummary.Equals("") ? _generalPointsSummary : _personalPointsSummary) + _matchSummary;
+            if (playerIndex < 0 || playerIndex >= Players.Count)
+                throw new NotSupportedException("This player does not exist");
+            return Players[playerIndex].Number == -1 ? _generalPointsSummary : PointsSummary(_loser, playerIndex);
         }
 
         public bool? HasPlayerWon(int player) => player == -1 ? null : CurrentPlayers[player].TeamIndex != _loser;
@@ -231,6 +228,20 @@ namespace SpieleSammlung.Model.Schafkopf
         #region Other gamelogic
 
         internal void SetIsWegGelaufen() => IsWegGelaufen = true;
+
+        private void PrepareShuffle(bool sameRound)
+        {
+            if (AmountShuffle != 0 && AmountShuffle < PLAYER_PER_ROUND)
+            {
+                throw new IllegalMoveException("The current game is not finished yet.");
+            }
+
+            if (!sameRound) NextMatch();
+            AmountShuffle = 0;
+            _rounds = new List<SchafkopfRound> { new() };
+            ResetMode();
+            for (int i = 0; i < PLAYER_PER_ROUND; ++i) CurrentPlayers[i].NewMatch(i, sameRound);
+        }
 
         private void ChooseGame()
         {
@@ -271,7 +282,7 @@ namespace SpieleSammlung.Model.Schafkopf
         {
             CalculateStichPoints();
             ++_teamsAnzStiche[CurrentPlayers[CurrentRound.NextStartPlayer].TeamIndex];
-            _rounds.Add(new SchafkopfRound(CurrentRound));
+            if (_rounds.Count < ROUNDS_COUNT) _rounds.Add(new SchafkopfRound(CurrentRound));
             UpdatePlayableCards();
         }
 
@@ -285,7 +296,7 @@ namespace SpieleSammlung.Model.Schafkopf
 
         private void UpdatePlayableCards()
         {
-            PlayableCards = CurrentPlayers.Select(t => t.CheckPlayableCards(this)).ToList();
+            PlayableCards = CurrentPlayers.Select(player => player.CheckPlayableCards(this)).ToList();
         }
 
         private void CalculateLaufende()
@@ -315,7 +326,7 @@ namespace SpieleSammlung.Model.Schafkopf
             }
 
             List<int> team = new List<int>();
-            for (int i = 0; i < PLAYER_PER_ROUND; ++i)
+            for (int i = 0; i < CurrentPlayers.Count; ++i)
             {
                 if (CurrentPlayers[i].TeamIndex == teamNumber) team.Add(i);
             }
@@ -353,7 +364,6 @@ namespace SpieleSammlung.Model.Schafkopf
 
         private void Evaluation()
         {
-            CalculateStichPoints();
             int[] tmp = new int[Players.Count];
             int score = ScoreOfThisMatch();
             for (int i = 0; i < Players.Count; ++i)
@@ -422,8 +432,17 @@ namespace SpieleSammlung.Model.Schafkopf
                 }
             }
 
-            summary.Append(" mit ").Append(_teams[teamIndex]).Append(" Augen ");
-            summary.Append(loser == teamIndex ? "verloren" : "gewonnen").Append("\n\n");
+            summary.Append(" mit ").Append(_teams[teamIndex]).Append(" Augen");
+            if (Mode is SchafkopfMode.SoloTout or SchafkopfMode.WenzTout && _teamsAnzStiche[1] > 0)
+            {
+                if(player == -1 || CurrentPlayers[player].TeamIndex == 0)
+                    summary.Append(" und ").Append(_teamsAnzStiche[1]).Append(" Gegenstich");
+                else
+                    summary.Append(" und ").Append(_teamsAnzStiche[1]).Append(" Stich");
+                if (_teamsAnzStiche[1] > 1) summary.Append("en");
+            }
+            summary.Append(loser == teamIndex ? " verloren" : " gewonnen").Append("\n\n");
+            summary.Append(_matchSummary);
             return summary.ToString();
         }
 
@@ -444,38 +463,34 @@ namespace SpieleSammlung.Model.Schafkopf
             _loser = 1;
             if (Mode is SchafkopfMode.WenzTout or SchafkopfMode.SoloTout)
             {
-                if (_teamsAnzStiche[1] > 0)
-                {
-                    _loser = 0;
-                }
-
+                if (_teamsAnzStiche[1] > 0) _loser = 0;
                 points *= 2;
                 summary.Append("\n*2 tout");
             }
             else
             {
-                count = CurrentPlayers.Count(t => t.Kontra);
+                count = CurrentPlayers.Count(player => player.Kontra);
                 if ((count == 1 && _teams[0] < _teams[1]) || _teams[0] <= _teams[1]) _loser = 0;
 
-                //if (loser == 0 && teams[loser] < 31 || loser == 1 && teams[loser] < 30)
-                if (_teams[_loser] < 30 || _loser != count % 2 && _teams[_loser] < 31)
+                // if (_teams[_loser] < 30 || _loser != count % 2 && _teams[_loser] < 31)
+                if (_loser == 0 && _teams[_loser] < 31 || _loser == 1 && _teams[_loser] < 30)
                 {
-                    points += 10;
                     if (_teamsAnzStiche[_loser] == 0)
                     {
-                        points += 10;
+                        points += 20;
                         summary.Append("\n+20 Schneiderschwarz");
                     }
                     else
                     {
+                        points += 10;
                         summary.Append("\n+10 Schneider");
                     }
                 }
             }
 
-            for (int i = 0; i < PLAYER_PER_ROUND; ++i)
+            foreach (var player in CurrentPlayers)
             {
-                if (CurrentPlayers[i].Aufgestellt)
+                if (player.Aufgestellt)
                 {
                     points *= 2;
                     summary.Append("\n*2 aufgestellt");
@@ -483,9 +498,9 @@ namespace SpieleSammlung.Model.Schafkopf
             }
 
             count = 0;
-            for (int i = 0; i < PLAYER_PER_ROUND; ++i)
+            foreach (var player in CurrentPlayers)
             {
-                if (CurrentPlayers[i].Kontra)
+                if (player.Kontra)
                 {
                     points *= 2;
                     summary.Append(++count == 1 ? "\n*2 Kontra" : "\n*2 Re");
@@ -494,21 +509,14 @@ namespace SpieleSammlung.Model.Schafkopf
 
             summary.Append("\n_________________\n").Append(points);
             _matchSummary = summary.ToString();
-            _personalPointsSummary = null;
             _generalPointsSummary = PointsSummary(_loser, -1);
             return points;
         }
 
         private void CalculateStichPoints()
         {
-            SchafkopfRound round = CurrentRound;
-            int sum = 0;
-            for (int i = 0; i < PLAYER_PER_ROUND; ++i)
-            {
-                sum += round.currentCards[i].Points;
-            }
-
-            _teams[CurrentPlayers[round.NextStartPlayer].TeamIndex] += sum;
+            int sum = CurrentRound.currentCards.Sum(card => card.Points);
+            _teams[CurrentPlayers[CurrentRound.NextStartPlayer].TeamIndex] += sum;
         }
 
         #endregion

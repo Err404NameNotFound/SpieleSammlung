@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SpieleSammlung;
-using SpieleSammlung.Model.Multiplayer;
 using SpieleSammlung.Model.Schafkopf;
 using static SpieleSammlung.Model.Util.ArrayPrinter;
 
@@ -17,6 +16,8 @@ namespace SpieleSammlungTests.Model.Schafkopf
 
         private static readonly IReadOnlyList<bool> AllEightTrue = new List<bool>
             { true, true, true, true, true, true, true, true };
+
+        private static readonly IReadOnlyList<string> NoColors = new List<string> { "" };
 
         [TestMethod]
         public void TestConstructor()
@@ -345,12 +346,12 @@ namespace SpieleSammlungTests.Model.Schafkopf
 
         private static void AssertPossibilityIsWenz(int index)
         {
-            AssertPossibilityCorrect(SchafkopfMode.Wenz, new List<string>(), index);
+            AssertPossibilityCorrect(SchafkopfMode.Wenz, NoColors, index);
         }
 
         private static void AssertPossibilityIsWenzTout(int index)
         {
-            AssertPossibilityCorrect(SchafkopfMode.WenzTout, new List<string>(), index);
+            AssertPossibilityCorrect(SchafkopfMode.WenzTout, NoColors, index);
         }
 
         private static void AssertPossibilityCorrect(SchafkopfMode mode, IReadOnlyList<string> colors, int index)
@@ -373,7 +374,7 @@ namespace SpieleSammlungTests.Model.Schafkopf
             Assert.AreEqual(expected, Player.Possibilities.Count,
                 "Incorrect number of possibilities.\nCards: {0}\nActual possibilities:\n{1}",
                 ArrayString(Player.PlayableCards), ArrayString(Player.Possibilities, "\n"));
-            AssertPossibilityCorrect(SchafkopfMode.Weiter, new List<string>(), 0);
+            AssertPossibilityCorrect(SchafkopfMode.Weiter, NoColors, 0);
         }
 
         private static void SetCards(params int[] cards)

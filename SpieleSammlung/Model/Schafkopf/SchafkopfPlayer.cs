@@ -85,9 +85,9 @@ namespace SpieleSammlung.Model.Schafkopf
                 Possibilities.Add(new SchafkopfMatchPossibility(SchafkopfMode.SoloTout, solo));
         }
 
-        private bool HasEichelUnter() => PlayableCards.Any(t => t.IsUnter() && t.Color == Card.EICHEL);
+        private bool HasEichelUnter() => PlayableCards.Any(card => card.IsUnter() && card.Color == Card.EICHEL);
 
-        private bool HasEichelOber() => PlayableCards.Any(t => t.IsOber() && t.Color == Card.EICHEL);
+        private bool HasEichelOber() => PlayableCards.Any(card => card.IsOber() && card.Color == Card.EICHEL);
 
         private List<string> SoloPossibilities()
         {
