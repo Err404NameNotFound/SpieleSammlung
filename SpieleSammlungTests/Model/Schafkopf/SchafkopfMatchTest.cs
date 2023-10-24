@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SpieleSammlung;
+using SpieleSammlung.Model;
 using SpieleSammlung.Model.Multiplayer;
 using SpieleSammlung.Model.Schafkopf;
 using SpieleSammlung.Model.Util;
@@ -48,6 +49,7 @@ namespace SpieleSammlungTests.Model.Schafkopf
                 match.FullSummary(3));
             Assert.AreEqual(expectedOtherPlayers, match.FullSummary(4));
         }
+
         [TestMethod]
         public void TestRoundGrasSoloToutLoose()
         {
@@ -174,14 +176,15 @@ namespace SpieleSammlungTests.Model.Schafkopf
                 "name1 hat den Wenz mit 50 Augen verloren");
         }
 
-        private static void AssertMessagesCorrect(SchafkopfMatch match, string points, string player0, string player1,
-            string player2, string player3, string others)
+        [TestMethod]
+        public void TestCardsReadFromMessages()
         {
-            Assert.AreEqual(player0 + points, match.FullSummary(0));
-            Assert.AreEqual(player1 + points, match.FullSummary(1));
-            Assert.AreEqual(player2 + points, match.FullSummary(2));
-            Assert.AreEqual(player3 + points, match.FullSummary(3));
-            Assert.AreEqual(others + points, match.FullSummary(4));
+            SchafkopfMatch host = new SchafkopfMatch(Players, new Random(31), true);
+            SchafkopfMatch client = new SchafkopfMatch(Players.ToList(), new Random(31), false);
+            IEnumerable<string> result = host.ShuffleCards(false, "-1");
+            List<string> cards = result.Where(card => int.TryParse(card, out _)).ToList();
+            client.ShuffleCards(cards, false);
+            AssertCardsAreEqual(host, client);
         }
 
         /*
@@ -200,6 +203,87 @@ namespace SpieleSammlungTests.Model.Schafkopf
          */
 
         [TestMethod]
+        public void TestGameCanBeRestored()
+        {
+            SchafkopfMatch match = new SchafkopfMatch(Players, new Random(89), true);
+            match.ShuffleCards();
+            match.CurrentPlayers[0].Aufgestellt = true;
+            match.ChoseGameMode(SchafkopfMode.Wenz, "", 0);
+            match.ChoseGameMode(SchafkopfMode.Weiter, "", 1);
+            match.ChoseGameMode(SchafkopfMode.Weiter, "", 2);
+            match.ChoseGameMode(SchafkopfMode.Weiter, "", 3);
+            match.CurrentPlayers[3].Kontra = true;
+            List<string> cards = new List<string>
+            {
+                "Herz Neun", "Herz Sau", "Gras Sau", "Herz Ober",
+                "Schelle Sau", "Schelle Ober", "Schelle Zehn", "Gras Koenig",
+                "Gras Neun", "Gras Zehn", "Gras Ober", "Schelle Unter",
+                "Eichel Sau", "Eichel Koenig", "Eichel Sieben", "Eichel Neun",
+                "Eichel Ober", "Eichel Zehn", "Eichel Acht", "Schelle Koenig",
+                "Herz Zehn", "Gras Sieben", "Herz Acht", "Eichel Unter",
+                "Gras Unter", "Herz Koenig",
+            };
+            AssertAllCardsCanBePlayed(match, cards);
+            SchafkopfMatch clientMatch = new SchafkopfMatch(Players.ToList(), false);
+            const char separator = ';';
+            const char fineSeparator = '|';
+            string restoreString = "test"+separator+match.InfoForRejoin(separator, fineSeparator.ToString());
+            clientMatch.RestoreFromInfo(restoreString.Split(separator), fineSeparator);
+            List<string> cards2 = new List<string>
+            {
+                "Schelle Acht", "Gras Acht",
+                "Herz Unter", "Schelle Neun", "Schelle Sieben", "Herz Sieben",
+            };
+            AssertAllCardsCanBePlayed(clientMatch, cards2);
+            AssertMessagesCorrect(clientMatch,
+                "\n\n+50 Wenz\n+40 Laufende\n*2 aufgestellt\n*2 Kontra\n_________________\n360",
+                "Du hast den Wenz mit 50 Augen verloren",
+                "Du hast den Wenz mit name3 und name4 mit 70 Augen gewonnen",
+                "Du hast den Wenz mit name2 und name4 mit 70 Augen gewonnen",
+                "Du hast den Wenz mit name2 und name3 mit 70 Augen gewonnen",
+                "name1 hat den Wenz mit 50 Augen verloren");
+        }
+
+        [TestMethod]
+        public void TestGameCanBeRestoredBeforeGameStarted()
+        {
+            SchafkopfMatch match = new SchafkopfMatch(Players, new Random(98), true);
+            match.ShuffleCards();
+            match.CurrentPlayers[3].Aufgestellt = true;
+            match.ChoseGameMode(SchafkopfMode.Weiter, "");
+            match.ChoseGameMode(SchafkopfMode.Weiter, "");
+            SchafkopfMatch clientMatch = new SchafkopfMatch(Players.ToList(), false);
+            const char separator = ';';
+            const char fineSeparator = '|';
+            string restoreString = "test"+separator+match.InfoForRejoin(separator, fineSeparator.ToString());
+            clientMatch.RestoreFromInfo(restoreString.Split(separator), fineSeparator);
+            match = clientMatch;
+            match.ChoseGameMode(SchafkopfMode.Weiter, "");
+            match.ChoseGameMode(SchafkopfMode.SoloTout, Card.HERZ);
+            List<int> clone = AllZero.ToList();
+            clone[23] = 1;
+            clone[27] = 1;
+            AssertGameStopsWithTheseCards(match, clone);
+            AssertMessagesCorrect(match,
+                "\n\n+50 SoloTout\n*2 tout\n*2 aufgestellt\n_________________\n200",
+                "Du hast das SoloTout mit name2 und name3 mit 0 Augen und 1 Stich gewonnen",
+                "Du hast das SoloTout mit name1 und name3 mit 0 Augen und 1 Stich gewonnen",
+                "Du hast das SoloTout mit name1 und name2 mit 0 Augen und 1 Stich gewonnen",
+                "Du hast das SoloTout mit 120 Augen und 1 Gegenstich verloren",
+                "name4 hat das SoloTout mit 120 Augen und 1 Gegenstich verloren");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(IllegalMoveException))]
+        public void TestThrowsException()
+        {
+            SchafkopfMatch match = new SchafkopfMatch(Players, true);
+            match.ShuffleCards();
+            match.ChoseGameMode(SchafkopfMode.Weiter, "");
+            match.ChoseGameMode(SchafkopfMode.Weiter, "", 3);
+        }
+
+        [TestMethod]
         public void WriteFirstCardsOfAFewSeeds()
         {
             for (int i = 0; i < 1000; ++i)
@@ -212,22 +296,49 @@ namespace SpieleSammlungTests.Model.Schafkopf
         [TestMethod]
         public void Temp2() => ListCards(98, new SchafkopfMatchConfig(SchafkopfMode.SoloTout, Card.HERZ));
 
-        private void AssertGameStopsWhenAlwaysPlayingFirstCard(SchafkopfMatch match)
+        private static void AssertCardsAreEqual(SchafkopfMatch host, SchafkopfMatch client)
         {
-            AssertGameStopsWithTheseCards(match, AllZero);
+            Assert.AreEqual(host.CurrentPlayers.Count, client.CurrentPlayers.Count);
+            for (int p = 0; p < host.CurrentPlayers.Count; ++p)
+            {
+                List<Card> hostCards = host.CurrentPlayers[p].PlayableCards;
+                List<Card> clientCards = client.CurrentPlayers[p].PlayableCards;
+                Assert.AreEqual(hostCards.Count, clientCards.Count);
+                for (int c = 0; c < hostCards.Count; ++c)
+                {
+                    Assert.AreEqual(hostCards[c], clientCards[c]);
+                }
+            }
         }
 
-        private void AssertGameStopsWithTheseCards(SchafkopfMatch match, IReadOnlyList<int> cards)
+        private static void AssertMessagesCorrect(SchafkopfMatch match, string points, string player0, string player1,
+            string player2, string player3, string others)
         {
-            AssertGameStopsWithTheseCards(match, i => cards[i]);
+            Assert.AreEqual(player0 + points, match.FullSummary(0));
+            Assert.AreEqual(player1 + points, match.FullSummary(1));
+            Assert.AreEqual(player2 + points, match.FullSummary(2));
+            Assert.AreEqual(player3 + points, match.FullSummary(3));
+            Assert.AreEqual(others + points, match.FullSummary(4));
         }
 
-        private void AssertGameStopsWithTheseCards(SchafkopfMatch match, IReadOnlyList<string> cards)
+        private static void AssertGameStopsWhenAlwaysPlayingFirstCard(SchafkopfMatch match)
+            => AssertGameStopsWithTheseCards(match, AllZero);
+
+
+        private static void AssertGameStopsWithTheseCards(SchafkopfMatch match, IReadOnlyList<int> cards)
+            => AssertGameStopsWithTheseCards(match, i => cards[i]);
+
+
+        private static void AssertGameStopsWithTheseCards(SchafkopfMatch match, IReadOnlyList<string> cards)
+            => AssertGameStopsWithTheseCards(match, i => FindCard(match, cards, i));
+
+        private static void AssertGameStopsWithTheseCards(SchafkopfMatch match, Func<int, int> selector)
         {
-            AssertGameStopsWithTheseCards(match, i => FindCard(match, cards, i));
+            AssertAllCardsCanBePlayed(match, selector, Card.ALL_CARDS.Count);
+            Assert.IsTrue(match.IsGameOver);
         }
 
-        private int FindCard(SchafkopfMatch match, IReadOnlyList<string> cards, int i)
+        private static int FindCard(SchafkopfMatch match, IReadOnlyList<string> cards, int i)
         {
             List<Card> playerCards = match.CurrentPlayers[match.CurrentRound.CurrentPlayer].PlayableCards;
             int index = Index(cards[i], playerCards);
@@ -236,9 +347,12 @@ namespace SpieleSammlungTests.Model.Schafkopf
                                 $"{ArrayPrinter.ArrayString(playerCards)} and desired card {cards[i]}");
         }
 
-        private void AssertGameStopsWithTheseCards(SchafkopfMatch match, Func<int, int> selector)
+        private static void AssertAllCardsCanBePlayed(SchafkopfMatch match, IReadOnlyList<string> cards)
+            => AssertAllCardsCanBePlayed(match, i => FindCard(match, cards, i), cards.Count);
+
+        private static void AssertAllCardsCanBePlayed(SchafkopfMatch match, Func<int, int> selector, int count)
         {
-            for (int i = 0; i < Card.ALL_CARDS.Count; ++i)
+            for (int i = 0; i < count; ++i)
             {
                 int currentPlayerIndex = match.CurrentRound.CurrentPlayer;
                 int selected = selector(i);
@@ -248,8 +362,6 @@ namespace SpieleSammlungTests.Model.Schafkopf
                     "Move {0}: player with index {1} should be able to play {2} with the first card being {3}",
                     i, currentPlayerIndex, currentCard, first);
             }
-
-            Assert.IsTrue(match.IsGameOver);
         }
 
         private static int[] ConvertToInt(IReadOnlyList<string> cards, IReadOnlyList<SchafkopfPlayer> players)

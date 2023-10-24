@@ -363,9 +363,7 @@ namespace SpieleSammlung.Sites
         private IEnumerable<string> GenerateRejoinInfo()
         {
             List<string> message = new List<string> { codeClientInfoRejoin };
-            message.AddRange(_match.Players.Select(player => player.InfoForRejoin(SEPARATOR_REJOIN_INFO_STRING)));
-
-            message.Add(_match.InfoForRejoin(SEPARATOR_REJOIN_INFO_STRING));
+            message.Add(_match.InfoForRejoin(SEPARATOR,SEPARATOR_REJOIN_INFO_STRING));
             StringBuilder bob = new StringBuilder(8);
             if (PlayerIndexCurRound == -1)
             {
@@ -388,13 +386,7 @@ namespace SpieleSammlung.Sites
 
         private void RestoreFromInfo(IReadOnlyList<string> msgParts)
         {
-            for (int i = 0; i < _match.Players.Count; ++i)
-            {
-                _match.Players[i].RestoreFromInfo(msgParts[i + 1], SEPARATOR_REJOIN_INFO);
-            }
-
-            _match.RestoreFromInfo(msgParts[_match.Players.Count + 1], SEPARATOR_REJOIN_INFO);
-            //unnötog durch umstellung auf playInCurRou { get {...}} playerIndexCurRound = match.players[playerIndex].number;
+            _match.RestoreFromInfo(msgParts, SEPARATOR_REJOIN_INFO);
             if (_match.IsGameOver)
             {
                 ShowSummary(false);

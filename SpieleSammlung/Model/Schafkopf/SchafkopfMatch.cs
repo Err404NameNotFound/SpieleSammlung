@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Windows.Documents;
 using SpieleSammlung.Model.Util;
 
 namespace SpieleSammlung.Model.Schafkopf
@@ -435,12 +436,13 @@ namespace SpieleSammlung.Model.Schafkopf
             summary.Append(" mit ").Append(_teams[teamIndex]).Append(" Augen");
             if (Mode is SchafkopfMode.SoloTout or SchafkopfMode.WenzTout && _teamsAnzStiche[1] > 0)
             {
-                if(player == -1 || CurrentPlayers[player].TeamIndex == 0)
+                if (player == -1 || CurrentPlayers[player].TeamIndex == 0)
                     summary.Append(" und ").Append(_teamsAnzStiche[1]).Append(" Gegenstich");
                 else
                     summary.Append(" und ").Append(_teamsAnzStiche[1]).Append(" Stich");
                 if (_teamsAnzStiche[1] > 1) summary.Append("en");
             }
+
             summary.Append(loser == teamIndex ? " verloren" : " gewonnen").Append("\n\n");
             summary.Append(_matchSummary);
             return summary.ToString();
@@ -523,49 +525,64 @@ namespace SpieleSammlung.Model.Schafkopf
 
         #region Joining
 
-        public string InfoForRejoin(string separator)
+        public string InfoForRejoin(char separator, string fineSeparator)
         {
             StringBuilder bob = new StringBuilder();
-            for (int i = 0; i < PLAYER_PER_ROUND; ++i)
+            foreach (var player in Players)
             {
-                bob.Append(_currentPlayerIndexes[i]).Append(separator);
+                bob.Append(player.InfoForRejoin(fineSeparator)).Append(separator);
             }
 
-            bob.Append(Mode.ToString()).Append(separator);
-            bob.Append(Trumpf).Append(separator);
-            bob.Append(SauspielFarbe).Append(separator);
-            bob.Append(IsWegGelaufen.ToString()).Append(separator);
-            bob.Append(MinimumGame.ToString()).Append(separator);
-            bob.Append(Color).Append(separator);
-            bob.Append(AmountShuffle).Append(separator);
-            bob.Append(PlayerIndex).Append(separator);
-            bob.Append(_teams[0]).Append(separator);
-            bob.Append(_teams[1]).Append(separator);
-            bob.Append(_teamsAnzStiche[0]).Append(separator);
-            bob.Append(_teamsAnzStiche[1]).Append(separator);
-            bob.Append(_laufende).Append(separator);
-            bob.Append(_loser).Append(separator);
+            for (int i = 0; i < PLAYER_PER_ROUND; ++i)
+            {
+                bob.Append(_currentPlayerIndexes[i]).Append(fineSeparator);
+            }
+
+            bob.Append(Mode.ToString()).Append(fineSeparator);
+            bob.Append(Trumpf).Append(fineSeparator);
+            bob.Append(SauspielFarbe).Append(fineSeparator);
+            bob.Append(IsWegGelaufen.ToString()).Append(fineSeparator);
+            bob.Append(MinimumGame.ToString()).Append(fineSeparator);
+            bob.Append(Color).Append(fineSeparator);
+            bob.Append(AmountShuffle).Append(fineSeparator);
+            bob.Append(PlayerIndex).Append(fineSeparator);
+            bob.Append(_teams[0]).Append(fineSeparator);
+            bob.Append(_teams[1]).Append(fineSeparator);
+            bob.Append(_teamsAnzStiche[0]).Append(fineSeparator);
+            bob.Append(_teamsAnzStiche[1]).Append(fineSeparator);
+            bob.Append(_laufende).Append(fineSeparator);
+            bob.Append(_loser).Append(fineSeparator);
             if (LastCards == null || LastCards.Count < 1)
             {
-                bob.Append("null").Append(separator);
+                bob.Append("null").Append(fineSeparator);
             }
             else
             {
-                foreach (var card in LastCards) bob.Append(card.Index).Append(separator);
+                foreach (var card in LastCards) bob.Append(card.Index).Append(fineSeparator);
             }
 
-            bob.Append(_rounds.Count).Append(separator);
+            bob.Append(_rounds.Count).Append(fineSeparator);
             foreach (var round in _rounds)
             {
-                bob.Append(round.InfoForRejoin(separator)).Append(separator);
+                bob.Append(round.InfoForRejoin(fineSeparator)).Append(fineSeparator);
             }
 
-            bob.Append(_matchSummary).Append(separator);
+            bob.Append(_matchSummary).Append(fineSeparator);
             bob.Append(_generalPointsSummary);
             return bob.ToString();
         }
 
-        public void RestoreFromInfo(string info, char separator)
+        public void RestoreFromInfo(IReadOnlyList<string> msgParts, char fineSeparator)
+        {
+            for (int i = 0; i < Players.Count; ++i)
+            {
+                Players[i].RestoreFromInfo(msgParts[i + 1], fineSeparator);
+            }
+
+            RestoreFromInfo(msgParts[Players.Count + 1], fineSeparator);
+        }
+
+        private void RestoreFromInfo(string info, char separator)
         {
             SchafkopfPlayer[] newList = new SchafkopfPlayer[PLAYER_PER_ROUND];
             foreach (var player in Players.Where(player => player.Number != -1)) newList[player.Number] = player;
