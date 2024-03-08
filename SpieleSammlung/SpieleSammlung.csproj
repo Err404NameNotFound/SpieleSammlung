@@ -105,195 +105,185 @@
         <Compile Include="Model\Kniffel\Count\ValueOrderedList.cs"/>
         <Compile Include="Model\Kniffel\ShufflingOption.cs"/>
         <Compile Include="Model\Kniffel\WriteOption.cs"/>
-        <Compile Include="Model\ModelLog.cs"/>
-        <Compile Include="Model\Multiplayer\MultiplayerEvent.cs"/>
-        <Compile Include="Model\Multiplayer\MpConnection.cs"/>
-        <Compile Include="Model\Multiplayer\MultiplayerPlayer.cs"/>
-        <Compile Include="Model\Player.cs"/>
-        <Compile Include="Model\Schafkopf\Card.cs"/>
-        <Compile Include="Model\Schafkopf\GameModeSelectedEvent.cs"/>
-        <Compile Include="Model\Schafkopf\PointsStorage.cs"/>
-        <Compile Include="Model\Schafkopf\SchafkopfMatch.cs"/>
+        <Compile Include="Model\Mancala\MancalaGame.cs" />
+        <Compile Include="Model\Mancala\MancalaFieldClickedEvent.cs" />
+        <Compile Include="Model\ModelLog.cs" />
+        <Compile Include="Model\Multiplayer\MultiplayerEvent.cs" />
+        <Compile Include="Model\Multiplayer\MpConnection.cs" />
+        <Compile Include="Model\Multiplayer\MultiplayerPlayer.cs" />
+        <Compile Include="Model\Player.cs" />
+        <Compile Include="Model\Schafkopf\Card.cs" />
+        <Compile Include="Model\Schafkopf\GameModeSelectedEvent.cs" />
+        <Compile Include="Model\Schafkopf\PointsStorage.cs" />
+        <Compile Include="Model\Schafkopf\SchafkopfMatch.cs" />
         <Compile Include="Model\Schafkopf\SchafkopfMatchConfig.cs" />
-        <Compile Include="Model\Schafkopf\SchafkopfMatchPossibility.cs"/>
-        <Compile Include="Model\Schafkopf\SchafkopfPlayer.cs"/>
-        <Compile Include="Model\Schafkopf\SchafkopfRound.cs"/>
-        <Compile Include="Model\Util\ArrayPrinter.cs"/>
-        <Compile Include="Model\Util\MathHelp.cs"/>
-        <Compile Include="Model\Util\MinMaxAvgEvaluator.cs"/>
-        <Compile Include="Model\Util\ProgressPrinter.cs"/>
-        <Compile Include="Model\Util\RingBufferFifo.cs"/>
-        <Compile Include="Sites\Battleships.xaml.cs">
-            <DependentUpon>Battleships.xaml</DependentUpon>
+        <Compile Include="Model\Schafkopf\SchafkopfMatchPossibility.cs" />
+        <Compile Include="Model\Schafkopf\SchafkopfPlayer.cs" />
+        <Compile Include="Model\Schafkopf\SchafkopfRound.cs" />
+        <Compile Include="Model\Util\ArrayPrinter.cs" />
+        <Compile Include="Model\Util\MathHelp.cs" />
+        <Compile Include="Model\Util\MinMaxAvgEvaluator.cs" />
+        <Compile Include="Model\Util\ProgressPrinter.cs" />
+        <Compile Include="Model\Util\RingBufferFifo.cs" />
+        <Compile Include="Enums.cs" />
+        <Compile Include="View\Sites\Battleships.xaml.cs">
+          <DependentUpon>Battleships.xaml</DependentUpon>
         </Compile>
-        <Compile Include="Sites\MultiplayerLobby.xaml.cs">
-            <DependentUpon>MultiplayerLobby.xaml</DependentUpon>
+        <Compile Include="View\Sites\Connect4Screen.xaml.cs">
+          <DependentUpon>Connect4Screen.xaml</DependentUpon>
         </Compile>
-        <Compile Include="Sites\SchafkopfScreen.xaml.cs">
-            <DependentUpon>SchafkopfScreen.xaml</DependentUpon>
+        <Compile Include="View\Sites\KniffelScreen.xaml.cs">
+          <DependentUpon>KniffelScreen.xaml</DependentUpon>
         </Compile>
-        <Compile Include="UserControls\BattleShips\BoatField.xaml.cs">
-            <DependentUpon>BoatField.xaml</DependentUpon>
+        <Compile Include="View\Sites\MancalaScreen.xaml.cs">
+          <DependentUpon>MancalaScreen.xaml</DependentUpon>
         </Compile>
-        <Compile Include="Sites\Connect4Screen.xaml.cs">
-            <DependentUpon>Connect4Screen.xaml</DependentUpon>
+        <Compile Include="View\Sites\MultiplayerLobby.xaml.cs">
+          <DependentUpon>MultiplayerLobby.xaml</DependentUpon>
         </Compile>
-        <Compile Include="Sites\KniffelScreen.xaml.cs">
-            <DependentUpon>KniffelScreen.xaml</DependentUpon>
+        <Compile Include="View\Sites\PlayerCreator.xaml.cs">
+          <DependentUpon>PlayerCreator.xaml</DependentUpon>
         </Compile>
-        <Compile Include="Enums.cs"/>
-        <Compile Include="Sites\PlayerCreator.xaml.cs">
-            <DependentUpon>PlayerCreator.xaml</DependentUpon>
+        <Compile Include="View\Sites\SchafkopfScreen.xaml.cs">
+          <DependentUpon>SchafkopfScreen.xaml</DependentUpon>
         </Compile>
-        <Compile Include="UserControls\Connect4\Connect4FieldClicked.cs"/>
-        <Compile Include="UserControls\Schafkopf\CardHolder.xaml.cs">
-            <DependentUpon>CardHolder.xaml</DependentUpon>
+        <Compile Include="View\Sites\StartScreen.xaml.cs">
+          <DependentUpon>StartScreen.xaml</DependentUpon>
         </Compile>
-        <Compile Include="UserControls\Schafkopf\CardVisual.xaml.cs">
-            <DependentUpon>CardVisual.xaml</DependentUpon>
+        <Compile Include="View\UserControls\BattleShips\BoatField.xaml.cs">
+          <DependentUpon>BoatField.xaml</DependentUpon>
         </Compile>
-        <Compile Include="UserControls\CheckView.xaml.cs">
-            <DependentUpon>CheckView.xaml</DependentUpon>
+        <Compile Include="View\UserControls\CheckView.xaml.cs">
+          <DependentUpon>CheckView.xaml</DependentUpon>
         </Compile>
-        <Compile Include="UserControls\Connect4\Connect4Field.xaml.cs">
-            <DependentUpon>Connect4Field.xaml</DependentUpon>
+        <Compile Include="View\UserControls\Connect4\Connect4Field.xaml.cs">
+          <DependentUpon>Connect4Field.xaml</DependentUpon>
         </Compile>
-        <Compile Include="UserControls\Connect4\Connect4Visual.xaml.cs">
-            <DependentUpon>Connect4Visual.xaml</DependentUpon>
+        <Compile Include="View\UserControls\Connect4\Connect4FieldClicked.cs" />
+        <Compile Include="View\UserControls\Connect4\Connect4Visual.xaml.cs">
+          <DependentUpon>Connect4Visual.xaml</DependentUpon>
         </Compile>
-        <Compile Include="UserControls\Kniffel\KniffelPointsVisual.xaml.cs">
-            <DependentUpon>KniffelPointsVisual.xaml</DependentUpon>
+        <Compile Include="View\UserControls\Kniffel\KniffelPointsVisual.xaml.cs">
+          <DependentUpon>KniffelPointsVisual.xaml</DependentUpon>
         </Compile>
-        <Compile Include="UserControls\Schafkopf\GameModeSelector.xaml.cs">
+        <Compile Include="View\UserControls\Kniffel\SelectableDice.xaml.cs">
+          <DependentUpon>SelectableDice.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="View\UserControls\Mancala\MancalaBoard.xaml.cs">
+          <DependentUpon>MancalaBoard.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="View\UserControls\Mancala\MancalaField.xaml.cs">
+          <DependentUpon>MancalaField.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="View\UserControls\Schafkopf\CardHolder.xaml.cs">
+          <DependentUpon>CardHolder.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="View\UserControls\Schafkopf\CardVisual.xaml.cs">
+          <DependentUpon>CardVisual.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="View\UserControls\Schafkopf\GameModeSelector.xaml.cs">
           <DependentUpon>GameModeSelector.xaml</DependentUpon>
         </Compile>
-        <Compile Include="UserControls\Schafkopf\SelectableCard.xaml.cs">
-            <DependentUpon>SelectableCard.xaml</DependentUpon>
+        <Compile Include="View\UserControls\Schafkopf\SelectableCard.xaml.cs">
+          <DependentUpon>SelectableCard.xaml</DependentUpon>
         </Compile>
-        <Compile Include="UserControls\Kniffel\SelectableDice.xaml.cs">
-            <DependentUpon>SelectableDice.xaml</DependentUpon>
+        <Compile Include="View\UserControls\Schafkopf\SKPlayerInfo.xaml.cs">
+          <DependentUpon>SKPlayerInfo.xaml</DependentUpon>
         </Compile>
-        <Compile Include="Sites\StartScreen.xaml.cs">
-            <DependentUpon>StartScreen.xaml</DependentUpon>
+        <Compile Include="View\UserControls\Schafkopf\StichView.xaml.cs">
+          <DependentUpon>StichView.xaml</DependentUpon>
         </Compile>
-        <Compile Include="UserControls\Schafkopf\SKPlayerInfo.xaml.cs">
-            <DependentUpon>SKPlayerInfo.xaml</DependentUpon>
+        <Compile Include="View\Windows\LastStich.xaml.cs">
+          <DependentUpon>LastStich.xaml</DependentUpon>
         </Compile>
-        <Compile Include="UserControls\Schafkopf\StichView.xaml.cs">
-            <DependentUpon>StichView.xaml</DependentUpon>
+        <Compile Include="View\Windows\MainWindow.xaml.cs">
+          <DependentUpon>MainWindow.xaml</DependentUpon>
         </Compile>
-        <Compile Include="Windows\LastStich.xaml.cs">
-            <DependentUpon>LastStich.xaml</DependentUpon>
+        <Compile Include="View\Windows\SchafkopfPoints.xaml.cs">
+          <DependentUpon>SchafkopfPoints.xaml</DependentUpon>
         </Compile>
-        <Compile Include="Windows\SchafkopfPoints.xaml.cs">
-            <DependentUpon>SchafkopfPoints.xaml</DependentUpon>
+        <Compile Include="View\Windows\WindowsMode.xaml.cs">
+          <DependentUpon>WindowsMode.xaml</DependentUpon>
         </Compile>
-        <Compile Include="Windows\WindowsMode.xaml.cs">
-            <DependentUpon>WindowsMode.xaml</DependentUpon>
-        </Compile>
-        <Page Include="Sites\Battleships.xaml">
-            <SubType>Designer</SubType>
-            <Generator>MSBuild:Compile</Generator>
-        </Page>
-        <Page Include="Sites\MultiplayerLobby.xaml">
-            <SubType>Designer</SubType>
-            <Generator>MSBuild:Compile</Generator>
-        </Page>
-        <Page Include="Sites\SchafkopfScreen.xaml">
-            <SubType>Designer</SubType>
-            <Generator>MSBuild:Compile</Generator>
-        </Page>
-        <Page Include="UserControls\BattleShips\BoatField.xaml">
-            <SubType>Designer</SubType>
-            <Generator>MSBuild:Compile</Generator>
-        </Page>
-        <Page Include="Sites\Connect4Screen.xaml">
-            <SubType>Designer</SubType>
-            <Generator>MSBuild:Compile</Generator>
-        </Page>
-        <Page Include="Sites\KniffelScreen.xaml">
-            <SubType>Designer</SubType>
-            <Generator>MSBuild:Compile</Generator>
-        </Page>
-        <Page Include="UserControls\Schafkopf\CardHolder.xaml">
-            <SubType>Designer</SubType>
-            <Generator>MSBuild:Compile</Generator>
-        </Page>
-        <Page Include="UserControls\Schafkopf\CardVisual.xaml">
-            <SubType>Designer</SubType>
-            <Generator>MSBuild:Compile</Generator>
-        </Page>
-        <Page Include="UserControls\CheckView.xaml">
-            <SubType>Designer</SubType>
-            <Generator>MSBuild:Compile</Generator>
-        </Page>
-        <Page Include="UserControls\Connect4\Connect4Field.xaml">
-            <SubType>Designer</SubType>
-            <Generator>MSBuild:Compile</Generator>
-        </Page>
-        <Page Include="UserControls\Connect4\Connect4Visual.xaml">
-            <SubType>Designer</SubType>
-            <Generator>MSBuild:Compile</Generator>
-        </Page>
-        <Page Include="UserControls\Kniffel\KniffelPointsVisual.xaml">
-            <SubType>Designer</SubType>
-            <Generator>MSBuild:Compile</Generator>
-        </Page>
-        <Page Include="UserControls\Schafkopf\GameModeSelector.xaml">
-          <SubType>Designer</SubType>
+        <Page Include="View\Sites\Battleships.xaml">
           <Generator>MSBuild:Compile</Generator>
         </Page>
-        <Page Include="UserControls\Schafkopf\SelectableCard.xaml">
-            <SubType>Designer</SubType>
-            <Generator>MSBuild:Compile</Generator>
+        <Page Include="View\Sites\Connect4Screen.xaml">
+          <Generator>MSBuild:Compile</Generator>
         </Page>
-        <Page Include="UserControls\Schafkopf\SKPlayerInfo.xaml">
-            <SubType>Designer</SubType>
-            <Generator>MSBuild:Compile</Generator>
+        <Page Include="View\Sites\KniffelScreen.xaml">
+          <Generator>MSBuild:Compile</Generator>
         </Page>
-        <Page Include="UserControls\Schafkopf\StichView.xaml">
-            <SubType>Designer</SubType>
-            <Generator>MSBuild:Compile</Generator>
+        <Page Include="View\Sites\MancalaScreen.xaml" />
+        <Page Include="View\Sites\MultiplayerLobby.xaml">
+          <Generator>MSBuild:Compile</Generator>
         </Page>
-        <Page Include="Windows\LastStich.xaml">
-            <SubType>Designer</SubType>
-            <Generator>MSBuild:Compile</Generator>
+        <Page Include="View\Sites\PlayerCreator.xaml">
+          <Generator>MSBuild:Compile</Generator>
         </Page>
-        <Page Include="Windows\MainWindow.xaml">
-            <Generator>MSBuild:Compile</Generator>
-            <SubType>Designer</SubType>
+        <Page Include="View\Sites\SchafkopfScreen.xaml">
+          <Generator>MSBuild:Compile</Generator>
+        </Page>
+        <Page Include="View\Sites\StartScreen.xaml">
+          <Generator>MSBuild:Compile</Generator>
+        </Page>
+        <Page Include="View\UserControls\BattleShips\BoatField.xaml">
+          <Generator>MSBuild:Compile</Generator>
+        </Page>
+        <Page Include="View\UserControls\CheckView.xaml">
+          <Generator>MSBuild:Compile</Generator>
+        </Page>
+        <Page Include="View\UserControls\Connect4\Connect4Field.xaml">
+          <Generator>MSBuild:Compile</Generator>
+        </Page>
+        <Page Include="View\UserControls\Connect4\Connect4Visual.xaml">
+          <Generator>MSBuild:Compile</Generator>
+        </Page>
+        <Page Include="View\UserControls\Kniffel\KniffelPointsVisual.xaml">
+          <Generator>MSBuild:Compile</Generator>
+        </Page>
+        <Page Include="View\UserControls\Kniffel\SelectableDice.xaml">
+          <Generator>MSBuild:Compile</Generator>
+        </Page>
+        <Page Include="View\UserControls\Mancala\MancalaBoard.xaml" />
+        <Page Include="View\UserControls\Mancala\MancalaField.xaml" />
+        <Page Include="View\UserControls\Schafkopf\CardHolder.xaml">
+          <Generator>MSBuild:Compile</Generator>
+        </Page>
+        <Page Include="View\UserControls\Schafkopf\CardVisual.xaml">
+          <Generator>MSBuild:Compile</Generator>
+        </Page>
+        <Page Include="View\UserControls\Schafkopf\GameModeSelector.xaml">
+          <Generator>MSBuild:Compile</Generator>
+        </Page>
+        <Page Include="View\UserControls\Schafkopf\SelectableCard.xaml">
+          <Generator>MSBuild:Compile</Generator>
+        </Page>
+        <Page Include="View\UserControls\Schafkopf\SKPlayerInfo.xaml">
+          <Generator>MSBuild:Compile</Generator>
+        </Page>
+        <Page Include="View\UserControls\Schafkopf\StichView.xaml">
+          <Generator>MSBuild:Compile</Generator>
         </Page>
         <Compile Include="App.xaml.cs">
             <DependentUpon>App.xaml</DependentUpon>
             <SubType>Code</SubType>
         </Compile>
-        <Compile Include="Windows\MainWindow.xaml.cs">
-            <DependentUpon>MainWindow.xaml</DependentUpon>
-            <SubType>Code</SubType>
-        </Compile>
-        <Page Include="Sites\PlayerCreator.xaml">
-            <SubType>Designer</SubType>
-            <Generator>MSBuild:Compile</Generator>
-        </Page>
-        <Page Include="UserControls\Kniffel\SelectableDice.xaml">
-            <SubType>Designer</SubType>
-            <Generator>MSBuild:Compile</Generator>
-        </Page>
-        <Page Include="Sites\StartScreen.xaml">
-            <SubType>Designer</SubType>
-            <Generator>MSBuild:Compile</Generator>
-        </Page>
         <Page Include="Themes\Generic.xaml">
             <Generator>MSBuild:Compile</Generator>
             <SubType>Designer</SubType>
         </Page>
-        <Page Include="Windows\SchafkopfPoints.xaml">
-            <SubType>Designer</SubType>
-            <Generator>MSBuild:Compile</Generator>
+        <Page Include="View\Windows\LastStich.xaml">
+          <Generator>MSBuild:Compile</Generator>
         </Page>
-        <Page Include="Windows\WindowsMode.xaml">
-            <SubType>Designer</SubType>
-            <Generator>MSBuild:Compile</Generator>
+        <Page Include="View\Windows\MainWindow.xaml">
+          <Generator>MSBuild:Compile</Generator>
+        </Page>
+        <Page Include="View\Windows\SchafkopfPoints.xaml">
+          <Generator>MSBuild:Compile</Generator>
+        </Page>
+        <Page Include="View\Windows\WindowsMode.xaml">
+          <Generator>MSBuild:Compile</Generator>
         </Page>
     </ItemGroup>
     <ItemGroup>
@@ -317,17 +307,74 @@
             <Generator>PublicResXFileCodeGenerator</Generator>
             <LastGenOutput>Resources.Designer.cs</LastGenOutput>
         </EmbeddedResource>
-        <None Include="packages.config"/>
+        <None Include="packages.config" />
         <None Include="Properties\Settings.settings">
             <Generator>SettingsSingleFileGenerator</Generator>
             <LastGenOutput>Settings.Designer.cs</LastGenOutput>
         </None>
     </ItemGroup>
     <ItemGroup>
-        <None Include="App.config"/>
+        <None Include="App.config" />
     </ItemGroup>
     <ItemGroup>
-        <Resource Include="Aroche-Delta-Folder-Saved-Games.ico"/>
+        <Resource Include="Aroche-Delta-Folder-Saved-Games.ico" />
+        <Resource Include="View\Images\background1.jpg" />
+        <Resource Include="View\Images\background2.jpg" />
+        <Resource Include="View\Images\Battleships\Empty.png" />
+        <Resource Include="View\Images\Battleships\O.png" />
+        <Resource Include="View\Images\Battleships\X.png" />
+        <Resource Include="View\Images\check.png" />
+        <Resource Include="View\Images\Connect4\connect-4-background.png" />
+        <Resource Include="View\Images\Connect4\EmptyCircleHighlighted.png" />
+        <Resource Include="View\Images\Connect4\RedCircle.png" />
+        <Resource Include="View\Images\Connect4\RedCircleHighlighted.png" />
+        <Resource Include="View\Images\Connect4\YellowCircle.png" />
+        <Resource Include="View\Images\Connect4\YellowCircleHighlighted.png" />
+        <Resource Include="View\Images\crossed.png" />
+        <Resource Include="View\Images\Kniffel\Dice1.png" />
+        <Resource Include="View\Images\Kniffel\Dice2.png" />
+        <Resource Include="View\Images\Kniffel\Dice3.png" />
+        <Resource Include="View\Images\Kniffel\Dice4.png" />
+        <Resource Include="View\Images\Kniffel\Dice5.png" />
+        <Resource Include="View\Images\Kniffel\Dice6.png" />
+        <Resource Include="View\Images\Schafkopf\aufgestellt.png" />
+        <Resource Include="View\Images\Schafkopf\backgroundLastStich.jpg" />
+        <Resource Include="View\Images\Schafkopf\backgroundLastStich2.jpg" />
+        <Resource Include="View\Images\Schafkopf\Eichel Acht.jpg" />
+        <Resource Include="View\Images\Schafkopf\Eichel Koenig.jpg" />
+        <Resource Include="View\Images\Schafkopf\Eichel Neun.jpg" />
+        <Resource Include="View\Images\Schafkopf\Eichel Ober.jpg" />
+        <Resource Include="View\Images\Schafkopf\Eichel Sau.jpg" />
+        <Resource Include="View\Images\Schafkopf\Eichel Sieben.jpg" />
+        <Resource Include="View\Images\Schafkopf\Eichel Unter.jpg" />
+        <Resource Include="View\Images\Schafkopf\Eichel Zehn.jpg" />
+        <Resource Include="View\Images\Schafkopf\Gras Acht.jpg" />
+        <Resource Include="View\Images\Schafkopf\Gras Koenig.jpg" />
+        <Resource Include="View\Images\Schafkopf\Gras Neun.jpg" />
+        <Resource Include="View\Images\Schafkopf\Gras Ober.jpg" />
+        <Resource Include="View\Images\Schafkopf\Gras Sau.jpg" />
+        <Resource Include="View\Images\Schafkopf\Gras Sieben.jpg" />
+        <Resource Include="View\Images\Schafkopf\Gras Unter.jpg" />
+        <Resource Include="View\Images\Schafkopf\Gras Zehn.jpg" />
+        <Resource Include="View\Images\Schafkopf\Herz Acht.jpg" />
+        <Resource Include="View\Images\Schafkopf\Herz Koenig.jpg" />
+        <Resource Include="View\Images\Schafkopf\Herz Neun.jpg" />
+        <Resource Include="View\Images\Schafkopf\Herz Ober.jpg" />
+        <Resource Include="View\Images\Schafkopf\Herz Sau.jpg" />
+        <Resource Include="View\Images\Schafkopf\Herz Sieben.jpg" />
+        <Resource Include="View\Images\Schafkopf\Herz Unter.jpg" />
+        <Resource Include="View\Images\Schafkopf\Herz Zehn.jpg" />
+        <Resource Include="View\Images\Schafkopf\kontra.png" />
+        <Resource Include="View\Images\Schafkopf\SchafkopfTisch.jpg" />
+        <Resource Include="View\Images\Schafkopf\Schelle Acht.jpg" />
+        <Resource Include="View\Images\Schafkopf\Schelle Koenig.jpg" />
+        <Resource Include="View\Images\Schafkopf\Schelle Neun.jpg" />
+        <Resource Include="View\Images\Schafkopf\Schelle Ober.jpg" />
+        <Resource Include="View\Images\Schafkopf\Schelle Sau.jpg" />
+        <Resource Include="View\Images\Schafkopf\Schelle Sieben.jpg" />
+        <Resource Include="View\Images\Schafkopf\Schelle Unter.jpg" />
+        <Resource Include="View\Images\Schafkopf\Schelle Zehn.jpg" />
+        <Resource Include="View\Images\undecided.png" />
     </ItemGroup>
     <ItemGroup>
         <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
@@ -342,86 +389,10 @@
         </BootstrapperPackage>
     </ItemGroup>
     <ItemGroup>
-        <Resource Include="Aroche-Delta-Games.ico"/>
+        <Resource Include="Aroche-Delta-Games.ico" />
     </ItemGroup>
     <ItemGroup>
-        <Resource Include="Images\Battleships\O.png"/>
-        <Resource Include="Images\Battleships\X.png"/>
-    </ItemGroup>
-    <ItemGroup>
-        <Resource Include="Images\Connect4\connect-4-background.png"/>
-        <Resource Include="Images\Kniffel\Dice1.png"/>
-        <Resource Include="Images\Kniffel\Dice2.png"/>
-        <Resource Include="Images\Kniffel\Dice3.png"/>
-        <Resource Include="Images\Kniffel\Dice4.png"/>
-        <Resource Include="Images\Kniffel\Dice5.png"/>
-        <Resource Include="Images\Kniffel\Dice6.png"/>
-        <Resource Include="Images\Battleships\Empty.png"/>
-    </ItemGroup>
-    <ItemGroup>
-        <Resource Include="Images\Connect4\RedCircle.png"/>
-        <Resource Include="Images\Connect4\YellowCircle.png"/>
-    </ItemGroup>
-    <ItemGroup>
-        <Resource Include="Images\Connect4\RedCircleHighlighted.png"/>
-        <Resource Include="Images\Connect4\YellowCircleHighlighted.png"/>
-    </ItemGroup>
-    <ItemGroup>
-        <Resource Include="Images\Connect4\EmptyCircleHighlighted.png"/>
-    </ItemGroup>
-    <ItemGroup>
-        <Resource Include="Images\background1.jpg"/>
-        <Resource Include="Images\background2.jpg"/>
-    </ItemGroup>
-    <ItemGroup>
-        <Resource Include="Images\Schafkopf\backgroundLastStich.jpg"/>
-        <Resource Include="Images\Schafkopf\SchafkopfTisch.jpg"/>
-    </ItemGroup>
-    <ItemGroup>
-        <Resource Include="Images\Schafkopf\Eichel Acht.jpg"/>
-        <Resource Include="Images\Schafkopf\Eichel Koenig.jpg"/>
-        <Resource Include="Images\Schafkopf\Eichel Neun.jpg"/>
-        <Resource Include="Images\Schafkopf\Eichel Ober.jpg"/>
-        <Resource Include="Images\Schafkopf\Eichel Sau.jpg"/>
-        <Resource Include="Images\Schafkopf\Eichel Sieben.jpg"/>
-        <Resource Include="Images\Schafkopf\Eichel Unter.jpg"/>
-        <Resource Include="Images\Schafkopf\Eichel Zehn.jpg"/>
-        <Resource Include="Images\Schafkopf\Gras Acht.jpg"/>
-        <Resource Include="Images\Schafkopf\Gras Koenig.jpg"/>
-        <Resource Include="Images\Schafkopf\Gras Neun.jpg"/>
-        <Resource Include="Images\Schafkopf\Gras Ober.jpg"/>
-        <Resource Include="Images\Schafkopf\Gras Sau.jpg"/>
-        <Resource Include="Images\Schafkopf\Gras Sieben.jpg"/>
-        <Resource Include="Images\Schafkopf\Gras Unter.jpg"/>
-        <Resource Include="Images\Schafkopf\Gras Zehn.jpg"/>
-        <Resource Include="Images\Schafkopf\Herz Acht.jpg"/>
-        <Resource Include="Images\Schafkopf\Herz Koenig.jpg"/>
-        <Resource Include="Images\Schafkopf\Herz Neun.jpg"/>
-        <Resource Include="Images\Schafkopf\Herz Ober.jpg"/>
-        <Resource Include="Images\Schafkopf\Herz Sau.jpg"/>
-        <Resource Include="Images\Schafkopf\Herz Sieben.jpg"/>
-        <Resource Include="Images\Schafkopf\Herz Unter.jpg"/>
-        <Resource Include="Images\Schafkopf\Herz Zehn.jpg"/>
-        <Resource Include="Images\Schafkopf\Schelle Acht.jpg"/>
-        <Resource Include="Images\Schafkopf\Schelle Koenig.jpg"/>
-        <Resource Include="Images\Schafkopf\Schelle Neun.jpg"/>
-        <Resource Include="Images\Schafkopf\Schelle Ober.jpg"/>
-        <Resource Include="Images\Schafkopf\Schelle Sau.jpg"/>
-        <Resource Include="Images\Schafkopf\Schelle Sieben.jpg"/>
-        <Resource Include="Images\Schafkopf\Schelle Unter.jpg"/>
-        <Resource Include="Images\Schafkopf\Schelle Zehn.jpg"/>
-    </ItemGroup>
-    <ItemGroup>
-        <Resource Include="Images\Schafkopf\backgroundLastStich2.jpg"/>
-    </ItemGroup>
-    <ItemGroup>
-        <Resource Include="Images\Schafkopf\aufgestellt.png"/>
-        <Resource Include="Images\Schafkopf\kontra.png"/>
-    </ItemGroup>
-    <ItemGroup>
-        <Resource Include="Images\check.png"/>
-        <Resource Include="Images\crossed.png"/>
-        <Resource Include="Images\undecided.png"/>
+      <Folder Include="View\" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
 </Project>

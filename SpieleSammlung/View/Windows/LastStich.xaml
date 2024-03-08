@@ -9,7 +9,7 @@
         Closing="Window_Closing"
         Title="{x:Static properties:Resources.SKLastStich_Title}" Height="350" Width="198">
     <Window.Background>
-        <ImageBrush ImageSource="/Images/Schafkopf/backgroundLastStich2.jpg" />
+        <ImageBrush ImageSource="../Images/Schafkopf/backgroundLastStich2.jpg" />
     </Window.Background>
     <Grid x:Name="GridStich">
         <schafkopf:StichView x:Name="Stich" />

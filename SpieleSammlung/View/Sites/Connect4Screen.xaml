@@ -39,7 +39,7 @@
         </Grid>
         <Grid Grid.Row="0" Grid.Column="1" Width="420" Height="360" x:Name="FieldGrid">
             <Grid.Background>
-                <ImageBrush ImageSource="../../Images/Connect4/connect-4-background.png" />
+                <ImageBrush ImageSource="../../../View/Images/Connect4/connect-4-background.png" />
             </Grid.Background>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />

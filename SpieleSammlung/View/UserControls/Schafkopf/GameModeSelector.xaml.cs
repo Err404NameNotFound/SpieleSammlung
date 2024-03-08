@@ -104,9 +104,7 @@ namespace SpieleSammlung.UserControls.Schafkopf
                 ModeSelected(CreateEventArgs());
             }
             else
-            {
                 State = GameSelectorState.Visible;
-            }
         }
 
         private GameModeSelectedEvent CreateEventArgs() => new(SelectedMode, CbColor.SelectedItem.ToString());
@@ -115,17 +113,13 @@ namespace SpieleSammlung.UserControls.Schafkopf
         public void TrySelect()
         {
             if (BtnSelectMode.IsChecked == true)
-            {
                 BtnSelectMode_Click(BtnSelectMode, null);
-            }
         }
 
         private void ColorHasChanged()
         {
             if (_possibilities[CbMode.SelectedIndex].Mode != SchafkopfMode.Weiter && CbColor.SelectedIndex != -1)
-            {
                 ColorChanged(CreateEventArgs());
-            }
         }
 
         public void CheckIfSelectedStillValid(SchafkopfMode mode, SchafkopfMatch match, SchafkopfPlayer player)
@@ -151,9 +145,7 @@ namespace SpieleSammlung.UserControls.Schafkopf
                     {
                         player.RemovePossibility(SchafkopfMode.WenzTout);
                         if (mode == SchafkopfMode.SoloTout)
-                        {
                             player.RemovePossibility(SchafkopfMode.SoloTout);
-                        }
                     }
                 }
             }
@@ -169,13 +161,9 @@ namespace SpieleSammlung.UserControls.Schafkopf
         public void SetGameSelectorFocus(bool focused)
         {
             if (focused && CbMode.Visibility == Visibility.Visible)
-            {
                 ModeBorder.BorderBrush = Brushes.Red;
-            }
             else
-            {
                 ModeBorder.BorderBrush = Brushes.Transparent;
-            }
         }
     }
 }

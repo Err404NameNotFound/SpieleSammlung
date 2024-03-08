@@ -41,6 +41,7 @@ namespace SpieleSammlung.Model.Util
         }
 
         public static long Max(IEnumerable<long> array) => array.Max();
+        public static long Max(IEnumerable<int> array) => array.Max();
 
         public static long Max(Func<int, long> array, int length)
         {

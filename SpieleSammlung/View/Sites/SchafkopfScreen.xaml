@@ -9,7 +9,7 @@
              mc:Ignorable="d"
              d:DesignHeight="600" d:DesignWidth="1000">
     <UserControl.Background>
-        <ImageBrush ImageSource="/Images\Schafkopf\SchafkopfTisch.jpg" />
+        <ImageBrush ImageSource="../Images/Schafkopf/SchafkopfTisch.jpg" />
     </UserControl.Background>
     <Grid>
         <Grid x:Name="ViewPlaying" Visibility="Collapsed">

@@ -11,7 +11,8 @@
         Maexchen,
         VierGewinnt,
         Kniffel,
-        Schafkopf
+        Schafkopf,
+        Mancala
     }
 
     public enum MainWindowView
@@ -22,7 +23,8 @@
         SchiffeVersenken,
         VierGewinnt,
         Kniffel,
-        Schafkopf
+        Schafkopf,
+        Mancala
     }
 
     /// <summary>

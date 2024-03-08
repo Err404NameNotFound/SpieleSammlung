@@ -21,6 +21,7 @@ namespace SpieleSammlung.Windows
         private SchafkopfScreen _viewSchafkopfScreen;
         private KniffelScreen _viewKniffelScreen;
         private Connect4Screen _viewConnect4Screen;
+        private MancalaScreen _viewMancalaScreen;
         private Battleships _viewBattleships;
 
         private MainWindowView _view;
@@ -37,8 +38,9 @@ namespace SpieleSammlung.Windows
                     MainWindowView.Schafkopf => _viewSchafkopfScreen,
                     MainWindowView.Kniffel => _viewKniffelScreen,
                     MainWindowView.VierGewinnt => _viewConnect4Screen,
+                    MainWindowView.Mancala => _viewMancalaScreen,
                     MainWindowView.SchiffeVersenken => _viewBattleships,
-                    _ => null
+                    _ => throw new ArgumentException("This game mode has not been fully implemented")
                 };
             }
         }
@@ -194,6 +196,9 @@ namespace SpieleSammlung.Windows
                 case GameMode.Kniffel:
                     _viewKniffelScreen = new KniffelScreen(playerNames);
                     break;
+                case GameMode.Mancala:
+                    _viewMancalaScreen = new MancalaScreen(true);
+                    break;
                 case GameMode.Schafkopf:
                     throw new ArgumentOutOfRangeException(nameof(mode), mode, "This game is not a single player game");
             }
@@ -209,6 +214,7 @@ namespace SpieleSammlung.Windows
                 GameMode.Schafkopf => MainWindowView.Schafkopf,
                 GameMode.SchiffeVersenken => MainWindowView.SchiffeVersenken,
                 GameMode.VierGewinnt => MainWindowView.VierGewinnt,
+                GameMode.Mancala => MainWindowView.Mancala,
                 _ => MainWindowView.StartScreen
             };
         }

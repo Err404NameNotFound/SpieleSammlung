@@ -52,5 +52,10 @@ namespace SpieleSammlung.Sites
         {
             ChoseModeEvent(GameMode.Schafkopf, 4, 7);
         }
+
+        private void BtnMancala_Click(object sender, RoutedEventArgs e)
+        {
+            ChoseModeEvent(GameMode.Mancala, 2, 2);
+        }
     }
 }

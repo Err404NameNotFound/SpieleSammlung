@@ -164,7 +164,7 @@ namespace SpieleSammlung.Sites
             CanQuitNow = true;
             QuitAfterMatch = false;
             if (connection.IsHost) ShuffleCards(false);
-            else if (reJoin) SendMessage(new List<string> { CODE_HOST_READY_FOR_INFO });
+            else if (reJoin) SendMessage(CODE_HOST_READY_FOR_INFO);
         }
 
         #region Connection
@@ -229,17 +229,14 @@ namespace SpieleSammlung.Sites
                     {
                         case CODE_HOST_READY_FOR_INFO:
                             redirect = false;
-                            SendMessage(GenerateRejoinInfo(), e.Sender);
+                            SendMessage(e.Sender, GenerateRejoinInfo());
                             break;
                         case CODE_HOST_READY_TO_START:
                             redirect = false;
                             ApplyConnectionToUserLost(_connection.lostClients.Count, int.Parse(msgParts[1]),
                                 MultiplayerPlayerState.Active, e.Sender);
-                            SendMessage(new List<string>
-                            {
-                                codeClientLostConnection, _connection.lostClients.Count.ToString(), msgParts[1],
-                                MultiplayerPlayerState.Active.ToString(), e.Sender
-                            });
+                            SendMessage(codeClientLostConnection, _connection.lostClients.Count.ToString(), msgParts[1],
+                                MultiplayerPlayerState.Active.ToString(), e.Sender);
                             break;
                         case codeViewCard:
                             ApplyUserSeesFullCards(msgParts);
@@ -248,14 +245,7 @@ namespace SpieleSammlung.Sites
                             newRound = ApplyChoseGameOfOtherUser(msgParts);
                             break;
                         case codeKontraRe:
-                            int w = 0;
-                            int kontra = 0;
-                            while (w < PLAYER_PER_ROUND)
-                            {
-                                if (_match.CurrentPlayers[w].Kontra) ++kontra;
-                                ++w;
-                            }
-
+                            int kontra = _match.CurrentPlayers.Count(t => t.Kontra);
                             if (kontra < 2) ApplyKontraReOfOtherUser(msgParts);
                             else
                             {
@@ -286,6 +276,11 @@ namespace SpieleSammlung.Sites
 
                     break;
                 }
+                case MultiplayerEventTypes.CClientCantJoin or MultiplayerEventTypes.CDuplicateNames or
+                    MultiplayerEventTypes.ClientReceived or MultiplayerEventTypes.CClientConnected or
+                    MultiplayerEventTypes.CClientDisconnected:
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
 
             DebugLog();
@@ -316,9 +311,7 @@ namespace SpieleSammlung.Sites
                         break;
                     case codePlayCard:
                         if (ApplyCardClickOfOtherUser(msgParts))
-                        {
                             CardHolder_CardClicked(null, null);
-                        }
 
                         break;
                     case codeContinue:
@@ -347,10 +340,12 @@ namespace SpieleSammlung.Sites
             }
         }
 
-        private void SendMessage(IEnumerable<string> message, string id = null)
-        {
+        private void SendMessage(IEnumerable<string> message) => _connection.SendMessage(message, SEPARATOR);
+
+        private void SendMessage(string id, IEnumerable<string> message) =>
             _connection.SendMessage(message, SEPARATOR, id);
-        }
+
+        private void SendMessage(params string[] message) => _connection.SendMessage(message, SEPARATOR);
 
         public void EndConnection() => _connection.EndConnection();
 
@@ -363,7 +358,7 @@ namespace SpieleSammlung.Sites
         private IEnumerable<string> GenerateRejoinInfo()
         {
             List<string> message = new List<string> { codeClientInfoRejoin };
-            message.Add(_match.InfoForRejoin(SEPARATOR,SEPARATOR_REJOIN_INFO_STRING));
+            message.Add(_match.InfoForRejoin(SEPARATOR, SEPARATOR_REJOIN_INFO_STRING));
             StringBuilder bob = new StringBuilder(8);
             if (PlayerIndexCurRound == -1)
             {
@@ -558,7 +553,7 @@ namespace SpieleSammlung.Sites
         {
             int player = int.Parse(msgParts[1]);
             int selected = int.Parse(msgParts[2]);
-            if (PlayCard(player, selected, _match.CurrentPlayers[player].PlayableCards[selected]))
+            if (PlayCard(player, selected))
             {
                 if (_isSpectating)
                 {
@@ -566,7 +561,7 @@ namespace SpieleSammlung.Sites
                     return false;
                 }
 
-                return true;
+                return !_match.IsGameOver;
             }
 
             return false;
@@ -704,13 +699,14 @@ namespace SpieleSammlung.Sites
             if (_isSpectating)
             {
                 for (int i = 0; i < _playerInfosSpectate.Count; ++i) _playerInfosSpectate[i].Focused = i == current;
-                if (cardHolder == true)
-                    for (int i = 0; i < _chSpectate.Count; ++i)
-                        _chSpectate[i].Focused = i == current;
+                if (cardHolder != true) return;
+                for (int i = 0; i < _chSpectate.Count; ++i)
+                    _chSpectate[i].Focused = i == current;
             }
             else
             {
-                for (int i = 0; i < PLAYER_PER_ROUND; ++i) _playerInfos[GetUiPlayerIndex(i)].Focused = i == current;
+                for (int i = 0; i < _playerInfos.Count; ++i)
+                    _playerInfos[GetUiPlayerIndex(i)].Focused = i == current;
 
                 if (cardHolder == true) CardHolder.Focused = current == PlayerIndexCurRound;
                 else if (cardHolder.HasValue) ModeSelector.SetGameSelectorFocus(current == PlayerIndexCurRound);
@@ -749,18 +745,14 @@ namespace SpieleSammlung.Sites
             int i;
             for (i = 0; i < _match.Players.Count; ++i)
             {
-                if (evaluation)
-                {
-                    _match.Players[i].continueMatch = null;
-                }
-
+                if (evaluation) _match.Players[i].continueMatch = null;
                 _cvNextMatch[i].IsChecked = _match.Players[i].continueMatch;
                 _lblPlayerSummaryNames[i].Content = _match.Players[i].Name;
                 _lblPlayerSummaryPoints[i].Content = _match.Players[i].Points;
                 _gridColsSummary[i].Width = new GridLength(1, GridUnitType.Star);
             }
 
-            for (; i < 7; ++i)
+            for (; i < _match.Players.Count; ++i)
             {
                 _gridColsSummary[i].Width = new GridLength(0, GridUnitType.Star);
             }
@@ -771,10 +763,7 @@ namespace SpieleSammlung.Sites
             BtnPlayerNextMatch.Visibility = Visibility.Visible;
             _cvNextMatch[_playerIndex].Visibility = Visibility.Collapsed;
             GridRoundSummary.Visibility = Visibility.Visible;
-            if (_points != null)
-            {
-                UpdatePoints();
-            }
+            if (_points != null) UpdatePoints();
 
             if (QuitAfterMatch)
             {
@@ -811,10 +800,7 @@ namespace SpieleSammlung.Sites
         /// <param name="msgParts"></param> message for clients
         private void ShuffleCards(bool sameRound, IReadOnlyList<string> msgParts = null)
         {
-            if (!sameRound)
-            {
-                BtnLastStich.IsEnabled = false;
-            }
+            if (!sameRound) BtnLastStich.IsEnabled = false;
 
             GridRoundSummary.Visibility = Visibility.Collapsed;
             if (_connection.IsHost)
@@ -923,16 +909,20 @@ namespace SpieleSammlung.Sites
             return false;
         }
 
-        private bool PlayCard(int player, int selected, Card card)
+        /// <summary>
+        /// Plays the given card by the given player if possible.
+        /// </summary>
+        /// <param name="player">Index of the player in the array of current players.</param>
+        /// <param name="selected">Index of the card the player wants to play of his playable cards.</param>
+        /// <returns><c>true</c> if the card was played</returns>
+        private bool PlayCard(int player, int selected)
         {
+            Card card = _match.CurrentPlayers[player].PlayableCards[selected];
             if (_match.PlayCard(selected, player))
             {
                 if (_match.CurrentCardCount == 1)
                 {
-                    if (_isSpectating)
-                    {
-                        CurrentCardsSpectate.Reset();
-                    }
+                    if (_isSpectating) CurrentCardsSpectate.Reset();
                     else
                     {
                         CurrentCards.Reset();
@@ -961,7 +951,7 @@ namespace SpieleSammlung.Sites
                     AllowUiToUpdate();
                     Thread.Sleep(1500);
                     ShowSummary();
-                    return false;
+                    return true;
                 }
 
                 if (_match.CurrentCardCount == 0)
@@ -1003,15 +993,14 @@ namespace SpieleSammlung.Sites
             _match.Players[_playerIndex].Kontra = true;
             VisualPlayer.Kontra = true;
             BtnKontra.Visibility = Visibility.Hidden;
-            SendMessage(new List<string> { codeKontraRe, PlayerIndexCurRound.ToString() });
+            SendMessage(codeKontraRe, PlayerIndexCurRound.ToString());
         }
 
         private void CardHolder_ShowsAllCards(object sender, EventArgs e)
         {
             VisualPlayer.Aufgestellt = _match.Players[_playerIndex].Aufgestellt =
                 CardHolder.Aufgestellt || _match.Players[_playerIndex].Aufgestellt;
-            SendMessage(new List<string>
-                { codeViewCard, PlayerIndexCurRound.ToString(), CardHolder.Aufgestellt.ToString() });
+            SendMessage(codeViewCard, PlayerIndexCurRound.ToString(), CardHolder.Aufgestellt.ToString());
             ApplyPossibilities();
             ModeSelector.State = GameSelectorState.Visible;
             UpdateFocus(false);
@@ -1019,21 +1008,18 @@ namespace SpieleSammlung.Sites
 
         private void CardHolder_CardClicked(object sender, EventArgs e)
         {
+            if (CardHolder.SelectedCard == -1) return;
             if (_match.CurrentRound.CurrentPlayer == PlayerIndexCurRound && CardHolder.SelectedCard != -1)
             {
-                if (BtnKontra.Visibility == Visibility.Visible)
-                {
-                    BtnKontra.Visibility = Visibility.Hidden;
-                }
+                if (BtnKontra.Visibility == Visibility.Visible) BtnKontra.Visibility = Visibility.Hidden;
+
 
                 int selected = CardHolder.SelectedCard;
-                Card card = CardHolder.RemoveSelectedCard();
                 SendMessage(new List<string> { codePlayCard, PlayerIndexCurRound.ToString(), selected.ToString() });
-                PlayCard(PlayerIndexCurRound, selected, card);
+                if (PlayCard(PlayerIndexCurRound, selected))
+                    CardHolder.RemoveSelectedCard();
                 if (_match.CurrentCardCount != 0)
-                {
                     CardHolder.CanClickCards = false;
-                }
             }
         }
 

@@ -441,4 +441,10 @@
     <data name="SK_PrefixSauspielToString" xml:space="preserve">
         <value>auf</value>
     </data>
+    <data name="SS_Mancala" xml:space="preserve">
+        <value>Mancala</value>
+    </data>
+    <data name="MS_ChooseOption" xml:space="preserve">
+        <value>Option auswählen</value>
+    </data>
 </root>

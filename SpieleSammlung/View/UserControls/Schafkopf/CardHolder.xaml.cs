@@ -81,31 +81,22 @@ namespace SpieleSammlung.UserControls.Schafkopf
             set => Border.BorderBrush = value ? Brushes.Red : Brushes.Transparent;
         }
 
-        public Card RemoveCard(int index)
+        public void RemoveCard(int index)
         {
-            Card temp = _cards[index];
             _cards.RemoveAt(index);
-            for (int i = index; i < _cards.Count; ++i)
-            {
-                _cardVisuals[i].Card = _cards[i];
-            }
-
+            for (int i = index; i < _cards.Count; ++i) _cardVisuals[i].Card = _cards[i];
             _cardVisuals[_cards.Count].Visibility = Visibility.Collapsed;
             //BACKUP if (Cards.Count > 1) { Grid.ColumnDefinitions[cards.Count * 2 - 1].Width = new GridLength(0, GridUnitType.Star); } BACKUP
-            return temp;
         }
 
-        public Card RemoveSelectedCard()
+        public void RemoveSelectedCard()
         {
             if (HasSelectedCard)
             {
                 int storage = SelectedCard;
                 _cardVisuals[SelectedCard].IsChecked = false;
-                Card temp = RemoveCard(storage);
-                return temp;
+                RemoveCard(storage);
             }
-
-            return null;
         }
 
         public void MarkSelectableCards(IReadOnlyList<bool> playableCards)

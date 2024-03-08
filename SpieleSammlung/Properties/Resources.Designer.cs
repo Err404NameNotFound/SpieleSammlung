@@ -618,6 +618,15 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Option auswählen.
+        /// </summary>
+        public static string MS_ChooseOption {
+            get {
+                return ResourceManager.GetString("MS_ChooseOption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Spiel wird nach der Runde verlassen.
         /// </summary>
         public static string MW_Btn_LeavesAfterMatch {
@@ -1002,6 +1011,15 @@ namespace SpieleSammlung.Properties {
         public static string SS_Maexchen {
             get {
                 return ResourceManager.GetString("SS_Maexchen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mancala.
+        /// </summary>
+        public static string SS_Mancala {
+            get {
+                return ResourceManager.GetString("SS_Mancala", resourceCulture);
             }
         }
         

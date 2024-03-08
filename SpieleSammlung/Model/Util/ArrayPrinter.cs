@@ -125,6 +125,8 @@ namespace SpieleSammlung.Model.Util
             ModelLog.AppendLine();
         }
 
+        public static long GetNeededDigits(IEnumerable<int> values) => GetNeededDigits(MathHelp.Max(values));
+
         public static long GetNeededDigits(long val)
         {
             if (val == 0) return 1;
@@ -155,9 +157,17 @@ namespace SpieleSammlung.Model.Util
 
         public static string ArrayString(Func<int, string> array, int length, string separator = ", ")
         {
-            if(length < 1) return string.Empty;
+            if (length < 1) return string.Empty;
             StringBuilder builder = new StringBuilder().Append(array(0));
             for (int i = 1; i < length; i++) builder.Append(separator).Append(array(i));
+            return builder.ToString();
+        }
+
+        public static string PaddedArrayString(Func<int, string> array, int length, int digits, string separator = ", ")
+        {
+            if (length < 1) return string.Empty;
+            StringBuilder builder = new StringBuilder().Append(array(0).PadLeft(digits));
+            for (int i = 1; i < length; i++) builder.Append(separator).Append(array(i).PadLeft(digits));
             return builder.ToString();
         }
     }

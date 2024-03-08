@@ -99,7 +99,7 @@ namespace SpieleSammlung.Sites
 
         private void InitializeLevelSelector()
         {
-            for (int i = 1; i < 9; ++i)
+            for (int i = 1; i < 10; ++i)
             {
                 CBoxLevelSelection.Items.Add(i);
             }
@@ -258,13 +258,16 @@ namespace SpieleSammlung.Sites
                 {
                     MachineMove();
                 }
+                _currentPlayer = Connect4Tile.Player;
+                
             }
             else
             {
                 _mpGame = new Connect4Multiplayer(player, Connect4.SUGGESTED_MACHINE_LEVEL);
                 _game = _mpGame;
+                _currentPlayer = _game.GetFirstPlayer();
             }
-
+            
             ResetField();
         }
 

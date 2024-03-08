@@ -10,7 +10,7 @@
 
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="/Images/Schafkopf/backgroundLastStich2.jpg" />
+            <ImageBrush ImageSource="../Images/Schafkopf/backgroundLastStich2.jpg" />
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -18,7 +18,7 @@
         </Grid.RowDefinitions>
         <Grid x:Name="MainWindowGrid">
             <Grid.Background>
-                <ImageBrush ImageSource="/Images/background1.jpg" />
+                <ImageBrush ImageSource="../Images/background1.jpg" />
             </Grid.Background>
         </Grid>
         <Button x:Name="BtnCancel" Content="{x:Static properties:Resources.MW_LeaveGame}" Grid.Row="1"
