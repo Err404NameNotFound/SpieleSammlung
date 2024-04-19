@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using SpieleSammlung.Model.Kniffel;
 
-namespace SpieleSammlung.Sites
+namespace SpieleSammlung.View.Sites
 {
     /// <summary>
     /// Interaktionslogik für StartScreen.xaml

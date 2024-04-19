@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using SpieleSammlung.UserControls.Connect4;
 
-namespace SpieleSammlung.Sites
+namespace SpieleSammlung.View.Sites
 {
     /// <summary>
     /// Interaktionslogik für Connect4Screen.xaml

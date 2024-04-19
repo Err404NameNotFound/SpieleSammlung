@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using SpieleSammlung.Model.Kniffel.Fields;
 
-namespace SpieleSammlung.Sites
+namespace SpieleSammlung.View.Sites
 {
     /// <summary>
     /// Interaktionslogik für KniffelScreen.xaml

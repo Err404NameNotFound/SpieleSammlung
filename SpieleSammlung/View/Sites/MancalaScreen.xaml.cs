@@ -7,19 +7,20 @@ using System.Windows.Threading;
 using SpieleSammlung.Model.Mancala;
 using SpieleSammlung.UserControls.Mancala;
 
-namespace SpieleSammlung.Sites
+namespace SpieleSammlung.View.Sites
 {
     public partial class MancalaScreen : UserControl
     {
-        private MancalaGame _mancala;
-        private MancalaField[] _fields;
+        private readonly MancalaGame _mancala;
+        private readonly MancalaField[] _fields;
 
-        public MancalaScreen(bool isCapture = true, int stonesPerField = 4, int length = 10)
+        public MancalaScreen(bool isCapture = true, int stonesPerField = 4, int length = 6)
         {
             InitializeComponent();
             _mancala = new MancalaGame(ShowMove, ShowSteal, isCapture, stonesPerField, length);
             _fields = new MancalaField[_mancala.FieldsCount];
-            for (int i = -2; i < length; ++i) GridBoardVisual.ColumnDefinitions.Add(new ColumnDefinition());
+            for (int i = -2; i < length; ++i)
+                GridBoardVisual.ColumnDefinitions.Add(new ColumnDefinition());
             SetField(0, 0, 0, false);
             SetField(_mancala.Player2Index, 0, _mancala.Player2Index, false);
             Grid.SetRowSpan(_fields[_mancala.Player1Index], 2);

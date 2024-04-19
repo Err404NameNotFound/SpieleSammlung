@@ -1,9 +1,8 @@
-﻿using System.Linq;
+﻿using System.Windows;
 using SpieleSammlung.Model.Schafkopf;
-using System.Windows;
 using SpieleSammlung.UserControls.Schafkopf;
 
-namespace SpieleSammlung.Windows
+namespace SpieleSammlung.View.Windows
 {
     /// <summary>
     /// Interaktionslogik für LastStich.xaml

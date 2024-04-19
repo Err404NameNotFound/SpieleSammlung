@@ -1,14 +1,15 @@
 ﻿using System;
-using SpieleSammlung.Model;
-using SpieleSammlung.Model.Multiplayer;
-using SpieleSammlung.Sites;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using SpieleSammlung.Model;
+using SpieleSammlung.Model.Multiplayer;
+using SpieleSammlung.View.Sites;
+using SpieleSammlung.Windows;
 
-namespace SpieleSammlung.Windows
+namespace SpieleSammlung.View.Windows
 {
     /// <summary>
     /// Interaktionslogik für MainWindow.xaml

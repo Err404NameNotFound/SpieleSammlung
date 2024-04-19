@@ -1,12 +1,12 @@
-﻿using SpieleSammlung.Model.Schafkopf;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using SpieleSammlung.Model.Schafkopf;
 
-namespace SpieleSammlung.Windows
+namespace SpieleSammlung.View.Windows
 {
     /// <summary>
     /// Interaktionslogik für SchafkopfPoints.xaml

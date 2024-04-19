@@ -5,7 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using SpieleSammlung.UserControls.BattleShips;
 
-namespace SpieleSammlung.Sites
+namespace SpieleSammlung.View.Sites
 {
     /// <summary>
     /// Interaktionslogik für Battleships.xaml
