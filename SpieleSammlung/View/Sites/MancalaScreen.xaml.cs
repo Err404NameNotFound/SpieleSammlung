@@ -72,6 +72,16 @@ namespace SpieleSammlung.View.Sites
                 else
                     _fields[i].IsSelectable = false;
             }
+            if (!_mancala.CurrentIsFirst)
+                HighlightBotSelection();
+        }
+
+        private void HighlightBotSelection()
+        {
+            var bot = new MancalaBot();
+            int option = bot.CalculateIndexOfBestOption(_mancala);
+            if(option != -1)
+                _fields[_mancala.OptionsOfCurrentPlayer[option]].IsPreferredOptionByBot = true;
         }
 
 

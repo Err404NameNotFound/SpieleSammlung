@@ -11,13 +11,13 @@ namespace SpieleSammlung.UserControls.Mancala
         public delegate void OnFieldSelectedEvent(MancalaFieldClickedEvent e);
 
         public event OnFieldSelectedEvent FieldSelected;
-        
+
         private int _count;
         private readonly int _index;
 
         public bool IsSelectable
         {
-            get => FieldBorder.BorderBrush == Brushes.LawnGreen;
+            get => FieldValueDisplay.IsEnabled;
             set
             {
                 if (value)
@@ -30,7 +30,19 @@ namespace SpieleSammlung.UserControls.Mancala
                     FieldBorder.BorderBrush = Brushes.Transparent;
                     FieldValueDisplay.IsEnabled = false;
                 }
-            } 
+            }
+        }
+
+        public bool IsPreferredOptionByBot
+        {
+            get => FieldBorder.BorderBrush == Brushes.Cyan;
+            set
+            {
+                if (value)
+                    FieldBorder.BorderBrush = Brushes.Cyan;
+                else
+                    FieldBorder.BorderBrush = IsSelectable ? Brushes.LawnGreen : Brushes.Transparent;
+            }
         }
 
         public int Count

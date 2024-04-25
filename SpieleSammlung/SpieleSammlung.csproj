@@ -105,6 +105,7 @@
         <Compile Include="Model\Kniffel\Count\ValueOrderedList.cs"/>
         <Compile Include="Model\Kniffel\ShufflingOption.cs"/>
         <Compile Include="Model\Kniffel\WriteOption.cs"/>
+        <Compile Include="Model\Mancala\MancalaBot.cs" />
         <Compile Include="Model\Mancala\MancalaGame.cs" />
         <Compile Include="Model\Mancala\MancalaFieldClickedEvent.cs" />
         <Compile Include="Model\ModelLog.cs" />

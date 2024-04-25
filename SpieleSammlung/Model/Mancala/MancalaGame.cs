@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using SpieleSammlung.Model.Util;
 
 namespace SpieleSammlung.Model.Mancala
 {
-    public class MancalaGame
+    public class MancalaGame : ICloneable
     {
         private readonly int _stoneCount;
         private readonly int _minStoneCountForWin;
@@ -18,6 +19,7 @@ namespace SpieleSammlung.Model.Mancala
         public int Player2Index { get; }
         public IReadOnlyList<int> OptionsOfCurrentPlayer { private set; get; }
         public bool CurrentIsFirst { get; private set; }
+        public int CurrentPlayer => CurrentIsFirst ? Player1Index : Player2Index;
         public int PointsPlayer1 => _fields[Player1Index];
         public int PointsPlayer2 => _fields[Player2Index];
         public bool Player1IsWinner => _fields[Player1Index] > _minStoneCountForWin;
@@ -44,6 +46,31 @@ namespace SpieleSammlung.Model.Mancala
             UpdateOptions();
         }
 
+        public MancalaGame(MancalaGame copy, bool copyAnimations = true)
+        {
+            if (copyAnimations)
+            {
+                _miniMoveAnimation = copy._miniMoveAnimation;
+                _stealAnimation = copy._stealAnimation;
+            }
+            else
+            {
+                _miniMoveAnimation = i => { };
+                _stealAnimation = i => { };
+            }
+
+            _isCaptureMode = copy._isCaptureMode;
+            _stoneCount = copy._stoneCount;
+            Player1Index = copy.Player1Index;
+            Player2Index = copy.Player2Index;
+            _fields = (int[])copy._fields.Clone();
+            for (int i = 0; i < _fields.Length; ++i)
+                _fields[i] = copy._fields[i];
+            _minStoneCountForWin = copy._minStoneCountForWin;
+            CurrentIsFirst = copy.CurrentIsFirst;
+            OptionsOfCurrentPlayer = copy.OptionsOfCurrentPlayer;
+        }
+
         public void DoMove(int indexOfField)
         {
             if (CurrentIsFirst)
@@ -60,9 +87,9 @@ namespace SpieleSammlung.Model.Mancala
             _fields[field] = 0;
             while (count > 0)
             {
+                field = field == Player1Index ? _fields.Length - 1 : field - 1;
                 if (field == skippedField)
                     field = field == Player1Index ? _fields.Length - 1 : field - 1;
-                field = field == Player1Index ? _fields.Length - 1 : field - 1;
                 ++_fields[field];
                 --count;
                 _miniMoveAnimation(field);
@@ -148,5 +175,7 @@ namespace SpieleSammlung.Model.Mancala
             int digits = (int)ArrayPrinter.GetNeededDigits(_fields);
             return ArrayPrinter.PaddedArrayString(i => _fields[i].ToString(), _fields.Length, digits);
         }
+
+        public object Clone() => new MancalaGame(this, true);
     }
 }
