@@ -52,7 +52,7 @@ public class Dice
 
     private Dice(int[] dices)
     {
-        this.Dices = (int[])dices.Clone();
+        Dices = (int[])dices.Clone();
         UnSetCount = 0;
         for (var index = 0; index < dices.Length; index++)
         {
