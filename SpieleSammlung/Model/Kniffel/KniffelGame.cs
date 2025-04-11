@@ -120,15 +120,15 @@ public class KniffelGame
         _botStrategy = strategy;
         _diceGenerator = new FlatDice();
         _dice = dice;
-        IndexKillableField = new List<int>();
-        IndexWritableField = new List<WriteOption>();
+        IndexKillableField = [];
+        IndexWritableField = [];
         if (names.Count < MIN_PLAYER_COUNT)
         {
             throw new ArgumentException("There are not enough players in this list. " +
                                         $"A kniffel game needs at least {MIN_PLAYER_COUNT} players");
         }
 
-        Players = new List<KniffelPlayer>();
+        Players = [];
         foreach (var player in names)
         {
             Players.Add(new KniffelPlayer(player));

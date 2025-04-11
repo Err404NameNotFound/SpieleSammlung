@@ -23,7 +23,7 @@ public class SchafkopfRound
     private SchafkopfRound(int startPlayer)
     {
         StartPlayer = NextStartPlayer = startPlayer;
-        CurrentCards = new List<Card>();
+        CurrentCards = [];
         SemiTrumpf = "";
         _currentPlayer = NextStartPlayer;
         HighestValue = 0;

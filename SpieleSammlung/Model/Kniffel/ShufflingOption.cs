@@ -34,9 +34,9 @@ public class ShufflingOption
     private void Initialize(Dice dice, List<WriteOption> options)
     {
         _dice = dice;
-        _optionsWrite = new List<WriteOption>();
-        _optionsKill = new List<WriteOption>();
-        _optionsWriteOrdered = new List<WriteOption>();
+        _optionsWrite = [];
+        _optionsKill = [];
+        _optionsWriteOrdered = [];
         Sum = 0;
         Average = 0;
         AverageWrite = 0;

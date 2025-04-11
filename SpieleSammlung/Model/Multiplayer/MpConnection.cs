@@ -49,8 +49,8 @@ public class MpConnection
         _host.SendBufferSize = 400;
         _host.ReceiveBufferSize = 50;
         _host.NoDelay = true;
-        LostClients = new List<MultiplayerPlayer>();
-        _activeClients = new List<MultiplayerPlayer>();
+        LostClients = [];
+        _activeClients = [];
         if (File.Exists(PATH_HOST))
         {
             int n = 1;

@@ -38,7 +38,7 @@ public partial class MultiplayerLobby
     public MultiplayerLobby(GameMode m, int minP, int maxP)
     {
         InitializeComponent();
-        _players = new List<MultiplayerPlayer>();
+        _players = [];
 
         _mode = m;
         _min = minP;
