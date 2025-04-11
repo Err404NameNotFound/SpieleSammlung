@@ -85,7 +85,7 @@ public partial class MancalaScreen
     }
 
 
-    private void AllowUiToUpdate()
+    private static void AllowUiToUpdate()
     {
         DispatcherFrame frame = new DispatcherFrame();
         Dispatcher.CurrentDispatcher.BeginInvoke(DispatcherPriority.Render, new DispatcherOperationCallback(

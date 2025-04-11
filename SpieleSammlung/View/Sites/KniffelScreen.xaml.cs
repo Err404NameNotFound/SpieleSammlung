@@ -250,7 +250,7 @@ public partial class KniffelScreen
 
     #region Shuffle Animation
 
-    private void AllowUiToUpdate()
+    private static void AllowUiToUpdate()
     {
         DispatcherFrame frame = new DispatcherFrame();
         Dispatcher.CurrentDispatcher.BeginInvoke(DispatcherPriority.Render, new DispatcherOperationCallback(

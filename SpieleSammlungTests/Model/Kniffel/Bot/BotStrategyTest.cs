@@ -155,7 +155,7 @@ public class BotStrategyTest
             ArrayString(actual));
     }
 
-    private string ArrayString(IEnumerable<int> array) => string.Join(", ", array);
+    private static string ArrayString(IEnumerable<int> array) => string.Join(", ", array);
 
     [TestMethod]
     public void TestBotFinderIndex6()

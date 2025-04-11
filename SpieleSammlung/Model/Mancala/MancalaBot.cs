@@ -65,7 +65,7 @@ public class MancalaBot
         return RecursiveCalculation(clone, nextLevel, playerIndex, opponentIndex);
     }
 
-    private int ValueOfGame(MancalaGame game, int playerIndex, int opponentIndex)
+    private static int ValueOfGame(MancalaGame game, int playerIndex, int opponentIndex)
     {
         return game[playerIndex] - game[opponentIndex];
     }
