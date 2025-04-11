@@ -25,7 +25,7 @@ public class SchafkopfMatchPossibilityTest
     [TestMethod]
     public void TestToStringConstructorWithList()
     {
-        SchafkopfMode mode = SchafkopfMode.Sauspiel;
+        const SchafkopfMode mode = SchafkopfMode.Sauspiel;
         List<string> colors = [Card.GRAS, Card.EICHEL, Card.SCHELLE];
         SchafkopfMatchPossibility possibility = new SchafkopfMatchPossibility(mode, colors);
         Assert.AreEqual(mode + ": " + string.Join(", ", colors), possibility.ToString());
@@ -34,7 +34,7 @@ public class SchafkopfMatchPossibilityTest
     [TestMethod]
     public void TestToStringConstructorWithListSoloTout()
     {
-        SchafkopfMode mode = SchafkopfMode.SoloTout;
+        const SchafkopfMode mode = SchafkopfMode.SoloTout;
         List<string> colors = [Card.GRAS, Card.EICHEL, Card.SCHELLE, Card.HERZ];
         SchafkopfMatchPossibility possibility = new SchafkopfMatchPossibility(mode, colors);
         Assert.AreEqual(mode + ": " + string.Join(", ", colors), possibility.ToString());
