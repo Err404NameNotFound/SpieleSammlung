@@ -1,13 +1,8 @@
 namespace SpieleSammlung.Model.Mancala;
 
-public class MancalaBot
+public class MancalaBot(int level = 6)
 {
-    public int Level { get; set; }
-
-    public MancalaBot(int level = 6)
-    {
-        Level = level;
-    }
+    public int Level { get; set; } = level;
 
     public int CalculateIndexOfBestOption(MancalaGame game)
     {

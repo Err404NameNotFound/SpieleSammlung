@@ -50,11 +50,9 @@ public static class ArrayPrinter
 
     public static void PrintArray(long[] input, int[] sorting) =>
         PrintArray(i => input[sorting[i]].ToString(), sorting.Length);
-
-
+    
     public static void PrintArray(double[] input, int[] sorting) =>
         PrintArray(i => $"{input[sorting[i]]:0.000}", sorting.Length);
-
 
     public static void PrintArray(string before, long[] result, int digits)
     {
@@ -126,12 +124,18 @@ public static class ArrayPrinter
 
     public static long GetNeededDigits(IEnumerable<int> values) => GetNeededDigits(MathHelp.Max(values));
 
-    public static long GetNeededDigits(long val)
+    private static long GetNeededDigits(long val)
     {
-        if (val == 0) return 1;
-        if (val < 0) return 1 + GetNeededDigits(-val);
-        val = (long)Math.Ceiling(Math.Log10(val)); // without decimal point
-        return val + val / 3; // + decimal points
+        switch (val)
+        {
+            case 0:
+                return 1;
+            case < 0:
+                return 1 + GetNeededDigits(-val);
+            default:
+                val = (long)Math.Ceiling(Math.Log10(val)); // without decimal point
+                return val + val / 3; // + decimal points
+        }
     }
 
     public static long GetNeededDigitsSpaced(long val) => 1 + GetNeededDigits(val); // + 1 for spacing

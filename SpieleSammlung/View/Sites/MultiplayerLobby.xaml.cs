@@ -234,19 +234,15 @@ public partial class MultiplayerLobby
 
     private bool IsIp(string ip)
     {
-        if (IPAddress.TryParse(ip, out IPAddress address))
+        if (!IPAddress.TryParse(ip, out IPAddress address)) return false;
+        switch (address.AddressFamily)
         {
-            switch (address.AddressFamily)
-            {
-                case System.Net.Sockets.AddressFamily.InterNetwork:
-                    _ip = ip;
-                    return true;
-                default:
-                    return false;
-            }
+            case System.Net.Sockets.AddressFamily.InterNetwork:
+                _ip = ip;
+                return true;
+            default:
+                return false;
         }
-
-        return false;
     }
 
     private bool IsPort(string port)
@@ -335,6 +331,16 @@ public partial class MultiplayerLobby
 
                 StartMatch(GameMode.Schafkopf, _players, 0, _connection, false);
                 break;
+            case GameMode.Zufallszahlen:
+            case GameMode.Lotto:
+            case GameMode.SchiffeVersenken:
+            case GameMode.Maexchen:
+            case GameMode.VierGewinnt:
+            case GameMode.Kniffel:
+            case GameMode.Mancala:
+                break; // Nothing to do
+            default:
+                throw new ArgumentOutOfRangeException();
         }
     }
 

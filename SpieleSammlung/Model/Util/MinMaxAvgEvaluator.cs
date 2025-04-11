@@ -2,11 +2,10 @@ using System;
 
 namespace SpieleSammlung.Model.Util;
 
-public class MinMaxAvgEvaluator
+public class MinMaxAvgEvaluator(bool canBeNegative)
 {
-    private readonly bool _canBeNegative;
-    public long Min { get; private set; }
-    public long Max { get; private set; }
+    public long Min { get; private set; } = long.MaxValue;
+    public long Max { get; private set; } = long.MinValue;
     public long Sum { get; private set; }
     public long Count { get; private set; }
     public long AbsMin { get; private set; }
@@ -14,15 +13,6 @@ public class MinMaxAvgEvaluator
     public long AbsSum { get; private set; }
     public long Avg => Count == 0 ? 0 : Sum / Count;
     public double AvgDouble => Count == 0 ? 0.0 : (double)Sum / Count;
-
-    public MinMaxAvgEvaluator(bool canBeNegative)
-    {
-        Min = long.MaxValue;
-        Max = long.MinValue;
-        Sum = 0;
-        Count = 0;
-        _canBeNegative = canBeNegative;
-    }
 
     public static void PrintMultipleNonNegative(params MinMaxAvgEvaluator[] evaluators)
     {
@@ -96,7 +86,7 @@ public class MinMaxAvgEvaluator
             Min = value;
         }
 
-        if (_canBeNegative)
+        if (canBeNegative)
         {
             value = Math.Abs(value);
             AbsSum += value;
@@ -125,7 +115,7 @@ public class MinMaxAvgEvaluator
             ModelLog.AppendLine("max  ; {0:0,0}", Max);
             ModelLog.AppendLine("sum  ; {0:0,0}", Sum);
             ModelLog.AppendLine("avg  ; {0:0,0}", Sum / Count);
-            if (!_canBeNegative) return;
+            if (!canBeNegative) return;
             ModelLog.AppendLine("Stats of absolute values;");
             ModelLog.AppendLine("min  ; {0:0,0}", AbsMin);
             ModelLog.AppendLine("max  ; {0:0,0}", AbsMax);

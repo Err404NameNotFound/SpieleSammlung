@@ -86,6 +86,14 @@ public partial class MainWindow
             case MainWindowView.MultiplayerLobby:
                 _viewMultiplayerLobby.EndConnection();
                 break;
+            case MainWindowView.StartScreen:
+            case MainWindowView.PlayerCreator:
+            case MainWindowView.SchiffeVersenken:
+            case MainWindowView.Kniffel:
+            case MainWindowView.Mancala:
+                break; // Nothing to do
+            default:
+                throw new ArgumentOutOfRangeException();
         }
     }
 
@@ -181,9 +189,10 @@ public partial class MainWindow
     {
         switch (mode)
         {
-            case GameMode.Zufallszahlen: break;
-            case GameMode.Lotto: break;
-            case GameMode.Maexchen: break;
+            case GameMode.Zufallszahlen:
+            case GameMode.Lotto:
+            case GameMode.Maexchen:
+                break;
             case GameMode.SchiffeVersenken:
                 _viewBattleships = new Battleships(playerNames[0], playerNames[1], true, true);
                 break;
@@ -201,6 +210,8 @@ public partial class MainWindow
                 break;
             case GameMode.Schafkopf:
                 throw new ArgumentOutOfRangeException(nameof(mode), mode, Properties.Resources.Err_msg_not_a_single_player_game);
+            default:
+                throw new ArgumentOutOfRangeException(nameof(mode), mode, "");
         }
 
         ChooseScreen(Convert(mode));

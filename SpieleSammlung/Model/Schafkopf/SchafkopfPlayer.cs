@@ -406,7 +406,7 @@ public class SchafkopfPlayer : MultiplayerPlayer
         length = int.Parse(msgParts[index]);
         for (int i = 0; i < length; ++i)
         {
-            SchafkopfMode mode = SchafkopfMatch.StringToSchafkopfMode(msgParts[++index]);
+            SchafkopfMode mode = SchafkopfMatchConfig.StringToSchafkopfMode(msgParts[++index]);
             int colorCount = int.Parse(msgParts[++index]);
             List<string> colors = [];
             for (int color = 0; color < colorCount; ++color) colors.Add(msgParts[++index]);
