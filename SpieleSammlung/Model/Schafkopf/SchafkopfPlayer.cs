@@ -25,12 +25,12 @@ namespace SpieleSammlung.Model.Schafkopf
 
         public SchafkopfPlayer(string id, string name) : base(id, name)
         {
-            PlayableCards = new List<Card>();
-            _playedCards = new List<Card>();
+            PlayableCards = [];
+            _playedCards = [];
             Points = 0;
             NewMatch(-1, false);
             State = MultiplayerPlayerState.Active;
-            Possibilities = new List<SchafkopfMatchPossibility>();
+            Possibilities = [];
         }
 
         #region CalculatingPossibilites
@@ -39,7 +39,7 @@ namespace SpieleSammlung.Model.Schafkopf
         
         public void UpdatePossibilities(SchafkopfMode minimumGame)
         {
-            Possibilities = new List<SchafkopfMatchPossibility> { new(SchafkopfMode.Weiter) };
+            Possibilities = [new(SchafkopfMode.Weiter)];
             if (minimumGame == SchafkopfMode.SoloTout) return;
             List<string> solo = SoloPossibilities();
             if (minimumGame != SchafkopfMode.WenzTout)
@@ -52,7 +52,7 @@ namespace SpieleSammlung.Model.Schafkopf
                     {
                         if (minimumGame != SchafkopfMode.Sauspiel)
                         {
-                            temp = new List<string>();
+                            temp = [];
                             for (int i = 0; i < Card.COLOR_NAMES.Count; ++i)
                             {
                                 if (CanPlaySauspielWithColor(Card.COLOR_NAMES[i]))
@@ -91,7 +91,7 @@ namespace SpieleSammlung.Model.Schafkopf
 
         private List<string> SoloPossibilities()
         {
-            List<string> temp = new List<string>();
+            List<string> temp = [];
             for (int i = 0; i < 4; ++i)
             {
                 if (CanPlaySoloWithColor(Card.GetColor(i)))
@@ -102,7 +102,7 @@ namespace SpieleSammlung.Model.Schafkopf
 
             if (temp.Count == 0)
             {
-                temp = new List<string> { Card.EICHEL, Card.GRAS, Card.HERZ, Card.SCHELLE };
+                temp = [Card.EICHEL, Card.GRAS, Card.HERZ, Card.SCHELLE];
             }
 
             return temp;
@@ -290,7 +290,7 @@ namespace SpieleSammlung.Model.Schafkopf
             bool hasGesuchte = HasGesuchte(match);
             bool hasTrumpf = HasTrumpf(match);
             bool kannWeglaufen = hasGesuchte && KannWeglaufen(match);
-            List<bool> playable = new List<bool>();
+            List<bool> playable = [];
             if (firstCard == null)
             {
                 playable.AddRange(PlayableCards.Select(card =>
@@ -402,13 +402,13 @@ namespace SpieleSammlung.Model.Schafkopf
                 _playedCards.Add(Card.GetCard(int.Parse(msgParts[index])));
             }
 
-            Possibilities = new List<SchafkopfMatchPossibility>();
+            Possibilities = [];
             length = int.Parse(msgParts[index]);
             for (int i = 0; i < length; ++i)
             {
                 SchafkopfMode mode = SchafkopfMatch.StringToSchafkopfMode(msgParts[++index]);
                 int colorCount = int.Parse(msgParts[++index]);
-                List<string> colors = new List<string>();
+                List<string> colors = [];
                 for (int color = 0; color < colorCount; ++color) colors.Add(msgParts[++index]);
                 Possibilities.Add(new SchafkopfMatchPossibility(mode, colors));
             }

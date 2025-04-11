@@ -15,7 +15,7 @@ namespace SpieleSammlungTests.Model.Kniffel.Bot
     {
         private readonly BotStrategy _strategy = new();
         private readonly KniffelPlayer _player = new(new Player());
-        private static readonly List<Player> Players = new() { new Player(), new Player() };
+        private static readonly List<Player> Players = [new(), new()];
         private static readonly IntArrayComparer Comparer = new();
 
         [TestMethod]
@@ -106,7 +106,7 @@ namespace SpieleSammlungTests.Model.Kniffel.Bot
         {
             BotStrategy strategy = new BotStrategy(0);
             KniffelGame game = CreateGame(2, 3, 3, 6, 5);
-            AssertAreEqual(new[] { 0, 2 }, strategy.GenerateIndexToShuffleForNextBestMove(game));
+            AssertAreEqual([0, 2], strategy.GenerateIndexToShuffleForNextBestMove(game));
         }
 
         [TestMethod]
@@ -114,7 +114,7 @@ namespace SpieleSammlungTests.Model.Kniffel.Bot
         {
             BotStrategy strategy = new BotStrategy(1);
             KniffelGame game = CreateGame(2, 3, 3, 6, 5);
-            AssertAreEqual(new[] { 0, 2 }, strategy.GenerateIndexToShuffleForNextBestMove(game));
+            AssertAreEqual([0, 2], strategy.GenerateIndexToShuffleForNextBestMove(game));
         }
 
         [TestMethod]
@@ -122,7 +122,7 @@ namespace SpieleSammlungTests.Model.Kniffel.Bot
         {
             BotStrategy strategy = new BotStrategy(2);
             KniffelGame game = CreateGame(2, 3, 3, 6, 5);
-            AssertAreEqual(new[] { 0, 1, 2, 4 }, strategy.GenerateIndexToShuffleForNextBestMove(game));
+            AssertAreEqual([0, 1, 2, 4], strategy.GenerateIndexToShuffleForNextBestMove(game));
         }
 
         [TestMethod]
@@ -130,7 +130,7 @@ namespace SpieleSammlungTests.Model.Kniffel.Bot
         {
             BotStrategy strategy = new BotStrategy(3);
             KniffelGame game = CreateGame(2, 3, 3, 6, 5);
-            AssertAreEqual(new[] { 0, 1, 2 }, strategy.GenerateIndexToShuffleForNextBestMove(game));
+            AssertAreEqual([0, 1, 2], strategy.GenerateIndexToShuffleForNextBestMove(game));
         }
 
         [TestMethod]
@@ -138,7 +138,7 @@ namespace SpieleSammlungTests.Model.Kniffel.Bot
         {
             BotStrategy strategy = new BotStrategy(4);
             KniffelGame game = CreateGame(2, 3, 3, 6, 5);
-            AssertAreEqual(new[] { 0, 1, 2 }, strategy.GenerateIndexToShuffleForNextBestMove(game));
+            AssertAreEqual([0, 1, 2], strategy.GenerateIndexToShuffleForNextBestMove(game));
         }
 
         [TestMethod]
@@ -146,7 +146,7 @@ namespace SpieleSammlungTests.Model.Kniffel.Bot
         {
             BotStrategy strategy = new BotStrategy(5);
             KniffelGame game = CreateGame(2, 3, 3, 6, 5);
-            AssertAreEqual(Array.Empty<int>(), strategy.GenerateIndexToShuffleForNextBestMove(game));
+            AssertAreEqual([], strategy.GenerateIndexToShuffleForNextBestMove(game));
         }
 
         private void AssertAreEqual(int[] expected, int[] actual)
@@ -162,7 +162,7 @@ namespace SpieleSammlungTests.Model.Kniffel.Bot
         {
             BotStrategy strategy = new BotStrategy(6);
             KniffelGame game = CreateGame(2, 3, 3, 6, 5);
-            AssertAreEqual(new[] { 1, 2, 3, 4 }, strategy.GenerateIndexToShuffleForNextBestMove(game));
+            AssertAreEqual([1, 2, 3, 4], strategy.GenerateIndexToShuffleForNextBestMove(game));
         }
 
         [TestMethod]

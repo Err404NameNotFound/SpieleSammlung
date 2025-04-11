@@ -22,10 +22,7 @@ namespace SpieleSammlungTests.Model.Kniffel
 
         static KniffelGameTest()
         {
-            Players = new List<Player>
-            {
-                new("player 1", false), new("player 2", false)
-            };
+            Players = [new("player 1", false), new("player 2", false)];
             _continuousGame = new KniffelGame(Players, 420);
             Rng = new RandomStub();
             RiggedGame = new KniffelGame(Players, Rng);
@@ -66,7 +63,7 @@ namespace SpieleSammlungTests.Model.Kniffel
         {
             KniffelGame game = new KniffelGame(Players);
             int expected = game.RemainingShuffles - 1;
-            game.Shuffle(new[] { 0, 1, 2 });
+            game.Shuffle([0, 1, 2]);
             Assert.AreEqual(expected, game.RemainingShuffles);
         }
 
@@ -76,7 +73,7 @@ namespace SpieleSammlungTests.Model.Kniffel
             KniffelGame game = new KniffelGame(Players);
             for (int i = game.RemainingShuffles; i > 0; --i)
             {
-                game.Shuffle(new[] { 0, 4 });
+                game.Shuffle([0, 4]);
             }
 
             Assert.AreEqual(0, game.RemainingShuffles);
@@ -89,7 +86,7 @@ namespace SpieleSammlungTests.Model.Kniffel
             KniffelGame game = new KniffelGame(Players);
             for (int i = game.RemainingShuffles; i > 0; --i)
             {
-                game.Shuffle(new[] { 2, 3 });
+                game.Shuffle([2, 3]);
             }
 
             game.Shuffle();
@@ -115,8 +112,8 @@ namespace SpieleSammlungTests.Model.Kniffel
         public void Test09_PlayerChanges()
         {
             KniffelPlayer previousPlayer = _continuousGame.CurrentPlayer;
-            _continuousGame.Shuffle(new[] { 0 });
-            _continuousGame.Shuffle(new[] { 0 });
+            _continuousGame.Shuffle([0]);
+            _continuousGame.Shuffle([0]);
             _continuousGame.WriteField(3);
             Assert.AreNotEqual(previousPlayer, _continuousGame.CurrentPlayer);
         }
@@ -169,7 +166,7 @@ namespace SpieleSammlungTests.Model.Kniffel
             Rng.SetNext(4, 5, 4, 3, 2);
             RiggedGame.Shuffle();
             Rng.SetOutputConstant(4);
-            RiggedGame.Shuffle(new[] { 1, 3, 4 });
+            RiggedGame.Shuffle([1, 3, 4]);
             Rng.ClearOutputConstant();
             Rng.SetNext(2, 3, 4, 5, 6);
             Assert.AreEqual(5, RiggedGame.WriteableFieldsCount);

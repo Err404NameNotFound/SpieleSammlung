@@ -10,11 +10,11 @@ namespace SpieleSammlungTests.Model.Kniffel
     public class ShufflingOptionTest
     {
         private static readonly DiceManager Dice1 = new();
-        private static readonly List<WriteOption> WriteOptions1 = new();
-        private static readonly List<int> KillOptions1 = new();
+        private static readonly List<WriteOption> WriteOptions1 = [];
+        private static readonly List<int> KillOptions1 = [];
         private static readonly DiceManager Dice2 = new();
-        private static readonly List<WriteOption> WriteOptions2 = new();
-        private static readonly List<int> KillOptions2 = new();
+        private static readonly List<WriteOption> WriteOptions2 = [];
+        private static readonly List<int> KillOptions2 = [];
 
         [TestMethod]
         public void Test00_MaxOptionWithNoFields()
@@ -78,17 +78,17 @@ namespace SpieleSammlungTests.Model.Kniffel
         [TestMethod]
         public void Test07_MaxOptionHasOnlyChanceAsAnOption()
         {
-            List<WriteOption> writes = new List<WriteOption>
-            {
+            List<WriteOption> writes =
+            [
                 new(KniffelPointsTable.INDEX_CHANCE, 15),
                 new(KniffelPointsTable.INDEX_PAIR_SIZE_4, 26)
-            };
-            List<WriteOption> writes2 = new List<WriteOption>
-            {
+            ];
+            List<WriteOption> writes2 =
+            [
                 new(KniffelPointsTable.INDEX_CHANCE, 18),
                 new(KniffelPointsTable.INDEX_PAIR_SIZE_4, 26),
                 new(3, 8)
-            };
+            ];
             ShufflingOption option = new ShufflingOption(Dice1, writes, KillOptions1);
             ShufflingOption other = new ShufflingOption(Dice2, writes2, KillOptions2);
             Assert.AreEqual(other, option.MaxOptionWithoutChance(other));
@@ -97,17 +97,17 @@ namespace SpieleSammlungTests.Model.Kniffel
         [TestMethod]
         public void Test08_MaxOptionOtherHasOnlyChanceAsAnOption()
         {
-            List<WriteOption> writes = new List<WriteOption>
-            {
+            List<WriteOption> writes =
+            [
                 new(KniffelPointsTable.INDEX_CHANCE, 18),
                 new(KniffelPointsTable.INDEX_PAIR_SIZE_4, 26),
                 new(2, 6)
-            };
-            List<WriteOption> writes2 = new List<WriteOption>
-            {
+            ];
+            List<WriteOption> writes2 =
+            [
                 new(KniffelPointsTable.INDEX_CHANCE, 15),
                 new(KniffelPointsTable.INDEX_PAIR_SIZE_4, 26)
-            };
+            ];
             ShufflingOption option = new ShufflingOption(Dice1, writes, KillOptions1);
             ShufflingOption other = new ShufflingOption(Dice2, writes2, KillOptions2);
             Assert.AreEqual(option, option.MaxOptionWithoutChance(other));
@@ -190,7 +190,7 @@ namespace SpieleSammlungTests.Model.Kniffel
         public void Test18_MaxOptionMaxFirstTwoEqual()
         {
             WriteOptions1.Clear();
-            WriteOptions1.AddRange(new[] { new WriteOption(5, 18), new WriteOption(3, 16) });
+            WriteOptions1.AddRange([new WriteOption(5, 18), new WriteOption(3, 16)]);
             WriteOptions2.Clear();
             WriteOptions2.Add(new WriteOption(5, 18));
             ShufflingOption option = new ShufflingOption(Dice1, WriteOptions1, KillOptions1);
@@ -209,11 +209,9 @@ namespace SpieleSammlungTests.Model.Kniffel
         [TestMethod]
         public void TestToString()
         {
-            List<WriteOption> writes = new List<WriteOption>
-            {
-                new(KniffelPointsTable.INDEX_CHANCE, 30), new(0, 1), new(1, 6), new(3, 8), new(5, 24)
-            };
-            List<int> removable = new List<int> { 6, 8, 9, 11 };
+            List<WriteOption> writes =
+                [new(KniffelPointsTable.INDEX_CHANCE, 30), new(0, 1), new(1, 6), new(3, 8), new(5, 24)];
+            List<int> removable = [6, 8, 9, 11];
             const string expected =
                 "{ { 1, 2, 3, 4, 5 }: M={Chance -> 30}, MWOC={6er -> 24}, A=7,67, AW=13,80, S=69,00, CountWrite=5 }";
             RandomStub rng = new RandomStub(1, 2, 3, 4, 5);
@@ -224,15 +222,15 @@ namespace SpieleSammlungTests.Model.Kniffel
         [TestMethod]
         public void TestToStringLongForm()
         {
-            List<WriteOption> writes = new List<WriteOption>
-            {
+            List<WriteOption> writes =
+            [
                 new(KniffelPointsTable.INDEX_CHANCE, 30),
                 new(0, 1),
                 new(1, 6),
                 new(3, 8),
                 new(5, 24)
-            };
-            List<int> removable = new List<int> { 6, 8, 9, 11 };
+            ];
+            List<int> removable = [6, 8, 9, 11];
             const string expected =
                 "{ { 5, 5, 5, 5, 6 }: M={Chance -> 30}, MWOC={6er -> 24}, A=7,67, AW=13,80, S=69,00, CountWrite=5 }\n" +
                 "writable fields: {\nChance -> 30, 6er -> 24, 4er -> 8, 2er -> 6, 1er -> 1\n}\nkillable Fields: " +

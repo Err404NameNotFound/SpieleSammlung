@@ -94,12 +94,12 @@ namespace SpieleSammlungTests.Model.Kniffel
         public void TestBigStreetPossible()
         {
             int[][] inputs =
-            {
-                new[] { 1, 2, 3, 4, 5 }, new[] { 2, 3, 4, 5, 6 },
-                new[] { 5, 4, 3, 2, 1 }, new[] { 6, 5, 4, 3, 2 },
-                new[] { 4, 5, 1, 3, 2 }, new[] { 6, 2, 5, 3, 4 },
-                new[] { 5, 4, 3, 1, 2 }, new[] { 4, 6, 5, 2, 3 }
-            };
+            [
+                [1, 2, 3, 4, 5], [2, 3, 4, 5, 6],
+                [5, 4, 3, 2, 1], [6, 5, 4, 3, 2],
+                [4, 5, 1, 3, 2], [6, 2, 5, 3, 4],
+                [5, 4, 3, 1, 2], [4, 6, 5, 2, 3]
+            ];
             const string message = "Big Street should be possible with dice: {0}";
             TestAllCombinations(inputs, true, message, dice => dice.IsBigStreetPossible());
         }
@@ -125,7 +125,7 @@ namespace SpieleSammlungTests.Model.Kniffel
                 }
             }
 
-            int[][] inputs = { new[] { 1, 1, 4, 5, 6 }, new[] { 1, 2, 2, 5, 6 }, new[] { 2, 2, 2, 3, 5 } };
+            int[][] inputs = [[1, 1, 4, 5, 6], [1, 2, 2, 5, 6], [2, 2, 2, 3, 5]];
             TestAllCombinations(inputs, Asserter);
             return;
             void Asserter(FlatDice d) => Assert.IsFalse(d.IsBigStreetPossible(), string.Format(message, d));
@@ -135,12 +135,12 @@ namespace SpieleSammlungTests.Model.Kniffel
         public void TestSmallStreetPossible()
         {
             int[][] inputs =
-            {
-                new[] { 1, 2, 3, 4, 2 }, new[] { 2, 3, 4, 5, 6 },
-                new[] { 1, 4, 3, 2, 1 }, new[] { 6, 5, 4, 3, 2 },
-                new[] { 4, 5, 1, 3, 2 }, new[] { 6, 6, 5, 3, 4 },
-                new[] { 5, 4, 3, 1, 2 }, new[] { 4, 2, 5, 2, 3 }
-            };
+            [
+                [1, 2, 3, 4, 2], [2, 3, 4, 5, 6],
+                [1, 4, 3, 2, 1], [6, 5, 4, 3, 2],
+                [4, 5, 1, 3, 2], [6, 6, 5, 3, 4],
+                [5, 4, 3, 1, 2], [4, 2, 5, 2, 3]
+            ];
             const string message = "Small Street should be possible with dice: {0}";
             TestAllCombinations(inputs, true, message, dice => dice.IsSmallStreetPossible());
         }
@@ -166,7 +166,7 @@ namespace SpieleSammlungTests.Model.Kniffel
                 }
             }
 
-            int[][] inputs = { new[] { 1, 1, 4, 5, 6 }, new[] { 1, 2, 2, 5, 6 }, new[] { 1, 2, 2, 3, 5 } };
+            int[][] inputs = [[1, 1, 4, 5, 6], [1, 2, 2, 5, 6], [1, 2, 2, 3, 5]];
             TestAllCombinations(inputs, Asserter);
             return;
             void Asserter(FlatDice d) => Assert.IsFalse(d.IsSmallStreetPossible(), string.Format(message, d));
@@ -176,12 +176,12 @@ namespace SpieleSammlungTests.Model.Kniffel
         public void TestFullHousePossible()
         {
             int[][] inputs =
-            {
-                new[] { 1, 2, 1, 1, 2 }, new[] { 3, 3, 4, 4, 4 },
-                new[] { 1, 4, 1, 4, 1 }, new[] { 6, 5, 5, 6, 5 },
-                new[] { 2, 5, 5, 5, 2 }, new[] { 5, 4, 5, 5, 4 },
-                new[] { 3, 3, 3, 2, 2 }, new[] { 6, 6, 6, 5, 5 }
-            };
+            [
+                [1, 2, 1, 1, 2], [3, 3, 4, 4, 4],
+                [1, 4, 1, 4, 1], [6, 5, 5, 6, 5],
+                [2, 5, 5, 5, 2], [5, 4, 5, 5, 4],
+                [3, 3, 3, 2, 2], [6, 6, 6, 5, 5]
+            ];
             const string message = "Full House should be possible with dice: {0}";
             TestAllCombinations(inputs, true, message, dice => dice.IsFullHousePossible());
         }
@@ -201,7 +201,7 @@ namespace SpieleSammlungTests.Model.Kniffel
                 }
             }
 
-            int[][] inputs = { new[] { 1, 1, 4, 5, 6 }, new[] { 1, 2, 2, 5, 6 }, new[] { 1, 2, 2, 3, 5 } };
+            int[][] inputs = [[1, 1, 4, 5, 6], [1, 2, 2, 5, 6], [1, 2, 2, 3, 5]];
             TestAllCombinations(inputs, Asserter);
             return;
             void Asserter(FlatDice d) => Assert.IsFalse(d.IsFullHousePossible(), string.Format(message, d));
@@ -224,7 +224,7 @@ namespace SpieleSammlungTests.Model.Kniffel
             rng.SetNext(1, 2, 3, 4, 5);
             FlatDice dice = new FlatDice(rng);
             rng.SetNext(5, 2);
-            dice.Shuffle(new[] { 1, 4 });
+            dice.Shuffle([1, 4]);
             Assert.AreEqual("{ 1, 5, 3, 4, 2 }", dice.ToString());
         }
 
@@ -305,7 +305,7 @@ namespace SpieleSammlungTests.Model.Kniffel
         [TestMethod]
         public void TestAllDiceIndex()
         {
-            int[] expected = { 0, 1, 2, 3, 4 };
+            int[] expected = [0, 1, 2, 3, 4];
             int[] actual = FlatDice.AllDices;
             Assert.IsTrue(new IntArrayComparer().Equals(expected, actual), "expected: {0}, actual: {1}",
                 string.Join(", ", expected), string.Join(", ", actual));
@@ -378,7 +378,7 @@ namespace SpieleSammlungTests.Model.Kniffel
         public void TestContains32DifferentOptions()
         {
             FlatDice dice = new FlatDice();
-            HashSet<string> set = new HashSet<string>();
+            HashSet<string> set = [];
             var options = FlatDice.GenerateAllOptions(_player, dice);
             foreach (var d in options)
             {

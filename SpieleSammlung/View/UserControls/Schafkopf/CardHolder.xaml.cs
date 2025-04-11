@@ -20,7 +20,7 @@ namespace SpieleSammlung.View.UserControls.Schafkopf
         public CardHolder()
         {
             InitializeComponent();
-            _cardVisuals = new List<SelectableCard> { Card1, Card2, Card3, Card4, Card5, Card6, Card7, Card8 };
+            _cardVisuals = [Card1, Card2, Card3, Card4, Card5, Card6, Card7, Card8];
             SelectedCard = -1;
             BtnAufstellen.Width = BtnShowRest.Width;
             ChangeViewMode(false);

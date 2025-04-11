@@ -18,7 +18,7 @@ namespace SpieleSammlung.Model.Kniffel
         /// <summary>Template for indexes of all dices.</summary>
         private static readonly int[] IndexAllDices;
 
-        private static readonly int[] Divisors = { 16, 8, 4, 2, 1 };
+        private static readonly int[] Divisors = [16, 8, 4, 2, 1];
 
         #endregion
 
@@ -147,7 +147,7 @@ namespace SpieleSammlung.Model.Kniffel
 
         private static List<WriteOption> CalculateExpectedValues(KniffelPlayer player, int index)
         {
-            List<WriteOption> options = new List<WriteOption>();
+            List<WriteOption> options = [];
             for (int i = 0; i < 6; ++i)
             {
                 Add(player, options, i, DiceManager.EofTop6(index, i));
@@ -173,7 +173,7 @@ namespace SpieleSammlung.Model.Kniffel
 
         public static List<ShufflingOption> GenerateAllOptions(KniffelPlayer player, FlatDice dice)
         {
-            List<ShufflingOption> ret = new List<ShufflingOption>();
+            List<ShufflingOption> ret = [];
             int combinations = Dice.COMBINATIONS_UNSET_DICE;
             int[] values = (int[])dice._dices.Clone();
             for (int i = 0; i < combinations; ++i)
@@ -203,7 +203,7 @@ namespace SpieleSammlung.Model.Kniffel
                 if ((int)DiceManager.EofSmallStreet(index) == KniffelGame.VALUE_SMALL_STREET
                     && DiceManager.EofBigStreet(index) > 0)
                 {
-                    return new[] { i };
+                    return [i];
                 }
             }
 

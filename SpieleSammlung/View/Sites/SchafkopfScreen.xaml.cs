@@ -121,36 +121,34 @@ namespace SpieleSammlung.View.Sites
             InitializeComponent();
 
             //UI Playing
-            _playerInfos = new List<SkPlayerInfo>
-                { VisualPlayer, VisualPlayerLeft, VisualPlayerTop, VisualPlayerRight };
+            _playerInfos = [VisualPlayer, VisualPlayerLeft, VisualPlayerTop, VisualPlayerRight];
             ModeSelector.ColorChanged += ModeSelector_ColorChanged;
             ModeSelector.ModeSelected += ModeSelector_ModeSelected;
             //UI Summary
-            _lblPlayerSummaryNames = new List<Label>
-            {
+            _lblPlayerSummaryNames =
+            [
                 LblPlayer1Review, LblPlayer2Review, LblPlayer3Review, LblPlayer4Review, LblPlayer5Review,
                 LblPlayer6Review, LblPlayer7Review
-            };
-            _lblPlayerSummaryPoints = new List<Label>
-            {
+            ];
+            _lblPlayerSummaryPoints =
+            [
                 LblPlayer1Points, LblPlayer2Points, LblPlayer3Points, LblPlayer4Points, LblPlayer5Points,
                 LblPlayer6Points, LblPlayer7Points
-            };
-            _cvNextMatch = new List<CheckView>
-                { CvPlayer1, CvPlayer2, CvPlayer3, CvPlayer4, CvPlayer5, CvPlayer6, CvPlayer7 };
-            _gridColsSummary = new List<ColumnDefinition>
-            {
+            ];
+            _cvNextMatch = [CvPlayer1, CvPlayer2, CvPlayer3, CvPlayer4, CvPlayer5, CvPlayer6, CvPlayer7];
+            _gridColsSummary =
+            [
                 SummaryColumnP1, SummaryColumnP2, SummaryColumnP3, SummaryColumnP4, SummaryColumnP5, SummaryColumnP6,
                 SummaryColumnP7
-            };
+            ];
             //UI Spectate
-            _chSpectate = new List<CardHolder> { ChPlayer1, ChPlayer2, ChPlayer3, ChPlayer4 };
+            _chSpectate = [ChPlayer1, ChPlayer2, ChPlayer3, ChPlayer4];
             for (int i = 0; i < PLAYER_PER_ROUND; ++i)
             {
                 _chSpectate[i].BtnAufstellen.IsEnabled = _chSpectate[i].BtnShowRest.IsEnabled = false;
             }
 
-            _playerInfosSpectate = new List<SkPlayerInfo> { PlayerInfo1, PlayerInfo2, PlayerInfo3, PlayerInfo4 };
+            _playerInfosSpectate = [PlayerInfo1, PlayerInfo2, PlayerInfo3, PlayerInfo4];
 
 
             //Data
@@ -180,7 +178,7 @@ namespace SpieleSammlung.View.Sites
                 {
                     int w = 0;
                     while (!e.Message.Equals(_match.Players[w].Name)) ++w;
-                    List<string> message = new List<string> { MultiplayerLobby.CLIENT_LATE_JOIN, w.ToString() };
+                    List<string> message = [MultiplayerLobby.CLIENT_LATE_JOIN, w.ToString()];
                     foreach (var player in _match.Players)
                     {
                         message.Add(player.Name);
@@ -357,8 +355,11 @@ namespace SpieleSammlung.View.Sites
 
         private IEnumerable<string> GenerateRejoinInfo()
         {
-            List<string> message = new List<string> { CODE_CLIENT_INFO_REJOIN };
-            message.Add(_match.InfoForRejoin(SEPARATOR, SEPARATOR_REJOIN_INFO_STRING));
+            List<string> message =
+            [
+                CODE_CLIENT_INFO_REJOIN,
+                _match.InfoForRejoin(SEPARATOR, SEPARATOR_REJOIN_INFO_STRING)
+            ];
             StringBuilder bob = new StringBuilder(8);
             if (PlayerIndexCurRound == -1)
             {

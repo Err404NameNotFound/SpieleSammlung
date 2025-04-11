@@ -76,9 +76,9 @@ namespace SpieleSammlung.Model.Schafkopf
             ResetMode();
             _currentPlayerIndexes = Players.Count switch
             {
-                < 6 => new[] { Players.Count-1, 0, 1, 2 }, //next match gleich zu begin ->  0, 1, 2, 3
-                6 => new[] { 5, 1, 2, 4 }, //next match gleich zu begin ->  0, 2, 3, 5
-                _ => new[] { 6, 1, 3, 5 } //next match gleich zu begin ->  0, 2, 4, 6
+                < 6 => [Players.Count-1, 0, 1, 2], //next match gleich zu begin ->  0, 1, 2, 3
+                6 => [5, 1, 2, 4], //next match gleich zu begin ->  0, 2, 3, 5
+                _ => [6, 1, 3, 5] //next match gleich zu begin ->  0, 2, 4, 6
             };
 
             SchafkopfPlayer[] newList = new SchafkopfPlayer[PLAYER_PER_ROUND];
@@ -159,10 +159,10 @@ namespace SpieleSammlung.Model.Schafkopf
         {
             if (!_isHost) throw new IllegalMoveException("A client cannot shuffle the cards.");
             PrepareShuffle(sameRound);
-            List<int> cards = new List<int>();
+            List<int> cards = [];
             for (int i = 0; i < Card.ALL_CARDS.Count; ++i) cards.Add(i);
 
-            List<string> msg = new List<string> { codeClientShuffledCards };
+            List<string> msg = [codeClientShuffledCards];
             for (int i = 0; i < Card.ALL_CARDS.Count; ++i)
             {
                 int temp = _random.Next(0, cards.Count);
@@ -246,7 +246,7 @@ namespace SpieleSammlung.Model.Schafkopf
             _isShufflePossible = false;
             if (!sameRound) NextMatch();
             AmountShuffle = 0;
-            _rounds = new List<SchafkopfRound> { new() };
+            _rounds = [new()];
             ResetMode();
             for (int i = 0; i < PLAYER_PER_ROUND; ++i) CurrentPlayers[i].NewMatch(i, sameRound);
         }
@@ -325,13 +325,13 @@ namespace SpieleSammlung.Model.Schafkopf
                 ++w;
             }
 
-            List<int> team = new List<int>();
+            List<int> team = [];
             for (int i = 0; i < CurrentPlayers.Count; ++i)
             {
                 if (CurrentPlayers[i].TeamIndex == teamNumber) team.Add(i);
             }
 
-            List<int> nextCards = new List<int>();
+            List<int> nextCards = [];
             for (int i = 0; i < team.Count; ++i) nextCards.Add(0);
 
             _laufende = 0;
@@ -615,7 +615,7 @@ namespace SpieleSammlung.Model.Schafkopf
             }
 
             int count = int.Parse(msgParts[index]);
-            _rounds = new List<SchafkopfRound>();
+            _rounds = [];
             for (int i = 0; i < count; ++i)
                 _rounds.Add(new SchafkopfRound(msgParts, ref index));
 

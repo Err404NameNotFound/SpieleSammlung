@@ -22,12 +22,12 @@ namespace SpieleSammlung.Model.Connect4
         ///are skipped while iterating through the field.
         /// </summary>
         private static readonly Coordinates2D[] Directions =
-        {
+        [
             new(1, 0), //  moves right
             new(0, 1), //  moves up
             new(-1, 1), // moves up and left
             new(1, 1) //  moves up and right
-        };
+        ];
 
         /// <summary>
         ///Index of the player used while calculating the value of the board.
@@ -148,7 +148,7 @@ namespace SpieleSammlung.Model.Connect4
             ret._board = Clone(_board);
             if (_witness != null)
             {
-                ret._witness = new List<Coordinates2D>();
+                ret._witness = [];
                 ret._witness.AddRange(_witness);
             }
 

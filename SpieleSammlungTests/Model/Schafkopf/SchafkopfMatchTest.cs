@@ -14,14 +14,14 @@ namespace SpieleSammlungTests.Model.Schafkopf
     [TestClass]
     public class SchafkopfMatchTest
     {
-        private static readonly List<MultiplayerPlayer> Players = new()
-        {
-            new MultiplayerPlayer("1", "name1"),
-            new MultiplayerPlayer("2", "name2"),
-            new MultiplayerPlayer("3", "name3"),
-            new MultiplayerPlayer("4", "name4"),
-            new MultiplayerPlayer("5", "name5")
-        };
+        private static readonly List<MultiplayerPlayer> Players =
+        [
+            new("1", "name1"),
+            new("2", "name2"),
+            new("3", "name3"),
+            new("4", "name4"),
+            new("5", "name5")
+        ];
 
         private static readonly IReadOnlyList<int> AllZero = ArrayHelp.CreateIntArray(Card.ALL_CARDS.Count, 0);
 
@@ -120,8 +120,8 @@ namespace SpieleSammlungTests.Model.Schafkopf
             match.ChoseGameMode(SchafkopfMode.Weiter, "");
             match.ChoseGameMode(SchafkopfMode.Weiter, "");
             match.ChoseGameMode(SchafkopfMode.Sauspiel, Card.SCHELLE);
-            List<string> cards = new List<string>
-            {
+            List<string> cards =
+            [
                 "Eichel Neun", "Eichel Acht", "Eichel Zehn", "Eichel Sau", //player 0 (21)
                 "Gras Ober", "Herz Sieben", "Herz Zehn", "Herz Unter", // player 3 (15)
                 "Herz Neun", "Schelle Unter", "Eichel Unter", "Schelle Acht", // player 3 (4)
@@ -129,8 +129,8 @@ namespace SpieleSammlungTests.Model.Schafkopf
                 "Herz Koenig", "Gras Neun", "Schelle Ober", "Gras Unter", // player 1 (9)
                 "Gras Sau", "Gras Zehn", "Schelle Zehn", "Gras Sieben", // player 3 (31)
                 "Schelle Sieben", "Herz Sau", "Schelle Sau", "Schelle Koenig", // player 3 (26)
-                "Gras Koenig", "Eichel Sieben", "Eichel Koenig", "Gras Acht" // player 0 -> player 0 (8)
-            };
+                "Gras Koenig", "Eichel Sieben", "Eichel Koenig", "Gras Acht"
+            ];
             AssertGameStopsWithTheseCards(match, cards);
             AssertMessagesCorrect(match, "\n\n+20 Sauspiel\n+50 Laufende\n*2 aufgestellt\n_________________\n140",
                 "Du hast das Sauspiel mit name3 mit 34 Augen verloren",
@@ -151,8 +151,8 @@ namespace SpieleSammlungTests.Model.Schafkopf
             match.ChoseGameMode(SchafkopfMode.Weiter, "");
             match.ChoseGameMode(SchafkopfMode.Weiter, "");
             match.ChoseGameMode(SchafkopfMode.Wenz, "");
-            List<string> cards = new List<string>
-            {
+            List<string> cards =
+            [
                 "Gras Neun", "Gras Acht", "Gras Unter", "Gras Zehn", // winner: 2, points: 12 (start at 0)
                 "Schelle Acht", "Schelle Sieben", "Schelle Zehn", "Eichel Sau", // winner: 0, points: 21
                 "Herz Neun", "Herz Ober", "Herz Sieben", "Herz Sau", // winner: 3, points: 14
@@ -160,8 +160,8 @@ namespace SpieleSammlungTests.Model.Schafkopf
                 "Herz Unter", "Gras Ober", "Gras Sieben", "Schelle Neun", // winner: 3, points: 
                 "Gras Sau", "Gras Koenig", "Eichel Sieben", "Schelle Ober", // winner: 3, points: 
                 "Herz Zehn", "Herz Koenig", "Eichel Neun", "Eichel Ober", // winner: 3, points: 
-                "Schelle Sau", "Schelle Koenig", "Eichel Zehn", "Eichel Koenig", // winner: 3, points: 
-            };
+                "Schelle Sau", "Schelle Koenig", "Eichel Zehn", "Eichel Koenig" // winner: 3, points: 
+            ];
             AssertGameStopsWithTheseCards(match, cards);
             AssertMessagesCorrect(match,
                 "\n\n+50 Wenz\n*2 aufgestellt\n*2 aufgestellt\n_________________\n200",
@@ -183,8 +183,8 @@ namespace SpieleSammlungTests.Model.Schafkopf
             match.ChoseGameMode(SchafkopfMode.Weiter, "", 2);
             match.ChoseGameMode(SchafkopfMode.Weiter, "", 3);
             match.CurrentPlayers[3].Kontra = true;
-            List<string> cards = new List<string>
-            {
+            List<string> cards =
+            [
                 "Herz Neun", "Herz Sau", "Gras Sau", "Herz Ober", // winner: 1, points: 25 (start at 0)
                 "Schelle Sau", "Schelle Ober", "Schelle Zehn", "Gras Koenig", // winner: 1, points: 28
                 "Gras Neun", "Gras Zehn", "Gras Ober", "Schelle Unter", // winner: 0, points: 15
@@ -192,8 +192,8 @@ namespace SpieleSammlungTests.Model.Schafkopf
                 "Eichel Ober", "Eichel Zehn", "Eichel Acht", "Schelle Koenig", // winner: 1, points: 17
                 "Herz Zehn", "Gras Sieben", "Herz Acht", "Eichel Unter", // winner: 0, points: 12
                 "Gras Unter", "Herz Koenig", "Schelle Acht", "Gras Acht", // winner: 0, points: 6
-                "Herz Unter", "Schelle Neun", "Schelle Sieben", "Herz Sieben", // winner: 0, points: 2
-            };
+                "Herz Unter", "Schelle Neun", "Schelle Sieben", "Herz Sieben" // winner: 0, points: 2
+            ];
             AssertGameStopsWithTheseCards(match, cards);
             AssertMessagesCorrect(match,
                 "\n\n+50 Wenz\n+40 Laufende\n*2 aufgestellt\n*2 Kontra\n_________________\n360",
@@ -226,27 +226,27 @@ namespace SpieleSammlungTests.Model.Schafkopf
             match.ChoseGameMode(SchafkopfMode.Weiter, "", 2);
             match.ChoseGameMode(SchafkopfMode.Weiter, "", 3);
             match.CurrentPlayers[3].Kontra = true;
-            List<string> cards = new List<string>
-            {
+            List<string> cards =
+            [
                 "Herz Neun", "Herz Sau", "Gras Sau", "Herz Ober",
                 "Schelle Sau", "Schelle Ober", "Schelle Zehn", "Gras Koenig",
                 "Gras Neun", "Gras Zehn", "Gras Ober", "Schelle Unter",
                 "Eichel Sau", "Eichel Koenig", "Eichel Sieben", "Eichel Neun",
                 "Eichel Ober", "Eichel Zehn", "Eichel Acht", "Schelle Koenig",
                 "Herz Zehn", "Gras Sieben", "Herz Acht", "Eichel Unter",
-                "Gras Unter", "Herz Koenig",
-            };
+                "Gras Unter", "Herz Koenig"
+            ];
             AssertAllCardsCanBePlayed(match, cards);
             SchafkopfMatch clientMatch = new SchafkopfMatch(Players.ToList(), false);
             const char separator = ';';
             const char fineSeparator = '|';
             string restoreString = "test" + separator + match.InfoForRejoin(separator, fineSeparator.ToString());
             clientMatch.RestoreFromInfo(restoreString.Split(separator), fineSeparator);
-            List<string> cards2 = new List<string>
-            {
+            List<string> cards2 =
+            [
                 "Schelle Acht", "Gras Acht",
-                "Herz Unter", "Schelle Neun", "Schelle Sieben", "Herz Sieben",
-            };
+                "Herz Unter", "Schelle Neun", "Schelle Sieben", "Herz Sieben"
+            ];
             AssertAllCardsCanBePlayed(clientMatch, cards2);
             AssertMessagesCorrect(clientMatch,
                 "\n\n+50 Wenz\n+40 Laufende\n*2 aufgestellt\n*2 Kontra\n_________________\n360",
@@ -305,17 +305,18 @@ namespace SpieleSammlungTests.Model.Schafkopf
             match.ChoseGameMode(SchafkopfMode.Weiter, "");
             match.ChoseGameMode(SchafkopfMode.Sauspiel, Card.EICHEL);
             match.ChoseGameMode(SchafkopfMode.Weiter, "");
-            List<string> cards = new List<string>
-            {
-                "Schelle Koenig", "Schelle Unter", "Schelle Acht", "Schelle Sieben", // winner: 1, points: 6 (start at 0)
+            List<string> cards =
+            [
+                "Schelle Koenig", "Schelle Unter", "Schelle Acht",
+                "Schelle Sieben", // winner: 1, points: 6 (start at 0)
                 "Eichel Sieben", "Eichel Koenig", "Herz Zehn", "Eichel Acht", // winner: 3, points: 14
                 "Gras Sau", "Gras Koenig", "Gras Sieben", "Herz Sieben", // winner: 2, points: 15
                 "Eichel Ober", "Herz Unter", "Herz Neun", "Herz Ober", // winner: 2, points: 8
                 "Herz Acht", "Herz Sau", "Herz Koenig", "Gras Acht", // winner: 3, points: 15
                 "Schelle Sau", "Schelle Zehn", "Eichel Neun", "Schelle Neun", // winner: 3, points: 21
                 "Gras Zehn", "Gras Neun", "Eichel Sau", "Schelle Ober", // winner: 2, points: 24
-                "Gras Unter", "Eichel Unter", "Gras Ober", "Eichel Zehn", // winner: 0, points: 17
-            };
+                "Gras Unter", "Eichel Unter", "Gras Ober", "Eichel Zehn" // winner: 0, points: 17
+            ];
             AssertGameStopsWithTheseCards(match, cards);
             AssertMessagesCorrect(match, "\n\n+20 Sauspiel\n_________________\n20",
                 "Du hast das Sauspiel mit name4 mit 67 Augen gewonnen",
@@ -334,8 +335,8 @@ namespace SpieleSammlungTests.Model.Schafkopf
             match.ChoseGameMode(SchafkopfMode.Weiter, "");
             match.ChoseGameMode(SchafkopfMode.Sauspiel, Card.EICHEL);
             match.ChoseGameMode(SchafkopfMode.Weiter, "");
-            List<string> cards = new List<string>
-            {
+            List<string> cards =
+            [
                 "Eichel Acht", "Eichel Sau", "Eichel Koenig", "Herz Sau", // winner: 3, points: 26 (start at 0)
                 "Gras Sau", "Gras Koenig", "Gras Sieben", "Herz Sieben", // winner: 2, points: 15
                 "Herz Acht", "Herz Unter", "Herz Neun", "Herz Ober", // winner: 1, points: 5
@@ -343,8 +344,8 @@ namespace SpieleSammlungTests.Model.Schafkopf
                 "Schelle Koenig", "Gras Acht", "Schelle Acht", "Schelle Sau", // winner: 3, points: 15
                 "Schelle Sieben", "Schelle Zehn", "Eichel Sieben", "Schelle Neun", // winner: 0, points: 10
                 "Gras Neun", "Eichel Neun", "Gras Unter", "Gras Zehn", // winner: 2, points: 12
-                "Eichel Ober", "Eichel Unter", "Herz Koenig", "Eichel Zehn", // winner: 2, points: 19
-            };
+                "Eichel Ober", "Eichel Unter", "Herz Koenig", "Eichel Zehn" // winner: 2, points: 19
+            ];
             AssertGameStopsWithTheseCards(match, cards);
             AssertMessagesCorrect(match, "\n\n+20 Sauspiel\n_________________\n20",
                 "Du hast das Sauspiel mit name4 mit 69 Augen gewonnen",

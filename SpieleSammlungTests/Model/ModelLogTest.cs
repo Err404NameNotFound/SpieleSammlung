@@ -21,7 +21,7 @@ namespace SpieleSammlungTests.Model
         [TestMethod]
         public void Test02_WriteAll()
         {
-            List<string> messages = new List<string> { "firstMessage", "SecondMessage", "ThirdMessage" };
+            List<string> messages = ["firstMessage", "SecondMessage", "ThirdMessage"];
             ModelLog.Write(messages);
             Assert.AreEqual(string.Join(ModelLog.NEWLINE, messages) + ModelLog.NEWLINE, Actual());
         }
@@ -51,7 +51,7 @@ namespace SpieleSammlungTests.Model
         {
             const string message1 = "The first Text is from the Write() method.";
             ModelLog.Write(message1);
-            List<string> messages = new List<string> { "firstMessage", "SecondMessage", "ThirdMessage" };
+            List<string> messages = ["firstMessage", "SecondMessage", "ThirdMessage"];
             ModelLog.Append(messages);
             Assert.AreEqual(message1 + string.Join(ModelLog.NEWLINE, messages) + ModelLog.NEWLINE, Actual());
         }

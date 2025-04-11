@@ -508,10 +508,10 @@ namespace SpieleSammlungTests.Model.Schafkopf
         public void TestSortEichelSauspielHerzSoloOrSoloTout()
         {
             int[] expected =
-            {
+            [
                 7, 15, 23, 31, 6, 14, 22, 30, 21, 20, 19, 18, 17, 16, 5, 4, 3, 2, 1, 0, 13, 12, 11, 10, 9, 8, 29, 28,
                 27, 26, 25, 24
-            };
+            ];
             AssertSortsCardsCorrect(expected, new SchafkopfMatchConfig(SchafkopfMode.Sauspiel, EICHEL));
             AssertSortsCardsCorrect(expected, new SchafkopfMatchConfig(SchafkopfMode.Solo, HERZ));
             AssertSortsCardsCorrect(expected, new SchafkopfMatchConfig(SchafkopfMode.SoloTout, HERZ));
@@ -521,10 +521,10 @@ namespace SpieleSammlungTests.Model.Schafkopf
         public void TestSortGrasSauspiel()
         {
             int[] expected =
-            {
+            [
                 7, 15, 23, 31, 6, 14, 22, 30, 21, 20, 19, 18, 17, 16, 13, 12, 11, 10, 9, 8, 5, 4, 3, 2, 1, 0, 29, 28,
                 27, 26, 25, 24
-            };
+            ];
             AssertSortsCardsCorrect(expected, new SchafkopfMatchConfig(SchafkopfMode.Sauspiel, GRAS));
         }
 
@@ -532,10 +532,10 @@ namespace SpieleSammlungTests.Model.Schafkopf
         public void TestSortSchelleSauspiel()
         {
             int[] expected =
-            {
+            [
                 7, 15, 23, 31, 6, 14, 22, 30, 21, 20, 19, 18, 17, 16, 29, 28, 27, 26, 25, 24, 5, 4, 3, 2, 1, 0, 13, 12,
                 11, 10, 9, 8
-            };
+            ];
             AssertSortsCardsCorrect(expected, new SchafkopfMatchConfig(SchafkopfMode.Sauspiel, SCHELLE));
         }
 
@@ -543,10 +543,10 @@ namespace SpieleSammlungTests.Model.Schafkopf
         public void TestSortSoloEichel()
         {
             int[] expected =
-            {
+            [
                 7, 15, 23, 31, 6, 14, 22, 30, 5, 4, 3, 2, 1, 0, 13, 12, 11, 10, 9, 8, 21, 20, 19, 18, 17, 16, 29, 28,
                 27, 26, 25, 24
-            };
+            ];
             AssertSortsCardsCorrect(expected, new SchafkopfMatchConfig(SchafkopfMode.Solo, EICHEL));
         }
 
@@ -554,10 +554,10 @@ namespace SpieleSammlungTests.Model.Schafkopf
         public void TestSortSoloGras()
         {
             int[] expected =
-            {
+            [
                 7, 15, 23, 31, 6, 14, 22, 30, 13, 12, 11, 10, 9, 8, 5, 4, 3, 2, 1, 0, 21, 20, 19, 18, 17, 16, 29, 28,
                 27, 26, 25, 24
-            };
+            ];
             AssertSortsCardsCorrect(expected, new SchafkopfMatchConfig(SchafkopfMode.Solo, GRAS));
         }
 
@@ -565,10 +565,10 @@ namespace SpieleSammlungTests.Model.Schafkopf
         public void TestSortSoloSchelle()
         {
             int[] expected =
-            {
+            [
                 7, 15, 23, 31, 6, 14, 22, 30, 29, 28, 27, 26, 25, 24, 5, 4, 3, 2, 1, 0, 13, 12, 11, 10, 9, 8, 21, 20,
                 19, 18, 17, 16
-            };
+            ];
             AssertSortsCardsCorrect(expected, new SchafkopfMatchConfig(SchafkopfMode.Solo, SCHELLE));
         }
 
@@ -576,10 +576,10 @@ namespace SpieleSammlungTests.Model.Schafkopf
         public void TestSortWenzAndWenzTout()
         {
             int[] expected =
-            {
+            [
                 6, 14, 22, 30, 5, 4, 3, 7, 2, 1, 0, 13, 12, 11, 15, 10, 9, 8, 21, 20, 19, 23, 18, 17, 16, 29, 28, 27,
                 31, 26, 25, 24
-            };
+            ];
             AssertSortsCardsCorrect(expected, new SchafkopfMatchConfig(SchafkopfMode.Wenz, null));
             AssertSortsCardsCorrect(expected, new SchafkopfMatchConfig(SchafkopfMode.WenzTout, null));
         }

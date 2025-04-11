@@ -76,7 +76,7 @@ namespace SpieleSammlung.Model.Kniffel.Fields
 
         static KniffelPointsTable()
         {
-            ChangeableFields = new[] { INDEX_SUM_TOP, INDEX_BONUS, INDEX_SUM_TOP_BONUS, INDEX_SUM_BOTTOM, INDEX_SUM };
+            ChangeableFields = [INDEX_SUM_TOP, INDEX_BONUS, INDEX_SUM_TOP_BONUS, INDEX_SUM_BOTTOM, INDEX_SUM];
             FIELD_NAMES = new string[18];
             for (int i = 0; i < 6; ++i)
             {

@@ -95,12 +95,12 @@ namespace SpieleSammlungTests.Model.Kniffel
         public void TestBigStreetPossible()
         {
             int[][] inputs =
-            {
-                new[] { 1, 2, 3, 4, 5 }, new[] { 2, 3, 4, 5, 6 },
-                new[] { 5, 4, 3, 2, 1 }, new[] { 6, 5, 4, 3, 2 },
-                new[] { 4, 5, 1, 3, 2 }, new[] { 6, 2, 5, 3, 4 },
-                new[] { 5, 4, 3, 1, 2 }, new[] { 4, 6, 5, 2, 3 }
-            };
+            [
+                [1, 2, 3, 4, 5], [2, 3, 4, 5, 6],
+                [5, 4, 3, 2, 1], [6, 5, 4, 3, 2],
+                [4, 5, 1, 3, 2], [6, 2, 5, 3, 4],
+                [5, 4, 3, 1, 2], [4, 6, 5, 2, 3]
+            ];
             const string message = "Big Street should be possible with dice: {0}";
             TestAllCombinations(inputs, true, message, dice => dice.IsBigStreetPossible());
         }
@@ -126,7 +126,7 @@ namespace SpieleSammlungTests.Model.Kniffel
                 }
             }
 
-            int[][] inputs = { new[] { 1, 1, 4, 5, 6 }, new[] { 1, 2, 2, 5, 6 }, new[] { 2, 2, 2, 3, 5 } };
+            int[][] inputs = [[1, 1, 4, 5, 6], [1, 2, 2, 5, 6], [2, 2, 2, 3, 5]];
             TestAllCombinations(inputs, Asserter);
             return;
             void Asserter(DiceManager d) => Assert.IsFalse(d.IsBigStreetPossible(), string.Format(message, d));
@@ -136,12 +136,12 @@ namespace SpieleSammlungTests.Model.Kniffel
         public void TestSmallStreetPossible()
         {
             int[][] inputs =
-            {
-                new[] { 1, 2, 3, 4, 2 }, new[] { 2, 3, 4, 5, 6 },
-                new[] { 1, 4, 3, 2, 1 }, new[] { 6, 5, 4, 3, 2 },
-                new[] { 4, 5, 1, 3, 2 }, new[] { 6, 6, 5, 3, 4 },
-                new[] { 5, 4, 3, 1, 2 }, new[] { 4, 2, 5, 2, 3 }
-            };
+            [
+                [1, 2, 3, 4, 2], [2, 3, 4, 5, 6],
+                [1, 4, 3, 2, 1], [6, 5, 4, 3, 2],
+                [4, 5, 1, 3, 2], [6, 6, 5, 3, 4],
+                [5, 4, 3, 1, 2], [4, 2, 5, 2, 3]
+            ];
             const string message = "Small Street should be possible with dice: {0}";
             TestAllCombinations(inputs, true, message, dice => dice.IsSmallStreetPossible());
         }
@@ -167,7 +167,7 @@ namespace SpieleSammlungTests.Model.Kniffel
                 }
             }
 
-            int[][] inputs = { new[] { 1, 1, 4, 5, 6 }, new[] { 1, 2, 2, 5, 6 }, new[] { 1, 2, 2, 3, 5 } };
+            int[][] inputs = [[1, 1, 4, 5, 6], [1, 2, 2, 5, 6], [1, 2, 2, 3, 5]];
             TestAllCombinations(inputs, Asserter);
             return;
             void Asserter(DiceManager d) => Assert.IsFalse(d.IsSmallStreetPossible(), string.Format(message, d));
@@ -177,12 +177,12 @@ namespace SpieleSammlungTests.Model.Kniffel
         public void TestFullHousePossible()
         {
             int[][] inputs =
-            {
-                new[] { 1, 2, 1, 1, 2 }, new[] { 3, 3, 4, 4, 4 },
-                new[] { 1, 4, 1, 4, 1 }, new[] { 6, 5, 5, 6, 5 },
-                new[] { 2, 5, 5, 5, 2 }, new[] { 5, 4, 5, 5, 4 },
-                new[] { 3, 3, 3, 2, 2 }, new[] { 6, 6, 6, 5, 5 }
-            };
+            [
+                [1, 2, 1, 1, 2], [3, 3, 4, 4, 4],
+                [1, 4, 1, 4, 1], [6, 5, 5, 6, 5],
+                [2, 5, 5, 5, 2], [5, 4, 5, 5, 4],
+                [3, 3, 3, 2, 2], [6, 6, 6, 5, 5]
+            ];
             const string message = "Full House should be possible with dice: {0}";
             TestAllCombinations(inputs, true, message, dice => dice.IsFullHousePossible());
         }
@@ -202,7 +202,7 @@ namespace SpieleSammlungTests.Model.Kniffel
                 }
             }
 
-            int[][] inputs = { new[] { 1, 1, 4, 5, 6 }, new[] { 1, 2, 2, 5, 6 }, new[] { 1, 2, 2, 3, 5 } };
+            int[][] inputs = [[1, 1, 4, 5, 6], [1, 2, 2, 5, 6], [1, 2, 2, 3, 5]];
             TestAllCombinations(inputs, Asserter);
             return;
             void Asserter(DiceManager d) => Assert.IsFalse(d.IsFullHousePossible(), string.Format(message, d));
@@ -225,7 +225,7 @@ namespace SpieleSammlungTests.Model.Kniffel
             rng.SetNext(1, 2, 3, 4, 5);
             DiceManager dice = new DiceManager(rng);
             rng.SetNext(5, 2);
-            dice.Shuffle(new[] { 1, 4 });
+            dice.Shuffle([1, 4]);
             Assert.AreEqual("{ 1, 5, 3, 4, 2 }", dice.ToString());
         }
 
@@ -454,7 +454,7 @@ namespace SpieleSammlungTests.Model.Kniffel
         public void TestEOfPair3AllSetPossible()
         {
             int[][] values =
-                { new[] { 1, 1, 3, 3, 3 }, new[] { 1, 1, 1, 1, 1 }, new[] { 6, 6, 6, 6, 1 }, new[] { 3, 4, 2, 4, 4 } };
+                [[1, 1, 3, 3, 3], [1, 1, 1, 1, 1], [6, 6, 6, 6, 1], [3, 4, 2, 4, 4]];
             TestAllCombinations(values, dice => Assert.AreEqual(dice.SumOfAllDices, dice.EOfPair(3)));
         }
 
@@ -462,7 +462,7 @@ namespace SpieleSammlungTests.Model.Kniffel
         public void TestEOfPair4AllSetPossible()
         {
             int[][] values =
-                { new[] { 3, 1, 3, 3, 3 }, new[] { 1, 1, 1, 1, 1 }, new[] { 6, 6, 6, 6, 1 }, new[] { 4, 4, 2, 4, 4 } };
+                [[3, 1, 3, 3, 3], [1, 1, 1, 1, 1], [6, 6, 6, 6, 1], [4, 4, 2, 4, 4]];
             TestAllCombinations(values, dice => Assert.AreEqual(dice.SumOfAllDices, dice.EOfPair(4)));
         }
 
@@ -470,7 +470,7 @@ namespace SpieleSammlungTests.Model.Kniffel
         public void TestEOfPair3AllSetNotPossible()
         {
             int[][] values =
-                { new[] { 1, 1, 3, 3, 2 }, new[] { 1, 3, 4, 5, 6 }, new[] { 6, 6, 4, 5, 1 }, new[] { 3, 4, 2, 3, 4 } };
+                [[1, 1, 3, 3, 2], [1, 3, 4, 5, 6], [6, 6, 4, 5, 1], [3, 4, 2, 3, 4]];
             TestAllCombinations(values, dice => Assert.AreEqual(0, dice.EOfPair(3)));
         }
 
@@ -478,7 +478,7 @@ namespace SpieleSammlungTests.Model.Kniffel
         public void TestEOfPair4AllSetNotPossible()
         {
             int[][] values =
-                { new[] { 3, 1, 5, 3, 3 }, new[] { 1, 6, 5, 1, 1 }, new[] { 6, 6, 3, 6, 1 }, new[] { 4, 3, 2, 4, 4 } };
+                [[3, 1, 5, 3, 3], [1, 6, 5, 1, 1], [6, 6, 3, 6, 1], [4, 3, 2, 4, 4]];
             TestAllCombinations(values, dice => Assert.AreEqual(0, dice.EOfPair(4)));
         }
 
@@ -576,7 +576,7 @@ namespace SpieleSammlungTests.Model.Kniffel
         public void TestPOfKniffelAllSetNotPossible()
         {
             int[][] values =
-                { new[] { 1, 2, 3, 4, 5 }, new[] { 1, 1, 1, 1, 2 }, new[] { 6, 6, 6, 6, 1 }, new[] { 3, 4, 2, 3, 4 } };
+                [[1, 2, 3, 4, 5], [1, 1, 1, 1, 2], [6, 6, 6, 6, 1], [3, 4, 2, 3, 4]];
             TestAllCombinations(values, dice => Assert.AreEqual(0, dice.POfKniffel()));
         }
 
@@ -605,7 +605,7 @@ namespace SpieleSammlungTests.Model.Kniffel
         public void TestPOfKniffelSomeSetNotPossible()
         {
             int[][] values =
-                { new[] { 1, 2, 3, 4, 5 }, new[] { 1, 1, 1, 1, 2 }, new[] { 6, 6, 6, 6, 1 }, new[] { 3, 4, 2, 3, 4 } };
+                [[1, 2, 3, 4, 5], [1, 1, 1, 1, 2], [6, 6, 6, 6, 1], [3, 4, 2, 3, 4]];
             foreach (int[] dValue in values)
             {
                 _rng.SetNext(dValue);
@@ -884,7 +884,7 @@ namespace SpieleSammlungTests.Model.Kniffel
         public void TestContains32DifferentOptions()
         {
             DiceManager dice = new DiceManager();
-            HashSet<string> set = new HashSet<string>();
+            HashSet<string> set = [];
             var options = DiceManager.GenerateAllOptions(_player, dice);
             foreach (var d in options)
             {

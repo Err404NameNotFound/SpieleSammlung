@@ -16,7 +16,7 @@ namespace SpieleSammlung.View.UserControls.Schafkopf
         public StichView()
         {
             InitializeComponent();
-            _cardVisuals = new List<CardVisual> { Card1, Card2, Card3, Card4 };
+            _cardVisuals = [Card1, Card2, Card3, Card4];
             Reset();
         }
 

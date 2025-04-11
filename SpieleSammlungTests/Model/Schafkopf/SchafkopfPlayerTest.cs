@@ -12,7 +12,7 @@ namespace SpieleSammlungTests.Model.Schafkopf
     {
         private static readonly SchafkopfPlayer Player = new("id", "name");
 
-        private static readonly IReadOnlyList<string> SauspielColors = new[] { Card.EICHEL, Card.GRAS, Card.SCHELLE };
+        private static readonly IReadOnlyList<string> SauspielColors = [Card.EICHEL, Card.GRAS, Card.SCHELLE];
 
         private static readonly IReadOnlyList<bool> AllEightTrue = new List<bool>
             { true, true, true, true, true, true, true, true };
@@ -34,7 +34,7 @@ namespace SpieleSammlungTests.Model.Schafkopf
         {
             SetCards(4, 16, 31, 1, 23, 7, 25, 26);
             Player.SortCards(new SchafkopfMatchConfig(SchafkopfMode.Sauspiel, Card.EICHEL));
-            AssertCardsEqual(new[] { 7, 23, 31, 16, 4, 1, 26, 25 }, Player.PlayableCards);
+            AssertCardsEqual([7, 23, 31, 16, 4, 1, 26, 25], Player.PlayableCards);
         }
 
         [TestMethod]
@@ -42,7 +42,7 @@ namespace SpieleSammlungTests.Model.Schafkopf
         {
             SetCards(16, 2, 11, 19, 23, 30, 28, 9);
             Player.SortCards(new SchafkopfMatchConfig(SchafkopfMode.Sauspiel, Card.GRAS));
-            AssertCardsEqual(new[] { 23, 30, 19, 16, 11, 9, 2, 28 }, Player.PlayableCards);
+            AssertCardsEqual([23, 30, 19, 16, 11, 9, 2, 28], Player.PlayableCards);
         }
 
         [TestMethod]
@@ -50,7 +50,7 @@ namespace SpieleSammlungTests.Model.Schafkopf
         {
             SetCards(12, 11, 16, 3, 7, 29, 28, 9);
             Player.SortCards(new SchafkopfMatchConfig(SchafkopfMode.Sauspiel, Card.SCHELLE));
-            AssertCardsEqual(new[] { 7, 16, 29, 28, 3, 12, 11, 9 }, Player.PlayableCards);
+            AssertCardsEqual([7, 16, 29, 28, 3, 12, 11, 9], Player.PlayableCards);
         }
 
         [TestMethod]
@@ -58,7 +58,7 @@ namespace SpieleSammlungTests.Model.Schafkopf
         {
             SetCards(6, 31, 7, 14, 15, 30, 23, 22);
             Player.SortCards(new SchafkopfMatchConfig(SchafkopfMode.Solo, Card.GRAS));
-            AssertCardsEqual(new[] { 7, 15, 23, 31, 6, 14, 22, 30 }, Player.PlayableCards);
+            AssertCardsEqual([7, 15, 23, 31, 6, 14, 22, 30], Player.PlayableCards);
         }
 
         [TestMethod]
@@ -66,7 +66,7 @@ namespace SpieleSammlungTests.Model.Schafkopf
         {
             SetCards(6, 21, 14, 13, 30, 22, 5, 29);
             Player.SortCards(new SchafkopfMatchConfig(SchafkopfMode.Solo, ""));
-            AssertCardsEqual(new[] { 6, 14, 22, 30, 5, 13, 21, 29 }, Player.PlayableCards);
+            AssertCardsEqual([6, 14, 22, 30, 5, 13, 21, 29], Player.PlayableCards);
         }
 
         [TestMethod]
@@ -76,7 +76,7 @@ namespace SpieleSammlungTests.Model.Schafkopf
             Player.UpdatePossibilities(SchafkopfMode.Weiter);
             AssertPossibilityCountCorrect(3);
             AssertPossibilityIsWenz(1);
-            AssertPossibilityCorrect(SchafkopfMode.Solo, new[] { Card.GRAS }, 2);
+            AssertPossibilityCorrect(SchafkopfMode.Solo, [Card.GRAS], 2);
         }
 
         [TestMethod]
@@ -86,7 +86,7 @@ namespace SpieleSammlungTests.Model.Schafkopf
             Player.UpdatePossibilities(SchafkopfMode.Weiter);
             AssertPossibilityCountCorrect(4);
             AssertPossibilityIsWenz(1);
-            string[] colors = { Card.EICHEL, Card.HERZ };
+            string[] colors = [Card.EICHEL, Card.HERZ];
             AssertPossibilityCorrect(SchafkopfMode.Solo, colors, 2);
             AssertPossibilityCorrect(SchafkopfMode.SoloTout, colors, 3);
         }
@@ -98,7 +98,7 @@ namespace SpieleSammlungTests.Model.Schafkopf
             Player.UpdatePossibilities(SchafkopfMode.Weiter);
             AssertPossibilityCountCorrect(5);
             AssertPossibilityIsWenz(1);
-            string[] colors = { Card.GRAS, Card.HERZ, Card.SCHELLE };
+            string[] colors = [Card.GRAS, Card.HERZ, Card.SCHELLE];
             AssertPossibilityCorrect(SchafkopfMode.Solo, colors, 2);
             AssertPossibilityIsWenzTout(3);
             AssertPossibilityCorrect(SchafkopfMode.SoloTout, colors, 4);

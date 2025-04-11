@@ -80,11 +80,11 @@ namespace SpieleSammlung.View.Sites
 
         private void InitializeStack(out Connect4Visual[][,] stack)
         {
-            stack = new[]
-            {
+            stack =
+            [
                 new Connect4Visual[3, 7],
                 new Connect4Visual[3, 7]
-            };
+            ];
             _nextStackTile = 0;
 
             for (int row = 0; row < stack[0].GetLength(0); ++row)

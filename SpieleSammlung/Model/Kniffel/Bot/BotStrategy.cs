@@ -41,27 +41,27 @@ namespace SpieleSammlung.Model.Kniffel.Bot
         #region Fields
 
         protected readonly int[] BestIndexToKillBonusReached =
-        {
+        [
             0, 1, 2, KniffelPointsTable.INDEX_KNIFFEL, KniffelPointsTable.INDEX_PAIR_SIZE_4,
             KniffelPointsTable.INDEX_BIG_STREET, KniffelPointsTable.INDEX_FULL_HOUSE,
             KniffelPointsTable.INDEX_SMALL_STREET,
             KniffelPointsTable.INDEX_PAIR_SIZE_3, 3, 4, 5
-        };
+        ];
 
         protected readonly int[] BestIndexToKillBonusNotReached =
-        {
+        [
             0, KniffelPointsTable.INDEX_KNIFFEL, KniffelPointsTable.INDEX_PAIR_SIZE_4,
             KniffelPointsTable.INDEX_BIG_STREET, KniffelPointsTable.INDEX_FULL_HOUSE,
             KniffelPointsTable.INDEX_SMALL_STREET,
             KniffelPointsTable.INDEX_PAIR_SIZE_3, 1, 2, 3, 4, 5
-        };
+        ];
 
         protected int MinFieldValuePair3 = 14;
         protected int MinFieldValuePair4 = 13;
         protected int MinFieldValueChance = 15;
 
         private static readonly Func<List<ShufflingOption>, ShufflingOption>[] BestOptionFinder =
-        {
+        [
             options => options.Aggregate((max, x) => max.MaxOptionSum(x)),
             options => options.Aggregate((max, x) => max.MaxOptionAverage(x)),
             options => options.Aggregate((max, x) => max.MaxOptionWithoutChance(x)),
@@ -69,7 +69,7 @@ namespace SpieleSammlung.Model.Kniffel.Bot
             options => options.Aggregate((max, x) => max.MaxOptionMaxOrSum(x)),
             options => options.Aggregate((max, x) => max.MaxOptionAverageWrite(x)),
             options => options.Aggregate((max, x) => max.MaxOptionWriteCount(x))
-        };
+        ];
 
         public static readonly int BEST_OPTION_COUNT = BestOptionFinder.Length;
 
@@ -93,7 +93,7 @@ namespace SpieleSammlung.Model.Kniffel.Bot
             if (dice.IsKniffelPossible() && player[KniffelPointsTable.INDEX_KNIFFEL].IsEmpty() ||
                 dice.IsBigStreetPossible() && player[KniffelPointsTable.INDEX_BIG_STREET].IsEmpty())
             {
-                return Array.Empty<int>(); // there is nothing left to improve
+                return []; // there is nothing left to improve
             }
 
             if (dice.IsSmallStreetPossible() && player[KniffelPointsTable.INDEX_BIG_STREET].IsEmpty())

@@ -30,8 +30,8 @@ namespace SpieleSammlung.View.Windows
         {
             InitializeComponent();
             _canPrint = new bool[3];
-            _lblNames = new List<Label>
-            {
+            _lblNames =
+            [
                 LblNamePlayer1,
                 LblNamePlayer2,
                 LblNamePlayer3,
@@ -39,9 +39,9 @@ namespace SpieleSammlung.View.Windows
                 LblNamePlayer5,
                 LblNamePlayer6,
                 LblNamePlayer7
-            };
-            _lblPoints = new List<Label>
-            {
+            ];
+            _lblPoints =
+            [
                 LblPointsPlayer1,
                 LblPointsPlayer2,
                 LblPointsPlayer3,
@@ -49,7 +49,7 @@ namespace SpieleSammlung.View.Windows
                 LblPointsPlayer5,
                 LblPointsPlayer6,
                 LblPointsPlayer7
-            };
+            ];
             Update(playerPoints, single, cumulated);
         }
 

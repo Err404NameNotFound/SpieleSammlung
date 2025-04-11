@@ -12,7 +12,7 @@ namespace SpieleSammlung.Model.Kniffel.Bot
 
         public const int REPETITIONS = 50000;
         public const int THREADS = 6;
-        private static readonly List<Player> Players = new() { new Player(), new Player() };
+        private static readonly List<Player> Players = [new(), new()];
         public static Random rng = new();
 
         #endregion

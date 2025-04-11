@@ -15,13 +15,13 @@ namespace SpieleSammlung.View.UserControls.Kniffel
         public KniffelPointsVisual()
         {
             InitializeComponent();
-            _fields = new List<Label>
-            {
+            _fields =
+            [
                 LblValue1, LblValue2, LblValue3, LblValue4, LblValue5, LblValue6, LblValueSumTop,
                 LblValueBonus, LblValueTriple, LblValueQuad,
                 LblValueFullH, LblValueSmallStreet, LblValueBigStreet, LblValueKniffel, LblValueChance, LblValueSumBot,
                 LblValueSumTopTotal, LblValueSumTotal
-            };
+            ];
             CBoxPlayerNames.IsEnabled = false;
         }
 

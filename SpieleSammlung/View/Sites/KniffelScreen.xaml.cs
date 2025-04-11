@@ -56,7 +56,7 @@ namespace SpieleSammlung.View.Sites
         {
             InitializeComponent();
             _watch = new Stopwatch();
-            _dices = new List<SelectableDice> { Dice1, Dice2, Dice3, Dice4, Dice5 };
+            _dices = [Dice1, Dice2, Dice3, Dice4, Dice5];
             _game = new KniffelGame(names);
             foreach (var dice in _dices) dice.IsChecked = false;
             foreach (var player in names) Fields.CBoxPlayerNames.Items.Add(player);
@@ -64,8 +64,7 @@ namespace SpieleSammlung.View.Sites
             FieldsChoose.FillPlayerList(_game.Players);
             FieldsChoose.CBoxPlayerNames.SelectedIndex = 0;
             FieldsChoose.CBoxPlayerNames.IsEnabled = true;
-            _afterMatchPoints = new List<KniffelPointsVisual>
-                { FieldsChangeable1, FieldsChangeable2, FieldsChangeable3 };
+            _afterMatchPoints = [FieldsChangeable1, FieldsChangeable2, FieldsChangeable3];
             BtnNextPlayer.Visibility = Visibility.Hidden;
             BtnNewTry.IsEnabled = true;
             ShowShuffledDices();
@@ -233,7 +232,7 @@ namespace SpieleSammlung.View.Sites
         private int[] GetSelectedDiceIndexes()
         {
             int w = 0;
-            List<int> index = new List<int>();
+            List<int> index = [];
             while (w < 5)
             {
                 if (_dices[w].IsChecked)

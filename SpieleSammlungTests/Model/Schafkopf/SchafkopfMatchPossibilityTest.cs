@@ -26,7 +26,7 @@ namespace SpieleSammlungTests.Model.Schafkopf
         public void TestToStringConstructorWithList()
         {
             SchafkopfMode mode = SchafkopfMode.Sauspiel;
-            List<string> colors = new List<string> { Card.GRAS, Card.EICHEL, Card.SCHELLE };
+            List<string> colors = [Card.GRAS, Card.EICHEL, Card.SCHELLE];
             SchafkopfMatchPossibility possibility = new SchafkopfMatchPossibility(mode, colors);
             Assert.AreEqual(mode + ": " + string.Join(", ", colors), possibility.ToString());
         }
@@ -35,7 +35,7 @@ namespace SpieleSammlungTests.Model.Schafkopf
         public void TestToStringConstructorWithListSoloTout()
         {
             SchafkopfMode mode = SchafkopfMode.SoloTout;
-            List<string> colors = new List<string> { Card.GRAS, Card.EICHEL, Card.SCHELLE, Card.HERZ };
+            List<string> colors = [Card.GRAS, Card.EICHEL, Card.SCHELLE, Card.HERZ];
             SchafkopfMatchPossibility possibility = new SchafkopfMatchPossibility(mode, colors);
             Assert.AreEqual(mode + ": " + string.Join(", ", colors), possibility.ToString());
         }

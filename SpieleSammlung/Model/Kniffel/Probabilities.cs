@@ -17,8 +17,8 @@ namespace SpieleSammlung.Model.Kniffel
             }
 
             Binomials = new long[10][];
-            Binomials[0] = new long[] { 1 };
-            Binomials[1] = new long[] { 1, 1 };
+            Binomials[0] = [1];
+            Binomials[1] = [1, 1];
             for (int n = 2; n < Binomials.Length; ++n)
             {
                 Binomials[n] = new long[n + 1];

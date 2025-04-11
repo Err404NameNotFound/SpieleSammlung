@@ -448,7 +448,7 @@ namespace SpieleSammlung.Model.Kniffel
 
         private static List<WriteOption> CalculateExpectedValues(KniffelPlayer player, int index)
         {
-            List<WriteOption> options = new List<WriteOption>();
+            List<WriteOption> options = [];
             double[] expected = ExpectedValues[index];
             for (int i = 0; i < 6; ++i)
             {
@@ -475,10 +475,10 @@ namespace SpieleSammlung.Model.Kniffel
 
         public static List<ShufflingOption> GenerateAllOptions(KniffelPlayer player, DiceManager dice)
         {
-            List<ShufflingOption> ret = new List<ShufflingOption>();
+            List<ShufflingOption> ret = [];
             int combinations = COMBINATIONS_UNSET_DICE;
             int[] values = (int[])dice.Dices.Clone();
-            int[] divisors = { 16, 8, 4, 2, 1 };
+            int[] divisors = [16, 8, 4, 2, 1];
             for (int i = 0; i < combinations; ++i)
             {
                 for (int d = 0; d < DICE_COUNT; ++d)

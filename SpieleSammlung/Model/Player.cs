@@ -28,7 +28,7 @@ namespace SpieleSammlung.Model
 
         private const string BOT_INDICATOR = "[Bot]";
 
-        private static readonly string[] BotNames = { "Bob", "Hans", "Otto", "Heinz", "Franz", "Josef" };
+        private static readonly string[] BotNames = ["Bob", "Hans", "Otto", "Heinz", "Franz", "Josef"];
 
         private static readonly Random Rng = new();
         private static string GenerateRandomBotName() => BOT_INDICATOR + " " + BotNames[Rng.Next(0, BotNames.Length)];
