@@ -1,90 +1,90 @@
 using System;
 using SpieleSammlung.Model.Util;
 
-namespace SpieleSammlung.Model.Kniffel.Bot
+namespace SpieleSammlung.Model.Kniffel.Bot;
+
+public static class BestBotFinder
 {
-    public static class BestBotFinder
+    public static int testAllCount;
+    public static int testOneCount;
+    public static int threads;
+    public static int repetitions;
+    public static Func<bool> shouldStop;
+
+    static BestBotFinder()
     {
-        public static int testAllCount;
-        public static int testOneCount;
-        public static int threads;
-        public static int repetitions;
-        public static Func<bool> shouldStop;
-
-        static BestBotFinder()
-        {
-            testAllCount = 10;
-            testOneCount = 10;
-            threads = EvaluatedBotStrategy.THREADS;
-            repetitions = EvaluatedBotStrategy.REPETITIONS;
-            shouldStop = () => Console.KeyAvailable;
-        }
-        
-        public static void main()
-        {
-            bool console = ModelLog.WriteToConsole;
-            bool file = ModelLog.WriteToFile;
-            ModelLog.WriteToConsole = false;
-            ModelLog.WriteToFile = false;
-            TestAll(testAllCount);
-            OptimiseOneStrategy(testOneCount);
-            ModelLog.WriteToConsole = console;
-            ModelLog.WriteToFile = file;
-        }
-        
-        public static void OptimiseOneStrategy(int count = 100) =>
-            OptimiseOneStrategy(new EvaluatedBotStrategy(), count);
-
-        private static void OptimiseOneStrategy(EvaluatedBotStrategy start, int count)
-        {
-            ProgressPrinter printer = new ProgressPrinter(count, 1);
-            EvaluatedBotStrategy best = start;
-            Console.WriteLine(best.RecalculateFitness(repetitions, threads));
-            for (int i = 1; i < count; i++)
-            {
-                if (shouldStop()) break;
-                EvaluatedBotStrategy next = best.MutateAndEvaluate(repetitions, threads);
-                if (next.Fitness > best.Fitness) best = next;
-                string between = $"{next.Fitness:000.00000}; {best.Fitness:000.00000}";
-                printer.PrintProgressIfNecessary(i, between);
-            }
-
-            printer.ClearProgressAndPrintElapsedTime();
-
-            Console.WriteLine(best);
-        }
-
-        public static void TestAll(int count = 10)
-        {
-            MinMaxAvgEvaluator[] evaluators = new MinMaxAvgEvaluator[BotStrategy.BEST_OPTION_COUNT];
-            EvaluatedBotStrategy[] bests = new EvaluatedBotStrategy[evaluators.Length];
-            for (int i = 0; i < evaluators.Length; ++i)
-            {
-                evaluators[i] = new MinMaxAvgEvaluator(false);
-                bests[i] = new EvaluatedBotStrategy(i);
-                bests[i].RecalculateFitness(repetitions, threads);
-            }
-
-            ProgressPrinter printer = new ProgressPrinter(count * evaluators.Length, 1);
-            for (int i = 0; i < count; ++i)
-            {
-                if (shouldStop()) break;
-                for (int e = 0; e < evaluators.Length; e++)
-                {
-                    EvaluatedBotStrategy next = bests[e].MutateAndEvaluate(repetitions, threads);
-                    if (next.Fitness > bests[e].Fitness) bests[e] = next;
-                    string between = $"{e}: {next.Fitness:000.00000}; {bests[e].Fitness:000.00000}";
-                    printer.PrintProgressIfNecessary(i * evaluators.Length + e, between);
-                    evaluators[e].Insert((int)next.Fitness);
-                }
-            }
-
-            printer.ClearProgressAndPrintElapsedTime();
-            ModelLog.WriteToConsole = true;
-            MinMaxAvgEvaluator.PrintMultipleNonNegative(evaluators);
-            ModelLog.WriteToConsole = false;
-        }
+        testAllCount = 10;
+        testOneCount = 10;
+        threads = EvaluatedBotStrategy.THREADS;
+        repetitions = EvaluatedBotStrategy.REPETITIONS;
+        shouldStop = () => Console.KeyAvailable;
     }
+        
+    public static void main()
+    {
+        bool console = ModelLog.WriteToConsole;
+        bool file = ModelLog.WriteToFile;
+        ModelLog.WriteToConsole = false;
+        ModelLog.WriteToFile = false;
+        TestAll(testAllCount);
+        OptimiseOneStrategy(testOneCount);
+        ModelLog.WriteToConsole = console;
+        ModelLog.WriteToFile = file;
+    }
+        
+    public static void OptimiseOneStrategy(int count = 100) =>
+        OptimiseOneStrategy(new EvaluatedBotStrategy(), count);
+
+    private static void OptimiseOneStrategy(EvaluatedBotStrategy start, int count)
+    {
+        ProgressPrinter printer = new ProgressPrinter(count, 1);
+        EvaluatedBotStrategy best = start;
+        Console.WriteLine(best.RecalculateFitness(repetitions, threads));
+        for (int i = 1; i < count; i++)
+        {
+            if (shouldStop()) break;
+            EvaluatedBotStrategy next = best.MutateAndEvaluate(repetitions, threads);
+            if (next.Fitness > best.Fitness) best = next;
+            string between = $"{next.Fitness:000.00000}; {best.Fitness:000.00000}";
+            printer.PrintProgressIfNecessary(i, between);
+        }
+
+        printer.ClearProgressAndPrintElapsedTime();
+
+        Console.WriteLine(best);
+    }
+
+    public static void TestAll(int count = 10)
+    {
+        MinMaxAvgEvaluator[] evaluators = new MinMaxAvgEvaluator[BotStrategy.BEST_OPTION_COUNT];
+        EvaluatedBotStrategy[] bests = new EvaluatedBotStrategy[evaluators.Length];
+        for (int i = 0; i < evaluators.Length; ++i)
+        {
+            evaluators[i] = new MinMaxAvgEvaluator(false);
+            bests[i] = new EvaluatedBotStrategy(i);
+            bests[i].RecalculateFitness(repetitions, threads);
+        }
+
+        ProgressPrinter printer = new ProgressPrinter(count * evaluators.Length, 1);
+        for (int i = 0; i < count; ++i)
+        {
+            if (shouldStop()) break;
+            for (int e = 0; e < evaluators.Length; e++)
+            {
+                EvaluatedBotStrategy next = bests[e].MutateAndEvaluate(repetitions, threads);
+                if (next.Fitness > bests[e].Fitness) bests[e] = next;
+                string between = $"{e}: {next.Fitness:000.00000}; {bests[e].Fitness:000.00000}";
+                printer.PrintProgressIfNecessary(i * evaluators.Length + e, between);
+                evaluators[e].Insert((int)next.Fitness);
+            }
+        }
+
+        printer.ClearProgressAndPrintElapsedTime();
+        ModelLog.WriteToConsole = true;
+        MinMaxAvgEvaluator.PrintMultipleNonNegative(evaluators);
+        ModelLog.WriteToConsole = false;
+    }
+}
 
 /*
 count;     01;    01;    01;    01;    01;    01
@@ -108,4 +108,3 @@ Min values: {Chance 15, Pair 3: 14, Pair 4: 13}
 Fitness: 219,7807
 
  */
-}

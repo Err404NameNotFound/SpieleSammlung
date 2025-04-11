@@ -2,47 +2,46 @@
 using SpieleSammlung.Model.Schafkopf;
 using SpieleSammlung.View.UserControls.Schafkopf;
 
-namespace SpieleSammlung.View.Windows
+namespace SpieleSammlung.View.Windows;
+
+/// <summary>
+/// Interaktionslogik für LastStich.xaml
+/// </summary>
+public partial class LastStich
 {
-    /// <summary>
-    /// Interaktionslogik für LastStich.xaml
-    /// </summary>
-    public partial class LastStich
+    private readonly StichView _view;
+
+    public LastStich(SchafkopfMatch match, int offsetUi)
     {
-        private readonly StichView _view;
-
-        public LastStich(SchafkopfMatch match, int offsetUi)
+        InitializeComponent();
+        WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        int startPlayer = match.PreviousRound.StartPlayer;
+        if (offsetUi == -1)
         {
-            InitializeComponent();
-            WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            int startPlayer = match.PreviousRound.StartPlayer;
-            if (offsetUi == -1)
+            for (int i = 0; i < match.LastCards.Count; ++i)
             {
-                for (int i = 0; i < match.LastCards.Count; ++i)
-                {
-                    Stich.AddCard(match.LastCards[i], match.Players[(startPlayer + i) % 4].Number);
-                }
-            }
-            else
-            {
-                for (int i = 0; i < match.LastCards.Count; ++i)
-                {
-                    Stich.AddCard(match.LastCards[i], (match.Players[(startPlayer + i) % 4].Number + 4 - offsetUi) % 4);
-                }
+                Stich.AddCard(match.LastCards[i], match.Players[(startPlayer + i) % 4].Number);
             }
         }
-
-        public LastStich(StichView view)
+        else
         {
-            InitializeComponent();
-            Stich.Visibility = Visibility.Collapsed;
-            _view = view;
-            GridStich.Children.Add(view);
+            for (int i = 0; i < match.LastCards.Count; ++i)
+            {
+                Stich.AddCard(match.LastCards[i], (match.Players[(startPlayer + i) % 4].Number + 4 - offsetUi) % 4);
+            }
         }
+    }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            GridStich.Children.Remove(_view);
-        }
+    public LastStich(StichView view)
+    {
+        InitializeComponent();
+        Stich.Visibility = Visibility.Collapsed;
+        _view = view;
+        GridStich.Children.Add(view);
+    }
+
+    private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+    {
+        GridStich.Children.Remove(_view);
     }
 }

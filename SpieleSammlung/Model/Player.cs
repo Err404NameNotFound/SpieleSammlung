@@ -1,38 +1,37 @@
 ﻿using System;
 
-namespace SpieleSammlung.Model
+namespace SpieleSammlung.Model;
+
+/// <summary>
+/// Player in a match.
+/// </summary>
+public class Player
 {
     /// <summary>
-    /// Player in a match.
+    /// Name of the Player.
     /// </summary>
-    public class Player
-    {
-        /// <summary>
-        /// Name of the Player.
-        /// </summary>
-        public string Name { get; }
+    public string Name { get; }
 
-        /// <summary>
-        /// Flag if the player is a bot.
-        /// </summary>
-        public bool IsBot { private set; get; }
+    /// <summary>
+    /// Flag if the player is a bot.
+    /// </summary>
+    public bool IsBot { private set; get; }
 
-        /// <summary>
-        /// Creates a new instance and sets its values.
-        /// </summary>
-        /// <param name="name">Name of the player.</param>
-        /// <param name="isBot">Flag if the player is a bot.</param>
-        public Player(string name, bool isBot) => (IsBot, Name) = (isBot, name);
+    /// <summary>
+    /// Creates a new instance and sets its values.
+    /// </summary>
+    /// <param name="name">Name of the player.</param>
+    /// <param name="isBot">Flag if the player is a bot.</param>
+    public Player(string name, bool isBot) => (IsBot, Name) = (isBot, name);
 
-        public Player() => (IsBot, Name) = (true, GenerateRandomBotName());
+    public Player() => (IsBot, Name) = (true, GenerateRandomBotName());
 
-        private const string BOT_INDICATOR = "[Bot]";
+    private const string BOT_INDICATOR = "[Bot]";
 
-        private static readonly string[] BotNames = ["Bob", "Hans", "Otto", "Heinz", "Franz", "Josef"];
+    private static readonly string[] BotNames = ["Bob", "Hans", "Otto", "Heinz", "Franz", "Josef"];
 
-        private static readonly Random Rng = new();
-        private static string GenerateRandomBotName() => BOT_INDICATOR + " " + BotNames[Rng.Next(0, BotNames.Length)];
+    private static readonly Random Rng = new();
+    private static string GenerateRandomBotName() => BOT_INDICATOR + " " + BotNames[Rng.Next(0, BotNames.Length)];
 
-        public override string ToString() => $"{Name}";
-    }
+    public override string ToString() => $"{Name}";
 }

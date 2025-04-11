@@ -1,28 +1,27 @@
 ﻿using System;
 
-namespace SpieleSammlung.Model.Kniffel.Fields
+namespace SpieleSammlung.Model.Kniffel.Fields;
+
+/// <summary>Field in a Kniffel match that stores a value for an ordinary field.</summary>
+public class KniffelFieldSingle : KniffelField
 {
-    /// <summary>Field in a Kniffel match that stores a value for an ordinary field.</summary>
-    public class KniffelFieldSingle : KniffelField
+    private int _fieldValue;
+
+    /// <value>Value of the field that can only change once.</value>
+    public override int Value
     {
-        private int _fieldValue;
-
-        /// <value>Value of the field that can only change once.</value>
-        public override int Value
+        set
         {
-            set
+            if (!IsEmpty())
             {
-                if (!IsEmpty())
-                {
-                    throw new ArgumentException("Field has already been written.");
-                }
-
-                _fieldValue = value;
+                throw new ArgumentException("Field has already been written.");
             }
-            get => _fieldValue;
-        }
 
-        /// <summary>Creates a new empty field.</summary>
-        public KniffelFieldSingle() => _fieldValue = EMPTY_FIELD;
+            _fieldValue = value;
+        }
+        get => _fieldValue;
     }
+
+    /// <summary>Creates a new empty field.</summary>
+    public KniffelFieldSingle() => _fieldValue = EMPTY_FIELD;
 }

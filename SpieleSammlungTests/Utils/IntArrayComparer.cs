@@ -1,41 +1,40 @@
 using System.Collections.Generic;
 using SpieleSammlung.Model.Kniffel;
 
-namespace SpieleSammlungTests.Utils
+namespace SpieleSammlungTests.Utils;
+
+public class IntArrayComparer : IEqualityComparer<int[]>
 {
-    public class IntArrayComparer : IEqualityComparer<int[]>
+    public bool Equals(int[] a, int[] b)
     {
-        public bool Equals(int[] a, int[] b)
+        if (a == null)
         {
-            if (a == null)
-            {
-                return b == null;
-            }
-
-            if (b == null || a.Length != b.Length)
-            {
-                return false;
-            }
-
-            int i = 0;
-            while (i < a.Length && a[i] == b[i])
-            {
-                ++i;
-            }
-
-            return i == a.Length;
+            return b == null;
         }
 
-        public int GetHashCode(int[] obj)
+        if (b == null || a.Length != b.Length)
         {
-            int sum = 0;
-            const int factor = Dice.HIGHEST_VALUE - Dice.LOWEST_VALUE + 1;
-            for (int i = obj.Length - 1; i >= 0; --i)
-            {
-                sum = (sum + obj[i] - Dice.LOWEST_VALUE) * factor;
-            }
-
-            return sum;
+            return false;
         }
+
+        int i = 0;
+        while (i < a.Length && a[i] == b[i])
+        {
+            ++i;
+        }
+
+        return i == a.Length;
+    }
+
+    public int GetHashCode(int[] obj)
+    {
+        int sum = 0;
+        const int factor = Dice.HIGHEST_VALUE - Dice.LOWEST_VALUE + 1;
+        for (int i = obj.Length - 1; i >= 0; --i)
+        {
+            sum = (sum + obj[i] - Dice.LOWEST_VALUE) * factor;
+        }
+
+        return sum;
     }
 }

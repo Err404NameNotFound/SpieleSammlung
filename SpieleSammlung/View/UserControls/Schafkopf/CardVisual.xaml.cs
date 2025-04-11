@@ -2,29 +2,28 @@
 using System.Windows.Media.Imaging;
 using SpieleSammlung.Model.Schafkopf;
 
-namespace SpieleSammlung.View.UserControls.Schafkopf
+namespace SpieleSammlung.View.UserControls.Schafkopf;
+
+/// <summary>
+/// Interaktionslogik für CardVisual.xaml
+/// </summary>
+public partial class CardVisual
 {
-    /// <summary>
-    /// Interaktionslogik für CardVisual.xaml
-    /// </summary>
-    public partial class CardVisual
+    public CardVisual()
     {
-        public CardVisual()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+    }
 
-        private Card _card;
+    private Card _card;
 
-        public Card Card
+    public Card Card
+    {
+        get => _card;
+        set
         {
-            get => _card;
-            set
-            {
-                _card = value;
-                CardImage.Source = new BitmapImage(new Uri(@"../../Images/Schafkopf/" + value + ".jpg",
-                    UriKind.Relative));
-            }
+            _card = value;
+            CardImage.Source = new BitmapImage(new Uri(@"../../Images/Schafkopf/" + value + ".jpg",
+                UriKind.Relative));
         }
     }
 }
