@@ -5,11 +5,11 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
 using SpieleSammlung.Model.Mancala;
-using SpieleSammlung.UserControls.Mancala;
+using SpieleSammlung.View.UserControls.Mancala;
 
 namespace SpieleSammlung.View.Sites
 {
-    public partial class MancalaScreen : UserControl
+    public partial class MancalaScreen
     {
         private readonly MancalaGame _mancala;
         private readonly MancalaField[] _fields;

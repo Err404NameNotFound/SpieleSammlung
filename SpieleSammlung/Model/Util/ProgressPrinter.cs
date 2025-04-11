@@ -5,13 +5,13 @@ namespace SpieleSammlung.Model.Util
 {
     public class ProgressPrinter
     {
-        private const string clearString = "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b" +
+        private const string CLEAR_STRING = "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b" +
                                            "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b" +
                                            "\b\b\b\b\b\b\b\b\b\b\b";
 
-        private static readonly string FormatStringBetween = "{0,-" + clearString.Length + "}";
+        private static readonly string FormatStringBetween = "{0,-" + CLEAR_STRING.Length + "}";
 
-        private const string clearStringAfter = "                           ";
+        private const string CLEAR_STRING_AFTER = "                           ";
         private const int BUFFER_SIZE = 60;
         private const long UPDATE_EVERY_SECOND = 1000;
         private const long DAY = 24 * 3600 * 1000;
@@ -90,19 +90,19 @@ namespace SpieleSammlung.Model.Util
             long expectedTime = (now - _timeBuffer.Peek()) * (_end - i) / (i - _iterationBuffer.Peek());
             _timeBuffer.Insert(now);
             _iterationBuffer.Insert(i);
-            Console.Write(clearString);
+            Console.Write(CLEAR_STRING);
             if (between != null)
             {
                 Console.WriteLine(FormatStringBetween, between);
             }
 
-            Console.Write(clearString + "{0,5}% | elapsed: {1} | finished: {2}", $"{100.0 * i / _end:00.0}",
+            Console.Write(CLEAR_STRING + "{0,5}% | elapsed: {1} | finished: {2}", $"{100.0 * i / _end:00.0}",
                 TimeString(elapsedTime), TimeString(expectedTime));
         }
 
         public void ClearProgressAndPrintElapsedTime()
         {
-            Console.WriteLine(clearString + "Elapsed time: {0}" + clearStringAfter, TimeString(Now() - _startTime));
+            Console.WriteLine(CLEAR_STRING + "Elapsed time: {0}" + CLEAR_STRING_AFTER, TimeString(Now() - _startTime));
             _watch.Stop();
         }
 

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using SpieleSammlung.Model.Util;
 
 namespace SpieleSammlung.Model.Mancala
@@ -136,7 +135,7 @@ namespace SpieleSammlung.Model.Mancala
             }
 
             bool otherEmpty = true;
-            List<int> options = new List<int>();
+            List<int> options = [];
             for (int i = start; i < end; i++)
             {
                 if (_fields[i] > 0)

@@ -1,16 +1,13 @@
 using System.Collections.Generic;
 using System.Windows.Controls;
-using SpieleSammlung.Model.Connect4;
 using SpieleSammlung.Model.Mancala;
-using SpieleSammlung.UserControls.Connect4;
 
-
-namespace SpieleSammlung.UserControls.Mancala
+namespace SpieleSammlung.View.UserControls.Mancala
 {
-    public partial class MancalaBoard : UserControl
+    public partial class MancalaBoard
     {
-        private MancalaGame _mancala;
-        private MancalaField[] _fields;
+        private readonly MancalaGame _mancala;
+        private readonly MancalaField[] _fields;
 
         public MancalaBoard(int stonesPerField = 4, int length= 6)
         {

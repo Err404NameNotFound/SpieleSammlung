@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local1="clr-namespace:SpieleSammlung.UserControls"
-             xmlns:schafkopf="clr-namespace:SpieleSammlung.UserControls.Schafkopf"
              xmlns:properties="clr-namespace:SpieleSammlung.Properties"
+             xmlns:schafkopf1="clr-namespace:SpieleSammlung.View.UserControls.Schafkopf"
+             xmlns:userControls="clr-namespace:SpieleSammlung.View.UserControls"
              mc:Ignorable="d"
              d:DesignHeight="600" d:DesignWidth="1000">
     <UserControl.Background>
@@ -28,23 +28,23 @@
                 <RowDefinition Height="50" />
             </Grid.RowDefinitions>
 
-            <schafkopf:GameModeSelector x:Name="ModeSelector" Margin="1" Grid.Column="2" Grid.Row="5"
+            <schafkopf1:GameModeSelector x:Name="ModeSelector" Margin="1" Grid.Column="2" Grid.Row="5"
                                      HorizontalAlignment="Right" />
             <Button x:Name="BtnKontra" Content="{x:Static properties:Resources.SK_Btn_Kontra}" Padding="5"
                     Grid.Column="2" Grid.Row="5" Width="50"
                     HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"
                     Visibility="Hidden" Click="BtnKontra_Click" />
-            <schafkopf:CardHolder Grid.Row="5" Grid.Column="1" x:Name="CardHolder" CardClicked="CardHolder_CardClicked"
+            <schafkopf1:CardHolder Grid.Row="5" Grid.Column="1" x:Name="CardHolder" CardClicked="CardHolder_CardClicked"
                                   ShowsAllCards="CardHolder_ShowsAllCards" DockPanel.Dock="Bottom" />
 
-            <schafkopf:SkPlayerInfo Grid.Column="1" Grid.Row="6" x:Name="VisualPlayer" HorizontalAlignment="Center"
+            <schafkopf1:SkPlayerInfo Grid.Column="1" Grid.Row="6" x:Name="VisualPlayer" HorizontalAlignment="Center"
                                     ClipToBounds="False" />
-            <schafkopf:SkPlayerInfo Grid.Column="0" Grid.Row="3" x:Name="VisualPlayerLeft" />
-            <schafkopf:SkPlayerInfo Grid.Column="1" Grid.Row="0" x:Name="VisualPlayerTop" HorizontalAlignment="Center"
+            <schafkopf1:SkPlayerInfo Grid.Column="0" Grid.Row="3" x:Name="VisualPlayerLeft" />
+            <schafkopf1:SkPlayerInfo Grid.Column="1" Grid.Row="0" x:Name="VisualPlayerTop" HorizontalAlignment="Center"
                                     VerticalAlignment="Top" />
-            <schafkopf:SkPlayerInfo Grid.Column="2" Grid.Row="3" x:Name="VisualPlayerRight" />
+            <schafkopf1:SkPlayerInfo Grid.Column="2" Grid.Row="3" x:Name="VisualPlayerRight" />
 
-            <schafkopf:StichView Grid.Row="1" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="3"
+            <schafkopf1:StichView Grid.Row="1" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="3"
                                  x:Name="CurrentCards"
                                  Margin="175, 25" HorizontalAlignment="Center" />
         </Grid>
@@ -61,21 +61,21 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
 
-            <schafkopf:SkPlayerInfo Grid.Row="0" Grid.Column="0" x:Name="PlayerInfo1" VerticalAlignment="Top" />
-            <schafkopf:SkPlayerInfo Grid.Row="1" Grid.Column="0" x:Name="PlayerInfo2" VerticalAlignment="Top" />
-            <schafkopf:SkPlayerInfo Grid.Row="2" Grid.Column="0" x:Name="PlayerInfo3" VerticalAlignment="Top" />
-            <schafkopf:SkPlayerInfo Grid.Row="3" Grid.Column="0" x:Name="PlayerInfo4" VerticalAlignment="Top" />
+            <schafkopf1:SkPlayerInfo Grid.Row="0" Grid.Column="0" x:Name="PlayerInfo1" VerticalAlignment="Top" />
+            <schafkopf1:SkPlayerInfo Grid.Row="1" Grid.Column="0" x:Name="PlayerInfo2" VerticalAlignment="Top" />
+            <schafkopf1:SkPlayerInfo Grid.Row="2" Grid.Column="0" x:Name="PlayerInfo3" VerticalAlignment="Top" />
+            <schafkopf1:SkPlayerInfo Grid.Row="3" Grid.Column="0" x:Name="PlayerInfo4" VerticalAlignment="Top" />
 
-            <schafkopf:CardHolder Grid.Row="0" Grid.Column="1" x:Name="ChPlayer1" CanClickCards="False"
+            <schafkopf1:CardHolder Grid.Row="0" Grid.Column="1" x:Name="ChPlayer1" CanClickCards="False"
                                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-            <schafkopf:CardHolder Grid.Row="1" Grid.Column="1" x:Name="ChPlayer2" CanClickCards="False"
+            <schafkopf1:CardHolder Grid.Row="1" Grid.Column="1" x:Name="ChPlayer2" CanClickCards="False"
                                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-            <schafkopf:CardHolder Grid.Row="2" Grid.Column="1" x:Name="ChPlayer3" CanClickCards="False"
+            <schafkopf1:CardHolder Grid.Row="2" Grid.Column="1" x:Name="ChPlayer3" CanClickCards="False"
                                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-            <schafkopf:CardHolder Grid.Row="3" Grid.Column="1" x:Name="ChPlayer4" CanClickCards="False"
+            <schafkopf1:CardHolder Grid.Row="3" Grid.Column="1" x:Name="ChPlayer4" CanClickCards="False"
                                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
 
-            <schafkopf:StichView Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" x:Name="CurrentCardsSpectate" />
+            <schafkopf1:StichView Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" x:Name="CurrentCardsSpectate" />
 
         </Grid>
         <Grid x:Name="GridRoundSummary" Visibility="Collapsed">
@@ -141,13 +141,13 @@
             <Button Grid.Row="3" Grid.Column="1" x:Name="BtnPlayerNextMatch"
                     Content="{x:Static properties:Resources.SK_Btn_NewRound}" Padding="5"
                     Click="BtnPlayerNextMatch_Click" />
-            <local1:CheckView Grid.Row="3" Grid.Column="1" x:Name="CvPlayer1" />
-            <local1:CheckView Grid.Row="3" Grid.Column="2" x:Name="CvPlayer2" />
-            <local1:CheckView Grid.Row="3" Grid.Column="3" x:Name="CvPlayer3" />
-            <local1:CheckView Grid.Row="3" Grid.Column="4" x:Name="CvPlayer4" />
-            <local1:CheckView Grid.Row="3" Grid.Column="5" x:Name="CvPlayer5" />
-            <local1:CheckView Grid.Row="3" Grid.Column="6" x:Name="CvPlayer6" />
-            <local1:CheckView Grid.Row="3" Grid.Column="7" x:Name="CvPlayer7" />
+            <userControls:CheckView Grid.Row="3" Grid.Column="1" x:Name="CvPlayer1" />
+            <userControls:CheckView Grid.Row="3" Grid.Column="2" x:Name="CvPlayer2" />
+            <userControls:CheckView Grid.Row="3" Grid.Column="3" x:Name="CvPlayer3" />
+            <userControls:CheckView Grid.Row="3" Grid.Column="4" x:Name="CvPlayer4" />
+            <userControls:CheckView Grid.Row="3" Grid.Column="5" x:Name="CvPlayer5" />
+            <userControls:CheckView Grid.Row="3" Grid.Column="6" x:Name="CvPlayer6" />
+            <userControls:CheckView Grid.Row="3" Grid.Column="7" x:Name="CvPlayer7" />
         </Grid>
         <Grid x:Name="GridConnectionLost" Visibility="Collapsed">
             <Label Content="{x:Static properties:Resources.SK_Lbl_WaitUntilAllPlayerBack}"

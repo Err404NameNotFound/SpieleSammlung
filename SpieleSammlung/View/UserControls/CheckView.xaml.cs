@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
-namespace SpieleSammlung.UserControls
+namespace SpieleSammlung.View.UserControls
 {
     /// <summary>
     /// Interaktionslogik für CheckView.xaml
     /// </summary>
-    public partial class CheckView : UserControl
+    public partial class CheckView
     {
         private bool? _checked;
 

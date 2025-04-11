@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
 using SpieleSammlung.Model.Kniffel;
 
 namespace SpieleSammlung.View.Sites
@@ -7,7 +6,7 @@ namespace SpieleSammlung.View.Sites
     /// <summary>
     /// Interaktionslogik für StartScreen.xaml
     /// </summary>
-    public partial class StartScreen : UserControl
+    public partial class StartScreen
     {
         public delegate void OnChoseMode(GameMode chosenMode, int min, int max);
 

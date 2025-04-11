@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using SpieleSammlung.Model.Schafkopf;
 
 namespace SpieleSammlung.Model.Util
 {

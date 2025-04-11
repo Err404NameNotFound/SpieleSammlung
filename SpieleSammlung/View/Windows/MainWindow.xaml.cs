@@ -7,14 +7,13 @@ using System.Windows.Controls;
 using SpieleSammlung.Model;
 using SpieleSammlung.Model.Multiplayer;
 using SpieleSammlung.View.Sites;
-using SpieleSammlung.Windows;
 
 namespace SpieleSammlung.View.Windows
 {
     /// <summary>
     /// Interaktionslogik für MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         private readonly StartScreen _viewStart;
         private PlayerCreator _viewPlayerCreator;
@@ -118,7 +117,7 @@ namespace SpieleSammlung.View.Windows
                     {
                         WindowsMode error;
                         await ShowPopup(error = new WindowsMode(Properties.Resources.ConfirmLeave_Message));
-                        if (error.status)
+                        if (error.Status)
                         {
                             CloseOpenConnection();
                             ChooseScreen(MainWindowView.StartScreen);
@@ -201,7 +200,7 @@ namespace SpieleSammlung.View.Windows
                     _viewMancalaScreen = new MancalaScreen(true);
                     break;
                 case GameMode.Schafkopf:
-                    throw new ArgumentOutOfRangeException(nameof(mode), mode, "This game is not a single player game");
+                    throw new ArgumentOutOfRangeException(nameof(mode), mode, Properties.Resources.Err_msg_not_a_single_player_game);
             }
 
             ChooseScreen(Convert(mode));

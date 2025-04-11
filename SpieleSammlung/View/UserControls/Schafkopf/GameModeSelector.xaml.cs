@@ -6,12 +6,12 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using SpieleSammlung.Model.Schafkopf;
 
-namespace SpieleSammlung.UserControls.Schafkopf
+namespace SpieleSammlung.View.UserControls.Schafkopf
 {
     /// <summary>
     /// Interaktionslogik für GameModeSelector.xaml
     /// </summary>
-    public partial class GameModeSelector : UserControl
+    public partial class GameModeSelector
     {
         private List<SchafkopfMatchPossibility> _possibilities;
         private GameSelectorState _state;
@@ -85,7 +85,7 @@ namespace SpieleSammlung.UserControls.Schafkopf
         {
             if (CbMode.SelectedIndex != -1)
             {
-                CbColor.ItemsSource = _possibilities[CbMode.SelectedIndex].colors;
+                CbColor.ItemsSource = _possibilities[CbMode.SelectedIndex].Colors;
                 CbColor.SelectedIndex = 0;
                 ColorHasChanged();
             }

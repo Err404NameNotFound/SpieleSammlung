@@ -6,7 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using SpieleSammlung.Model.Schafkopf;
 
-namespace SpieleSammlung.UserControls.Schafkopf
+namespace SpieleSammlung.View.UserControls.Schafkopf
 {
     /// <summary>
     /// Interaktionslogik für CardHolder.xaml

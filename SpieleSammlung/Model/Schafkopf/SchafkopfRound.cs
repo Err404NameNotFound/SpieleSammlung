@@ -7,7 +7,7 @@ namespace SpieleSammlung.Model.Schafkopf
     {
         #region Member and Properties
 
-        public readonly List<Card> currentCards;
+        public readonly List<Card> CurrentCards;
         public string SemiTrumpf { get; set; }
         public int NextStartPlayer { get; private set; }
         public int HighestValue { get; private set; }
@@ -23,7 +23,7 @@ namespace SpieleSammlung.Model.Schafkopf
         private SchafkopfRound(int startPlayer)
         {
             StartPlayer = NextStartPlayer = startPlayer;
-            currentCards = new List<Card>();
+            CurrentCards = new List<Card>();
             SemiTrumpf = "";
             _currentPlayer = NextStartPlayer;
             HighestValue = 0;
@@ -40,10 +40,10 @@ namespace SpieleSammlung.Model.Schafkopf
         public SchafkopfRound(IReadOnlyList<string> msgParts, ref int index)
         {
             int count = int.Parse(msgParts[++index]);
-            currentCards = new List<Card>(count);
+            CurrentCards = new List<Card>(count);
             for (int i = 0; i < count; ++i)
             {
-                currentCards.Add(Card.GetCard(int.Parse(msgParts[++index])));
+                CurrentCards.Add(Card.GetCard(int.Parse(msgParts[++index])));
             }
 
             SemiTrumpf = msgParts[++index];
@@ -70,8 +70,8 @@ namespace SpieleSammlung.Model.Schafkopf
         public string InfoForRejoin(string separator)
         {
             StringBuilder bob = new StringBuilder();
-            bob.Append(currentCards.Count).Append(separator);
-            foreach (var card in currentCards)
+            bob.Append(CurrentCards.Count).Append(separator);
+            foreach (var card in CurrentCards)
             {
                 bob.Append(card.Index).Append(separator);
             }

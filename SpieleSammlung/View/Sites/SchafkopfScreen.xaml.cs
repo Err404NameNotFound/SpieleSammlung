@@ -1,7 +1,5 @@
 ﻿using SpieleSammlung.Model.Multiplayer;
 using SpieleSammlung.Model.Schafkopf;
-using SpieleSammlung.UserControls;
-using SpieleSammlung.Windows;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,7 +10,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Threading;
-using SpieleSammlung.UserControls.Schafkopf;
+using SpieleSammlung.View.UserControls;
+using SpieleSammlung.View.UserControls.Schafkopf;
 using SpieleSammlung.View.Windows;
 using static SpieleSammlung.Model.Schafkopf.SchafkopfMatch;
 
@@ -21,7 +20,7 @@ namespace SpieleSammlung.View.Sites
     /// <summary>
     /// Interaktionslogik für SchafkopfScreen.xaml
     /// </summary>
-    public partial class SchafkopfScreen : UserControl
+    public partial class SchafkopfScreen
     {
         #region Events
 
@@ -51,16 +50,16 @@ namespace SpieleSammlung.View.Sites
         private const char SEPARATOR = ';';
         private const string CODE_HOST_READY_FOR_INFO = "o", CODE_HOST_READY_TO_START = "p";
 
-        private const string codeClientKontraReInvalid = "v",
-            codeClientInfoRejoin = "x",
-            codeClientShuffledCards = "y",
-            codeClientLostConnection = "z";
+        private const string CODE_CLIENT_KONTRA_RE_INVALID = "v",
+            CODE_CLIENT_INFO_REJOIN = "x",
+            CODE_CLIENT_SHUFFLED_CARDS = "y",
+            CODE_CLIENT_LOST_CONNECTION = "z";
 
-        private const string codeViewCard = "a",
-            codeGameMode = "b",
-            codeKontraRe = "c",
-            codePlayCard = "d",
-            codeContinue = "e";
+        private const string CODE_VIEW_CARD = "a",
+            CODE_GAME_MODE = "b",
+            CODE_KONTRA_RE = "c",
+            CODE_PLAY_CARD = "d",
+            CODE_CONTINUE = "e";
 
         #endregion
 
@@ -200,15 +199,15 @@ namespace SpieleSammlung.View.Sites
                         {
                             if (GridRoundSummary.Visibility == Visibility.Visible)
                             {
-                                _connection.lostClients.Clear();
+                                _connection.LostClients.Clear();
                             }
 
-                            ApplyConnectionToUserLost(_connection.lostClients.Count, i,
+                            ApplyConnectionToUserLost(_connection.LostClients.Count, i,
                                 MultiplayerPlayerState.LeftMatch,
                                 "");
                             SendMessage(new List<string>
                             {
-                                codeClientLostConnection, _connection.lostClients.Count.ToString(), i.ToString(),
+                                CODE_CLIENT_LOST_CONNECTION, _connection.LostClients.Count.ToString(), i.ToString(),
                                 MultiplayerPlayerState.LeftMatch.ToString(), ""
                             });
                             break;
@@ -234,31 +233,31 @@ namespace SpieleSammlung.View.Sites
                             break;
                         case CODE_HOST_READY_TO_START:
                             redirect = false;
-                            ApplyConnectionToUserLost(_connection.lostClients.Count, int.Parse(msgParts[1]),
+                            ApplyConnectionToUserLost(_connection.LostClients.Count, int.Parse(msgParts[1]),
                                 MultiplayerPlayerState.Active, e.Sender);
-                            SendMessage(codeClientLostConnection, _connection.lostClients.Count.ToString(), msgParts[1],
+                            SendMessage(CODE_CLIENT_LOST_CONNECTION, _connection.LostClients.Count.ToString(), msgParts[1],
                                 MultiplayerPlayerState.Active.ToString(), e.Sender);
                             break;
-                        case codeViewCard:
+                        case CODE_VIEW_CARD:
                             ApplyUserSeesFullCards(msgParts);
                             break;
-                        case codeGameMode:
+                        case CODE_GAME_MODE:
                             newRound = ApplyChoseGameOfOtherUser(msgParts);
                             break;
-                        case codeKontraRe:
+                        case CODE_KONTRA_RE:
                             int kontra = _match.CurrentPlayers.Count(t => t.Kontra);
                             if (kontra < 2) ApplyKontraReOfOtherUser(msgParts);
                             else
                             {
                                 redirect = false;
-                                _connection.SendMessage(codeClientKontraReInvalid, e.Sender);
+                                _connection.SendMessage(CODE_CLIENT_KONTRA_RE_INVALID, e.Sender);
                             }
 
                             break;
-                        case codePlayCard:
+                        case CODE_PLAY_CARD:
                             playCard = ApplyCardClickOfOtherUser(msgParts);
                             break;
-                        case codeContinue:
+                        case CODE_CONTINUE:
                             newGame = ApplyContinueOfOtherUser(msgParts);
                             break;
                         default:
@@ -294,34 +293,34 @@ namespace SpieleSammlung.View.Sites
                 string[] msgParts = e.Message.Split(SEPARATOR);
                 switch (msgParts[0])
                 {
-                    case codeClientInfoRejoin:
+                    case CODE_CLIENT_INFO_REJOIN:
                         RestoreFromInfo(msgParts);
                         SendMessage(new List<string> { CODE_HOST_READY_TO_START, _playerIndex.ToString() });
                         break;
-                    case codeClientShuffledCards:
+                    case CODE_CLIENT_SHUFFLED_CARDS:
                         ShuffleCards(bool.Parse(msgParts[33]), msgParts);
                         break;
-                    case codeViewCard:
+                    case CODE_VIEW_CARD:
                         ApplyUserSeesFullCards(msgParts);
                         break;
-                    case codeGameMode:
+                    case CODE_GAME_MODE:
                         ApplyChoseGameOfOtherUser(msgParts);
                         break;
-                    case codeKontraRe:
+                    case CODE_KONTRA_RE:
                         ApplyKontraReOfOtherUser(msgParts);
                         break;
-                    case codePlayCard:
+                    case CODE_PLAY_CARD:
                         if (ApplyCardClickOfOtherUser(msgParts))
                             CardHolder_CardClicked(null, null);
 
                         break;
-                    case codeContinue:
+                    case CODE_CONTINUE:
                         ApplyContinueOfOtherUser(msgParts);
                         break;
-                    case codeClientLostConnection:
+                    case CODE_CLIENT_LOST_CONNECTION:
                         ApplyConnectionToUserLost(msgParts);
                         break;
-                    case codeClientKontraReInvalid:
+                    case CODE_CLIENT_KONTRA_RE_INVALID:
                         _match.CurrentPlayers[PlayerIndexCurRound].Kontra = false;
                         PlayerInfo1.Kontra = false;
                         break;
@@ -358,7 +357,7 @@ namespace SpieleSammlung.View.Sites
 
         private IEnumerable<string> GenerateRejoinInfo()
         {
-            List<string> message = new List<string> { codeClientInfoRejoin };
+            List<string> message = new List<string> { CODE_CLIENT_INFO_REJOIN };
             message.Add(_match.InfoForRejoin(SEPARATOR, SEPARATOR_REJOIN_INFO_STRING));
             StringBuilder bob = new StringBuilder(8);
             if (PlayerIndexCurRound == -1)
@@ -386,7 +385,7 @@ namespace SpieleSammlung.View.Sites
             if (_match.IsGameOver)
             {
                 ShowSummary(false);
-                if (_match.Players[_playerIndex].continueMatch == true)
+                if (_match.Players[_playerIndex].ContinueMatch == true)
                 {
                     BtnPlayerNextMatch.Visibility = Visibility.Collapsed;
                     _cvNextMatch[_playerIndex].Visibility = Visibility.Visible;
@@ -401,7 +400,7 @@ namespace SpieleSammlung.View.Sites
                 }
 
                 string[] state = msgParts[_match.Players.Count + 2].Split(SEPARATOR_REJOIN_INFO);
-                List<Card> cards = _match.CurrentRound.currentCards;
+                List<Card> cards = _match.CurrentRound.CurrentCards;
                 int offset = _match.CurrentRound.StartPlayer;
                 if (PlayerIndexCurRound == -1)
                 {
@@ -491,7 +490,7 @@ namespace SpieleSammlung.View.Sites
 
                                     ModeSelector.CbMode.SelectedIndex = w;
                                     int color = 0;
-                                    while (!_match.Players[_playerIndex].Possibilities[w].colors[color]
+                                    while (!_match.Players[_playerIndex].Possibilities[w].Colors[color]
                                                .Equals(_match.Color))
                                     {
                                         ++color;
@@ -599,8 +598,8 @@ namespace SpieleSammlung.View.Sites
         private bool ApplyContinueOfOtherUser(IReadOnlyList<string> msgParts)
         {
             int index = int.Parse(msgParts[1]);
-            _match.Players[index].continueMatch = bool.Parse(msgParts[2]);
-            _cvNextMatch[index].IsChecked = _match.Players[index].continueMatch;
+            _match.Players[index].ContinueMatch = bool.Parse(msgParts[2]);
+            _cvNextMatch[index].IsChecked = _match.Players[index].ContinueMatch;
             return _connection.IsHost && StartNextMatch();
         }
 
@@ -721,7 +720,7 @@ namespace SpieleSammlung.View.Sites
             {
                 for (int i = 0; i < PLAYER_PER_ROUND; ++i)
                 {
-                    _lastStichView.AddCard(round.currentCards[i],
+                    _lastStichView.AddCard(round.CurrentCards[i],
                         _match.CurrentPlayers[(round.StartPlayer + i) % PLAYER_PER_ROUND].Number);
                 }
             }
@@ -729,7 +728,7 @@ namespace SpieleSammlung.View.Sites
             {
                 for (int i = 0; i < PLAYER_PER_ROUND; ++i)
                 {
-                    _lastStichView.AddCard(round.currentCards[i],
+                    _lastStichView.AddCard(round.CurrentCards[i],
                         GetUiPlayerIndex(_match.CurrentPlayers[(round.StartPlayer + i) % PLAYER_PER_ROUND].Number));
                 }
             }
@@ -746,8 +745,8 @@ namespace SpieleSammlung.View.Sites
             int i;
             for (i = 0; i < _match.Players.Count; ++i)
             {
-                if (evaluation) _match.Players[i].continueMatch = null;
-                _cvNextMatch[i].IsChecked = _match.Players[i].continueMatch;
+                if (evaluation) _match.Players[i].ContinueMatch = null;
+                _cvNextMatch[i].IsChecked = _match.Players[i].ContinueMatch;
                 _lblPlayerSummaryNames[i].Content = _match.Players[i].Name;
                 _lblPlayerSummaryPoints[i].Content = _match.Players[i].Points;
                 _gridColsSummary[i].Width = new GridLength(1, GridUnitType.Star);
@@ -806,7 +805,7 @@ namespace SpieleSammlung.View.Sites
             GridRoundSummary.Visibility = Visibility.Collapsed;
             if (_connection.IsHost)
             {
-                SendMessage(_match.ShuffleCards(sameRound, codeClientShuffledCards));
+                SendMessage(_match.ShuffleCards(sameRound, CODE_CLIENT_SHUFFLED_CARDS));
             }
             else _match.ShuffleCards(msgParts, sameRound);
 
@@ -971,7 +970,7 @@ namespace SpieleSammlung.View.Sites
         private bool StartNextMatch()
         {
             int w = 0;
-            while (w < _match.Players.Count && _match.Players[w].continueMatch == true)
+            while (w < _match.Players.Count && _match.Players[w].ContinueMatch == true)
             {
                 ++w;
             }
@@ -994,14 +993,14 @@ namespace SpieleSammlung.View.Sites
             _match.Players[_playerIndex].Kontra = true;
             VisualPlayer.Kontra = true;
             BtnKontra.Visibility = Visibility.Hidden;
-            SendMessage(codeKontraRe, PlayerIndexCurRound.ToString());
+            SendMessage(CODE_KONTRA_RE, PlayerIndexCurRound.ToString());
         }
 
         private void CardHolder_ShowsAllCards(object sender, EventArgs e)
         {
             VisualPlayer.Aufgestellt = _match.Players[_playerIndex].Aufgestellt =
                 CardHolder.Aufgestellt || _match.Players[_playerIndex].Aufgestellt;
-            SendMessage(codeViewCard, PlayerIndexCurRound.ToString(), CardHolder.Aufgestellt.ToString());
+            SendMessage(CODE_VIEW_CARD, PlayerIndexCurRound.ToString(), CardHolder.Aufgestellt.ToString());
             ApplyPossibilities();
             ModeSelector.State = GameSelectorState.Visible;
             UpdateFocus(false);
@@ -1016,7 +1015,7 @@ namespace SpieleSammlung.View.Sites
 
 
                 int selected = CardHolder.SelectedCard;
-                SendMessage(new List<string> { codePlayCard, PlayerIndexCurRound.ToString(), selected.ToString() });
+                SendMessage(new List<string> { CODE_PLAY_CARD, PlayerIndexCurRound.ToString(), selected.ToString() });
                 if (PlayCard(PlayerIndexCurRound, selected))
                     CardHolder.RemoveSelectedCard();
                 if (_match.CurrentCardCount != 0)
@@ -1055,8 +1054,8 @@ namespace SpieleSammlung.View.Sites
             BtnPlayerNextMatch.Visibility = Visibility.Collapsed;
             _cvNextMatch[_playerIndex].Visibility = Visibility.Visible;
             _cvNextMatch[_playerIndex].IsChecked = true;
-            _match.Players[_playerIndex].continueMatch = true;
-            SendMessage(new List<string> { codeContinue, _playerIndex.ToString(), "true" });
+            _match.Players[_playerIndex].ContinueMatch = true;
+            SendMessage(new List<string> { CODE_CONTINUE, _playerIndex.ToString(), "true" });
             if (_connection.IsHost)
             {
                 if (StartNextMatch())
@@ -1068,7 +1067,7 @@ namespace SpieleSammlung.View.Sites
 
         private void BtnPlayerQuit_Click(object sender, RoutedEventArgs e)
         {
-            _match.Players[_playerIndex].continueMatch = false;
+            _match.Players[_playerIndex].ContinueMatch = false;
             if (_connection.IsHost)
             {
                 /* TODO host wants to end the game */
@@ -1091,7 +1090,7 @@ namespace SpieleSammlung.View.Sites
                 {
                     ModeSelector.State = GameSelectorState.Selected;
                     SendMessage(new List<string>
-                        { codeGameMode, PlayerIndexCurRound.ToString(), e.Mode.ToString(), e.Color });
+                        { CODE_GAME_MODE, PlayerIndexCurRound.ToString(), e.Mode.ToString(), e.Color });
                     if (ChoseGameMode(PlayerIndexCurRound, e.Mode, e.Color))
                     {
                         ModeSelector.State = GameSelectorState.Visible;

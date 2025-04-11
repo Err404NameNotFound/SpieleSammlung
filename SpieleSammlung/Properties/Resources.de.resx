@@ -15,4 +15,335 @@
             PublicKeyToken=b77a5c561934e089
         </value>
     </resheader>
+    <data name="SS_Connect4" xml:space="preserve">
+        <value>4 Gewinnt</value>
+    </data>
+    <data name="SS_Kniffel" xml:space="preserve">
+        <value>Kniffel</value>
+    </data>
+    <data name="SS_Schafkopf" xml:space="preserve">
+        <value>Schafkopf</value>
+    </data>
+    <data name="SS_RandomNumberGame" xml:space="preserve">
+        <value>Zufallszahlen</value>
+    </data>
+    <data name="SS_Maexchen" xml:space="preserve">
+        <value>Mäxchen</value>
+    </data>
+    <data name="SS_BattleShips" xml:space="preserve">
+        <value>Schiffe versenken</value>
+    </data>
+    <data name="Knif_Lbl_RemainingShuffle" xml:space="preserve">
+        <value>verbleibende Versuche: </value>
+    </data>
+    <data name="Knif_Lbl_RemoveField" xml:space="preserve">
+        <value>streichen</value>
+    </data>
+    <data name="Knif_Lbl_WriteField" xml:space="preserve">
+        <value>eintragen</value>
+    </data>
+    <data name="Knif_Btn_Reshuffle" xml:space="preserve">
+        <value>neu würfeln</value>
+    </data>
+    <data name="Knif_Btn_NextPlayer" xml:space="preserve">
+        <value>weiter</value>
+    </data>
+    <data name="Knif_Lbl_Round" xml:space="preserve">
+        <value>Runde: </value>
+    </data>
+    <data name="Knif_Lbl_PlayerNumber" xml:space="preserve">
+        <value>Spieler Nummer: </value>
+    </data>
+    <data name="SKPoints_TotalPoints" xml:space="preserve">
+        <value>Gesamtpunkte</value>
+    </data>
+    <data name="MW_Btn_LeavesAfterMatch" xml:space="preserve">
+        <value>Spiel wird nach der Runde verlassen</value>
+    </data>
+    <data name="Main_Btn_LeaveMatch" xml:space="preserve">
+        <value>Spiel Verlassen</value>
+    </data>
+    <data name="ConfirmLeave_Message" xml:space="preserve">
+        <value>Möchtest du wirklich das Spiel verlassen?</value>
+    </data>
+    <data name="Main_LeavePlayerCreator" xml:space="preserve">
+        <value>Zurück</value>
+    </data>
+    <data name="SKCardHolder_Btn_ShowRemaining" xml:space="preserve">
+        <value>Rest ansehen</value>
+    </data>
+    <data name="SK_CardHolder_Btn_Aufstellen" xml:space="preserve">
+        <value>aufstellen</value>
+    </data>
+    <data name="SK_Btn_LastStich" xml:space="preserve">
+        <value>Letzter Stich</value>
+    </data>
+    <data name="SK_Btn_Points" xml:space="preserve">
+        <value>Punkte</value>
+    </data>
+    <data name="SK_Btn_Kontra" xml:space="preserve">
+        <value>Kontra</value>
+    </data>
+    <data name="SK_Lbl_Player1" xml:space="preserve">
+        <value>Spieler 1</value>
+    </data>
+    <data name="SK_Lbl_Player2" xml:space="preserve">
+        <value>Spieler 2</value>
+    </data>
+    <data name="SK_Lbl_Player3" xml:space="preserve">
+        <value>Spieler 3</value>
+    </data>
+    <data name="SK_Lbl_Player4" xml:space="preserve">
+        <value>Spieler 4</value>
+    </data>
+    <data name="SK_Lbl_Player5" xml:space="preserve">
+        <value>Spieler 5</value>
+    </data>
+    <data name="SK_Lbl_Player6" xml:space="preserve">
+        <value>Spieler 6</value>
+    </data>
+    <data name="SK_Lbl_Player7" xml:space="preserve">
+        <value>Spieler 7</value>
+    </data>
+    <data name="SK_Btn_NewRound" xml:space="preserve">
+        <value>Neue Runde</value>
+    </data>
+    <data name="SK_Lbl_WaitUntilAllPlayerBack" xml:space="preserve">
+        <value>Warten bis alle Spieler wieder da sind</value>
+    </data>
+    <data name="ML_Lbl_MinPlayerCount" xml:space="preserve">
+        <value>Minimale Spieleranzahl:</value>
+    </data>
+    <data name="ML_Lbl_MaxPlayerCount" xml:space="preserve">
+        <value>Maximale Spieleranzahl:</value>
+    </data>
+    <data name="ML_Lbl_CurrentPlayerCount" xml:space="preserve">
+        <value>Aktuelle Spieleranzahl:</value>
+    </data>
+    <data name="ML_Lbl_ActionForSelectedPlayer" xml:space="preserve">
+        <value>Aktionen für gewählten Spieler</value>
+    </data>
+    <data name="ML_Lbl_RemovePlayer" xml:space="preserve">
+        <value>Spieler kicken</value>
+    </data>
+    <data name="ML_Lbl_RenamePlayer" xml:space="preserve">
+        <value>Spieler umbennen</value>
+    </data>
+    <data name="ML_Lbl_WaitForOtherPlayers" xml:space="preserve">
+        <value>Auf weitere Spieler warten</value>
+    </data>
+    <data name="MP_StartMatch" xml:space="preserve">
+        <value>Spiel starten</value>
+    </data>
+    <data name="MP_WaitForOtherPlayers" xml:space="preserve">
+        <value>auf weitere Spieler warten</value>
+    </data>
+    <data name="Newline" xml:space="preserve">
+        <value>
+</value>
+    </data>
+    <data name="MP_ConnectionToHost" xml:space="preserve">
+        <value>Verbindung zum Host wird hergestellt</value>
+    </data>
+    <data name="ConfirmationWindow_title" xml:space="preserve">
+        <value>Warnung</value>
+    </data>
+    <data name="ConfirmationWindow_Cancel" xml:space="preserve">
+        <value>Abbrechen</value>
+    </data>
+    <data name="ConfirmationWindow_ConfirmAction" xml:space="preserve">
+        <value>OK</value>
+    </data>
+    <data name="SKPoints_Title" xml:space="preserve">
+        <value>Schafkopf Punkte</value>
+    </data>
+    <data name="SKPoints_BtnPrintCurrentView" xml:space="preserve">
+        <value>Aktuelle Ansicht drucken</value>
+    </data>
+    <data name="SKPoints_TabPointsSingle" xml:space="preserve">
+        <value>Punkte einzeln</value>
+    </data>
+    <data name="SKPoints_TabPointsCumulative" xml:space="preserve">
+        <value>Punkte kumuliert</value>
+    </data>
+    <data name="MW_LeaveGame" xml:space="preserve">
+        <value>Spiel Verlassen</value>
+    </data>
+    <data name="SKLastStich_Title" xml:space="preserve">
+        <value>Letzter Stich</value>
+    </data>
+    <data name="SKGameModeSelector_BtnChooseGame" xml:space="preserve">
+        <value>Spiel wählen</value>
+    </data>
+    <data name="KnifPointsVisual_Lbl_1" xml:space="preserve">
+        <value>1er</value>
+    </data>
+    <data name="KnifPointsVisual_Lbl_2" xml:space="preserve">
+        <value>2er</value>
+    </data>
+    <data name="KnifPointsVisual_Lbl_3" xml:space="preserve">
+        <value>3er</value>
+    </data>
+    <data name="KnifPointsVisual_Lbl_4" xml:space="preserve">
+        <value>4er</value>
+    </data>
+    <data name="KnifPointsVisual_Lbl_5" xml:space="preserve">
+        <value>5er</value>
+    </data>
+    <data name="KnifPointsVisual_Lbl_6" xml:space="preserve">
+        <value>6er</value>
+    </data>
+    <data name="KnifPointsVisual_Lbl_SumTop" xml:space="preserve">
+        <value>Summe oberer Teil</value>
+    </data>
+    <data name="KnifPointsVisual_Lbl_BonusTop" xml:space="preserve">
+        <value>Bonus ab 63 Punkten</value>
+    </data>
+    <data name="KnifPointsVisual_Lbl_Pair3" xml:space="preserve">
+        <value>Dreierpasch</value>
+    </data>
+    <data name="KnifPointsVisual_Lbl_Pair4" xml:space="preserve">
+        <value>Viererpasch</value>
+    </data>
+    <data name="KnifPointsVisual_Lbl_FullHouse" xml:space="preserve">
+        <value>Full House</value>
+    </data>
+    <data name="KnifPointsVisual_Lbl_SmallStreet" xml:space="preserve">
+        <value>kleine Straße</value>
+    </data>
+    <data name="KnifPointsVisual_Lbl_BigStreet" xml:space="preserve">
+        <value>große Straße</value>
+    </data>
+    <data name="KnifPointsVisual_Lbl_Kniffel" xml:space="preserve">
+        <value>Kniffel</value>
+    </data>
+    <data name="KnifPointsVisual_Lbl_Chance" xml:space="preserve">
+        <value>Chance</value>
+    </data>
+    <data name="Knif_PointsVisual_Lbl_SumBottom" xml:space="preserve">
+        <value>Summe unterer Teil</value>
+    </data>
+    <data name="Knif_PointsVisual_Lbl_Sum" xml:space="preserve">
+        <value>Gesamt</value>
+    </data>
+    <data name="SKPlayerInfo_empty" xml:space="preserve">
+        <value>empty</value>
+    </data>
+    <data name="SKPlayerInfo_Aufstellen" xml:space="preserve">
+        <value>aufstellen?</value>
+    </data>
+    <data name="MP_Name" xml:space="preserve">
+        <value>Name</value>
+    </data>
+    <data name="MP_Port" xml:space="preserve">
+        <value>Port</value>
+    </data>
+    <data name="PlayerCreator_PlayerName" xml:space="preserve">
+        <value>Spieler Name:</value>
+    </data>
+    <data name="PlayerCreator_Add" xml:space="preserve">
+        <value>Hinzufügen</value>
+    </data>
+    <data name="PlayerCreator_Remove" xml:space="preserve">
+        <value>Enfernen</value>
+    </data>
+    <data name="PlayerCreator_Up" xml:space="preserve">
+        <value>Hoch</value>
+    </data>
+    <data name="PlayerCreator_Down" xml:space="preserve">
+        <value>Runter</value>
+    </data>
+    <data name="PlayerCreator_AddBot" xml:space="preserve">
+        <value>Bot hinzufügen</value>
+    </data>
+    <data name="PlayerCreator_StartGame" xml:space="preserve">
+        <value>Spiel starten</value>
+    </data>
+    <data name="SKPlayerInfo_Status" xml:space="preserve">
+        <value>Status</value>
+    </data>
+    <data name="SKPlayerInfo_Name" xml:space="preserve">
+        <value>Name</value>
+    </data>
+    <data name="SS_Lottery" xml:space="preserve">
+        <value>Lotto</value>
+    </data>
+    <data name="Connect4_NewGame" xml:space="preserve">
+        <value>Neu</value>
+    </data>
+    <data name="Connect4_SwitchStartPlayer" xml:space="preserve">
+        <value>Wechseln</value>
+    </data>
+    <data name="MP_HostIp" xml:space="preserve">
+        <value>IP-Adresse des Hosts</value>
+    </data>
+    <data name="MP_HostPort" xml:space="preserve">
+        <value>Portnummer des Hosts</value>
+    </data>
+    <data name="MP_JoinMatch" xml:space="preserve">
+        <value>Match beitreten</value>
+    </data>
+    <data name="MP_LostConnectionToHost" xml:space="preserve">
+        <value>Lost Connection to Host</value>
+    </data>
+    <data name="MP_HostMatch" xml:space="preserve">
+        <value>Host Match</value>
+    </data>
+    <data name="MP_Btn_JoinMatch" xml:space="preserve">
+        <value>Join Match</value>
+    </data>
+    <data name="SK_Btn_KontraRe" xml:space="preserve">
+        <value>Re</value>
+    </data>
+    <data name="Knif_PointsTable_SumTop" xml:space="preserve">
+        <value>Summe oberer Teil</value>
+    </data>
+    <data name="Knif_PointsTable_Bonus" xml:space="preserve">
+        <value>Bonus ab 63 Punkten</value>
+    </data>
+    <data name="Knif_PointsTable_SumBottom" xml:space="preserve">
+        <value>Summe unterer Teil</value>
+    </data>
+    <data name="Knif_PointsTable_Sum" xml:space="preserve">
+        <value>Gesamt</value>
+    </data>
+    <data name="Knif_PointsTable_PairSize3" xml:space="preserve">
+        <value>Dreierpasch</value>
+    </data>
+    <data name="Knif_PointsTable_PairSize4" xml:space="preserve">
+        <value>Viererpasch</value>
+    </data>
+    <data name="Knif_PointsTable_FullHouse" xml:space="preserve">
+        <value>Full House</value>
+    </data>
+    <data name="Knif_PointsTable_SmallStreet" xml:space="preserve">
+        <value>kleine Straße</value>
+    </data>
+    <data name="Knif_PointsTable_BigStreet" xml:space="preserve">
+        <value>große Straße</value>
+    </data>
+    <data name="Knif_PointsTable_Kniffel" xml:space="preserve">
+        <value>Kniffel</value>
+    </data>
+    <data name="Knif_PointsTable_Chance" xml:space="preserve">
+        <value>Chance</value>
+    </data>
+    <data name="Knif_PointsTable_Top6AdditionEndOfNumber" xml:space="preserve">
+        <value>er</value>
+    </data>
+    <data name="SK_Wenz" xml:space="preserve">
+        <value>Wenz</value>
+    </data>
+    <data name="SK_PrefixSauspielToString" xml:space="preserve">
+        <value>auf</value>
+    </data>
+    <data name="SS_Mancala" xml:space="preserve">
+        <value>Mancala</value>
+    </data>
+    <data name="MS_ChooseOption" xml:space="preserve">
+        <value>Option auswählen</value>
+    </data>
+    <data name="Err_msg_not_a_single_player_game" xml:space="preserve">
+        <value>Das is kein Einzelspieler Spiel</value>
+    </data>
 </root>

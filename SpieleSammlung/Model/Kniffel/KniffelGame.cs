@@ -54,10 +54,10 @@ namespace SpieleSammlung.Model.Kniffel
         #region private members
 
         /// <summary>List of fields that can only be killed not written (-> value 0 is written in field).</summary>
-        internal readonly List<int> indexKillableField;
+        internal readonly List<int> IndexKillableField;
 
         /// <summary>List of fields that can be written with a value greater than 0.</summary>
-        internal readonly List<WriteOption> indexWritableField;
+        internal readonly List<WriteOption> IndexWritableField;
 
         /// <summary>Manages the dices.</summary>
         private readonly FlatDice _dice;
@@ -120,8 +120,8 @@ namespace SpieleSammlung.Model.Kniffel
             _botStrategy = strategy;
             _diceGenerator = new FlatDice();
             _dice = dice;
-            indexKillableField = new List<int>();
-            indexWritableField = new List<WriteOption>();
+            IndexKillableField = new List<int>();
+            IndexWritableField = new List<WriteOption>();
             if (names.Count < MIN_PLAYER_COUNT)
             {
                 throw new ArgumentException("There are not enough players in this list. " +
@@ -150,22 +150,22 @@ namespace SpieleSammlung.Model.Kniffel
         public int GetDiceValue(int i) => _dice[i];
 
         /// <value>Count of the fields that can be killed / written with value 0.</value>
-        public int KillableFieldsCount => indexKillableField.Count;
+        public int KillableFieldsCount => IndexKillableField.Count;
 
         /// <summary>Count of the fields that can be written with a value greater than 0.</summary>
-        public int WriteableFieldsCount => indexWritableField.Count;
+        public int WriteableFieldsCount => IndexWritableField.Count;
 
         /// <summary>
         /// Returns the index of a killable field that is at position index.
         /// </summary>
         /// <param name="index">Index of Field in the list of killable fields.</param>
         /// <returns>Index of the field.</returns>
-        public int GetKillableFieldIndex(int index) => indexKillableField[index];
+        public int GetKillableFieldIndex(int index) => IndexKillableField[index];
 
         /// <summary>Returns the index of a writable field that is at position <paramref name="index"/>.</summary>
         /// <param name="index">Index of the field in the list of writeable fields.</param>
         /// <returns>Index of the field.</returns>
-        public WriteOption GetWriteableFieldsIndex(int index) => indexWritableField[index];
+        public WriteOption GetWriteableFieldsIndex(int index) => IndexWritableField[index];
 
         /// <summary>Flag if the game is still running.</summary>
         /// <returns><c>true</c> if the game is still running.</returns>
@@ -181,11 +181,11 @@ namespace SpieleSammlung.Model.Kniffel
 
         /// <summary>Sets the value of the field at the given index to 0.</summary>
         /// <param name="index">Index of the fields within the index of all fields that can only be killed.</param>
-        public void KillFieldOption(int index) => WriteField(indexKillableField[index], 0);
+        public void KillFieldOption(int index) => WriteField(IndexKillableField[index], 0);
 
         /// <summary>Sets the value of the field at the given index to the possible value greater than 0.</summary>
         /// <param name="index">Index of the field to be written.</param>
-        public void WriteField(int index) => WriteField(indexWritableField[index]);
+        public void WriteField(int index) => WriteField(IndexWritableField[index]);
 
         internal void WriteField(WriteOption option) => WriteField(option.Index, option.Value);
 
@@ -251,11 +251,11 @@ namespace SpieleSammlung.Model.Kniffel
         {
             if (canWrite)
             {
-                indexWritableField.Add(new WriteOption(index, value));
+                IndexWritableField.Add(new WriteOption(index, value));
             }
             else
             {
-                indexKillableField.Add(index);
+                IndexKillableField.Add(index);
             }
         }
 
@@ -269,8 +269,8 @@ namespace SpieleSammlung.Model.Kniffel
 
         private void CalculateOptions()
         {
-            indexKillableField.Clear();
-            indexWritableField.Clear();
+            IndexKillableField.Clear();
+            IndexWritableField.Clear();
             for (int i = 0; i < 6; i++)
             {
                 int sum = _dice.GetCountOfValue(i) * (i + 1);

@@ -1,12 +1,10 @@
-using System;
-
 namespace SpieleSammlung.Model.Mancala
 {
     public class MancalaBot
     {
         public int Level { get; set; }
 
-        public MancalaBot(int level = 8)
+        public MancalaBot(int level = 6)
         {
             Level = level;
         }

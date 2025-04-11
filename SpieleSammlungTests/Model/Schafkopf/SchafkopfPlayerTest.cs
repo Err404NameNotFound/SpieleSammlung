@@ -358,12 +358,12 @@ namespace SpieleSammlungTests.Model.Schafkopf
         {
             SchafkopfMatchPossibility possibility = Player.Possibilities[index];
             Assert.AreEqual(mode, possibility.Mode);
-            Assert.AreEqual(colors.Count, possibility.colors.Count,
+            Assert.AreEqual(colors.Count, possibility.Colors.Count,
                 "Incorrect number of colors.\nCards: {0}\nActual possibility: {1}",
                 ArrayString(Player.PlayableCards), possibility);
             for (int i = 0; i < colors.Count; ++i)
             {
-                Assert.AreEqual(colors[i], possibility.colors[i],
+                Assert.AreEqual(colors[i], possibility.Colors[i],
                     "Incorrect color at index {0}.\nCards: {1}\nActual possibility: {2}", index,
                     ArrayString(Player.PlayableCards), possibility);
             }

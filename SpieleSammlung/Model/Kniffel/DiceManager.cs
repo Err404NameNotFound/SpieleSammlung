@@ -12,7 +12,7 @@ namespace SpieleSammlung.Model.Kniffel
         /// <summary>Probability that a specific dice value occurs when rolling one dice.</summary>
         public const double PROBABILITY = 1.0d / VALUE_SPAN;
 
-        /// <summary>Average value of a dice.</summary>
+        /// <summary>Average value of a die.</summary>
         public const double AVERAGE_VALUE = ((HIGHEST_VALUE - 1) * HIGHEST_VALUE
                                              - (LOWEST_VALUE - 1) * LOWEST_VALUE) / (2.0d * VALUE_SPAN);
 
@@ -38,7 +38,7 @@ namespace SpieleSammlung.Model.Kniffel
         public const double EXPECTED_VALUE_OF_CHANCE = AVERAGE_VALUE * DICE_COUNT;
 
         /// <summary>Template for indexes of all dices.</summary>
-        private static readonly int[] allDices;
+        private static readonly int[] AllDices;
 
         private static readonly double[][] ExpectedValues;
 
@@ -65,9 +65,6 @@ namespace SpieleSammlung.Model.Kniffel
 
         #region properties
 
-        /// <summary>Copy of all dices indexes.</summary>
-        public static int[] AllDices => (int[])allDices.Clone();
-
         /// <summary>Current sum of all dices.</summary>
         public int SumOfAllDices { get; private set; }
 
@@ -80,10 +77,10 @@ namespace SpieleSammlung.Model.Kniffel
 
         static DiceManager()
         {
-            allDices = new int[DICE_COUNT];
+            AllDices = new int[DICE_COUNT];
             for (int i = 0; i < DICE_COUNT; ++i)
             {
-                allDices[i] = i;
+                AllDices[i] = i;
             }
 
             double possibilities = Math.Pow(VALUE_SPAN, DICE_COUNT);
@@ -135,7 +132,7 @@ namespace SpieleSammlung.Model.Kniffel
             _orderedByValue = new ValueOrderedList();
             SumOfAllDices = 0;
             _rng = rng;
-            unSetCount = DICE_COUNT;
+            UnSetCount = DICE_COUNT;
             Shuffle();
         }
 
@@ -145,7 +142,7 @@ namespace SpieleSammlung.Model.Kniffel
             _rng = new Random();
             _orderedByCount = new CountOrderedList(other._orderedByCount);
             _orderedByValue = new ValueOrderedList(other._orderedByValue);
-            unSetCount = other.unSetCount;
+            UnSetCount = other.UnSetCount;
             SumOfAllDices = other.SumOfAllDices;
         }
 
@@ -154,7 +151,7 @@ namespace SpieleSammlung.Model.Kniffel
         #region shuffling
 
         /// <summary>Rolls all dices.</summary>
-        public void Shuffle() => Shuffle(allDices);
+        public void Shuffle() => Shuffle(AllDices);
 
         /// <summary>Rolls the dices with the corresponding indexes.</summary>
         /// <param name="index">Indexes of the dices to be rolled.</param>
@@ -184,9 +181,9 @@ namespace SpieleSammlung.Model.Kniffel
 
         private new void SetIndexToNewValue(int index, int newValue)
         {
-            if (newValue != dices[index])
+            if (newValue != Dices[index])
             {
-                var previousValue = dices[index];
+                var previousValue = Dices[index];
                 if (base.SetIndexToNewValue(index, newValue)) DecreaseCounters(previousValue);
                 IncreaseCounters(newValue);
             }
@@ -254,11 +251,11 @@ namespace SpieleSammlung.Model.Kniffel
 
         #region ecpected values of single fields
 
-        public double EOfTop6(int value) => value * (_countedDice[value - 1] + unSetCount * PROBABILITY);
+        public double EOfTop6(int value) => value * (_countedDice[value - 1] + UnSetCount * PROBABILITY);
 
         public double EOfPair(int pairSize)
         {
-            switch (unSetCount)
+            switch (UnSetCount)
             {
                 case DICE_COUNT:
                     return pairSize == 3 ? ExpectedValueOfPair3 : ExpectedValueOfPair4;
@@ -266,12 +263,12 @@ namespace SpieleSammlung.Model.Kniffel
                     return HighestCount >= pairSize ? SumOfAllDices : 0;
             }
 
-            if (HighestCount + unSetCount < pairSize)
+            if (HighestCount + UnSetCount < pairSize)
             {
                 return 0;
             }
 
-            int[] values = new int[unSetCount];
+            int[] values = new int[UnSetCount];
             int[] unset = GetUnsetDiceIndex();
             for (int i = 0; i < values.Length; ++i)
             {
@@ -292,12 +289,12 @@ namespace SpieleSammlung.Model.Kniffel
                 SetToNextValuePair(values);
             }
 
-            return ret * Math.Pow(PROBABILITY, unSetCount);
+            return ret * Math.Pow(PROBABILITY, UnSetCount);
         }
 
         public double POfFullHouse()
         {
-            switch (unSetCount)
+            switch (UnSetCount)
             {
                 case 0: return IsFullHousePossible() ? 1 : 0;
                 case 1:
@@ -319,9 +316,9 @@ namespace SpieleSammlung.Model.Kniffel
                         return 0;
                     }
 
-                    double optionMoreOfFirst = Probabilities.Binomial(unSetCount, 3 - HighestCount);
+                    double optionMoreOfFirst = Probabilities.Binomial(UnSetCount, 3 - HighestCount);
                     double possibilities = optionMoreOfFirst
-                                           + Probabilities.Binomial(unSetCount, unSetCount - (2 - HighestCount));
+                                           + Probabilities.Binomial(UnSetCount, UnSetCount - (2 - HighestCount));
                     if (_orderedByCount.Count == 1)
                     {
                         possibilities *= 5;
@@ -333,7 +330,7 @@ namespace SpieleSammlung.Model.Kniffel
 
         public double POfSmallStreet()
         {
-            switch (unSetCount)
+            switch (UnSetCount)
             {
                 case 0:
                     return IsSmallStreetPossible() ? 1 : 0;
@@ -341,12 +338,12 @@ namespace SpieleSammlung.Model.Kniffel
                     return ProbabilitySs;
             }
 
-            if (unSetCount + _orderedByCount.Count < 4)
+            if (UnSetCount + _orderedByCount.Count < 4)
             {
                 return 0;
             }
 
-            int[] values = new int[unSetCount];
+            int[] values = new int[UnSetCount];
             int[] unset = GetUnsetDiceIndex();
             for (int i = 0; i < values.Length; ++i)
             {
@@ -372,7 +369,7 @@ namespace SpieleSammlung.Model.Kniffel
 
         public double POfBigStreet()
         {
-            switch (unSetCount)
+            switch (UnSetCount)
             {
                 case 0:
                     return IsBigStreetPossible() ? 1 : 0;
@@ -385,7 +382,7 @@ namespace SpieleSammlung.Model.Kniffel
                 return 0;
             }
 
-            double ret = Probabilities.Faculty(unSetCount) / CurrentPossibilities;
+            double ret = Probabilities.Faculty(UnSetCount) / CurrentPossibilities;
             if (_countedDice[0] == 0 && _countedDice[_countedDice.Length - 1] == 0)
             {
                 ret *= 2;
@@ -396,21 +393,21 @@ namespace SpieleSammlung.Model.Kniffel
 
         public double POfKniffel()
         {
-            return unSetCount switch
+            return UnSetCount switch
             {
                 0 => IsKniffelPossible() ? 1 : 0,
                 DICE_COUNT => ProbabilityK,
-                _ => _orderedByCount.Count > 1 ? 0 : Math.Pow(PROBABILITY, unSetCount)
+                _ => _orderedByCount.Count > 1 ? 0 : Math.Pow(PROBABILITY, UnSetCount)
             };
         }
 
-        public double EOfChance() => SumOfAllDices + AVERAGE_VALUE * unSetCount;
+        public double EOfChance() => SumOfAllDices + AVERAGE_VALUE * UnSetCount;
 
         #endregion
 
         #region generation of options
         
-        private static int IndexOfDiceConfiguration(DiceManager dice) => IndexOfDiceConfiguration(dice.dices);
+        private static int IndexOfDiceConfiguration(DiceManager dice) => IndexOfDiceConfiguration(dice.Dices);
 
         public static int IndexOfDiceConfiguration(IReadOnlyList<int> dice)
         {
@@ -424,7 +421,7 @@ namespace SpieleSammlung.Model.Kniffel
             return index;
         }
 
-        private double CurrentPossibilities => Math.Pow(VALUE_SPAN, unSetCount);
+        private double CurrentPossibilities => Math.Pow(VALUE_SPAN, UnSetCount);
 
         private static double[] CalculateExpectedValues(DiceManager dice)
         {
@@ -480,7 +477,7 @@ namespace SpieleSammlung.Model.Kniffel
         {
             List<ShufflingOption> ret = new List<ShufflingOption>();
             int combinations = COMBINATIONS_UNSET_DICE;
-            int[] values = (int[])dice.dices.Clone();
+            int[] values = (int[])dice.Dices.Clone();
             int[] divisors = { 16, 8, 4, 2, 1 };
             for (int i = 0; i < combinations; ++i)
             {
@@ -535,7 +532,7 @@ namespace SpieleSammlung.Model.Kniffel
 
         public new void Remove(int i)
         {
-            var value = dices[i];
+            var value = Dices[i];
             base.Remove(i);
             DecreaseCounters(value);
         }

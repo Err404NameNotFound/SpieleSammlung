@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using SpieleSammlung.Model.Schafkopf;
 
-namespace SpieleSammlung.UserControls.Schafkopf
+namespace SpieleSammlung.View.UserControls.Schafkopf
 {
     /// <summary>
     /// Interaktionslogik für StichView.xaml

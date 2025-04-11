@@ -3,8 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:schafkopf="clr-namespace:SpieleSammlung.UserControls.Schafkopf"
         xmlns:properties="clr-namespace:SpieleSammlung.Properties"
+        xmlns:schafkopf1="clr-namespace:SpieleSammlung.View.UserControls.Schafkopf"
         mc:Ignorable="d"
         Closing="Window_Closing"
         Title="{x:Static properties:Resources.SKLastStich_Title}" Height="350" Width="198">
@@ -12,6 +12,6 @@
         <ImageBrush ImageSource="../Images/Schafkopf/backgroundLastStich2.jpg" />
     </Window.Background>
     <Grid x:Name="GridStich">
-        <schafkopf:StichView x:Name="Stich" />
+        <schafkopf1:StichView x:Name="Stich" />
     </Grid>
 </Window>

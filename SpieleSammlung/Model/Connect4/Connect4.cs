@@ -292,21 +292,17 @@ namespace SpieleSammlung.Model.Connect4
 
             for (int i = 0; i < COLS; ++i)
             {
-                if (IsColNotFull(i))
-                {
-                    ThrowInCol(i, true);
-                    int value = LookAhead(_machineLevel - 1).Value;
-                    RemoveFromCol(i);
+                if (!IsColNotFull(i)) continue;
+                ThrowInCol(i, true);
+                int value = LookAhead(_machineLevel - 1);
+                RemoveFromCol(i);
 
-                    // reset witness and winner in case it was set
-                    _witness = null;
-                    _winner = Connect4Tile.Nobody;
-                    if (value > max)
-                    {
-                        bestColumnIndex = i;
-                        max = value;
-                    }
-                }
+                // reset witness and winner in case it was set
+                _witness = null;
+                _winner = Connect4Tile.Nobody;
+                if (value <= max) continue;
+                bestColumnIndex = i;
+                max = value;
             }
 
             if (bestColumnIndex == null)
@@ -324,33 +320,29 @@ namespace SpieleSammlung.Model.Connect4
         /// </summary>
         /// <param name="remainingSteps">Remaining depth in the lookup tree.</param>
         /// <return>Combined value of the field the method was called on and the best value of all of its children.</return>
-        private int? LookAhead(int remainingSteps)
+        private int LookAhead(int remainingSteps)
         {
             if (remainingSteps == 0)
-            {
                 return CalculateBoardValue(remainingSteps);
-            }
-
+            
             int boardValue = CalculateBoardValue(remainingSteps);
 
             // Contains field values after a tile is thrown in a column.
-            List<int?> valuesNextStep = new List<int?>();
+            List<int> valuesNextStep = [];
 
             for (int i = 0; i < COLS; ++i)
             {
-                if (IsColNotFull(i))
-                {
-                    ThrowInCol(i, false);
-                    valuesNextStep.Add(LookAhead(remainingSteps - 1));
-                    RemoveFromCol(i);
-                }
+                if (!IsColNotFull(i)) continue;
+                ThrowInCol(i, false);
+                valuesNextStep.Add(LookAhead(remainingSteps - 1));
+                RemoveFromCol(i);
             }
 
             if (valuesNextStep.Count > 0)
             {
                 boardValue += _currentPlayer == Connect4Tile.Player
-                    ? valuesNextStep.Min().Value
-                    : valuesNextStep.Max().Value;
+                    ? valuesNextStep.Min()
+                    : valuesNextStep.Max();
             }
 
             return boardValue;
@@ -382,10 +374,8 @@ namespace SpieleSammlung.Model.Connect4
             boardValue += _columnCounts[5, INDEX_MACHINE] - _columnCounts[5, INDEX_PLAYER];
 
             // Calculate R value
-            if (step == _machineLevel - 1)
-            {
-                if (GetWinner() == Connect4Tile.Machine) boardValue += 5000000;
-            }
+            if (step != _machineLevel - 1) return boardValue;
+            if (GetWinner() == Connect4Tile.Machine) boardValue += 5000000;
 
             return boardValue;
         }
@@ -418,18 +408,14 @@ namespace SpieleSammlung.Model.Connect4
                 if (sum >= CONNECT)
                 {
                     if (update)
-                    {
                         SetWitness(row, col, d);
-                    }
 
                     sum -= CONNECT;
                     _groupCounts[CONNECT - 2, index] += dif;
                 }
 
                 if (sum > 1)
-                {
                     _groupCounts[sum - 2, index] += dif;
-                }
             }
         }
 
@@ -470,7 +456,7 @@ namespace SpieleSammlung.Model.Connect4
             int x = col - direction.X;
 
             _winner = _board[row, col];
-            _witness = new List<Coordinates2D>();
+            _witness = [];
 
             // go "back" to 1 before first tile of witness. -> witness is sorted.
             while (IsPointValid(y, x) && _board[y, x] == _board[row, col])

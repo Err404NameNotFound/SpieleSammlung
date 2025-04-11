@@ -1,12 +1,11 @@
-﻿using System.Windows.Controls;
-using SpieleSammlung.Model.Schafkopf;
+﻿using SpieleSammlung.Model.Schafkopf;
 
-namespace SpieleSammlung.UserControls.Schafkopf
+namespace SpieleSammlung.View.UserControls.Schafkopf
 {
     /// <summary>
     /// Interaktionslogik für SelectableCard.xaml
     /// </summary>
-    public partial class SelectableCard : UserControl
+    public partial class SelectableCard
     {
         public SelectableCard() => InitializeComponent();
 

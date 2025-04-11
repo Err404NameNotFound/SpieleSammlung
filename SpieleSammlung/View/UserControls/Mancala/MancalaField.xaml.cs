@@ -1,12 +1,11 @@
 using System;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
 using SpieleSammlung.Model.Mancala;
 
-namespace SpieleSammlung.UserControls.Mancala
+namespace SpieleSammlung.View.UserControls.Mancala
 {
-    public partial class MancalaField : UserControl
+    public partial class MancalaField
     {
         public delegate void OnFieldSelectedEvent(MancalaFieldClickedEvent e);
 

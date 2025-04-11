@@ -34,7 +34,7 @@ namespace SpieleSammlung.Model.Schafkopf
         public IReadOnlyList<Card> LastCards { get; private set; }
         public IReadOnlyList<IReadOnlyList<bool>> PlayableCards { get; private set; }
 
-        public int CurrentCardCount => CurrentRound.currentCards.Count;
+        public int CurrentCardCount => CurrentRound.CurrentCards.Count;
         public SchafkopfRound CurrentRound => _rounds[_rounds.Count - 1];
 
         public SchafkopfRound PreviousRound =>
@@ -199,7 +199,7 @@ namespace SpieleSammlung.Model.Schafkopf
             if (CurrentCardCount < PLAYER_PER_ROUND) CurrentRound.SetNextPlayer();
             else
             {
-                LastCards = CurrentRound.currentCards.ToList();
+                LastCards = CurrentRound.CurrentCards.ToList();
                 NextRound();
                 if (IsGameOver) Evaluation();
             }
@@ -509,7 +509,7 @@ namespace SpieleSammlung.Model.Schafkopf
 
         private void CalculateStichPoints()
         {
-            int sum = CurrentRound.currentCards.Sum(card => card.Points);
+            int sum = CurrentRound.CurrentCards.Sum(card => card.Points);
             _teams[CurrentPlayers[CurrentRound.NextStartPlayer].TeamIndex] += sum;
         }
 

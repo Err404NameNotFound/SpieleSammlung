@@ -1,7 +1,6 @@
 ﻿using SpieleSammlung.Model;
 using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace SpieleSammlung.View.Sites
@@ -9,7 +8,7 @@ namespace SpieleSammlung.View.Sites
     /// <summary>
     /// Interaktionslogik für PlayerCreator.xaml
     /// </summary>
-    public partial class PlayerCreator : UserControl
+    public partial class PlayerCreator
     {
         private readonly GameMode _mode;
         private readonly int _minPlayer;
@@ -27,7 +26,7 @@ namespace SpieleSammlung.View.Sites
             _mode = mode;
             _minPlayer = min;
             _maxPlayer = max;
-            _players = new List<Player>();
+            _players = [];
             Update();
         }
 
@@ -36,18 +35,16 @@ namespace SpieleSammlung.View.Sites
         private void BtnPlayerRemove_Click(object sender, RoutedEventArgs e)
         {
             int temp = LBoxPlayerNames.SelectedIndex;
-            if (temp != -1)
+            if (temp == -1) return;
+            _players.RemoveAt(temp);
+            LBoxPlayerNames.Items.RemoveAt(temp);
+            LBoxPlayerNames.SelectedIndex = temp - 1;
+            if (LBoxPlayerNames.SelectedIndex == -1 && LBoxPlayerNames.Items.Count != 0)
             {
-                _players.RemoveAt(temp);
-                LBoxPlayerNames.Items.RemoveAt(temp);
-                LBoxPlayerNames.SelectedIndex = temp - 1;
-                if (LBoxPlayerNames.SelectedIndex == -1 && LBoxPlayerNames.Items.Count != 0)
-                {
-                    LBoxPlayerNames.SelectedIndex = 0;
-                }
-
-                Update();
+                LBoxPlayerNames.SelectedIndex = 0;
             }
+
+            Update();
         }
 
         private void BtnPlayerUp_Click(object sender, RoutedEventArgs e)
@@ -80,36 +77,33 @@ namespace SpieleSammlung.View.Sites
 
         private void OnKeyDownHandler(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Return) AddPlayer();
+            if (e.Key == Key.Return)
+                AddPlayer();
         }
 
         private void AddPlayer(Player player = null)
         {
-            if (LBoxPlayerNames.Items.Count < _maxPlayer)
+            if (LBoxPlayerNames.Items.Count >= _maxPlayer) return;
+            bool add = false;
+            if (player != null)
             {
-                bool add = false;
-                if (player != null)
+                add = true;
+            }
+            else if (LblPlayerName.Text.Length > 0)
+            {
+                if (IsNameNotAlreadyInList(LblPlayerName.Text))
                 {
+                    player = new Player(LblPlayerName.Text, false);
+                    LblPlayerName.Clear();
                     add = true;
                 }
-                else if (LblPlayerName.Text.Length > 0)
-                {
-                    if (IsNameNotAlreadyInList(LblPlayerName.Text))
-                    {
-                        player = new Player(LblPlayerName.Text, false);
-                        LblPlayerName.Clear();
-                        add = true;
-                    }
-                }
-
-                if (add)
-                {
-                    _players.Add(player);
-                    LBoxPlayerNames.Items.Add(player);
-                    LblPlayerName.Focus();
-                    Update();
-                }
             }
+
+            if (!add) return;
+            _players.Add(player);
+            LBoxPlayerNames.Items.Add(player);
+            LblPlayerName.Focus();
+            Update();
         }
 
         private bool IsNameNotAlreadyInList(string name)

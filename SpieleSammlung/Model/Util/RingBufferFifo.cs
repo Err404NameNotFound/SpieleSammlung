@@ -18,11 +18,11 @@ namespace SpieleSammlung.Model.Util
         public void Insert(T value)
         {
             Node next = new Node(value);
-            _first.next = next;
+            _first.Next = next;
             _first = next;
             if (_size >= _capacity)
             {
-                _last = _last.next;
+                _last = _last.Next;
             }
             else
             {
@@ -32,18 +32,13 @@ namespace SpieleSammlung.Model.Util
 
         public T Peek()
         {
-            return _last.value;
+            return _last.Value;
         }
 
-        private class Node
+        private class Node(T value)
         {
-            public readonly T value;
-            public Node next;
-
-            public Node(T value)
-            {
-                this.value = value;
-            }
+            public readonly T Value = value;
+            public Node Next;
         }
     }
 }

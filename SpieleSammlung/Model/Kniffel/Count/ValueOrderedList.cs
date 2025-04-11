@@ -20,13 +20,13 @@ namespace SpieleSammlung.Model.Kniffel.Count
                     ret = GetNextNonEmpty(ret + 1);
                 }
 
-                return counters[ret];
+                return Counters[ret];
             }
         }
 
         private int GetNextNonEmpty(int i)
         {
-            while (counters[i].Count == 0)
+            while (Counters[i].Count == 0)
             {
                 ++i;
             }
@@ -37,10 +37,10 @@ namespace SpieleSammlung.Model.Kniffel.Count
         public ValueOrderedList()
         {
             Count = 0;
-            counters = new DiceCounter[Dice.HIGHEST_VALUE - Dice.LOWEST_VALUE];
-            for (int i = 0; i < counters.Length; ++i)
+            Counters = new DiceCounter[Dice.HIGHEST_VALUE - Dice.LOWEST_VALUE];
+            for (int i = 0; i < Counters.Length; ++i)
             {
-                counters[i] = new DiceCounter(i + 1, 0);
+                Counters[i] = new DiceCounter(i + 1, 0);
             }
         }
 
@@ -50,18 +50,18 @@ namespace SpieleSammlung.Model.Kniffel.Count
 
         public void IncCount(int value)
         {
-            if (counters[value - 1].Count == 0)
+            if (Counters[value - 1].Count == 0)
             {
                 ++Count;
             }
 
-            counters[value - 1].IncCount();
+            Counters[value - 1].IncCount();
         }
 
         public void DecCount(int value)
         {
-            counters[value - 1].DecCount();
-            if (counters[value - 1].Count == 0)
+            Counters[value - 1].DecCount();
+            if (Counters[value - 1].Count == 0)
             {
                 --Count;
             }
@@ -73,11 +73,11 @@ namespace SpieleSammlung.Model.Kniffel.Count
             if (Count != 0)
             {
                 int start = GetNextNonEmpty(0);
-                builder.Append(counters[start]);
+                builder.Append(Counters[start]);
                 for (int i = 1; i < Count; ++i)
                 {
                     start = GetNextNonEmpty(start + 1);
-                    builder.Append(", ").Append(counters[start]);
+                    builder.Append(", ").Append(Counters[start]);
                 }
             }
 

@@ -29,12 +29,12 @@ namespace SpieleSammlung.Model.Kniffel
 
         #region members
 
-        protected int unSetCount;
+        protected int UnSetCount;
 
-        protected readonly int[] dices;
+        protected readonly int[] Dices;
 
         /// <summary>Value of the dice at <paramref name="index"/>.</summary>
-        public int this[int index] => dices[index];
+        public int this[int index] => Dices[index];
 
         #endregion
 
@@ -42,23 +42,23 @@ namespace SpieleSammlung.Model.Kniffel
 
         protected Dice()
         {
-            dices = new int[DICE_COUNT];
-            unSetCount = DICE_COUNT;
+            Dices = new int[DICE_COUNT];
+            UnSetCount = DICE_COUNT;
         }
 
-        protected Dice(Dice other) : this(other.dices)
+        protected Dice(Dice other) : this(other.Dices)
         {
         }
 
         private Dice(int[] dices)
         {
-            this.dices = (int[])dices.Clone();
-            unSetCount = 0;
+            this.Dices = (int[])dices.Clone();
+            UnSetCount = 0;
             for (var index = 0; index < dices.Length; index++)
             {
                 if (IsDiceNotSet(index))
                 {
-                    ++unSetCount;
+                    ++UnSetCount;
                 }
             }
         }
@@ -74,8 +74,8 @@ namespace SpieleSammlung.Model.Kniffel
                 throw new ArgumentException("This dice has already been removed.");
             }
 
-            dices[i] = DICE_NOT_SET_VALUE;
-            ++unSetCount;
+            Dices[i] = DICE_NOT_SET_VALUE;
+            ++UnSetCount;
         }
 
         /// <summary>
@@ -88,20 +88,20 @@ namespace SpieleSammlung.Model.Kniffel
         {
             if (IsDiceNotSet(index))
             {
-                --unSetCount;
-                dices[index] = newValue;
+                --UnSetCount;
+                Dices[index] = newValue;
                 return false;
             }
 
-            dices[index] = newValue;
+            Dices[index] = newValue;
             return true;
         }
 
         public int[] GetUnsetDiceIndex()
         {
-            int[] unset = new int[unSetCount];
+            int[] unset = new int[UnSetCount];
             int w = 0;
-            for (int i = 0; i < dices.Length; ++i)
+            for (int i = 0; i < Dices.Length; ++i)
             {
                 if (IsDiceNotSet(i))
                 {
@@ -112,7 +112,7 @@ namespace SpieleSammlung.Model.Kniffel
             return unset;
         }
 
-        private bool IsDiceNotSet(int index) => dices[index] == DICE_NOT_SET_VALUE;
+        private bool IsDiceNotSet(int index) => Dices[index] == DICE_NOT_SET_VALUE;
 
         internal static Dice CreateFromDice(int[] values) => new(values);
 
@@ -122,7 +122,7 @@ namespace SpieleSammlung.Model.Kniffel
         {
             StringBuilder builder = new StringBuilder(15).Append("{ ");
             builder.Append(GetDiceRepresentation(0));
-            for (int i = 1; i < dices.Length; ++i)
+            for (int i = 1; i < Dices.Length; ++i)
             {
                 builder.Append(", ").Append(GetDiceRepresentation(i));
             }
@@ -130,7 +130,7 @@ namespace SpieleSammlung.Model.Kniffel
             return builder.Append(" }").ToString();
         }
 
-        private string GetDiceRepresentation(int index) => IsDiceNotSet(index) ? "_" : dices[index].ToString();
+        private string GetDiceRepresentation(int index) => IsDiceNotSet(index) ? "_" : Dices[index].ToString();
 
         #endregion
     }

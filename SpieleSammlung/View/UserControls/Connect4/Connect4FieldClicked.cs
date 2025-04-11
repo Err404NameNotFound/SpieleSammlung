@@ -1,14 +1,9 @@
 ﻿using System;
 
-namespace SpieleSammlung.UserControls.Connect4
+namespace SpieleSammlung.View.UserControls.Connect4
 {
-    internal class Connect4FieldClicked : EventArgs
+    internal class Connect4FieldClicked(int column) : EventArgs
     {
-        public Connect4FieldClicked(int column)
-        {
-            Column = column;
-        }
-
-        public int Column { private set; get; }
+        public int Column { private set; get; } = column;
     }
 }

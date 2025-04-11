@@ -22,9 +22,9 @@ namespace SpieleSammlung.Model.Kniffel.Bot
         /// <param name="other">Instance which will be cloned.</param>
         protected BotStrategy(BotStrategy other)
         {
-            bestIndexToKillBonusReached = (int[])other.bestIndexToKillBonusReached.Clone();
-            bestIndexToKillBonusNotReached = (int[])other.bestIndexToKillBonusNotReached.Clone();
-            indexBestOptionFinder = other.indexBestOptionFinder;
+            BestIndexToKillBonusReached = (int[])other.BestIndexToKillBonusReached.Clone();
+            BestIndexToKillBonusNotReached = (int[])other.BestIndexToKillBonusNotReached.Clone();
+            IndexBestOptionFinder = other.IndexBestOptionFinder;
         }
 
         /// <summary>
@@ -33,14 +33,14 @@ namespace SpieleSammlung.Model.Kniffel.Bot
         /// <param name="bestOptionFinder">Index of the possible methods</param>
         public BotStrategy(int bestOptionFinder)
         {
-            indexBestOptionFinder = bestOptionFinder;
+            IndexBestOptionFinder = bestOptionFinder;
         }
 
         #endregion
 
         #region Fields
 
-        protected readonly int[] bestIndexToKillBonusReached =
+        protected readonly int[] BestIndexToKillBonusReached =
         {
             0, 1, 2, KniffelPointsTable.INDEX_KNIFFEL, KniffelPointsTable.INDEX_PAIR_SIZE_4,
             KniffelPointsTable.INDEX_BIG_STREET, KniffelPointsTable.INDEX_FULL_HOUSE,
@@ -48,7 +48,7 @@ namespace SpieleSammlung.Model.Kniffel.Bot
             KniffelPointsTable.INDEX_PAIR_SIZE_3, 3, 4, 5
         };
 
-        protected readonly int[] bestIndexToKillBonusNotReached =
+        protected readonly int[] BestIndexToKillBonusNotReached =
         {
             0, KniffelPointsTable.INDEX_KNIFFEL, KniffelPointsTable.INDEX_PAIR_SIZE_4,
             KniffelPointsTable.INDEX_BIG_STREET, KniffelPointsTable.INDEX_FULL_HOUSE,
@@ -56,9 +56,9 @@ namespace SpieleSammlung.Model.Kniffel.Bot
             KniffelPointsTable.INDEX_PAIR_SIZE_3, 1, 2, 3, 4, 5
         };
 
-        protected int minFieldValuePair3 = 14;
-        protected int minFieldValuePair4 = 13;
-        protected int minFieldValueChance = 15;
+        protected int MinFieldValuePair3 = 14;
+        protected int MinFieldValuePair4 = 13;
+        protected int MinFieldValueChance = 15;
 
         private static readonly Func<List<ShufflingOption>, ShufflingOption>[] BestOptionFinder =
         {
@@ -73,9 +73,9 @@ namespace SpieleSammlung.Model.Kniffel.Bot
 
         public static readonly int BEST_OPTION_COUNT = BestOptionFinder.Length;
 
-        protected int indexBestOptionFinder = 4;
+        protected int IndexBestOptionFinder = 4;
 
-        private Func<List<ShufflingOption>, ShufflingOption> BestOption => BestOptionFinder[indexBestOptionFinder];
+        private Func<List<ShufflingOption>, ShufflingOption> BestOption => BestOptionFinder[IndexBestOptionFinder];
 
         #endregion
 
@@ -116,7 +116,7 @@ namespace SpieleSammlung.Model.Kniffel.Bot
 
         public void ChooseBestField(KniffelGame game)
         {
-            ShufflingOption option = new(game.Dice.ToDice(), game.indexWritableField, game.indexKillableField);
+            ShufflingOption option = new(game.Dice.ToDice(), game.IndexWritableField, game.IndexKillableField);
             if (ModelLog.Writes)
             {
                 ModelLog.AppendLine("Bot has/wants to pick from: " + option.ToString(true, "\n"));
@@ -172,8 +172,8 @@ namespace SpieleSammlung.Model.Kniffel.Bot
         private void KillBestKillableField(KniffelGame game)
         {
             int[] index = game.CurrentPlayer.HasReachedBonus()
-                ? bestIndexToKillBonusReached
-                : bestIndexToKillBonusNotReached;
+                ? BestIndexToKillBonusReached
+                : BestIndexToKillBonusNotReached;
             int field = 0;
             while (!game.CurrentPlayer[index[field]].IsEmpty())
             {
@@ -191,9 +191,10 @@ namespace SpieleSammlung.Model.Kniffel.Bot
             return index switch
             {
                 < 6 => (index + 1) * 3,
-                KniffelPointsTable.INDEX_PAIR_SIZE_3 => minFieldValuePair3,
-                KniffelPointsTable.INDEX_PAIR_SIZE_4 => minFieldValuePair4,
-                KniffelPointsTable.INDEX_CHANCE => minFieldValueChance,
+                KniffelPointsTable.INDEX_PAIR_SIZE_3 => MinFieldValuePair3,
+                KniffelPointsTable.INDEX_PAIR_SIZE_4 => MinFieldValuePair4,
+                KniffelPointsTable.INDEX_CHANCE => MinFieldValueChance,
+                _ => throw new ArgumentOutOfRangeException(nameof(index), index, null)
             };
         }
 
@@ -201,10 +202,10 @@ namespace SpieleSammlung.Model.Kniffel.Bot
 
         public override string ToString()
         {
-            return "Not reached: " + string.Join(", ", bestIndexToKillBonusNotReached) +
-                   "\nreached: " + string.Join(", ", bestIndexToKillBonusReached) +
-                   "\nIndex: " + indexBestOptionFinder + "\nMin values: {Chance " + minFieldValueChance +
-                   ", Pair 3: " + minFieldValuePair3 + ", Pair 4: " + minFieldValuePair4 + "}";
+            return "Not reached: " + string.Join(", ", BestIndexToKillBonusNotReached) +
+                   "\nreached: " + string.Join(", ", BestIndexToKillBonusReached) +
+                   "\nIndex: " + IndexBestOptionFinder + "\nMin values: {Chance " + MinFieldValueChance +
+                   ", Pair 3: " + MinFieldValuePair3 + ", Pair 4: " + MinFieldValuePair4 + "}";
         }
     }
 }

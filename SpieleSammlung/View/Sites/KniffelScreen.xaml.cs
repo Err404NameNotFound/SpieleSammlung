@@ -1,22 +1,21 @@
 ﻿using SpieleSammlung.Model;
 using SpieleSammlung.Model.Kniffel;
-using SpieleSammlung.UserControls.Kniffel;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
 using SpieleSammlung.Model.Kniffel.Fields;
+using SpieleSammlung.View.UserControls.Kniffel;
 
 namespace SpieleSammlung.View.Sites
 {
     /// <summary>
     /// Interaktionslogik für KniffelScreen.xaml
     /// </summary>
-    public partial class KniffelScreen : UserControl
+    public partial class KniffelScreen
     {
         #region private member
 

@@ -3,14 +3,14 @@ using SpieleSammlung.Model.Battleships;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using SpieleSammlung.UserControls.BattleShips;
+using SpieleSammlung.View.UserControls.BattleShips;
 
 namespace SpieleSammlung.View.Sites
 {
     /// <summary>
     /// Interaktionslogik für Battleships.xaml
     /// </summary>
-    public partial class Battleships : UserControl
+    public partial class Battleships
     {
         private readonly List<BattleshipsPlayer> _players;
         private readonly int _activePlayer;
@@ -21,7 +21,7 @@ namespace SpieleSammlung.View.Sites
             InitializeComponent();
             _activePlayer = 0;
             _mode = BattleshipsMode.PlaceShips;
-            _players = new List<BattleshipsPlayer> { new(player1), new(player2) };
+            _players = [new(player1), new(player2)];
             for (int i = 0; i < 10; ++i)
             {
                 for (int i1 = 0; i1 < 10; ++i1)
@@ -31,14 +31,14 @@ namespace SpieleSammlung.View.Sites
                     FieldGrid.Children.Add(fieldP1);
                     Grid.SetColumn(fieldP1, i);
                     Grid.SetRow(fieldP1, i1);
-                    _players[0].field[i, i1] = fieldP1;
+                    _players[0].Field[i, i1] = fieldP1;
 
                     BoatField field2 = new BoatField();
                     field2.ToggleBtn.Click += FieldP2Klicked;
                     FieldGrid.Children.Add(field2);
                     Grid.SetColumn(field2, i);
                     Grid.SetRow(field2, i1);
-                    _players[1].field[i, i1] = field2;
+                    _players[1].Field[i, i1] = field2;
                 }
             }
 
@@ -55,7 +55,7 @@ namespace SpieleSammlung.View.Sites
                 w1 = 0;
                 while (notFound && w1 < 10)
                 {
-                    if (sender.Equals(player.field[w, w1]))
+                    if (sender.Equals(player.Field[w, w1]))
                     {
                         notFound = false;
                         --w1;
@@ -88,8 +88,8 @@ namespace SpieleSammlung.View.Sites
             {
                 for (int i1 = 0; i1 < 10; ++i1)
                 {
-                    _players[_activePlayer].field[i, i1].Visibility = Visibility.Visible;
-                    _players[otherPlayer].field[i, i1].Visibility = Visibility.Hidden;
+                    _players[_activePlayer].Field[i, i1].Visibility = Visibility.Visible;
+                    _players[otherPlayer].Field[i, i1].Visibility = Visibility.Hidden;
                 }
             }
         }

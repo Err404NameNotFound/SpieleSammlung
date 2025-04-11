@@ -1,13 +1,13 @@
 ﻿using System.Windows;
 using SpieleSammlung.Model.Schafkopf;
-using SpieleSammlung.UserControls.Schafkopf;
+using SpieleSammlung.View.UserControls.Schafkopf;
 
 namespace SpieleSammlung.View.Windows
 {
     /// <summary>
     /// Interaktionslogik für LastStich.xaml
     /// </summary>
-    public partial class LastStich : Window
+    public partial class LastStich
     {
         private readonly StichView _view;
 

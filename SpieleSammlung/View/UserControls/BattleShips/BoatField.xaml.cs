@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using SpieleSammlung.Model.Battleships;
 
-namespace SpieleSammlung.UserControls.BattleShips
+namespace SpieleSammlung.View.UserControls.BattleShips
 {
     /// <summary>
     /// Interaktionslogik für BoatField.xaml
     /// </summary>
-    public partial class BoatField : UserControl
+    public partial class BoatField
     {
         private bool _isHit;
         private Boat _boat;
@@ -72,7 +71,7 @@ namespace SpieleSammlung.UserControls.BattleShips
             {
                 BtnImage.Source =
                     new BitmapImage(new Uri(
-                        @"Boat-" + _boat.width + "-" + (_isHit ? "h" : "v") + "-" + _boatPart + "-" + ".png",
+                        @"Boat-" + _boat.Width + "-" + (_isHit ? "h" : "v") + "-" + _boatPart + "-" + ".png",
                         UriKind.Relative));
             }
             else

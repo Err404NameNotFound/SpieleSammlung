@@ -13,7 +13,7 @@ namespace SpieleSammlung.Model.Kniffel.Count
                     throw new IndexOutOfRangeException();
                 }
 
-                return counters[index];
+                return Counters[index];
             }
         }
 
@@ -34,7 +34,7 @@ namespace SpieleSammlung.Model.Kniffel.Count
             else
             {
                 int i = 0;
-                while (i < Count && counters[i].Value != value)
+                while (i < Count && Counters[i].Value != value)
                 {
                     ++i;
                 }
@@ -45,8 +45,8 @@ namespace SpieleSammlung.Model.Kniffel.Count
                 }
                 else
                 {
-                    counters[i].IncCount();
-                    while (i > 0 && counters[i].Count > counters[i - 1].Count)
+                    Counters[i].IncCount();
+                    while (i > 0 && Counters[i].Count > Counters[i - 1].Count)
                     {
                         Switch(i, i - 1);
                         --i;
@@ -57,31 +57,31 @@ namespace SpieleSammlung.Model.Kniffel.Count
 
         private void Switch(int first, int second)
         {
-            (counters[first], counters[second]) = (counters[second], counters[first]);
+            (Counters[first], Counters[second]) = (Counters[second], Counters[first]);
         }
 
         public void DecCount(int value)
         {
             int i = 0;
-            while (counters[i].Value != value)
+            while (Counters[i].Value != value)
             {
                 ++i;
             }
 
-            counters[i].DecCount();
-            if (counters[i].Count == 0)
+            Counters[i].DecCount();
+            if (Counters[i].Count == 0)
             {
-                counters[i] = null;
+                Counters[i] = null;
                 --Count;
                 while (i < Count)
                 {
-                    counters[i] = counters[i + 1];
+                    Counters[i] = Counters[i + 1];
                     ++i;
                 }
             }
             else
             {
-                while (i + 1 < Count && counters[i].Count < counters[i + 1].Count)
+                while (i + 1 < Count && Counters[i].Count < Counters[i + 1].Count)
                 {
                     Switch(i, i + 1);
                     ++i;
@@ -91,10 +91,10 @@ namespace SpieleSammlung.Model.Kniffel.Count
 
         private void Add(int value)
         {
-            counters[Count] = new DiceCounter(value, 1);
+            Counters[Count] = new DiceCounter(value, 1);
             ++Count;
         }
 
-        public override string ToString() => "{ " + string.Join(", ", counters as object[]) + " }";
+        public override string ToString() => "{ " + string.Join(", ", Counters as object[]) + " }";
     }
 }

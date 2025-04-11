@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using SpieleSammlung.Model.Schafkopf;
 
-namespace SpieleSammlung.UserControls.Schafkopf
+namespace SpieleSammlung.View.UserControls.Schafkopf
 {
     /// <summary>
     /// Interaktionslogik für CardVisual.xaml
     /// </summary>
-    public partial class CardVisual : UserControl
+    public partial class CardVisual
     {
         public CardVisual()
         {

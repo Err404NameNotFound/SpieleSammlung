@@ -11,7 +11,7 @@ namespace SpieleSammlung.View.Windows
     /// <summary>
     /// Interaktionslogik für SchafkopfPoints.xaml
     /// </summary>
-    public partial class SchafkopfPoints : Window
+    public partial class SchafkopfPoints
     {
         private DataTable _single;
         private DataTable _cumulated;
@@ -88,7 +88,7 @@ namespace SpieleSammlung.View.Windows
             i = 0;
             while (true)
             {
-                bob.Append(_playerPoints[i].points);
+                bob.Append(_playerPoints[i].Points);
                 if (++i != _playerPoints.Count) bob.Append(SEPARATOR);
                 else break;
             }
@@ -109,7 +109,7 @@ namespace SpieleSammlung.View.Windows
             for (i = 0; i < playerPoints.Count; ++i)
             {
                 _lblNames[i].Content = playerPoints[i].Name;
-                _lblPoints[i].Content = PointsToString(ref playerPoints[i].points);
+                _lblPoints[i].Content = PointsToString(ref playerPoints[i].Points);
                 _lblNames[i].Visibility = Visibility.Visible;
                 _lblPoints[i].Visibility = Visibility.Visible;
             }

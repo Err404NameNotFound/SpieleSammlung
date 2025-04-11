@@ -1,13 +1,13 @@
-﻿using SpieleSammlung.Model.Kniffel;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows.Controls;
+using SpieleSammlung.Model.Kniffel;
 
-namespace SpieleSammlung.UserControls.Kniffel
+namespace SpieleSammlung.View.UserControls.Kniffel
 {
     /// <summary>
     /// Interaktionslogik für KniffelPointsVisual.xaml
     /// </summary>
-    public partial class KniffelPointsVisual : UserControl
+    public partial class KniffelPointsVisual
     {
         private readonly List<Label> _fields;
         private List<KniffelPlayer> _players;

@@ -26,12 +26,12 @@ namespace SpieleSammlung.Model
 
         public Player() => (IsBot, Name) = (true, GenerateRandomBotName());
 
-        private const string botIndicator = "[Bot]";
+        private const string BOT_INDICATOR = "[Bot]";
 
         private static readonly string[] BotNames = { "Bob", "Hans", "Otto", "Heinz", "Franz", "Josef" };
 
         private static readonly Random Rng = new();
-        private static string GenerateRandomBotName() => botIndicator + " " + BotNames[Rng.Next(0, BotNames.Length)];
+        private static string GenerateRandomBotName() => BOT_INDICATOR + " " + BotNames[Rng.Next(0, BotNames.Length)];
 
         public override string ToString() => $"{Name}";
     }

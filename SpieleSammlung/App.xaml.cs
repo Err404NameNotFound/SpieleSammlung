@@ -1,11 +1,7 @@
-﻿using System.Windows;
-
-namespace SpieleSammlung
+﻿namespace SpieleSammlung
 {
     /// <summary>
     /// Interaktionslogik für "App.xaml"
     /// </summary>
-    public partial class App : Application
-    {
-    }
+    public partial class App;
 }

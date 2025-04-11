@@ -505,7 +505,7 @@ namespace SpieleSammlungTests.Model.Schafkopf
                 int currentPlayerIndex = match.CurrentRound.CurrentPlayer;
                 int selected = selector(i);
                 Card currentCard = match.CurrentPlayers[match.CurrentRound.CurrentPlayer].PlayableCards[selected];
-                string first = match.CurrentCardCount == 0 ? "empty" : match.CurrentRound.currentCards[0].ToString();
+                string first = match.CurrentCardCount == 0 ? "empty" : match.CurrentRound.CurrentCards[0].ToString();
                 Assert.IsTrue(match.PlayCard(selected),
                     "Move {0}: player with index {1} should be able to play {2} with the first card being {3}",
                     i, currentPlayerIndex, currentCard, first);
@@ -518,7 +518,7 @@ namespace SpieleSammlungTests.Model.Schafkopf
             List<Card>[] cardsCloned = new List<Card>[players.Count];
             for (int i = 0; i < cardsCloned.Length; i++)
             {
-                cardsCloned[i] = new List<Card>();
+                cardsCloned[i] = [];
                 cardsCloned[i].AddRange(players[i].PlayableCards);
             }
 

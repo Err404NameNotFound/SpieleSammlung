@@ -1,104 +1,95 @@
 ﻿using System;
 using System.Collections.Generic;
-using SpieleSammlung.UserControls.BattleShips;
+using SpieleSammlung.View.UserControls.BattleShips;
 
 namespace SpieleSammlung.Model.Battleships
 {
     public class Boat
     {
-        public readonly int width;
-        public readonly List<Coordinate> coordinates;
-        public int lives;
-        public bool dead;
-        public readonly bool horizontal;
+        public readonly int Width;
+        public readonly List<Coordinate> Coordinates;
+        public int Lives;
+        public bool Dead;
+        public readonly bool Horizontal;
 
         private Boat(int width, Coordinate startPoint, bool horizont)
         {
-            this.width = width;
-            lives = this.width;
-            coordinates = new List<Coordinate> { startPoint };
-            for (int i = 1; i < this.width; ++i)
+            Width = width;
+            Lives = Width;
+            Coordinates = [startPoint];
+            for (int i = 1; i < Width; ++i)
             {
-                coordinates.Add(horizontal
-                    ? new Coordinate(startPoint.x + i, startPoint.y)
-                    : new Coordinate(startPoint.x, startPoint.y + i));
+                Coordinates.Add(Horizontal
+                    ? new Coordinate(startPoint.X + i, startPoint.Y)
+                    : new Coordinate(startPoint.X, startPoint.Y + i));
             }
 
-            dead = false;
-            horizontal = horizont;
+            Dead = false;
+            Horizontal = horizont;
         }
 
         public static bool CheckIfPositionIsPossible(BattleshipsPlayer player, Coordinate startPoint, int width,
             bool horizontal)
         {
-            if (startPoint.InsideFieldBattleShips())
+            if (!startPoint.InsideFieldBattleShips()) return false; //liegt außerhab vom Feld
+            var endPoint = horizontal
+                ? new Coordinate(startPoint.X + width - 1, startPoint.Y)
+                : new Coordinate(startPoint.X, startPoint.Y + width - 1);
+
+            if (!endPoint.InsideFieldBattleShips())
+                return false; //Startpunkt liegt im Feld aber Endpunkt liegt außerhalb
+            bool possible = true;
+            //Überprüfung ob Schiff an der Stelle platziert werden kann
+            int i = startPoint.X - 1;
+            while (i <= endPoint.X + 1 && possible)
             {
-                var endPoint = horizontal
-                    ? new Coordinate(startPoint.x + width - 1, startPoint.y)
-                    : new Coordinate(startPoint.x, startPoint.y + width - 1);
-
-                if (endPoint.InsideFieldBattleShips())
+                int i1 = startPoint.Y;
+                while (i1 <= endPoint.X + 1 && possible)
                 {
-                    bool possible = true;
-                    //Überprüfung ob Schiff an der Stelle platziert werden kann
-                    int i = startPoint.x - 1;
-                    while (i <= endPoint.x + 1 && possible)
+                    if (i < 0 || i > 9 || i1 < 0 || i1 > 9)
                     {
-                        int i1 = startPoint.y;
-                        while (i1 <= endPoint.x + 1 && possible)
-                        {
-                            if (i < 0 || i > 9 || i1 < 0 || i1 > 9)
-                            {
-                                //Werte die Außerhalb des Feldes liegen müssen nicht überprüft werden
-                            }
-                            else if (player.field[i, i1].IsBoat())
-                            {
-                                possible = false; //es wurde bereits ein Schiff an der Stelle platziert
-                            }
-
-                            ++i1;
-                        }
-
-                        ++i;
+                        //Werte die Außerhalb des Feldes liegen müssen nicht überprüft werden
+                    }
+                    else if (player.Field[i, i1].IsBoat())
+                    {
+                        possible = false; //es wurde bereits ein Schiff an der Stelle platziert
                     }
 
-                    return possible;
+                    ++i1;
                 }
 
-                return false; //Startpunkt liegt im Feld aber Endpunkt liegt außerhalb
+                ++i;
             }
 
-            return false; //liegt außerhab vom Feld
+            return possible;
+
         }
 
         public Boat CreateBoatIfPossible(BattleshipsPlayer player, Coordinate startPoint, int width, bool horizontal)
         {
-            if (CheckIfPositionIsPossible(player, startPoint, width, horizontal))
-            {
-                Boat temp = new Boat(width, startPoint, horizontal);
+            if (!CheckIfPositionIsPossible(player, startPoint, width, horizontal)) return null;
+            Boat temp = new Boat(width, startPoint, horizontal);
 
-                //Schiffe platzieren
-                int counter = 0;
-                for (int i = temp.coordinates[0].x; i <= temp.coordinates[temp.coordinates.Count - 1].x; i++)
+            //Schiffe platzieren
+            int counter = 0;
+            for (int i = temp.Coordinates[0].X; i <= temp.Coordinates[temp.Coordinates.Count - 1].X; i++)
+            {
+                for (int i1 = temp.Coordinates[0].Y; i1 <= temp.Coordinates[temp.Coordinates.Count - 1].Y; i1++)
                 {
-                    for (int i1 = temp.coordinates[0].y; i1 <= temp.coordinates[temp.coordinates.Count - 1].y; i1++)
+                    if (!player.Field[i, i1].IsBoat())
                     {
-                        if (!player.field[i, i1].IsBoat())
-                        {
-                            player.field[i, i1] =
-                                new BoatField(temp, counter++); //es ist noch kein schiff da also kann platziert werden
-                        }
-                        else
-                        {
-                            throw new Exception("Trying to place although it is not possible");
-                        }
+                        player.Field[i, i1] =
+                            new BoatField(temp, counter++); //es ist noch kein schiff da also kann platziert werden
+                    }
+                    else
+                    {
+                        throw new Exception("Trying to place although it is not possible");
                     }
                 }
-
-                return temp;
             }
 
-            return null;
+            return temp;
+
         }
     }
 }

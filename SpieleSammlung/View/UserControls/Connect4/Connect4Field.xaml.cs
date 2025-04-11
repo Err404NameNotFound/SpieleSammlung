@@ -1,12 +1,11 @@
-﻿using System.Windows.Controls;
-using SpieleSammlung.Model.Connect4;
+﻿using SpieleSammlung.Model.Connect4;
 
-namespace SpieleSammlung.UserControls.Connect4
+namespace SpieleSammlung.View.UserControls.Connect4
 {
     /// <summary>
     /// Interaktionslogik für Connect4Field.xaml
     /// </summary>
-    public partial class Connect4Field : UserControl
+    public partial class Connect4Field
     {
         public delegate void FieldClickedEvent(int column);
 

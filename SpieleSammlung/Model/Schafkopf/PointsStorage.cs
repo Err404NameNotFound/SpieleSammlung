@@ -1,14 +1,8 @@
 ﻿namespace SpieleSammlung.Model.Schafkopf
 {
-    public class PointsStorage
+    public class PointsStorage(string name, int points)
     {
-        public string Name { get; }
-        public int points;
-
-        public PointsStorage(string name, int points)
-        {
-            this.points = points;
-            Name = name;
-        }
+        public string Name { get; } = name;
+        public int Points = points;
     }
 }

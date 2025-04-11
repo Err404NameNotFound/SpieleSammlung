@@ -1,4 +1,3 @@
-using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SpieleSammlung;
 using SpieleSammlung.Model.Schafkopf;

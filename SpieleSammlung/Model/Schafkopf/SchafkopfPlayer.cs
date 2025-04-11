@@ -18,7 +18,7 @@ namespace SpieleSammlung.Model.Schafkopf
         public bool Kontra { get; set; }
         public int Number { get; set; }
         public int TeamIndex { get; set; }
-        public bool? continueMatch;
+        public bool? ContinueMatch;
         public MultiplayerPlayerState State { get; set; }
 
         #endregion
@@ -123,9 +123,9 @@ namespace SpieleSammlung.Model.Schafkopf
         public int PossibilityIndexOf(int index, string color)
         {
             int w = 0;
-            while (w < Possibilities[index].colors.Count)
+            while (w < Possibilities[index].Colors.Count)
             {
-                if (Possibilities[index].colors[w].Equals(color)) return w;
+                if (Possibilities[index].Colors[w].Equals(color)) return w;
                 ++w;
             }
 
@@ -205,7 +205,7 @@ namespace SpieleSammlung.Model.Schafkopf
         {
             if (Number != match.CurrentRound.CurrentPlayer) return false;
             Card card = PlayableCards[index];
-            match.CurrentRound.currentCards.Add(card);
+            match.CurrentRound.CurrentCards.Add(card);
             int value = card.GetValueOfThisCard(match);
             if (match.CurrentCardCount == 1)
             {
@@ -337,7 +337,7 @@ namespace SpieleSammlung.Model.Schafkopf
         {
             return match.CurrentCardCount == 0
                 ? CheckPlayableCards(match, null, match.IsWegGelaufen)
-                : CheckPlayableCards(match, match.CurrentRound.currentCards[0], match.IsWegGelaufen);
+                : CheckPlayableCards(match, match.CurrentRound.CurrentCards[0], match.IsWegGelaufen);
         }
 
         private void RemovePlayableCard(int index)
@@ -368,9 +368,9 @@ namespace SpieleSammlung.Model.Schafkopf
             bob.Append(Possibilities.Count).Append(separator);
             foreach (var possibility in Possibilities)
             {
-                bob.Append(possibility.Mode).Append(separator).Append(possibility.colors.Count)
+                bob.Append(possibility.Mode).Append(separator).Append(possibility.Colors.Count)
                     .Append(separator);
-                foreach (var color in possibility.colors)
+                foreach (var color in possibility.Colors)
                 {
                     bob.Append(color).Append(separator);
                 }
@@ -381,7 +381,7 @@ namespace SpieleSammlung.Model.Schafkopf
             bob.Append(Kontra).Append(separator);
             bob.Append(Number).Append(separator);
             bob.Append(TeamIndex).Append(separator);
-            bob.Append(continueMatch.HasValue ? continueMatch.Value.ToString() : "null").Append(separator);
+            bob.Append(ContinueMatch.HasValue ? ContinueMatch.Value.ToString() : "null").Append(separator);
             bob.Append(State);
             return bob.ToString();
         }
@@ -421,11 +421,11 @@ namespace SpieleSammlung.Model.Schafkopf
             ++index;
             if (msgParts[index].Equals("null"))
             {
-                continueMatch = null;
+                ContinueMatch = null;
             }
             else
             {
-                continueMatch = bool.Parse(msgParts[index]);
+                ContinueMatch = bool.Parse(msgParts[index]);
             }
 
             State = Convert(msgParts[++index]);

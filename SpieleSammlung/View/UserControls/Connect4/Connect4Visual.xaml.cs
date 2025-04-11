@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using SpieleSammlung.Model.Connect4;
 
-namespace SpieleSammlung.UserControls.Connect4
+namespace SpieleSammlung.View.UserControls.Connect4
 {
     /// <summary>
     /// Interaktionslogik für Connect4Visual.xaml
     /// </summary>
-    public partial class Connect4Visual : UserControl
+    public partial class Connect4Visual
     {
         private Connect4Tile _color;
         private bool _highlighted;

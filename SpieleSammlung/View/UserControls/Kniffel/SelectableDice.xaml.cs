@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
-namespace SpieleSammlung.UserControls.Kniffel
+namespace SpieleSammlung.View.UserControls.Kniffel
 {
     /// <summary>
     /// Interaktionslogik für SelectableDice.xaml
     /// </summary>
-    public partial class SelectableDice : UserControl
+    public partial class SelectableDice
     {
         public SelectableDice() => InitializeComponent();
 

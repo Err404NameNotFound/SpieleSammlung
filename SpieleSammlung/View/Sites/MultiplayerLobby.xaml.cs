@@ -12,7 +12,7 @@ namespace SpieleSammlung.View.Sites
     /// <summary>
     /// Interaktionslogik für MultiplayerLobby.xaml
     /// </summary>
-    public partial class MultiplayerLobby : UserControl
+    public partial class MultiplayerLobby
     {
         private bool _ipOk;
         private bool _portOk;

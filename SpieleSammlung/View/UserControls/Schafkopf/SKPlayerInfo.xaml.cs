@@ -1,13 +1,12 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace SpieleSammlung.UserControls.Schafkopf
+namespace SpieleSammlung.View.UserControls.Schafkopf
 {
     /// <summary>
     /// Interaktionslogik für SKPlayerInfo.xaml
     /// </summary>
-    public partial class SkPlayerInfo : UserControl
+    public partial class SkPlayerInfo
     {
         public static readonly string STATE_EMPTY = Properties.Resources.SKPlayerInfo_empty;
         public static readonly string STATE_AUFSTELLEN = Properties.Resources.SKPlayerInfo_Aufstellen;

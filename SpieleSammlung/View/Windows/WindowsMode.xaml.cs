@@ -1,20 +1,20 @@
 ﻿using System.Windows;
 
-namespace SpieleSammlung.Windows
+namespace SpieleSammlung.View.Windows
 {
     /// <summary>
     /// Interaktionslogik für WindowsMode.xaml
     /// </summary>
-    public partial class WindowsMode : Window
+    public partial class WindowsMode
     {
-        public bool status;
+        public bool Status;
 
         public WindowsMode(string message)
         {
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             LblWarnung.Text = message;
-            status = false;
+            Status = false;
             MaxWidth = Width;
             MinWidth = Width;
             MaxHeight = Height;
@@ -23,13 +23,13 @@ namespace SpieleSammlung.Windows
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
-            status = false;
+            Status = false;
             Close();
         }
 
         private void BtnOk_Click(object sender, RoutedEventArgs e)
         {
-            status = true;
+            Status = true;
             Close();
         }
     }

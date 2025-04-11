@@ -14,11 +14,11 @@ namespace SpieleSammlung.Model.Multiplayer
         private Client _client;
         public string Id { get; }
 
-        public readonly List<MultiplayerPlayer> lostClients;
+        public readonly List<MultiplayerPlayer> LostClients;
         private readonly List<MultiplayerPlayer> _activeClients;
 
         private readonly string _path;
-        private const string pathHost = "host.txt";
+        private const string PATH_HOST = "host.txt";
 
         public delegate void OnClientEventHandler(MultiplayerEvent e);
 
@@ -49,9 +49,9 @@ namespace SpieleSammlung.Model.Multiplayer
             _host.SendBufferSize = 400;
             _host.ReceiveBufferSize = 50;
             _host.NoDelay = true;
-            lostClients = new List<MultiplayerPlayer>();
+            LostClients = new List<MultiplayerPlayer>();
             _activeClients = new List<MultiplayerPlayer>();
-            if (File.Exists(pathHost))
+            if (File.Exists(PATH_HOST))
             {
                 int n = 1;
                 while (File.Exists("./LogMP/host" + n + ".txt")) ++n;
@@ -59,7 +59,7 @@ namespace SpieleSammlung.Model.Multiplayer
             }
             else
             {
-                _path = pathHost;
+                _path = PATH_HOST;
             }
         }
 
@@ -88,14 +88,14 @@ namespace SpieleSammlung.Model.Multiplayer
         {
             _activeClients.Add(new MultiplayerPlayer(id, id.Substring(3, id.Length - 3)));
             int i = 0;
-            while (i < lostClients.Count)
+            while (i < LostClients.Count)
             {
-                if (id.IndexOf(lostClients[i].Name) == 3)
+                if (id.IndexOf(LostClients[i].Name) == 3)
                 {
-                    _mpEvent = new MultiplayerEvent(MultiplayerEventTypes.HClientReConnected, id, lostClients[i].Name);
+                    _mpEvent = new MultiplayerEvent(MultiplayerEventTypes.HClientReConnected, id, LostClients[i].Name);
                     EventLog();
                     HostEvent?.Invoke(_mpEvent);
-                    lostClients.RemoveAt(i);
+                    LostClients.RemoveAt(i);
                     return;
                 }
 
@@ -112,7 +112,7 @@ namespace SpieleSammlung.Model.Multiplayer
             int i = 0;
             while (!_activeClients[i].Id.Equals(id)) ++i;
 
-            lostClients.Add(_activeClients[i]);
+            LostClients.Add(_activeClients[i]);
             _activeClients.RemoveAt(i);
             _mpEvent = new MultiplayerEvent(MultiplayerEventTypes.HClientDisconnected, id);
             EventLog();

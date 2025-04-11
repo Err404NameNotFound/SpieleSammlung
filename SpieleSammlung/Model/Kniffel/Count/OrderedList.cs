@@ -2,25 +2,25 @@
 {
     public abstract class OrderedList
     {
-        protected DiceCounter[] counters;
+        protected DiceCounter[] Counters;
 
         public int Count { get; protected set; }
 
         protected OrderedList()
         {
             Count = 0;
-            counters = new DiceCounter[Dice.DICE_COUNT];
+            Counters = new DiceCounter[Dice.DICE_COUNT];
         }
 
         protected OrderedList(OrderedList other)
         {
             Count = other.Count;
-            counters = new DiceCounter[other.counters.Length];
-            for (int i = 0; i < counters.Length; ++i)
+            Counters = new DiceCounter[other.Counters.Length];
+            for (int i = 0; i < Counters.Length; ++i)
             {
-                if (other.counters[i] != null)
+                if (other.Counters[i] != null)
                 {
-                    counters[i] = new DiceCounter(other.counters[i]);
+                    Counters[i] = new DiceCounter(other.Counters[i]);
                 }
             }
         }

@@ -112,9 +112,9 @@ namespace SpieleSammlung.Model.Kniffel.Bot
             const double probability = 1.0 / 5;
             if (rng.NextDouble() < probability) ret.MutateBestIndexToKillBonusReached();
             if (rng.NextDouble() < probability) ret.MutateBestIndexToKillBonusNotReached();
-            if (rng.NextDouble() < probability) MutateValueByDifference(ref ret.minFieldValueChance, 1);
-            if (rng.NextDouble() < probability) MutateValueByDifference(ref ret.minFieldValuePair3, 1);
-            if (rng.NextDouble() < probability) MutateValueByDifference(ref ret.minFieldValuePair4, 1);
+            if (rng.NextDouble() < probability) MutateValueByDifference(ref ret.MinFieldValueChance, 1);
+            if (rng.NextDouble() < probability) MutateValueByDifference(ref ret.MinFieldValuePair3, 1);
+            if (rng.NextDouble() < probability) MutateValueByDifference(ref ret.MinFieldValuePair4, 1);
             if (rng.NextDouble() < 0.99) ret.MutateBestOptionFinder();
             return ret;
         }
@@ -136,19 +136,19 @@ namespace SpieleSammlung.Model.Kniffel.Bot
 
         private void MutateBestOptionFinder()
         {
-            indexBestOptionFinder = DistinctRandomInt(indexBestOptionFinder, 5);
+            IndexBestOptionFinder = DistinctRandomInt(IndexBestOptionFinder, 5);
         }
 
         private void MutateBestIndexToKillBonusNotReached()
         {
             int n = rng.Next(1, 6);
-            for (int i = 0; i < n; ++i) SwitchTwoRandomIndices(bestIndexToKillBonusReached);
+            for (int i = 0; i < n; ++i) SwitchTwoRandomIndices(BestIndexToKillBonusReached);
         }
 
         private void MutateBestIndexToKillBonusReached()
         {
             int n = rng.Next(1, 4);
-            for (var i = 0; i < n; ++i) SwitchTwoRandomIndices(bestIndexToKillBonusNotReached);
+            for (var i = 0; i < n; ++i) SwitchTwoRandomIndices(BestIndexToKillBonusNotReached);
         }
 
         private static void SwitchTwoRandomIndices(int[] array)

@@ -60,7 +60,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Abbrechen.
+        ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string ConfirmationWindow_Cancel {
             get {
@@ -78,7 +78,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Warnung.
+        ///   Looks up a localized string similar to Warning.
         /// </summary>
         public static string ConfirmationWindow_title {
             get {
@@ -87,7 +87,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Möchtest du wirklich das Spiel verlassen?.
+        ///   Looks up a localized string similar to Do you really want to leave?.
         /// </summary>
         public static string ConfirmLeave_Message {
             get {
@@ -96,7 +96,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Neu.
+        ///   Looks up a localized string similar to New.
         /// </summary>
         public static string Connect4_NewGame {
             get {
@@ -105,7 +105,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wechseln.
+        ///   Looks up a localized string similar to Switch.
         /// </summary>
         public static string Connect4_SwitchStartPlayer {
             get {
@@ -114,7 +114,16 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to weiter.
+        ///   Looks up a localized string similar to This game is not a single player game.
+        /// </summary>
+        public static string Err_msg_not_a_single_player_game {
+            get {
+                return ResourceManager.GetString("Err_msg_not_a_single_player_game", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to continue.
         /// </summary>
         public static string Knif_Btn_NextPlayer {
             get {
@@ -123,7 +132,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to neu würfeln.
+        ///   Looks up a localized string similar to reshuffle.
         /// </summary>
         public static string Knif_Btn_Reshuffle {
             get {
@@ -132,7 +141,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Spieler Nummer: .
+        ///   Looks up a localized string similar to Player number: .
         /// </summary>
         public static string Knif_Lbl_PlayerNumber {
             get {
@@ -141,7 +150,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to verbleibende Versuche: .
+        ///   Looks up a localized string similar to remaining shuffles: .
         /// </summary>
         public static string Knif_Lbl_RemainingShuffle {
             get {
@@ -150,7 +159,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to streichen.
+        ///   Looks up a localized string similar to kill field.
         /// </summary>
         public static string Knif_Lbl_RemoveField {
             get {
@@ -159,7 +168,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Runde: .
+        ///   Looks up a localized string similar to Round: .
         /// </summary>
         public static string Knif_Lbl_Round {
             get {
@@ -168,7 +177,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to eintragen.
+        ///   Looks up a localized string similar to write field.
         /// </summary>
         public static string Knif_Lbl_WriteField {
             get {
@@ -177,7 +186,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to große Straße.
+        ///   Looks up a localized string similar to Big street.
         /// </summary>
         public static string Knif_PointsTable_BigStreet {
             get {
@@ -186,7 +195,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bonus ab 63 Punkten.
+        ///   Looks up a localized string similar to Bonus at 63 points.
         /// </summary>
         public static string Knif_PointsTable_Bonus {
             get {
@@ -213,7 +222,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kniffel.
+        ///   Looks up a localized string similar to Yahtzee.
         /// </summary>
         public static string Knif_PointsTable_Kniffel {
             get {
@@ -222,7 +231,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dreierpasch.
+        ///   Looks up a localized string similar to Tripple.
         /// </summary>
         public static string Knif_PointsTable_PairSize3 {
             get {
@@ -231,7 +240,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Viererpasch.
+        ///   Looks up a localized string similar to Quadruple.
         /// </summary>
         public static string Knif_PointsTable_PairSize4 {
             get {
@@ -240,7 +249,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to kleine Straße.
+        ///   Looks up a localized string similar to Small street.
         /// </summary>
         public static string Knif_PointsTable_SmallStreet {
             get {
@@ -249,7 +258,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gesamt.
+        ///   Looks up a localized string similar to Total.
         /// </summary>
         public static string Knif_PointsTable_Sum {
             get {
@@ -258,7 +267,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Summe unterer Teil.
+        ///   Looks up a localized string similar to Sum lower part.
         /// </summary>
         public static string Knif_PointsTable_SumBottom {
             get {
@@ -267,7 +276,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Summe oberer Teil.
+        ///   Looks up a localized string similar to Sum upper part.
         /// </summary>
         public static string Knif_PointsTable_SumTop {
             get {
@@ -276,7 +285,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to er.
+        ///   Looks up a localized string similar to s.
         /// </summary>
         public static string Knif_PointsTable_Top6AdditionEndOfNumber {
             get {
@@ -285,7 +294,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gesamt.
+        ///   Looks up a localized string similar to Total.
         /// </summary>
         public static string Knif_PointsVisual_Lbl_Sum {
             get {
@@ -294,7 +303,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Summe unterer Teil.
+        ///   Looks up a localized string similar to Sum lower part.
         /// </summary>
         public static string Knif_PointsVisual_Lbl_SumBottom {
             get {
@@ -303,7 +312,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 1er.
+        ///   Looks up a localized string similar to 1s.
         /// </summary>
         public static string KnifPointsVisual_Lbl_1 {
             get {
@@ -312,7 +321,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 2er.
+        ///   Looks up a localized string similar to 2s.
         /// </summary>
         public static string KnifPointsVisual_Lbl_2 {
             get {
@@ -321,7 +330,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 3er.
+        ///   Looks up a localized string similar to 3s.
         /// </summary>
         public static string KnifPointsVisual_Lbl_3 {
             get {
@@ -330,7 +339,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 4er.
+        ///   Looks up a localized string similar to 4s.
         /// </summary>
         public static string KnifPointsVisual_Lbl_4 {
             get {
@@ -339,7 +348,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 5er.
+        ///   Looks up a localized string similar to 5s.
         /// </summary>
         public static string KnifPointsVisual_Lbl_5 {
             get {
@@ -348,7 +357,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 6er.
+        ///   Looks up a localized string similar to 6s.
         /// </summary>
         public static string KnifPointsVisual_Lbl_6 {
             get {
@@ -357,7 +366,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to große Straße.
+        ///   Looks up a localized string similar to Big street.
         /// </summary>
         public static string KnifPointsVisual_Lbl_BigStreet {
             get {
@@ -366,7 +375,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bonus ab 63 Punkten.
+        ///   Looks up a localized string similar to Bonus at 63 points.
         /// </summary>
         public static string KnifPointsVisual_Lbl_BonusTop {
             get {
@@ -393,7 +402,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kniffel.
+        ///   Looks up a localized string similar to Yahtzee.
         /// </summary>
         public static string KnifPointsVisual_Lbl_Kniffel {
             get {
@@ -402,7 +411,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dreierpasch.
+        ///   Looks up a localized string similar to Tripple.
         /// </summary>
         public static string KnifPointsVisual_Lbl_Pair3 {
             get {
@@ -411,7 +420,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Viererpasch.
+        ///   Looks up a localized string similar to Quadruple.
         /// </summary>
         public static string KnifPointsVisual_Lbl_Pair4 {
             get {
@@ -420,7 +429,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to kleine Straße.
+        ///   Looks up a localized string similar to Small street.
         /// </summary>
         public static string KnifPointsVisual_Lbl_SmallStreet {
             get {
@@ -429,7 +438,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Summe oberer Teil.
+        ///   Looks up a localized string similar to Sum upper part.
         /// </summary>
         public static string KnifPointsVisual_Lbl_SumTop {
             get {
@@ -438,7 +447,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Spiel Verlassen.
+        ///   Looks up a localized string similar to Quit game.
         /// </summary>
         public static string Main_Btn_LeaveMatch {
             get {
@@ -447,7 +456,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zurück.
+        ///   Looks up a localized string similar to back.
         /// </summary>
         public static string Main_LeavePlayerCreator {
             get {
@@ -456,7 +465,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Aktionen für gewählten Spieler.
+        ///   Looks up a localized string similar to Actions for selected player.
         /// </summary>
         public static string ML_Lbl_ActionForSelectedPlayer {
             get {
@@ -465,7 +474,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Aktuelle Spieleranzahl:.
+        ///   Looks up a localized string similar to Current player count:.
         /// </summary>
         public static string ML_Lbl_CurrentPlayerCount {
             get {
@@ -474,7 +483,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Maximale Spieleranzahl:.
+        ///   Looks up a localized string similar to Maximum player count:.
         /// </summary>
         public static string ML_Lbl_MaxPlayerCount {
             get {
@@ -483,7 +492,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Minimale Spieleranzahl:.
+        ///   Looks up a localized string similar to Minimum player count:.
         /// </summary>
         public static string ML_Lbl_MinPlayerCount {
             get {
@@ -492,7 +501,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Spieler kicken.
+        ///   Looks up a localized string similar to kick player.
         /// </summary>
         public static string ML_Lbl_RemovePlayer {
             get {
@@ -501,7 +510,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Spieler umbennen.
+        ///   Looks up a localized string similar to rename player.
         /// </summary>
         public static string ML_Lbl_RenamePlayer {
             get {
@@ -510,7 +519,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Auf weitere Spieler warten.
+        ///   Looks up a localized string similar to wait for other players.
         /// </summary>
         public static string ML_Lbl_WaitForOtherPlayers {
             get {
@@ -519,7 +528,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Join Match.
+        ///   Looks up a localized string similar to join match.
         /// </summary>
         public static string MP_Btn_JoinMatch {
             get {
@@ -528,7 +537,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verbindung zum Host wird hergestellt.
+        ///   Looks up a localized string similar to Initialising connection to host.
         /// </summary>
         public static string MP_ConnectionToHost {
             get {
@@ -537,7 +546,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to IP-Adresse des Hosts.
+        ///   Looks up a localized string similar to Host IP-address.
         /// </summary>
         public static string MP_HostIp {
             get {
@@ -546,7 +555,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Host Match.
+        ///   Looks up a localized string similar to host match.
         /// </summary>
         public static string MP_HostMatch {
             get {
@@ -555,7 +564,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Portnummer des Hosts.
+        ///   Looks up a localized string similar to Host Port number.
         /// </summary>
         public static string MP_HostPort {
             get {
@@ -564,7 +573,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Match beitreten.
+        ///   Looks up a localized string similar to join match.
         /// </summary>
         public static string MP_JoinMatch {
             get {
@@ -573,7 +582,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lost Connection to Host.
+        ///   Looks up a localized string similar to lost Connection to Host.
         /// </summary>
         public static string MP_LostConnectionToHost {
             get {
@@ -600,7 +609,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Spiel starten.
+        ///   Looks up a localized string similar to start match.
         /// </summary>
         public static string MP_StartMatch {
             get {
@@ -609,7 +618,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to auf weitere Spieler warten.
+        ///   Looks up a localized string similar to waiting for other players.
         /// </summary>
         public static string MP_WaitForOtherPlayers {
             get {
@@ -618,7 +627,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Option auswählen.
+        ///   Looks up a localized string similar to Choose option.
         /// </summary>
         public static string MS_ChooseOption {
             get {
@@ -627,7 +636,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Spiel wird nach der Runde verlassen.
+        ///   Looks up a localized string similar to Game is quit after match.
         /// </summary>
         public static string MW_Btn_LeavesAfterMatch {
             get {
@@ -636,7 +645,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Spiel Verlassen.
+        ///   Looks up a localized string similar to Quit game.
         /// </summary>
         public static string MW_LeaveGame {
             get {
@@ -655,7 +664,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hinzufügen.
+        ///   Looks up a localized string similar to Add.
         /// </summary>
         public static string PlayerCreator_Add {
             get {
@@ -664,7 +673,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bot hinzufügen.
+        ///   Looks up a localized string similar to Add bot.
         /// </summary>
         public static string PlayerCreator_AddBot {
             get {
@@ -673,7 +682,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Runter.
+        ///   Looks up a localized string similar to Down.
         /// </summary>
         public static string PlayerCreator_Down {
             get {
@@ -682,7 +691,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Spieler Name:.
+        ///   Looks up a localized string similar to Player Name:.
         /// </summary>
         public static string PlayerCreator_PlayerName {
             get {
@@ -691,7 +700,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enfernen.
+        ///   Looks up a localized string similar to Remove.
         /// </summary>
         public static string PlayerCreator_Remove {
             get {
@@ -700,7 +709,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Spiel starten.
+        ///   Looks up a localized string similar to start game.
         /// </summary>
         public static string PlayerCreator_StartGame {
             get {
@@ -709,7 +718,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hoch.
+        ///   Looks up a localized string similar to Up.
         /// </summary>
         public static string PlayerCreator_Up {
             get {
@@ -736,7 +745,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Letzter Stich.
+        ///   Looks up a localized string similar to Last Stich.
         /// </summary>
         public static string SK_Btn_LastStich {
             get {
@@ -745,7 +754,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Neue Runde.
+        ///   Looks up a localized string similar to New round.
         /// </summary>
         public static string SK_Btn_NewRound {
             get {
@@ -754,7 +763,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Punkte.
+        ///   Looks up a localized string similar to Points.
         /// </summary>
         public static string SK_Btn_Points {
             get {
@@ -772,7 +781,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Spieler 1.
+        ///   Looks up a localized string similar to Player 1.
         /// </summary>
         public static string SK_Lbl_Player1 {
             get {
@@ -781,7 +790,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Spieler 2.
+        ///   Looks up a localized string similar to Player 2.
         /// </summary>
         public static string SK_Lbl_Player2 {
             get {
@@ -790,7 +799,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Spieler 3.
+        ///   Looks up a localized string similar to Player 3.
         /// </summary>
         public static string SK_Lbl_Player3 {
             get {
@@ -799,7 +808,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Spieler 4.
+        ///   Looks up a localized string similar to Player 4.
         /// </summary>
         public static string SK_Lbl_Player4 {
             get {
@@ -808,7 +817,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Spieler 5.
+        ///   Looks up a localized string similar to Player 5.
         /// </summary>
         public static string SK_Lbl_Player5 {
             get {
@@ -817,7 +826,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Spieler 6.
+        ///   Looks up a localized string similar to Player 6.
         /// </summary>
         public static string SK_Lbl_Player6 {
             get {
@@ -826,7 +835,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Spieler 7.
+        ///   Looks up a localized string similar to Player 7.
         /// </summary>
         public static string SK_Lbl_Player7 {
             get {
@@ -835,7 +844,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Warten bis alle Spieler wieder da sind.
+        ///   Looks up a localized string similar to Wait until all players are back.
         /// </summary>
         public static string SK_Lbl_WaitUntilAllPlayerBack {
             get {
@@ -862,7 +871,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rest ansehen.
+        ///   Looks up a localized string similar to Look at remaining cards.
         /// </summary>
         public static string SKCardHolder_Btn_ShowRemaining {
             get {
@@ -871,7 +880,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Spiel wählen.
+        ///   Looks up a localized string similar to Choose game.
         /// </summary>
         public static string SKGameModeSelector_BtnChooseGame {
             get {
@@ -880,7 +889,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Letzter Stich.
+        ///   Looks up a localized string similar to Last Stich.
         /// </summary>
         public static string SKLastStich_Title {
             get {
@@ -925,7 +934,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Aktuelle Ansicht drucken.
+        ///   Looks up a localized string similar to Print current view.
         /// </summary>
         public static string SKPoints_BtnPrintCurrentView {
             get {
@@ -934,7 +943,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Punkte kumuliert.
+        ///   Looks up a localized string similar to Points summed up.
         /// </summary>
         public static string SKPoints_TabPointsCumulative {
             get {
@@ -943,7 +952,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Punkte einzeln.
+        ///   Looks up a localized string similar to Points single.
         /// </summary>
         public static string SKPoints_TabPointsSingle {
             get {
@@ -952,7 +961,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Schafkopf Punkte.
+        ///   Looks up a localized string similar to Schafkopf Points.
         /// </summary>
         public static string SKPoints_Title {
             get {
@@ -961,7 +970,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gesamtpunkte.
+        ///   Looks up a localized string similar to Total points.
         /// </summary>
         public static string SKPoints_TotalPoints {
             get {
@@ -970,7 +979,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Schiffe versenken.
+        ///   Looks up a localized string similar to Battleships.
         /// </summary>
         public static string SS_BattleShips {
             get {
@@ -979,7 +988,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 4 Gewinnt.
+        ///   Looks up a localized string similar to Connect 4.
         /// </summary>
         public static string SS_Connect4 {
             get {
@@ -988,7 +997,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kniffel.
+        ///   Looks up a localized string similar to Yahtzee.
         /// </summary>
         public static string SS_Kniffel {
             get {
@@ -997,7 +1006,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lotto.
+        ///   Looks up a localized string similar to Lottery.
         /// </summary>
         public static string SS_Lottery {
             get {
@@ -1024,7 +1033,7 @@ namespace SpieleSammlung.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zufallszahlen.
+        ///   Looks up a localized string similar to Random numbers.
         /// </summary>
         public static string SS_RandomNumberGame {
             get {

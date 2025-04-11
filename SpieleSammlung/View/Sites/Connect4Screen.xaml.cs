@@ -5,14 +5,14 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
-using SpieleSammlung.UserControls.Connect4;
+using SpieleSammlung.View.UserControls.Connect4;
 
 namespace SpieleSammlung.View.Sites
 {
     /// <summary>
     /// Interaktionslogik für Connect4Screen.xaml
     /// </summary>
-    public partial class Connect4Screen : UserControl
+    public partial class Connect4Screen
     {
         private const string NAME_BOT = "bot";
 
