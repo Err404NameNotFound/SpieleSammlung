@@ -39,7 +39,7 @@ public class SchafkopfPlayer : MultiplayerPlayer
         
     public void UpdatePossibilities(SchafkopfMode minimumGame)
     {
-        Possibilities = [new(SchafkopfMode.Weiter)];
+        Possibilities = [new SchafkopfMatchPossibility(SchafkopfMode.Weiter)];
         if (minimumGame == SchafkopfMode.SoloTout) return;
         List<string> solo = SoloPossibilities();
         if (minimumGame != SchafkopfMode.WenzTout)

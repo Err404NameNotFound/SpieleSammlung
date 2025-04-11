@@ -246,7 +246,7 @@ public class SchafkopfMatch : SchafkopfMatchConfig
         _isShufflePossible = false;
         if (!sameRound) NextMatch();
         AmountShuffle = 0;
-        _rounds = [new()];
+        _rounds = [new SchafkopfRound()];
         ResetMode();
         for (int i = 0; i < PLAYER_PER_ROUND; ++i) CurrentPlayers[i].NewMatch(i, sameRound);
     }

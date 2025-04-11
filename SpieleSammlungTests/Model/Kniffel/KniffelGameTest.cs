@@ -22,7 +22,7 @@ public class KniffelGameTest
 
     static KniffelGameTest()
     {
-        Players = [new("player 1", false), new("player 2", false)];
+        Players = [new Player("player 1", false), new Player("player 2", false)];
         _continuousGame = new KniffelGame(Players, 420);
         Rng = new RandomStub();
         RiggedGame = new KniffelGame(Players, Rng);

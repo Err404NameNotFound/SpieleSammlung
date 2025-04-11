@@ -21,7 +21,7 @@ public partial class Battleships
         InitializeComponent();
         _activePlayer = 0;
         _mode = BattleshipsMode.PlaceShips;
-        _players = [new(player1), new(player2)];
+        _players = [new BattleshipsPlayer(player1), new BattleshipsPlayer(player2)];
         for (int i = 0; i < 10; ++i)
         {
             for (int i1 = 0; i1 < 10; ++i1)
