@@ -35,9 +35,6 @@
                     Content="{x:Static properties:Resources.SS_Lottery}" />
             <Button Width="150" Height="50" Margin="25,0" IsEnabled="False" Click="BtnMaexchen_Click"
                     Content="{x:Static properties:Resources.SS_Maexchen}" />
-            <Button Width="150" Height="50" Margin="25,0" IsEnabled="False"
-                    Content="{x:Static properties:Resources.SS_BattleShips}"
-                    Click="BtnSchiffe_Click" />
         </StackPanel>
     </Grid>
 </UserControl>

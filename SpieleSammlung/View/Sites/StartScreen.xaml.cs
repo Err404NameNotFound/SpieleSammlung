@@ -32,11 +32,6 @@ public partial class StartScreen
         ChoseModeEvent(GameMode.Maexchen, 2, 100);
     }
 
-    private void BtnSchiffe_Click(object sender, RoutedEventArgs e)
-    {
-        ChoseModeEvent(GameMode.SchiffeVersenken, 2, 2);
-    }
-
     private void Btn4gewinnt_Click(object sender, RoutedEventArgs e)
     {
         ChoseModeEvent(GameMode.VierGewinnt, 1, 2);

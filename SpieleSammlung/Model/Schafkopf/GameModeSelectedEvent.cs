@@ -2,14 +2,8 @@
 
 namespace SpieleSammlung.Model.Schafkopf;
 
-public class GameModeSelectedEvent : EventArgs
+public class GameModeSelectedEvent(SchafkopfMode mode, string color) : EventArgs
 {
-    public SchafkopfMode Mode { get; }
-    public string Color { get; }
-
-    public GameModeSelectedEvent(SchafkopfMode mode, string color)
-    {
-        Mode = mode;
-        Color = color;
-    }
+    public SchafkopfMode Mode { get; } = mode;
+    public string Color { get; } = color;
 }

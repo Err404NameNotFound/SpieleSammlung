@@ -75,9 +75,6 @@
             <Generator>MSBuild:Compile</Generator>
             <SubType>Designer</SubType>
         </ApplicationDefinition>
-        <Compile Include="Model\Battleships\BattleshipsPlayer.cs"/>
-        <Compile Include="Model\Battleships\Boat.cs"/>
-        <Compile Include="Model\Battleships\Coordinate.cs"/>
         <Compile Include="Model\Connect4\Board.cs"/>
         <Compile Include="Model\Connect4\Connect4.cs"/>
         <Compile Include="Model\Connect4\Connect4Multiplayer.cs"/>
@@ -127,9 +124,6 @@
         <Compile Include="Model\Util\ProgressPrinter.cs" />
         <Compile Include="Model\Util\RingBufferFifo.cs" />
         <Compile Include="Enums.cs" />
-        <Compile Include="View\Sites\Battleships.xaml.cs">
-          <DependentUpon>Battleships.xaml</DependentUpon>
-        </Compile>
         <Compile Include="View\Sites\Connect4Screen.xaml.cs">
           <DependentUpon>Connect4Screen.xaml</DependentUpon>
         </Compile>
@@ -150,9 +144,6 @@
         </Compile>
         <Compile Include="View\Sites\StartScreen.xaml.cs">
           <DependentUpon>StartScreen.xaml</DependentUpon>
-        </Compile>
-        <Compile Include="View\UserControls\BattleShips\BoatField.xaml.cs">
-          <DependentUpon>BoatField.xaml</DependentUpon>
         </Compile>
         <Compile Include="View\UserControls\CheckView.xaml.cs">
           <DependentUpon>CheckView.xaml</DependentUpon>
@@ -206,9 +197,6 @@
         <Compile Include="View\Windows\WindowsMode.xaml.cs">
           <DependentUpon>WindowsMode.xaml</DependentUpon>
         </Compile>
-        <Page Include="View\Sites\Battleships.xaml">
-          <Generator>MSBuild:Compile</Generator>
-        </Page>
         <Page Include="View\Sites\Connect4Screen.xaml">
           <Generator>MSBuild:Compile</Generator>
         </Page>
@@ -226,9 +214,6 @@
           <Generator>MSBuild:Compile</Generator>
         </Page>
         <Page Include="View\Sites\StartScreen.xaml">
-          <Generator>MSBuild:Compile</Generator>
-        </Page>
-        <Page Include="View\UserControls\BattleShips\BoatField.xaml">
           <Generator>MSBuild:Compile</Generator>
         </Page>
         <Page Include="View\UserControls\CheckView.xaml">

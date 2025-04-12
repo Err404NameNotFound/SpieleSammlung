@@ -333,7 +333,6 @@ public partial class MultiplayerLobby
                 break;
             case GameMode.Zufallszahlen:
             case GameMode.Lotto:
-            case GameMode.SchiffeVersenken:
             case GameMode.Maexchen:
             case GameMode.VierGewinnt:
             case GameMode.Kniffel:

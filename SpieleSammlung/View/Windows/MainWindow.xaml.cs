@@ -22,7 +22,6 @@ public partial class MainWindow
     private KniffelScreen _viewKniffelScreen;
     private Connect4Screen _viewConnect4Screen;
     private MancalaScreen _viewMancalaScreen;
-    private Battleships _viewBattleships;
 
     private MainWindowView _view;
 
@@ -39,7 +38,6 @@ public partial class MainWindow
                 MainWindowView.Kniffel => _viewKniffelScreen,
                 MainWindowView.VierGewinnt => _viewConnect4Screen,
                 MainWindowView.Mancala => _viewMancalaScreen,
-                MainWindowView.SchiffeVersenken => _viewBattleships,
                 _ => throw new ArgumentException("This game mode has not been fully implemented")
             };
         }
@@ -88,7 +86,6 @@ public partial class MainWindow
                 break;
             case MainWindowView.StartScreen:
             case MainWindowView.PlayerCreator:
-            case MainWindowView.SchiffeVersenken:
             case MainWindowView.Kniffel:
             case MainWindowView.Mancala:
                 break; // Nothing to do
@@ -106,7 +103,11 @@ public partial class MainWindow
             case MainWindowView.PlayerCreator:
                 ChooseScreen(MainWindowView.StartScreen);
                 break;
-            default:
+            case MainWindowView.MultiplayerLobby:
+            case MainWindowView.VierGewinnt:
+            case MainWindowView.Kniffel:
+            case MainWindowView.Schafkopf:
+            case MainWindowView.Mancala:
             {
                 bool showWindow = true;
                 if (_view == MainWindowView.Schafkopf)
@@ -135,6 +136,8 @@ public partial class MainWindow
 
                 break;
             }
+            default:
+                throw new ArgumentOutOfRangeException();
         }
     }
 
@@ -193,9 +196,6 @@ public partial class MainWindow
             case GameMode.Lotto:
             case GameMode.Maexchen:
                 break;
-            case GameMode.SchiffeVersenken:
-                _viewBattleships = new Battleships(playerNames[0], playerNames[1], true, true);
-                break;
             case GameMode.VierGewinnt:
                 _viewConnect4Screen = playerNames.Count == 1
                     ? new Connect4Screen(playerNames[0])
@@ -209,7 +209,8 @@ public partial class MainWindow
                 _viewMancalaScreen = new MancalaScreen(true);
                 break;
             case GameMode.Schafkopf:
-                throw new ArgumentOutOfRangeException(nameof(mode), mode, Properties.Resources.Err_msg_not_a_single_player_game);
+                throw new ArgumentOutOfRangeException(nameof(mode), mode,
+                    Properties.Resources.Err_msg_not_a_single_player_game);
             default:
                 throw new ArgumentOutOfRangeException(nameof(mode), mode, "");
         }
@@ -223,7 +224,6 @@ public partial class MainWindow
         {
             GameMode.Kniffel => MainWindowView.Kniffel,
             GameMode.Schafkopf => MainWindowView.Schafkopf,
-            GameMode.SchiffeVersenken => MainWindowView.SchiffeVersenken,
             GameMode.VierGewinnt => MainWindowView.VierGewinnt,
             GameMode.Mancala => MainWindowView.Mancala,
             _ => MainWindowView.StartScreen

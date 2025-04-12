@@ -7,7 +7,6 @@ public enum GameMode
 {
     Zufallszahlen,
     Lotto,
-    SchiffeVersenken,
     Maexchen,
     VierGewinnt,
     Kniffel,
@@ -20,21 +19,10 @@ public enum MainWindowView
     StartScreen,
     PlayerCreator,
     MultiplayerLobby,
-    SchiffeVersenken,
     VierGewinnt,
     Kniffel,
     Schafkopf,
     Mancala
-}
-
-/// <summary>
-/// State of a battle ship game.
-/// </summary>
-public enum BattleshipsMode
-{
-    PlaceShips,
-    Shoot,
-    DoNothing
 }
 
 /// <summary>
