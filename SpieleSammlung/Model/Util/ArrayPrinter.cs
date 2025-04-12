@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace SpieleSammlung.Model.Util;
@@ -122,7 +123,7 @@ public static class ArrayPrinter
         ModelLog.AppendLine();
     }
 
-    public static long GetNeededDigits(IEnumerable<int> values) => GetNeededDigits(MathHelp.Max(values));
+    public static long GetNeededDigits(IEnumerable<int> values) => GetNeededDigits(values.Max());
 
     private static long GetNeededDigits(long val)
     {

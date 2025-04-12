@@ -76,30 +76,20 @@ public class MinMaxAvgEvaluator(bool canBeNegative)
     {
         ++Count;
         Sum += value;
-        if (value > Max)
-        {
+        if (value > Max) 
             Max = value;
-        }
 
-        if (value < Min)
-        {
+        if (value < Min) 
             Min = value;
-        }
 
-        if (canBeNegative)
-        {
-            value = Math.Abs(value);
-            AbsSum += value;
-            if (value > AbsMax)
-            {
-                AbsMax = value;
-            }
+        if (!canBeNegative) return;
+        value = Math.Abs(value);
+        AbsSum += value;
+        if (value > AbsMax) 
+            AbsMax = value;
 
-            if (value < AbsMin)
-            {
-                AbsMin = value;
-            }
-        }
+        if (value < AbsMin) 
+            AbsMin = value;
     }
 
     public void PrintEvaluation()
@@ -137,9 +127,7 @@ public class MinMaxAvgEvaluator(bool canBeNegative)
 
     public void Merge(params MinMaxAvgEvaluator[] evaluators)
     {
-        foreach (var evaluator in evaluators)
-        {
+        foreach (var evaluator in evaluators) 
             Merge(evaluator);
-        }
     }
 }
