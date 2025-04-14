@@ -150,8 +150,8 @@
         <Compile Include="Utils\ArrayHelp.cs"/>
         <Compile Include="Utils\IntArrayComparer.cs"/>
         <Compile Include="Utils\RandomStub.cs"/>
+        <Compile Include="View\Screens\Connect4Test.cs" />
         <Compile Include="View\Util.cs" />
-        <Compile Include="View\Windows\MainWindowTest.cs" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\SpieleSammlung\SpieleSammlung.csproj">
@@ -162,6 +162,9 @@
     <ItemGroup>
         <None Include="App.config" />
         <None Include="packages.config"/>
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="View\Windows\" />
     </ItemGroup>
     <Choose>
         <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
