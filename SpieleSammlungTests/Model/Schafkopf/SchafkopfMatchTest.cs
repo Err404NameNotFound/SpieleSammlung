@@ -434,17 +434,6 @@ public class SchafkopfMatchTest
     [TestMethod]
     public void Temp2() => ListCards(98, new SchafkopfMatchConfig(SchafkopfMode.SoloTout, Card.HERZ));
         
-    /*
-            "", "", "", "", // winner: , points:  (start at 0)
-            "", "", "", "", // winner: , points:
-            "", "", "", "", // winner: , points:
-            "", "", "", "", // winner: , points:
-            "", "", "", "", // winner: , points:
-            "", "", "", "", // winner: , points:
-            "", "", "", "", // winner: , points:
-            "", "", "", "", // winner: , points:
-     */
-        
     private static void AssertCardsAreEqual(SchafkopfMatch host, SchafkopfMatch client)
     {
         Assert.AreEqual(host.CurrentPlayers.Count, client.CurrentPlayers.Count);

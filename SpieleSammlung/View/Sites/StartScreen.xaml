@@ -20,7 +20,7 @@
             <RowDefinition Height="20" />
         </Grid.RowDefinitions>
         <Button Grid.Column="0" Grid.Row="1" Width="150" Height="50" Content="{x:Static properties:Resources.SS_Connect4}"
-                Click="Btn4gewinnt_Click" />
+                Click="Btn4gewinnt_Click" x:Name="BtnChooseConnect4" />
         <Button Grid.Column="0" Grid.Row="2" Width="150" Height="50" Content="{x:Static properties:Resources.SS_Kniffel}"
                 Click="BtnKniffel_Click" />
         <Button Grid.Column="1" Grid.Row="1" Width="150" Height="50" Content="{x:Static properties:Resources.SS_Schafkopf}"

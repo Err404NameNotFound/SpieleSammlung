@@ -33,8 +33,5 @@ public partial class Connect4Field
         set => BtnImage.Highlighted = value;
     }
 
-    private void Btn_Click(object sender, System.Windows.RoutedEventArgs e)
-    {
-        FieldClicked?.Invoke(Column);
-    }
+    private void Btn_Click(object sender, System.Windows.RoutedEventArgs e) => FieldClicked?.Invoke(Column);
 }

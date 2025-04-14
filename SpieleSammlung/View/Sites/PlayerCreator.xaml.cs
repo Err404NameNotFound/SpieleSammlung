@@ -22,7 +22,7 @@ public partial class PlayerCreator
     public PlayerCreator(GameMode mode, int min, int max)
     {
         InitializeComponent();
-        BtnAddBot.Visibility = mode == GameMode.Kniffel ? Visibility.Visible : Visibility.Hidden;
+        PcBtnAddBot.Visibility = mode == GameMode.Kniffel ? Visibility.Visible : Visibility.Hidden;
         _mode = mode;
         _minPlayer = min;
         _maxPlayer = max;
@@ -89,12 +89,12 @@ public partial class PlayerCreator
         {
             add = true;
         }
-        else if (LblPlayerName.Text.Length > 0)
+        else if (PcTxtBoxPlayerName.Text.Length > 0)
         {
-            if (IsNameNotAlreadyInList(LblPlayerName.Text))
+            if (IsNameNotAlreadyInList(PcTxtBoxPlayerName.Text))
             {
-                player = new Player(LblPlayerName.Text, false);
-                LblPlayerName.Clear();
+                player = new Player(PcTxtBoxPlayerName.Text, false);
+                PcTxtBoxPlayerName.Clear();
                 add = true;
             }
         }
@@ -102,7 +102,7 @@ public partial class PlayerCreator
         if (!add) return;
         _players.Add(player);
         LBoxPlayerNames.Items.Add(player);
-        LblPlayerName.Focus();
+        PcTxtBoxPlayerName.Focus();
         Update();
     }
 
@@ -118,7 +118,7 @@ public partial class PlayerCreator
         return true;
     }
 
-    private void Update() => BtnPlayerDone.IsEnabled = LBoxPlayerNames.Items.Count >= _minPlayer;
+    private void Update() => PcBtnPlayerDone.IsEnabled = LBoxPlayerNames.Items.Count >= _minPlayer;
 
     private void BtnPlayerDone_Click(object sender, RoutedEventArgs e)
     {
@@ -128,7 +128,7 @@ public partial class PlayerCreator
         }
     }
 
-    private void LblPlayerName_Loaded(object sender, RoutedEventArgs e) => LblPlayerName.Focus();
+    private void LblPlayerName_Loaded(object sender, RoutedEventArgs e) => PcTxtBoxPlayerName.Focus();
 
     private void BtnAddBot_Click(object sender, RoutedEventArgs e) => AddPlayer(new Player());
 }

@@ -44,8 +44,8 @@ public partial class Connect4Screen
         InitializeBoard(out _fields);
         InitializeStack(out _stack);
         InitializeLevelSelector();
-        LblPlayerLeft.Content = player1;
-        LblPlayerRight.Content = player2;
+        C4SLblPlayerLeft.Content = player1;
+        C4SLblPlayerRight.Content = player2;
         _currentPlayer = Connect4Tile.Player;
         _isSinglePlayer = isSinglePlayer;
         StartNewGame(_currentPlayer);
@@ -68,9 +68,12 @@ public partial class Connect4Screen
         {
             for (int col = 0; col < Board.COLS; ++col)
             {
-                Connect4Field tempField = new Connect4Field(col);
-                tempField.FieldClicked += FieldsKlicked;
-                FieldGrid.Children.Add(tempField);
+                Connect4Field tempField = new Connect4Field(col)
+                {
+                    Name = $"C4SFieldRow{row}Col{col}"
+                };
+                tempField.FieldClicked += FieldsClicked;
+                C4SFieldGrid.Children.Add(tempField);
                 Grid.SetColumn(tempField, col);
                 Grid.SetRow(tempField, Board.ROWS - row - 1);
                 fields[row, col] = tempField;
@@ -101,10 +104,10 @@ public partial class Connect4Screen
     {
         for (int i = 1; i < 10; ++i)
         {
-            CBoxLevelSelection.Items.Add(i);
+            C4ScBoxLevelSelection.Items.Add(i);
         }
 
-        CBoxLevelSelection.SelectedIndex = Connect4.SUGGESTED_MACHINE_LEVEL - 1;
+        C4ScBoxLevelSelection.SelectedIndex = Connect4.SUGGESTED_MACHINE_LEVEL - 1;
     }
 
     private void AddVisualToStack(int indexStack, Panel grid, Connect4Tile value, int row, int col)
@@ -118,44 +121,42 @@ public partial class Connect4Screen
         _stack[indexStack][col, row] = tempField;
     }
 
-    private void FieldsKlicked(int col)
+    private void FieldsClicked(int col)
     {
-        if (!_game.IsGameOver() && !IsCalculationRunning())
+        if (_game.IsGameOver() || IsCalculationRunning()) return;
+        if (_isSinglePlayer)
         {
-            if (_isSinglePlayer)
+            Board temp = _game.Move(col);
+            if (temp != null)
             {
-                Board temp = _game.Move(col);
-                if (temp != null)
-                {
-                    _game = temp;
-                    HideStackTile();
-                }
-
-                if (!_game.IsGameOver())
-                {
-                    MachineMove();
-                }
-            }
-            else
-            {
-                bool left = _currentPlayer == Connect4Tile.Player;
-                Board temp = left ? _mpGame.Move(col) : _mpGame.MachineMove(col);
-                if (temp != null)
-                {
-                    _mpGame = (Connect4Multiplayer)temp;
-                    _game = _mpGame;
-                    HideStackTile();
-                    _currentPlayer = _currentPlayer.Opponent();
-                }
+                _game = temp;
+                HideStackTile();
             }
 
-            UpdateUiAfterMachine(false);
+            if (!_game.IsGameOver())
+            {
+                MachineMove();
+            }
         }
+        else
+        {
+            bool left = _currentPlayer == Connect4Tile.Player;
+            Board temp = left ? _mpGame.Move(col) : _mpGame.MachineMove(col);
+            if (temp != null)
+            {
+                _mpGame = (Connect4Multiplayer)temp;
+                _game = _mpGame;
+                HideStackTile();
+                _currentPlayer = _currentPlayer.Opponent();
+            }
+        }
+
+        UpdateUiAfterMachine(false);
     }
 
     private async void MachineMove()
     {
-        _game.SetLevel(CBoxLevelSelection.SelectedIndex + 1);
+        _game.SetLevel(C4ScBoxLevelSelection.SelectedIndex + 1);
         _tokenSource = new CancellationTokenSource();
         _token = _tokenSource.Token;
         try

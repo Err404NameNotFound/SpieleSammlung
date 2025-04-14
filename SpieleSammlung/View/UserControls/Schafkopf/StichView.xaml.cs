@@ -8,7 +8,7 @@ namespace SpieleSammlung.View.UserControls.Schafkopf;
 /// <summary>
 /// Interaktionslogik für StichView.xaml
 /// </summary>
-public partial class StichView : UserControl
+public partial class StichView
 {
     private readonly List<CardVisual> _cardVisuals;
     private int _cardCounter;

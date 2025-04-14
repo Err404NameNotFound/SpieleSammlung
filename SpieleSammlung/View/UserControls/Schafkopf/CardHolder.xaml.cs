@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
 using SpieleSammlung.Model.Schafkopf;
 
@@ -11,7 +10,7 @@ namespace SpieleSammlung.View.UserControls.Schafkopf;
 /// <summary>
 /// Interaktionslogik für CardHolder.xaml
 /// </summary>
-public partial class CardHolder : UserControl
+public partial class CardHolder
 {
     private List<Card> _cards;
     private readonly List<SelectableCard> _cardVisuals;

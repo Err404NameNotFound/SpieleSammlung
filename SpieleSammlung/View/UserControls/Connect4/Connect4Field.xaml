@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:connect4="clr-namespace:SpieleSammlung.View.UserControls.Connect4"
              mc:Ignorable="d"
-             d:DesignHeight="55" d:DesignWidth="55">
+             d:DesignHeight="55" d:DesignWidth="55"
+             AutomationProperties.AutomationId="Connect4Field">
 
     <Button Background="White" Click="Btn_Click">
         <Button.Resources>
