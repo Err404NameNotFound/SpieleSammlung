@@ -10,10 +10,10 @@ public class Dice
     /// <summary>Amount of dices in a Kniffel game.</summary>
     public const int DICE_COUNT = 5;
 
-    /// <summary>Lowest value of a dice.</summary>
+    /// <summary>Lowest value of a die.</summary>
     public const int LOWEST_VALUE = 1;
 
-    /// <summary>Highest value of a dice (excluded).</summary>
+    /// <summary>Highest value of a die (excluded).</summary>
     public const int HIGHEST_VALUE = 7;
 
     /// <summary>Amount of different values possible for a dice.</summary>
@@ -22,7 +22,7 @@ public class Dice
     /// <summary>Amount of possible combinations to remove a die from a full Dice object.</summary>
     public static readonly int COMBINATIONS_UNSET_DICE = (int)Math.Pow(2, DICE_COUNT);
 
-    /// <summary>If a dice has this value it is not set.</summary>
+    /// <summary>If a die has this value it is not set.</summary>
     internal const int DICE_NOT_SET_VALUE = 0;
 
     #endregion
@@ -70,9 +70,7 @@ public class Dice
     protected void Remove(int i)
     {
         if (IsDiceNotSet(i))
-        {
             throw new ArgumentException("This dice has already been removed.");
-        }
 
         Dices[i] = DICE_NOT_SET_VALUE;
         ++UnSetCount;
@@ -103,10 +101,8 @@ public class Dice
         int w = 0;
         for (int i = 0; i < Dices.Length; ++i)
         {
-            if (IsDiceNotSet(i))
-            {
+            if (IsDiceNotSet(i)) 
                 unset[w++] = i;
-            }
         }
 
         return unset;

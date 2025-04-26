@@ -8,7 +8,7 @@ public class DiceCounter
     /// <value>Value of the dice.</value>
     public int Value { get; }
 
-    /// <value>Amount of times a dice with this value occured.</value>
+    /// <value>Amount of times a die with this value occured.</value>
     public int Count { get; private set; }
 
     /// <summary>
@@ -23,16 +23,10 @@ public class DiceCounter
     public DiceCounter(DiceCounter other) => (Value, Count) = (other.Value, other.Count);
 
     /// <summary>Increases the count by one.</summary>
-    public void IncCount()
-    {
-        ++Count;
-    }
+    public void IncCount() => ++Count;
 
     /// <summary>Decreases the count by one.</summary>
-    public void DecCount()
-    {
-        --Count;
-    }
+    public void DecCount() => --Count;
 
     /// <summary>String representation in the form { Value = value, Count = count }.</summary>
     public override string ToString() => $"{{ Value={Value}, Count={Count} }}";

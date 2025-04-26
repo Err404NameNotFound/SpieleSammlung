@@ -111,10 +111,7 @@ public class ShufflingOption
         return bob.ToString();
     }
 
-    private static string Number(double number)
-    {
-        return number.ToString("N2");
-    }
+    private static string Number(double number) => number.ToString("N2");
 
     #endregion
 
@@ -155,7 +152,8 @@ public class ShufflingOption
         int index = 0;
         while (index < _optionsWriteOrdered.Count && index < other._optionsWriteOrdered.Count)
         {
-            if (_optionsWriteOrdered[index].ValueD.Equals(other._optionsWriteOrdered[index].ValueD)) ++index;
+            if (_optionsWriteOrdered[index].ValueD.Equals(other._optionsWriteOrdered[index].ValueD)) 
+                ++index;
             else
             {
                 return other._optionsWriteOrdered[index].ValueD > _optionsWriteOrdered[index].ValueD
@@ -169,9 +167,11 @@ public class ShufflingOption
 
     public ShufflingOption MaxOptionMaxOrSum(ShufflingOption other)
     {
-        if (other?.Max == null) return this;
+        if (other?.Max == null) 
+            return this;
         if (!Max.ValueD.Equals(other.Max.ValueD))
             return Max.ValueD < other.Max.ValueD ? other : this;
+        
         return Sum < other.Sum ? other : this;
     }
 

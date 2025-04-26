@@ -108,13 +108,9 @@ public class DiceManager : Dice
             {
                 int value = i / divisors[e] % mod;
                 if (value == 0)
-                {
                     dice.Remove(e);
-                }
                 else
-                {
                     dice.SetIndexToNewValue(e, value);
-                }
             }
 
             ExpectedValues[i] = CalculateExpectedValues(dice);
@@ -219,10 +215,8 @@ public class DiceManager : Dice
     public bool IsSmallStreetPossible()
     {
         bool possible = _orderedByCount.Count == 4 && DiceAreConsecutive(0, 3);
-        if (!possible && _orderedByCount.Count == 5)
-        {
+        if (!possible && _orderedByCount.Count == 5) 
             possible = DiceAreConsecutive(1, 3) && (DiceAreConsecutive(0, 1) || DiceAreConsecutive(3, 4));
-        }
 
         return possible;
     }
@@ -264,9 +258,7 @@ public class DiceManager : Dice
         }
 
         if (HighestCount + UnSetCount < pairSize)
-        {
             return 0;
-        }
 
         int[] values = new int[UnSetCount];
         int[] unset = GetUnsetDiceIndex();
@@ -281,10 +273,8 @@ public class DiceManager : Dice
         for (int i = 0; i < differentValues; ++i)
         {
             SetDiceValues(unset, values, clone);
-            if (clone.IsPairOfSizePossible(pairSize))
-            {
+            if (clone.IsPairOfSizePossible(pairSize)) 
                 ret += clone.SumOfAllDices;
-            }
 
             SetToNextValuePair(values);
         }
@@ -299,30 +289,22 @@ public class DiceManager : Dice
             case 0: return IsFullHousePossible() ? 1 : 0;
             case 1:
                 if (_orderedByCount.Count == 2)
-                {
                     return HighestCount == 3 ? PROBABILITY : 2 * PROBABILITY;
-                }
 
                 return 0;
             case DICE_COUNT: return ProbabilityFh;
             default:
                 if (HighestCount == 3)
-                {
                     return PROBABILITY;
-                }
 
                 if (_orderedByCount.Count > 2)
-                {
                     return 0;
-                }
 
                 double optionMoreOfFirst = Probabilities.Binomial(UnSetCount, 3 - HighestCount);
                 double possibilities = optionMoreOfFirst
                                        + Probabilities.Binomial(UnSetCount, UnSetCount - (2 - HighestCount));
-                if (_orderedByCount.Count == 1)
-                {
+                if (_orderedByCount.Count == 1) 
                     possibilities *= 5;
-                }
 
                 return possibilities / CurrentPossibilities;
         }
@@ -339,9 +321,7 @@ public class DiceManager : Dice
         }
 
         if (UnSetCount + _orderedByCount.Count < 4)
-        {
             return 0;
-        }
 
         int[] values = new int[UnSetCount];
         int[] unset = GetUnsetDiceIndex();
@@ -356,10 +336,8 @@ public class DiceManager : Dice
         for (int i = 0; i < differentValues; ++i)
         {
             SetDiceValues(unset, values, clone);
-            if (clone.IsSmallStreetPossible())
-            {
+            if (clone.IsSmallStreetPossible()) 
                 ++sumOfPossible;
-            }
 
             SetToNextValuePair(values);
         }
@@ -378,15 +356,11 @@ public class DiceManager : Dice
         }
 
         if (_countedDice[0] > 0 && _countedDice[_countedDice.Length - 1] > 0 || HighestCount > 1)
-        {
             return 0;
-        }
 
         double ret = Probabilities.Faculty(UnSetCount) / CurrentPossibilities;
-        if (_countedDice[0] == 0 && _countedDice[_countedDice.Length - 1] == 0)
-        {
+        if (_countedDice[0] == 0 && _countedDice[_countedDice.Length - 1] == 0) 
             ret *= 2;
-        }
 
         return ret;
     }

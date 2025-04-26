@@ -13,9 +13,7 @@ public class KniffelFieldSingle : KniffelField
         set
         {
             if (!IsEmpty())
-            {
                 throw new ArgumentException("Field has already been written.");
-            }
 
             _fieldValue = value;
         }

@@ -123,10 +123,8 @@ public class KniffelGame
         IndexKillableField = [];
         IndexWritableField = [];
         if (names.Count < MIN_PLAYER_COUNT)
-        {
             throw new ArgumentException("There are not enough players in this list. " +
                                         $"A kniffel game needs at least {MIN_PLAYER_COUNT} players");
-        }
 
         Players = [];
         foreach (var player in names)
@@ -203,15 +201,11 @@ public class KniffelGame
         RemainingShuffles = INITIAL_SHUFFLE_COUNT;
         ++ActivePlayer;
         ActivePlayer %= Players.Count;
-        if (ActivePlayer == 0)
-        {
+        if (ActivePlayer == 0) 
             ++Round;
-        }
 
-        if (IsGameNotOver())
-        {
+        if (IsGameNotOver()) 
             Shuffle();
-        }
     }
 
     /// <summary>Rolls all dices.</summary>
@@ -222,18 +216,12 @@ public class KniffelGame
     public void Shuffle(int[] index)
     {
         if (RemainingShuffles <= 0)
-        {
             throw new IllegalMoveException("The current player has no shuffles left");
-        }
 
         if (index == null)
-        {
             _dice.Shuffle();
-        }
         else
-        {
             _dice.Shuffle(index);
-        }
 
         --RemainingShuffles;
         CalculateOptions();
@@ -250,21 +238,15 @@ public class KniffelGame
     private void SetValue(bool canWrite, int index, int value)
     {
         if (canWrite)
-        {
             IndexWritableField.Add(new WriteOption(index, value));
-        }
         else
-        {
             IndexKillableField.Add(index);
-        }
     }
 
     private void UpdateOption(bool isPossible, int index, int value)
     {
-        if (Players[ActivePlayer].Fields[index].IsEmpty())
-        {
+        if (Players[ActivePlayer].Fields[index].IsEmpty()) 
             SetValue(isPossible, index, value);
-        }
     }
 
     private void CalculateOptions()

@@ -83,7 +83,8 @@ public class BotStrategy
 
     public int[] GenerateIndexToShuffleForNextBestMove(KniffelGame game)
     {
-        if (game.AreNoShufflesLeft) throw new NotSupportedException("There are no Shuffles left.");
+        if (game.AreNoShufflesLeft) 
+            throw new NotSupportedException("There are no Shuffles left.");
 
         return GenerateIndexToShuffleForNextBestMove(game.Dice, game.CurrentPlayer);
     }
@@ -92,24 +93,20 @@ public class BotStrategy
     {
         if (dice.IsKniffelPossible() && player[KniffelPointsTable.INDEX_KNIFFEL].IsEmpty() ||
             dice.IsBigStreetPossible() && player[KniffelPointsTable.INDEX_BIG_STREET].IsEmpty())
-        {
             return []; // there is nothing left to improve
-        }
 
         if (dice.IsSmallStreetPossible() && player[KniffelPointsTable.INDEX_BIG_STREET].IsEmpty())
-        {
             return dice.IndexToFlipWhenOptimisingToBigStreet();
-        }
 
 
         List<ShufflingOption> options = FlatDice.GenerateAllOptions(player, dice);
         ShufflingOption best = BestOption(options);
-        if (ModelLog.Writes)
-        {
-            ModelLog.AppendLine("Current dice: {0}", dice);
-            ModelLog.AppendLine("Best option: {0}", best.ToString(true, "\n"));
-            ModelLog.AppendSeparatorLine();
-        }
+        if (!ModelLog.Writes) 
+            return best.ChosenIndexes;
+        
+        ModelLog.AppendLine("Current dice: {0}", dice);
+        ModelLog.AppendLine("Best option: {0}", best.ToString(true, "\n"));
+        ModelLog.AppendSeparatorLine();
 
         return best.ChosenIndexes;
     }
@@ -124,48 +121,49 @@ public class BotStrategy
         }
 
         WriteOption max = option.Max;
-        if (option.WriteCount == 0)
+        switch (option.WriteCount)
         {
-            KillBestKillableField(game);
-        }
-        else if (option.WriteCount == 1 && option[0].Index == KniffelPointsTable.INDEX_CHANCE)
-        {
-            // only chance available -> take chance or kill another field 
-            if (max.Value >= DiceManager.EXPECTED_VALUE_OF_CHANCE - 5 || game.KillableFieldsCount == 0)
+            case 0:
+                KillBestKillableField(game);
+                break;
+            case 1 when option[0].Index == KniffelPointsTable.INDEX_CHANCE:
             {
-                game.WriteField(max);
+                // only chance available -> take chance or kill another field 
+                if (max.Value >= DiceManager.EXPECTED_VALUE_OF_CHANCE - 5 || game.KillableFieldsCount == 0)
+                    game.WriteField(max);
+                else 
+                    KillBestKillableField(game);
+
+                break;
             }
-            else KillBestKillableField(game);
-        }
-        else
-        {
-            switch (max.Index)
+            default:
             {
-                case KniffelPointsTable.INDEX_FULL_HOUSE:
-                case KniffelPointsTable.INDEX_SMALL_STREET:
-                case KniffelPointsTable.INDEX_BIG_STREET:
-                case KniffelPointsTable.INDEX_KNIFFEL:
+                if (max.Index is KniffelPointsTable.INDEX_FULL_HOUSE or KniffelPointsTable.INDEX_SMALL_STREET
+                    or KniffelPointsTable.INDEX_BIG_STREET or KniffelPointsTable.INDEX_KNIFFEL)
+                {
                     game.WriteField(max);
                     return;
-            }
+                }
 
-            WriteOption best = option[0];
-            int valueDifMax = DifToMinFieldValue(option[0]);
-            for (int i = 1; i < option.WriteCount; ++i)
-            {
-                if (option[i].Index <= KniffelPointsTable.INDEX_PAIR_SIZE_4 ||
-                    option[i].Index == KniffelPointsTable.INDEX_CHANCE)
+                WriteOption best = option[0];
+                int valueDifMax = DifToMinFieldValue(option[0]);
+                for (int i = 1; i < option.WriteCount; ++i)
                 {
-                    int valueDif = DifToMinFieldValue(option[i]);
-                    if (valueDif > valueDifMax)
+                    if (option[i].Index <= KniffelPointsTable.INDEX_PAIR_SIZE_4 ||
+                        option[i].Index == KniffelPointsTable.INDEX_CHANCE)
                     {
-                        valueDifMax = valueDif;
-                        best = option[i];
+                        int valueDif = DifToMinFieldValue(option[i]);
+                        if (valueDif > valueDifMax)
+                        {
+                            valueDifMax = valueDif;
+                            best = option[i];
+                        }
                     }
                 }
-            }
 
-            game.WriteField(best);
+                game.WriteField(best);
+                break;
+            }
         }
     }
 

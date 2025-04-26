@@ -10,9 +10,7 @@ public class ValueOrderedList : OrderedList
         get
         {
             if (0 > index || index >= Count)
-            {
                 throw new IndexOutOfRangeException();
-            }
 
             int ret = GetNextNonEmpty(0);
             for (int i = 0; i < index; ++i)
@@ -50,10 +48,8 @@ public class ValueOrderedList : OrderedList
 
     public void IncCount(int value)
     {
-        if (Counters[value - 1].Count == 0)
-        {
+        if (Counters[value - 1].Count == 0) 
             ++Count;
-        }
 
         Counters[value - 1].IncCount();
     }
@@ -61,10 +57,8 @@ public class ValueOrderedList : OrderedList
     public void DecCount(int value)
     {
         Counters[value - 1].DecCount();
-        if (Counters[value - 1].Count == 0)
-        {
+        if (Counters[value - 1].Count == 0) 
             --Count;
-        }
     }
 
     public override string ToString()

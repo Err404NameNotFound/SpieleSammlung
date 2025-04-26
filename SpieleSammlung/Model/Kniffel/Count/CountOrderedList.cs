@@ -9,9 +9,7 @@ public class CountOrderedList : OrderedList
         get
         {
             if (0 > index || index >= Count)
-            {
                 throw new IndexOutOfRangeException();
-            }
 
             return Counters[index];
         }
@@ -28,9 +26,7 @@ public class CountOrderedList : OrderedList
     public void IncCount(int value)
     {
         if (Count == 0)
-        {
             Add(value);
-        }
         else
         {
             int i = 0;
@@ -40,9 +36,7 @@ public class CountOrderedList : OrderedList
             }
 
             if (i == Count)
-            {
                 Add(value);
-            }
             else
             {
                 Counters[i].IncCount();
