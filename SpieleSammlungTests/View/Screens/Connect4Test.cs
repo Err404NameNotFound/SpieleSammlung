@@ -9,7 +9,7 @@ using Assert = NUnit.Framework.Assert;
 using Button = TestStack.White.UIItems.Button;
 using Label = TestStack.White.UIItems.Label;
 
-namespace SpieleSammlungTests.View.Windows;
+namespace SpieleSammlungTests.View.Screens;
 
 [TestClass]
 public class Connect4Test
@@ -52,6 +52,14 @@ public class Connect4Test
         return ret;
     }
 
+    private void KlickField(Util util, int row, int col)
+    {
+        if (_fields.IsNullOrEmpty()) 
+            _fields = FindUiFields(util);
+        var field = _fields[row,col];
+        field.Click();
+    }
+
     [TestMethod]
     public void TestPlayerLabelsHaveCorrectValuesSinglePlayer()
     {
@@ -62,6 +70,7 @@ public class Connect4Test
 
         var playerNameRight = util.Window.Get<Label>("C4SLblPlayerRight");
         Assert.AreEqual(BOT_NAME, playerNameRight.Text);
+        util.Close();
     }
 
     [TestMethod]
@@ -75,6 +84,7 @@ public class Connect4Test
 
         var playerNameRight = util.Window.Get<Label>("C4SLblPlayerRight");
         Assert.AreEqual(secondPlayer, playerNameRight.Text);
+        util.Close();
     }
 
     [TestMethod]
@@ -82,13 +92,6 @@ public class Connect4Test
     {
         Util util = SetUpMatch(PLAYER_NAME);
         KlickField(util, 0, 0);
-    }
-
-    private void KlickField(Util util, int row, int col)
-    {
-        if (_fields.IsNullOrEmpty()) 
-            _fields = FindUiFields(util);
-        var field = _fields[row,col];
-        field.Click();
+        util.Close();
     }
 }

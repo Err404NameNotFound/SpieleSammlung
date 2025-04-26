@@ -8,10 +8,19 @@ namespace SpieleSammlungTests.View;
 
 public class Util
 {
-    public Application App { get; } = Application.Launch("SpieleSammlung.exe");
+    private Application App { get; } = Application.Launch("SpieleSammlung.exe");
     public Window Window => App.GetWindow("Spiele Sammlung", InitializeOption.NoCache);
 
-    ~Util() => App.Close();
+    private bool _notClosed = true;
+
+    ~Util() => Close();
+
+    public void Close()
+    {
+        if (!_notClosed) return;
+        App.Close();
+        _notClosed = false;
+    }
 
     public void AddPlayer(string name)
     {
@@ -24,7 +33,7 @@ public class Util
     public void AddPlayers(IEnumerable<string> players)
     {
         foreach (var name in players)
-          AddPlayer(name);
+            AddPlayer(name);
     }
 
     public void LeavePlayerCreator() => Window.Get<Button>("PcBtnPlayerDone").Click();
