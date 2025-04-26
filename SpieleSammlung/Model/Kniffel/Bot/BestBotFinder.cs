@@ -5,19 +5,19 @@ namespace SpieleSammlung.Model.Kniffel.Bot;
 
 public static class BestBotFinder
 {
-    public static int testAllCount;
-    public static int testOneCount;
-    public static int threads;
-    public static int repetitions;
-    public static Func<bool> shouldStop;
+    public static int TestAllCount;
+    public static int TestOneCount;
+    public static int Threads;
+    public static int Repetitions;
+    public static Func<bool> ShouldStop;
 
     static BestBotFinder()
     {
-        testAllCount = 10;
-        testOneCount = 10;
-        threads = EvaluatedBotStrategy.THREADS;
-        repetitions = EvaluatedBotStrategy.REPETITIONS;
-        shouldStop = () => Console.KeyAvailable;
+        TestAllCount = 10;
+        TestOneCount = 10;
+        Threads = EvaluatedBotStrategy.THREADS;
+        Repetitions = EvaluatedBotStrategy.REPETITIONS;
+        ShouldStop = () => Console.KeyAvailable;
     }
         
     public static void main()
@@ -26,8 +26,8 @@ public static class BestBotFinder
         bool file = ModelLog.WriteToFile;
         ModelLog.WriteToConsole = false;
         ModelLog.WriteToFile = false;
-        TestAll(testAllCount);
-        OptimiseOneStrategy(testOneCount);
+        TestAll(TestAllCount);
+        OptimiseOneStrategy(TestOneCount);
         ModelLog.WriteToConsole = console;
         ModelLog.WriteToFile = file;
     }
@@ -39,11 +39,11 @@ public static class BestBotFinder
     {
         ProgressPrinter printer = new ProgressPrinter(count, 1);
         EvaluatedBotStrategy best = start;
-        Console.WriteLine(best.RecalculateFitness(repetitions, threads));
+        Console.WriteLine(best.RecalculateFitness(Repetitions, Threads));
         for (int i = 1; i < count; i++)
         {
-            if (shouldStop()) break;
-            EvaluatedBotStrategy next = best.MutateAndEvaluate(repetitions, threads);
+            if (ShouldStop()) break;
+            EvaluatedBotStrategy next = best.MutateAndEvaluate(Repetitions, Threads);
             if (next.Fitness > best.Fitness) best = next;
             string between = $"{next.Fitness:000.00000}; {best.Fitness:000.00000}";
             printer.PrintProgressIfNecessary(i, between);
@@ -62,16 +62,16 @@ public static class BestBotFinder
         {
             evaluators[i] = new MinMaxAvgEvaluator(false);
             bests[i] = new EvaluatedBotStrategy(i);
-            bests[i].RecalculateFitness(repetitions, threads);
+            bests[i].RecalculateFitness(Repetitions, Threads);
         }
 
         ProgressPrinter printer = new ProgressPrinter(count * evaluators.Length, 1);
         for (int i = 0; i < count; ++i)
         {
-            if (shouldStop()) break;
+            if (ShouldStop()) break;
             for (int e = 0; e < evaluators.Length; e++)
             {
-                EvaluatedBotStrategy next = bests[e].MutateAndEvaluate(repetitions, threads);
+                EvaluatedBotStrategy next = bests[e].MutateAndEvaluate(Repetitions, Threads);
                 if (next.Fitness > bests[e].Fitness) bests[e] = next;
                 string between = $"{e}: {next.Fitness:000.00000}; {bests[e].Fitness:000.00000}";
                 printer.PrintProgressIfNecessary(i * evaluators.Length + e, between);

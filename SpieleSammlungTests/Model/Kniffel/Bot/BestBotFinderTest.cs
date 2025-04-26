@@ -11,57 +11,57 @@ public class BestBotFinderTest
     [TestMethod]
     public void Test2_Main()
     {
-        Assert.IsNotNull(BestBotFinder.shouldStop);
+        Assert.IsNotNull(BestBotFinder.ShouldStop);
         try
         {
-            BestBotFinder.shouldStop();
+            BestBotFinder.ShouldStop();
         }
         catch (Exception)
         {
             // this is only for coverage
         }
 
-        BestBotFinder.repetitions = 1;
-        BestBotFinder.threads = 1;
-        BestBotFinder.shouldStop = () => false;
-        BestBotFinder.testAllCount = 10;
-        BestBotFinder.testOneCount = 10;
+        BestBotFinder.Repetitions = 1;
+        BestBotFinder.Threads = 1;
+        BestBotFinder.ShouldStop = () => false;
+        BestBotFinder.TestAllCount = 10;
+        BestBotFinder.TestOneCount = 10;
         BestBotFinder.main();
     }
 
     [TestMethod]
     public void Test3_AllBrakes()
     {
-        BestBotFinder.repetitions = 1;
-        BestBotFinder.threads = 1;
-        BestBotFinder.shouldStop = () => true;
+        BestBotFinder.Repetitions = 1;
+        BestBotFinder.Threads = 1;
+        BestBotFinder.ShouldStop = () => true;
         BestBotFinder.TestAll();
     }
 
     [TestMethod]
     public void Test4_AllDoesNotBrake()
     {
-        BestBotFinder.repetitions = 1;
-        BestBotFinder.threads = 1;
-        BestBotFinder.shouldStop = () => false;
+        BestBotFinder.Repetitions = 1;
+        BestBotFinder.Threads = 1;
+        BestBotFinder.ShouldStop = () => false;
         BestBotFinder.TestAll();
     }
 
     [TestMethod]
     public void Test5_OptimiseOneBrakes()
     {
-        BestBotFinder.repetitions = 1;
-        BestBotFinder.threads = 1;
-        BestBotFinder.shouldStop = () => true;
+        BestBotFinder.Repetitions = 1;
+        BestBotFinder.Threads = 1;
+        BestBotFinder.ShouldStop = () => true;
         BestBotFinder.OptimiseOneStrategy(10);
     }
 
     [TestMethod]
     public void Test6_OptimiseOneDoesNotBrake()
     {
-        BestBotFinder.repetitions = 1;
-        BestBotFinder.threads = 1;
-        BestBotFinder.shouldStop = () => true;
+        BestBotFinder.Repetitions = 1;
+        BestBotFinder.Threads = 1;
+        BestBotFinder.ShouldStop = () => true;
         BestBotFinder.OptimiseOneStrategy(10);
     }
 }
