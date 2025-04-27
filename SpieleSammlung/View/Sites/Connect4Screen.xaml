@@ -34,10 +34,12 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <Label Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" x:Name="C4SLblPlayerLeft" HorizontalAlignment="Center"
-                   VerticalAlignment="Center" Style="{StaticResource StandardLabel}"/>
+            <Label Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" x:Name="C4SLblPlayerLeft"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center" Style="{StaticResource StandardLabel}" />
         </Grid>
-        <Grid Grid.Row="0" Grid.Column="1" Width="420" Height="360" x:Name="C4SFieldGrid" AutomationProperties.AutomationId="C4SFieldGrid">
+        <Grid Grid.Row="0" Grid.Column="1" Width="420" Height="360" x:Name="C4SFieldGrid"
+              AutomationProperties.AutomationId="C4SFieldGrid">
             <Grid.Background>
                 <ImageBrush ImageSource="../../../View/Images/Connect4/connect-4-background.png" />
             </Grid.Background>
@@ -63,10 +65,10 @@
             <ComboBox x:Name="C4ScBoxLevelSelection" Margin="10" Padding="5" VerticalAlignment="Center" Width="50" />
             <Button Content="{x:Static properties:Resources.Connect4_NewGame}"
                     Click="Button_New_Click" Margin="10" Padding="5" VerticalAlignment="Center" Width="50"
-                    x:Name="C4SBtnNewGame"/>
+                    x:Name="C4SBtnNewGame" />
             <Button Content="{x:Static properties:Resources.Connect4_SwitchStartPlayer}"
                     Click="Button_Switch_Click" Margin="10" Padding="5" VerticalAlignment="Center" Width="50"
-                    x:Name="C4SBtnSwitchPlayer"/>
+                    x:Name="C4SBtnSwitchPlayer" />
         </StackPanel>
         <Grid Grid.Row="0" Grid.Column="2" x:Name="RightGrid">
             <Grid.ColumnDefinitions>

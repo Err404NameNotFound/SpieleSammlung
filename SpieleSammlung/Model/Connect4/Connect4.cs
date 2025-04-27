@@ -322,7 +322,7 @@ internal class Connect4 : Board
     {
         if (remainingSteps == 0)
             return CalculateBoardValue(remainingSteps);
-            
+
         int boardValue = CalculateBoardValue(remainingSteps);
 
         // Contains field values after a tile is thrown in a column.

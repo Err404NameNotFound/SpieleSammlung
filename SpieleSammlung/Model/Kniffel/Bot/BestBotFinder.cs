@@ -19,7 +19,7 @@ public static class BestBotFinder
         Repetitions = EvaluatedBotStrategy.REPETITIONS;
         ShouldStop = () => Console.KeyAvailable;
     }
-        
+
     public static void main()
     {
         bool console = ModelLog.WriteToConsole;
@@ -31,7 +31,7 @@ public static class BestBotFinder
         ModelLog.WriteToConsole = console;
         ModelLog.WriteToFile = file;
     }
-        
+
     public static void OptimiseOneStrategy(int count = 100) =>
         OptimiseOneStrategy(new EvaluatedBotStrategy(), count);
 

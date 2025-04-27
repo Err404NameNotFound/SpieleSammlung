@@ -72,6 +72,7 @@ public partial class MancalaScreen
             else
                 _fields[i].IsSelectable = false;
         }
+
         if (!_mancala.CurrentIsFirst)
             HighlightBotSelection();
     }
@@ -80,7 +81,7 @@ public partial class MancalaScreen
     {
         var bot = new MancalaBot();
         int option = bot.CalculateIndexOfBestOption(_mancala);
-        if(option != -1)
+        if (option != -1)
             _fields[_mancala.OptionsOfCurrentPlayer[option]].IsPreferredOptionByBot = true;
     }
 

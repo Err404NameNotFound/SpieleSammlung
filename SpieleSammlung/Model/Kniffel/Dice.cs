@@ -101,7 +101,7 @@ public class Dice
         int w = 0;
         for (int i = 0; i < Dices.Length; ++i)
         {
-            if (IsDiceNotSet(i)) 
+            if (IsDiceNotSet(i))
                 unset[w++] = i;
         }
 

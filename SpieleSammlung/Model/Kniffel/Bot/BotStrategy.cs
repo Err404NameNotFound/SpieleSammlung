@@ -83,7 +83,7 @@ public class BotStrategy
 
     public int[] GenerateIndexToShuffleForNextBestMove(KniffelGame game)
     {
-        if (game.AreNoShufflesLeft) 
+        if (game.AreNoShufflesLeft)
             throw new NotSupportedException("There are no Shuffles left.");
 
         return GenerateIndexToShuffleForNextBestMove(game.Dice, game.CurrentPlayer);
@@ -101,9 +101,9 @@ public class BotStrategy
 
         List<ShufflingOption> options = FlatDice.GenerateAllOptions(player, dice);
         ShufflingOption best = BestOption(options);
-        if (!ModelLog.Writes) 
+        if (!ModelLog.Writes)
             return best.ChosenIndexes;
-        
+
         ModelLog.AppendLine("Current dice: {0}", dice);
         ModelLog.AppendLine("Best option: {0}", best.ToString(true, "\n"));
         ModelLog.AppendSeparatorLine();
@@ -131,7 +131,7 @@ public class BotStrategy
                 // only chance available -> take chance or kill another field 
                 if (max.Value >= DiceManager.EXPECTED_VALUE_OF_CHANCE - 5 || game.KillableFieldsCount == 0)
                     game.WriteField(max);
-                else 
+                else
                     KillBestKillableField(game);
 
                 break;

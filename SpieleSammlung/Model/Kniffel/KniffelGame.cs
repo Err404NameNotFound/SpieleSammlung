@@ -201,10 +201,10 @@ public class KniffelGame
         RemainingShuffles = INITIAL_SHUFFLE_COUNT;
         ++ActivePlayer;
         ActivePlayer %= Players.Count;
-        if (ActivePlayer == 0) 
+        if (ActivePlayer == 0)
             ++Round;
 
-        if (IsGameNotOver()) 
+        if (IsGameNotOver())
             Shuffle();
     }
 
@@ -245,7 +245,7 @@ public class KniffelGame
 
     private void UpdateOption(bool isPossible, int index, int value)
     {
-        if (Players[ActivePlayer].Fields[index].IsEmpty()) 
+        if (Players[ActivePlayer].Fields[index].IsEmpty())
             SetValue(isPossible, index, value);
     }
 

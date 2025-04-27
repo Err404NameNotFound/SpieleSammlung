@@ -6,6 +6,6 @@
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <Border BorderBrush="Transparent" BorderThickness="2" x:Name="FieldBorder">
-        <Button x:Name="FieldValueDisplay" Click="FieldValueDisplay_OnClick"/>
+        <Button x:Name="FieldValueDisplay" Click="FieldValueDisplay_OnClick" />
     </Border>
 </UserControl>

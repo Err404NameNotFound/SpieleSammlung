@@ -51,7 +51,7 @@ public static class ArrayPrinter
 
     public static void PrintArray(long[] input, int[] sorting) =>
         PrintArray(i => input[sorting[i]].ToString(), sorting.Length);
-    
+
     public static void PrintArray(double[] input, int[] sorting) =>
         PrintArray(i => $"{input[sorting[i]]:0.000}", sorting.Length);
 

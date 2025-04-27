@@ -13,7 +13,7 @@ public static class MathHelp
         for (int i = 1; i < length; ++i)
         {
             long next = array(i);
-            if (next > max) 
+            if (next > max)
                 max = next;
         }
 

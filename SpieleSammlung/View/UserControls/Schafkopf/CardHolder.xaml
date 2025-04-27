@@ -20,21 +20,21 @@
                 Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center">
             <StackPanel Orientation="Horizontal">
                 <schafkopf1:SelectableCard x:Name="Card1" ToggleButton.Checked="Card1_Checked"
-                                          ToggleButton.Unchecked="Card1_Checked" Margin="0,0,5,0" />
+                                           ToggleButton.Unchecked="Card1_Checked" Margin="0,0,5,0" />
                 <schafkopf1:SelectableCard x:Name="Card2" ToggleButton.Checked="Card2_Checked"
-                                          ToggleButton.Unchecked="Card2_Checked" Margin="5,0" />
+                                           ToggleButton.Unchecked="Card2_Checked" Margin="5,0" />
                 <schafkopf1:SelectableCard x:Name="Card3" ToggleButton.Checked="Card3_Checked"
-                                          ToggleButton.Unchecked="Card3_Checked" Margin="5,0" />
+                                           ToggleButton.Unchecked="Card3_Checked" Margin="5,0" />
                 <schafkopf1:SelectableCard x:Name="Card4" ToggleButton.Checked="Card4_Checked"
-                                          ToggleButton.Unchecked="Card4_Checked" Margin="5,0" />
+                                           ToggleButton.Unchecked="Card4_Checked" Margin="5,0" />
                 <schafkopf1:SelectableCard x:Name="Card5" ToggleButton.Checked="Card5_Checked"
-                                          ToggleButton.Unchecked="Card5_Checked" Margin="5,0" Visibility="Hidden" />
+                                           ToggleButton.Unchecked="Card5_Checked" Margin="5,0" Visibility="Hidden" />
                 <schafkopf1:SelectableCard x:Name="Card6" ToggleButton.Checked="Card6_Checked"
-                                          ToggleButton.Unchecked="Card6_Checked" Margin="5,0" Visibility="Hidden" />
+                                           ToggleButton.Unchecked="Card6_Checked" Margin="5,0" Visibility="Hidden" />
                 <schafkopf1:SelectableCard x:Name="Card7" ToggleButton.Checked="Card7_Checked"
-                                          ToggleButton.Unchecked="Card7_Checked" Margin="5,0" Visibility="Hidden" />
+                                           ToggleButton.Unchecked="Card7_Checked" Margin="5,0" Visibility="Hidden" />
                 <schafkopf1:SelectableCard x:Name="Card8" ToggleButton.Checked="Card8_Checked"
-                                          ToggleButton.Unchecked="Card8_Checked" Margin="5,0,0,0" Visibility="Hidden" />
+                                           ToggleButton.Unchecked="Card8_Checked" Margin="5,0,0,0" Visibility="Hidden" />
             </StackPanel>
         </Border>
         <Button x:Name="BtnShowRest" Content="{x:Static properties:Resources.SKCardHolder_Btn_ShowRemaining}"

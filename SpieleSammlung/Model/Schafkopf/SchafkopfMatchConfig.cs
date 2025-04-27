@@ -9,8 +9,10 @@ public class SchafkopfMatchConfig
     public string SauspielFarbe { get; protected set; }
     public SchafkopfMode Mode { get; protected set; }
 
-    protected SchafkopfMatchConfig(){}
-        
+    protected SchafkopfMatchConfig()
+    {
+    }
+
     public SchafkopfMatchConfig(SchafkopfMode mode, string color)
     {
         Mode = mode;

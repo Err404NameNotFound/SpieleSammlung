@@ -49,6 +49,7 @@ public class DiceManager : Dice
     private const int INDEX_BIG_STREET = 10;
     private const int INDEX_KNIFFEL = 11;
     private const int INDEX_CHANCE = 12;
+
     #endregion
 
     #region private member
@@ -215,7 +216,7 @@ public class DiceManager : Dice
     public bool IsSmallStreetPossible()
     {
         bool possible = _orderedByCount.Count == 4 && DiceAreConsecutive(0, 3);
-        if (!possible && _orderedByCount.Count == 5) 
+        if (!possible && _orderedByCount.Count == 5)
             possible = DiceAreConsecutive(1, 3) && (DiceAreConsecutive(0, 1) || DiceAreConsecutive(3, 4));
 
         return possible;
@@ -273,7 +274,7 @@ public class DiceManager : Dice
         for (int i = 0; i < differentValues; ++i)
         {
             SetDiceValues(unset, values, clone);
-            if (clone.IsPairOfSizePossible(pairSize)) 
+            if (clone.IsPairOfSizePossible(pairSize))
                 ret += clone.SumOfAllDices;
 
             SetToNextValuePair(values);
@@ -303,7 +304,7 @@ public class DiceManager : Dice
                 double optionMoreOfFirst = Probabilities.Binomial(UnSetCount, 3 - HighestCount);
                 double possibilities = optionMoreOfFirst
                                        + Probabilities.Binomial(UnSetCount, UnSetCount - (2 - HighestCount));
-                if (_orderedByCount.Count == 1) 
+                if (_orderedByCount.Count == 1)
                     possibilities *= 5;
 
                 return possibilities / CurrentPossibilities;
@@ -336,7 +337,7 @@ public class DiceManager : Dice
         for (int i = 0; i < differentValues; ++i)
         {
             SetDiceValues(unset, values, clone);
-            if (clone.IsSmallStreetPossible()) 
+            if (clone.IsSmallStreetPossible())
                 ++sumOfPossible;
 
             SetToNextValuePair(values);
@@ -359,7 +360,7 @@ public class DiceManager : Dice
             return 0;
 
         double ret = Probabilities.Faculty(UnSetCount) / CurrentPossibilities;
-        if (_countedDice[0] == 0 && _countedDice[_countedDice.Length - 1] == 0) 
+        if (_countedDice[0] == 0 && _countedDice[_countedDice.Length - 1] == 0)
             ret *= 2;
 
         return ret;
@@ -380,7 +381,7 @@ public class DiceManager : Dice
     #endregion
 
     #region generation of options
-        
+
     private static int IndexOfDiceConfiguration(DiceManager dice) => IndexOfDiceConfiguration(dice.Dices);
 
     public static int IndexOfDiceConfiguration(IReadOnlyList<int> dice)
@@ -466,7 +467,7 @@ public class DiceManager : Dice
 
         return ret;
     }
-        
+
     public static double EofTop6(int index, int value) => ExpectedValues[index][value];
     public static double EofPairSize3(int index) => ExpectedValues[index][INDEX_PAIR3];
     public static double EofPairSize4(int index) => ExpectedValues[index][INDEX_PAIR4];

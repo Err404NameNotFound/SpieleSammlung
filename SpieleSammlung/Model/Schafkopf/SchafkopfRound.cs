@@ -17,7 +17,7 @@ public class SchafkopfRound
     public int CurrentPlayer => _currentPlayer % 4;
 
     #endregion
-        
+
     #region Constructor
 
     private SchafkopfRound(int startPlayer)

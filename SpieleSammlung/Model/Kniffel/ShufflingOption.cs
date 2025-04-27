@@ -152,7 +152,7 @@ public class ShufflingOption
         int index = 0;
         while (index < _optionsWriteOrdered.Count && index < other._optionsWriteOrdered.Count)
         {
-            if (_optionsWriteOrdered[index].ValueD.Equals(other._optionsWriteOrdered[index].ValueD)) 
+            if (_optionsWriteOrdered[index].ValueD.Equals(other._optionsWriteOrdered[index].ValueD))
                 ++index;
             else
             {
@@ -167,11 +167,11 @@ public class ShufflingOption
 
     public ShufflingOption MaxOptionMaxOrSum(ShufflingOption other)
     {
-        if (other?.Max == null) 
+        if (other?.Max == null)
             return this;
         if (!Max.ValueD.Equals(other.Max.ValueD))
             return Max.ValueD < other.Max.ValueD ? other : this;
-        
+
         return Sum < other.Sum ? other : this;
     }
 

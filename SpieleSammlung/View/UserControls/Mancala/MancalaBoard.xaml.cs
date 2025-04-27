@@ -9,7 +9,7 @@ public partial class MancalaBoard
     private readonly MancalaGame _mancala;
     private readonly MancalaField[] _fields;
 
-    public MancalaBoard(int stonesPerField = 4, int length= 6)
+    public MancalaBoard(int stonesPerField = 4, int length = 6)
     {
         InitializeComponent();
         _mancala = new MancalaGame(ShowMove, ShowSteal, true, stonesPerField, length);

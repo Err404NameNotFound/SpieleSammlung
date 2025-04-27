@@ -197,7 +197,7 @@ public class MpConnection
 
     public void RedirectClientMessage(string message, string id)
     {
-        if (_host == null) 
+        if (_host == null)
             throw new Exception("Clients können nicht redirecten");
 
         foreach (string user in _host.Users.Where(s => !s.Equals(id)))

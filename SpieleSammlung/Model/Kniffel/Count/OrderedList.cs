@@ -18,7 +18,7 @@ public abstract class OrderedList
         Counters = new DiceCounter[other.Counters.Length];
         for (int i = 0; i < Counters.Length; ++i)
         {
-            if (other.Counters[i] != null) 
+            if (other.Counters[i] != null)
                 Counters[i] = new DiceCounter(other.Counters[i]);
         }
     }

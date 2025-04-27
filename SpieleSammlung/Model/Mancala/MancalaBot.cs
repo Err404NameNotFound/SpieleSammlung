@@ -51,7 +51,7 @@ public class MancalaBot(int level = 6)
 
         return bestValue;
     }
-        
+
     private int ValueOfRecursiveStep(MancalaGame game, int level, int playerIndex, int opponentIndex, int index)
     {
         MancalaGame clone = new MancalaGame(game, false);

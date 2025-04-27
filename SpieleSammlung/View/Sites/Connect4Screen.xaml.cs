@@ -259,8 +259,8 @@ public partial class Connect4Screen
             {
                 MachineMove();
             }
+
             _currentPlayer = Connect4Tile.Player;
-                
         }
         else
         {
@@ -268,7 +268,7 @@ public partial class Connect4Screen
             _game = _mpGame;
             _currentPlayer = _game.GetFirstPlayer();
         }
-            
+
         ResetField();
     }
 

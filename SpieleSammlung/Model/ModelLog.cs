@@ -32,7 +32,7 @@ public static class ModelLog
             _writeToConsole = value;
             if (value)
                 Writes = true;
-            else if 
+            else if
                 (!_writeToFile) Writes = false;
         }
     }
@@ -79,13 +79,13 @@ public static class ModelLog
     {
         if (WriteToFile)
         {
-            if (append) 
+            if (append)
                 File.AppendAllText(PATH, text);
             else
                 File.WriteAllText(PATH, text);
         }
 
-        if (WriteToConsole) 
+        if (WriteToConsole)
             Console.Write(text);
     }
 
@@ -93,15 +93,15 @@ public static class ModelLog
     {
         if (WriteToFile)
         {
-            if (append) 
+            if (append)
                 File.AppendAllLines(PATH, texts);
-            else 
+            else
                 File.WriteAllLines(PATH, texts);
         }
 
         if (WriteToConsole)
         {
-            foreach (var text in texts) 
+            foreach (var text in texts)
                 Console.WriteLine(text);
         }
     }
@@ -119,7 +119,7 @@ public static class ModelLog
 
     public static void DeleteLogFile()
     {
-        if (File.Exists(PATH)) 
+        if (File.Exists(PATH))
             File.Delete(PATH);
     }
 }

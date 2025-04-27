@@ -6,7 +6,7 @@
              mc:Ignorable="d"
              d:DesignHeight="600" d:DesignWidth="1000">
     <Grid x:Name="GridBoardVisual" Height="400" Width="800" HorizontalAlignment="Center" VerticalAlignment="Center">
-       <Grid.RowDefinitions>
+        <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
