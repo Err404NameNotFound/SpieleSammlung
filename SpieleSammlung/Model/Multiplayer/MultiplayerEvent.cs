@@ -2,18 +2,12 @@
 
 namespace SpieleSammlung.Model.Multiplayer;
 
-public class MultiplayerEvent : EventArgs
+public class MultiplayerEvent(MultiplayerEventTypes type, string sender = null, string message = null)
+    : EventArgs
 {
-    public MultiplayerEvent(MultiplayerEventTypes type, string sender = null, string message = null)
-    {
-        Type = type;
-        Message = message;
-        Sender = sender;
-    }
+    public MultiplayerEventTypes Type { get; } = type;
 
-    public MultiplayerEventTypes Type { get; }
+    public string Message { get; } = message;
 
-    public string Message { get; }
-
-    public string Sender { get; }
+    public string Sender { get; } = sender;
 }

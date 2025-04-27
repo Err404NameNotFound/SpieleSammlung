@@ -1,13 +1,7 @@
 ﻿namespace SpieleSammlung.Model.Multiplayer;
 
-public class MultiplayerPlayer
+public class MultiplayerPlayer(string id, string name)
 {
-    public string Id { get; set; }
-    public string Name { get; set; }
-
-    public MultiplayerPlayer(string id, string name)
-    {
-        Id = id;
-        Name = name;
-    }
+    public string Id { get; set; } = id;
+    public string Name { get; set; } = name;
 }
