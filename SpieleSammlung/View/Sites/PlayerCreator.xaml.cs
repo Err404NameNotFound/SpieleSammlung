@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
+using SpieleSammlung.View.Enums;
 
 namespace SpieleSammlung.View.Sites;
 

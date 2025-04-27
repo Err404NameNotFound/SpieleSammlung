@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using SpieleSammlung.Model.Schafkopf;
+using SpieleSammlung.View.Enums;
 
 namespace SpieleSammlung.View.UserControls.Schafkopf;
 

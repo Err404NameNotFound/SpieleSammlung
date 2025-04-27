@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using SpieleSammlung.Model.Kniffel;
+using SpieleSammlung.View.Enums;
 
 namespace SpieleSammlung.View.Sites;
 

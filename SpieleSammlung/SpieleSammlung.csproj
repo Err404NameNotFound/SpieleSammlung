@@ -117,7 +117,9 @@
         <Compile Include="Model\ModelLog.cs" />
         <Compile Include="Model\Multiplayer\MultiplayerEvent.cs" />
         <Compile Include="Model\Multiplayer\MpConnection.cs" />
+        <Compile Include="Model\Multiplayer\MultiplayerEventTypes.cs" />
         <Compile Include="Model\Multiplayer\MultiplayerPlayer.cs" />
+        <Compile Include="Model\Multiplayer\MultiplayerPlayerState.cs" />
         <Compile Include="Model\Player.cs" />
         <Compile Include="Model\Schafkopf\Card.cs" />
         <Compile Include="Model\Schafkopf\GameModeSelectedEvent.cs" />
@@ -125,6 +127,7 @@
         <Compile Include="Model\Schafkopf\SchafkopfMatch.cs" />
         <Compile Include="Model\Schafkopf\SchafkopfMatchConfig.cs" />
         <Compile Include="Model\Schafkopf\SchafkopfMatchPossibility.cs" />
+        <Compile Include="Model\Schafkopf\SchafkopfMode.cs" />
         <Compile Include="Model\Schafkopf\SchafkopfPlayer.cs" />
         <Compile Include="Model\Schafkopf\SchafkopfRound.cs" />
         <Compile Include="Model\Util\ArrayPrinter.cs" />
@@ -132,7 +135,9 @@
         <Compile Include="Model\Util\MinMaxAvgEvaluator.cs" />
         <Compile Include="Model\Util\ProgressPrinter.cs" />
         <Compile Include="Model\Util\RingBufferFifo.cs" />
-        <Compile Include="Enums.cs" />
+        <Compile Include="View\Enums\GameMode.cs" />
+        <Compile Include="View\Enums\GameSelectorState.cs" />
+        <Compile Include="View\Enums\MainWindowView.cs" />
         <Compile Include="View\Sites\Connect4Screen.xaml.cs">
           <DependentUpon>Connect4Screen.xaml</DependentUpon>
         </Compile>

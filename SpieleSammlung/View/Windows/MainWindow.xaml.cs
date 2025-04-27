@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using SpieleSammlung.Model;
 using SpieleSammlung.Model.Multiplayer;
+using SpieleSammlung.View.Enums;
 using SpieleSammlung.View.Sites;
 
 namespace SpieleSammlung.View.Windows;
