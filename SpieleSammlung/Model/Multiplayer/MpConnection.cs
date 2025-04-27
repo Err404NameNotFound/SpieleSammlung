@@ -18,7 +18,12 @@ public class MpConnection
     private readonly List<MultiplayerPlayer> _activeClients;
 
     private readonly string _path;
-    private const string PATH_HOST = "host.txt";
+    private const string BASE_PATH = "LogMP";
+    private const string HOST_LOG_NAME = "host";
+    private const string CLIENT_LOG_NAME = "client";
+    private const string FILE_ENDING = ".txt";
+    private readonly string SEP = Path.DirectorySeparatorChar.ToString();
+    private const string PATH_HOST = BASE_PATH + HOST_LOG_NAME + FILE_ENDING;
 
     public delegate void OnClientEventHandler(MultiplayerEvent e);
 
@@ -35,7 +40,12 @@ public class MpConnection
     public bool IsConnected => _client.isConnected;
     public bool IsConnecting { get; private set; }
 
-
+    static MpConnection()
+    {
+        if (!Directory.Exists(BASE_PATH))
+            Directory.CreateDirectory(BASE_PATH);
+    }
+    
     public MpConnection(string player, int port)
     {
         Id = player;
@@ -54,8 +64,9 @@ public class MpConnection
         if (File.Exists(PATH_HOST))
         {
             int n = 1;
-            while (File.Exists("./LogMP/host" + n + ".txt")) ++n;
-            _path = "./LogMP/host" + n + ".txt";
+            while (File.Exists(HostFileName(n)))
+                ++n;
+            _path = HostFileName(n);
         }
         else
         {
@@ -63,11 +74,14 @@ public class MpConnection
         }
     }
 
+    private string HostFileName(int n) => $".{SEP}{BASE_PATH}{SEP}{HOST_LOG_NAME}_{n}{FILE_ENDING}";
+    private string ClientFileName(string n) => $".{SEP}{BASE_PATH}{SEP}{CLIENT_LOG_NAME}_{n}{FILE_ENDING}";
+
     public MpConnection(string player, OnClientEventHandler handler, int port, string ip)
     {
         Id = player;
         IsHost = false;
-        _path = string.Concat("./LogMP/client_", Id, ".txt");
+        _path = ClientFileName(Id);
         _client = new Client();
         _client.Connected += Client_Connected;
         _client.Disconnected += Client_Disconnected;
@@ -122,9 +136,12 @@ public class MpConnection
     public void SendMessage(string message, string id = null)
     {
         WriteLine(string.Concat("sending -> ", id, " -> ", message));
-        if (_host == null) _client.SendData(ConvertStringToBytes(message));
-        else if (id == null) _host.Brodcast(ConvertStringToBytes(message));
-        else _host.SendData(id, ConvertStringToBytes(message));
+        if (_host == null)
+            _client.SendData(ConvertStringToBytes(message));
+        else if (id == null)
+            _host.Brodcast(ConvertStringToBytes(message));
+        else
+            _host.SendData(id, ConvertStringToBytes(message));
     }
 
     public void SendMessage(IEnumerable<string> values, char separator, string id = null)

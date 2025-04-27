@@ -15,6 +15,8 @@ public static class ModelLog
 
     static ModelLog()
     {
+        if (!Directory.Exists("./Log"))
+            Directory.CreateDirectory("./Log");
         PATH = "./Log/Log_" + DateTime.Now.ToString("dd_MM_yy-HH_mm_ss") + ".txt";
     }
 
