@@ -18,9 +18,10 @@ public partial class SchafkopfPoints
     private IReadOnlyList<PointsStorage> _playerPoints;
 
     private const char SEPARATOR = ';';
-    private const string PUNKTE_CSV = "punkte.csv";
-    private const string SPIELE_CSV = "spiele.csv";
-    private const string KUMULIERT_CSV = "kumuliert.csv";
+    private const string BASE_PATH = "./SchafkopfResults";
+    private const string PUNKTE_CSV = BASE_PATH + "/punkte.csv";
+    private const string SPIELE_CSV = BASE_PATH + "/spiele.csv";
+    private const string KUMULIERT_CSV = BASE_PATH + "(kumuliert.csv";
     private readonly bool[] _canPrint;
 
     private readonly List<Label> _lblNames;
@@ -51,6 +52,8 @@ public partial class SchafkopfPoints
             LblPointsPlayer7
         ];
         Update(playerPoints, single, cumulated);
+        if (!Directory.Exists(BASE_PATH))
+            Directory.CreateDirectory(BASE_PATH);
     }
 
     private void Button_Click(object sender, RoutedEventArgs e)

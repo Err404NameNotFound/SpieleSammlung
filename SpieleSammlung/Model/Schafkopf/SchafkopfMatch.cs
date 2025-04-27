@@ -647,9 +647,9 @@ public class SchafkopfMatch : SchafkopfMatchConfig
     public StringBuilder WriteCurrentIndices()
     {
         StringBuilder bob = new StringBuilder(20);
-        bob.Append("[");
+        bob.Append("curPlayers: [");
         bob.Append(string.Join(", ", _currentPlayerIndexes));
-        bob.Append("] -> [");
+        bob.Append("] -> curNames: [");
         bob.Append(ArrayPrinter.ArrayString(i => CurrentPlayers[i].Name, CurrentPlayers.Count));
         bob.Append("]");
         return bob;

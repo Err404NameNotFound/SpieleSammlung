@@ -29,7 +29,8 @@ public partial class MultiplayerLobby
     private MpConnection _connection;
     public const char SEPARATOR = ';';
     public const string CLIENT_LATE_JOIN = "6";
-    private const string PATH_LAST_IP = "lastIP.txt";
+    private const string BASE_PATH = "./LogMP";
+    private const string PATH_LAST_IP = BASE_PATH + "/lastIP.txt";
 
     public delegate void OnStartMatch(GameMode mode, List<MultiplayerPlayer> players, int index,
         MpConnection connection, bool rejoin);
@@ -155,6 +156,9 @@ public partial class MultiplayerLobby
             MpViewClient.Visibility = Visibility.Collapsed;
             MpViewHost.Visibility = Visibility.Visible;
             _connection.SendMessage("1" + SEPARATOR + PlayerName.Text);
+            if (!Directory.Exists(BASE_PATH))
+                Directory.CreateDirectory(BASE_PATH);
+            
             File.WriteAllText(PATH_LAST_IP, _ip + Properties.Resources.Newline + _port);
         }
         else if (e.Type == MultiplayerEventTypes.CClientDisconnected)
@@ -384,13 +388,13 @@ public partial class MultiplayerLobby
 
     private void HostPort_KeyDown(object sender, KeyEventArgs e)
     {
-        if (e.Key == Key.Return && _nameOk && _hostPortOk) 
+        if (e.Key == Key.Return && _nameOk && _hostPortOk)
             BtnHost_Click(BtnHost, null);
     }
 
     private void LblChangedName_KeyDown(object sender, KeyEventArgs e)
     {
-        if (e.Key == Key.Return && !LblChangedName.Text.Equals("")) 
+        if (e.Key == Key.Return && !LblChangedName.Text.Equals(""))
             BtnRenamePlayer_Click(BtnRenamePlayer, null);
     }
 
@@ -416,9 +420,11 @@ public partial class MultiplayerLobby
         }
     }
 
-    private void BtnMovePlayerUp_Click(object sender, RoutedEventArgs e) => BtnMove(PlayerList.SelectedIndex, PlayerList.SelectedIndex - 1);
+    private void BtnMovePlayerUp_Click(object sender, RoutedEventArgs e) =>
+        BtnMove(PlayerList.SelectedIndex, PlayerList.SelectedIndex - 1);
 
-    private void BtnMovePlayerDown_Click(object sender, RoutedEventArgs e) => BtnMove(PlayerList.SelectedIndex, PlayerList.SelectedIndex + 1);
+    private void BtnMovePlayerDown_Click(object sender, RoutedEventArgs e) =>
+        BtnMove(PlayerList.SelectedIndex, PlayerList.SelectedIndex + 1);
 
     private void BtnMove(int first, int second)
     {

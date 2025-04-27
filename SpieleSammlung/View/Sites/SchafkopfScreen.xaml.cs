@@ -888,12 +888,17 @@ public partial class SchafkopfScreen
     private bool PlayCard(int player, int selected)
     {
         Card card = _match.CurrentPlayers[player].PlayableCards[selected];
+        bool mustRemoveCard = _match.CurrentRound.CurrentPlayer == PlayerIndexCurRound;
         if (!_match.PlayCard(selected, player))
             return false;
 
+        if (mustRemoveCard)
+            CardHolder.RemoveSelectedCard();
+            
         if (_match.CurrentCardCount == 1)
         {
-            if (_isSpectating) CurrentCardsSpectate.Reset();
+            if (_isSpectating)
+                CurrentCardsSpectate.Reset();
             else
             {
                 CurrentCards.Reset();
@@ -979,8 +984,7 @@ public partial class SchafkopfScreen
 
         int selected = CardHolder.SelectedCard;
         SendMessage(new List<string> { CODE_PLAY_CARD, PlayerIndexCurRound.ToString(), selected.ToString() });
-        if (PlayCard(PlayerIndexCurRound, selected))
-            CardHolder.RemoveSelectedCard();
+        PlayCard(PlayerIndexCurRound, selected);
 
         if (_match.CurrentCardCount != 0)
             CardHolder.CanClickCards = false;

@@ -22,8 +22,8 @@ public class MpConnection
     private const string HOST_LOG_NAME = "host";
     private const string CLIENT_LOG_NAME = "client";
     private const string FILE_ENDING = ".txt";
-    private readonly string _sep = Path.DirectorySeparatorChar.ToString();
-    private const string PATH_HOST = BASE_PATH + HOST_LOG_NAME + FILE_ENDING;
+    private static readonly string Sep = Path.DirectorySeparatorChar.ToString();
+    private static readonly string PathHost = string.Concat(BASE_PATH, Sep, HOST_LOG_NAME, FILE_ENDING);
 
     public delegate void OnClientEventHandler(MultiplayerEvent e);
 
@@ -61,7 +61,7 @@ public class MpConnection
         _host.NoDelay = true;
         LostClients = [];
         _activeClients = [];
-        if (File.Exists(PATH_HOST))
+        if (File.Exists(PathHost))
         {
             int n = 1;
             while (File.Exists(HostFileName(n)))
@@ -69,11 +69,11 @@ public class MpConnection
             _path = HostFileName(n);
         }
         else
-            _path = PATH_HOST;
+            _path = PathHost;
     }
 
-    private string HostFileName(int n) => $".{_sep}{BASE_PATH}{_sep}{HOST_LOG_NAME}_{n}{FILE_ENDING}";
-    private string ClientFileName(string n) => $".{_sep}{BASE_PATH}{_sep}{CLIENT_LOG_NAME}_{n}{FILE_ENDING}";
+    private string HostFileName(int n) => $".{Sep}{BASE_PATH}{Sep}{HOST_LOG_NAME}_{n}{FILE_ENDING}";
+    private string ClientFileName(string n) => $".{Sep}{BASE_PATH}{Sep}{CLIENT_LOG_NAME}_{n}{FILE_ENDING}";
 
     public MpConnection(string player, OnClientEventHandler handler, int port, string ip)
     {
