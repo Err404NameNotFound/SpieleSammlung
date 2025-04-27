@@ -37,7 +37,10 @@ public class MancalaGame : ICloneable
         Player2Index = lengthHalfField + 1;
         _fields = new int[2 * lengthHalfField + 2];
         for (int i = 0; i < _fields.Length; ++i)
+        {
             _fields[i] = stonesPerField;
+        }
+
         _fields[Player1Index] = 0;
         _fields[Player2Index] = 0;
         _minStoneCountForWin = _stoneCount / 2 + 1;
@@ -166,7 +169,7 @@ public class MancalaGame : ICloneable
             _fields[i] = 0;
         }
 
-        OptionsOfCurrentPlayer = Array.Empty<int>();
+        OptionsOfCurrentPlayer = [];
     }
 
     public override string ToString()

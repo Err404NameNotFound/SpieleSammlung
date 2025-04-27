@@ -2,12 +2,7 @@ using System;
 
 namespace SpieleSammlung.Model.Mancala;
 
-public class MancalaFieldClickedEvent : EventArgs
+public class MancalaFieldClickedEvent(int index) : EventArgs
 {
-    public int Index { get; }
-
-    public MancalaFieldClickedEvent(int index)
-    {
-        Index = index;
-    }
+    public int Index { get; } = index;
 }
