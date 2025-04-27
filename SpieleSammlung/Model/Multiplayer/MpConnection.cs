@@ -22,7 +22,7 @@ public class MpConnection
     private const string HOST_LOG_NAME = "host";
     private const string CLIENT_LOG_NAME = "client";
     private const string FILE_ENDING = ".txt";
-    private readonly string SEP = Path.DirectorySeparatorChar.ToString();
+    private readonly string _sep = Path.DirectorySeparatorChar.ToString();
     private const string PATH_HOST = BASE_PATH + HOST_LOG_NAME + FILE_ENDING;
 
     public delegate void OnClientEventHandler(MultiplayerEvent e);
@@ -69,13 +69,11 @@ public class MpConnection
             _path = HostFileName(n);
         }
         else
-        {
             _path = PATH_HOST;
-        }
     }
 
-    private string HostFileName(int n) => $".{SEP}{BASE_PATH}{SEP}{HOST_LOG_NAME}_{n}{FILE_ENDING}";
-    private string ClientFileName(string n) => $".{SEP}{BASE_PATH}{SEP}{CLIENT_LOG_NAME}_{n}{FILE_ENDING}";
+    private string HostFileName(int n) => $".{_sep}{BASE_PATH}{_sep}{HOST_LOG_NAME}_{n}{FILE_ENDING}";
+    private string ClientFileName(string n) => $".{_sep}{BASE_PATH}{_sep}{CLIENT_LOG_NAME}_{n}{FILE_ENDING}";
 
     public MpConnection(string player, OnClientEventHandler handler, int port, string ip)
     {
@@ -124,7 +122,8 @@ public class MpConnection
     private void Server_lostConnection(string id)
     {
         int i = 0;
-        while (!_activeClients[i].Id.Equals(id)) ++i;
+        while (!_activeClients[i].Id.Equals(id)) 
+            ++i;
 
         LostClients.Add(_activeClients[i]);
         _activeClients.RemoveAt(i);
