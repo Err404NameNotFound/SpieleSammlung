@@ -36,7 +36,7 @@ public class SchafkopfPlayer : MultiplayerPlayer
     #region CalculatingPossibilites
 
     public void UpdatePossibilities(SchafkopfMatch match) => UpdatePossibilities(match.MinimumGame);
-        
+
     public void UpdatePossibilities(SchafkopfMode minimumGame)
     {
         Possibilities = [new SchafkopfMatchPossibility(SchafkopfMode.Weiter)];
@@ -56,17 +56,14 @@ public class SchafkopfPlayer : MultiplayerPlayer
                         for (int i = 0; i < Card.COLOR_NAMES.Count; ++i)
                         {
                             if (CanPlaySauspielWithColor(Card.COLOR_NAMES[i]))
-                            {
                                 temp.Add(Card.COLOR_NAMES[i]);
-                            }
 
-                            if (i == 1) i = 2; // skip Card.Heart
+                            if (i == 1)
+                                i = 2; // skip Card.Heart
                         }
 
                         if (temp.Count > 0)
-                        {
                             Possibilities.Add(new SchafkopfMatchPossibility(SchafkopfMode.Sauspiel, temp));
-                        }
                     }
 
                     Possibilities.Add(new SchafkopfMatchPossibility(SchafkopfMode.Wenz));
@@ -95,15 +92,11 @@ public class SchafkopfPlayer : MultiplayerPlayer
         for (int i = 0; i < 4; ++i)
         {
             if (CanPlaySoloWithColor(Card.GetColor(i)))
-            {
                 temp.Add(Card.GetColor(i));
-            }
         }
 
         if (temp.Count == 0)
-        {
             temp = [Card.EICHEL, Card.GRAS, Card.HERZ, Card.SCHELLE];
-        }
 
         return temp;
     }
@@ -113,7 +106,8 @@ public class SchafkopfPlayer : MultiplayerPlayer
         int w = 0;
         while (w < Possibilities.Count)
         {
-            if (Possibilities[w].Mode == mode) return w;
+            if (Possibilities[w].Mode == mode)
+                return w;
             ++w;
         }
 
@@ -125,7 +119,8 @@ public class SchafkopfPlayer : MultiplayerPlayer
         int w = 0;
         while (w < Possibilities[index].Colors.Count)
         {
-            if (Possibilities[index].Colors[w].Equals(color)) return w;
+            if (Possibilities[index].Colors[w].Equals(color))
+                return w;
             ++w;
         }
 
@@ -136,9 +131,7 @@ public class SchafkopfPlayer : MultiplayerPlayer
     {
         int tmp = PossibilityIndexOf(mode);
         if (tmp != -1)
-        {
             Possibilities.RemoveAt(tmp);
-        }
     }
 
     private bool CanPlaySoloWithColor(string color)
@@ -148,9 +141,7 @@ public class SchafkopfPlayer : MultiplayerPlayer
         {
             if (PlayableCards[w].Color.Equals(color) &&
                 !(PlayableCards[w].IsOber() || PlayableCards[w].IsUnter()))
-            {
                 return true;
-            }
 
             ++w;
         }
@@ -166,11 +157,10 @@ public class SchafkopfPlayer : MultiplayerPlayer
         {
             if (PlayableCards[w].Color.Equals(color))
             {
-                if (PlayableCards[w].IsSau()) return false;
+                if (PlayableCards[w].IsSau())
+                    return false;
                 if (!(PlayableCards[w].IsOber() || PlayableCards[w].IsUnter()))
-                {
                     hasColor = true;
-                }
             }
 
             ++w;
@@ -203,7 +193,8 @@ public class SchafkopfPlayer : MultiplayerPlayer
 
     public bool PlayCard(int index, SchafkopfMatch match)
     {
-        if (Number != match.CurrentRound.CurrentPlayer) return false;
+        if (Number != match.CurrentRound.CurrentPlayer)
+            return false;
         Card card = PlayableCards[index];
         match.CurrentRound.CurrentCards.Add(card);
         int value = card.GetValueOfThisCard(match);
@@ -211,16 +202,11 @@ public class SchafkopfPlayer : MultiplayerPlayer
         {
             match.CurrentRound.SemiTrumpf = card.Color;
             match.CurrentRound.NewHighestCard(Number, card.GetValueOfThisCard(match));
-            if (card.Color.Equals(match.SauspielFarbe) && !card.IsSau() && HasGesuchte(match) &&
-                KannWeglaufen(match))
-            {
+            if (card.Color.Equals(match.SauspielFarbe) && !card.IsSau() && HasGesuchte(match) && KannWeglaufen(match))
                 match.SetIsWegGelaufen();
-            }
         }
         else if (value > match.CurrentRound.HighestValue)
-        {
             match.CurrentRound.NewHighestCard(Number, value);
-        }
 
         RemovePlayableCard(index);
         return true;
@@ -239,10 +225,7 @@ public class SchafkopfPlayer : MultiplayerPlayer
         return -1;
     }
 
-    private bool HasColor(string color, SchafkopfMatchConfig match)
-    {
-        return FirstIndexOfColor(color, match) != -1;
-    }
+    private bool HasColor(string color, SchafkopfMatchConfig match) => FirstIndexOfColor(color, match) != -1;
 
     private bool HasTrumpf(SchafkopfMatchConfig match)
     {
@@ -250,9 +233,7 @@ public class SchafkopfPlayer : MultiplayerPlayer
         while (w < PlayableCards.Count)
         {
             if (PlayableCards[w].IsTrumpf(match))
-            {
                 return true;
-            }
 
             ++w;
         }
@@ -262,7 +243,9 @@ public class SchafkopfPlayer : MultiplayerPlayer
 
     public bool HasGesuchte(SchafkopfMatchConfig match)
     {
-        if (match.Mode != SchafkopfMode.Sauspiel) return false;
+        if (match.Mode != SchafkopfMode.Sauspiel)
+            return false;
+
         int index = FirstIndexOfColor(match.SauspielFarbe, match);
         return index != -1 && PlayableCards[index].Number.Equals("Sau");
     }
@@ -271,7 +254,9 @@ public class SchafkopfPlayer : MultiplayerPlayer
     {
         int index = FirstIndexOfColor(match.SauspielFarbe, match);
         int end = index + 4;
-        if (index == -1 || PlayableCards.Count < end) return false;
+        if (index == -1 || PlayableCards.Count < end)
+            return false;
+
         bool has4 = true;
         int w = index + 1;
         while (w < end && has4)
@@ -285,7 +270,8 @@ public class SchafkopfPlayer : MultiplayerPlayer
 
     public IReadOnlyList<bool> CheckPlayableCards(SchafkopfMatchConfig match, Card firstCard, bool isWegGelaufen)
     {
-        if (PlayableCards.Count == 1) return new List<bool> { true };
+        if (PlayableCards.Count == 1)
+            return new List<bool> { true };
 
         bool hasGesuchte = HasGesuchte(match);
         bool hasTrumpf = HasTrumpf(match);
@@ -316,15 +302,13 @@ public class SchafkopfPlayer : MultiplayerPlayer
                 }
                 else if (card.Color.Equals(firstCard.Color) && !card.IsTrumpf(match))
                 {
-                    canPlayCard = match.Mode != SchafkopfMode.Sauspiel 
+                    canPlayCard = match.Mode != SchafkopfMode.Sauspiel
                                   || !card.Color.Equals(match.SauspielFarbe)
                                   || card.IsSau()
                                   || isWegGelaufen;
                 }
                 else
-                {
                     canPlayCard = !hasFirstCardColor && notGesuchteOrWeggelaufen;
-                }
 
                 playable.Add(canPlayCard);
             }
@@ -437,9 +421,12 @@ public class SchafkopfPlayer : MultiplayerPlayer
 
     public static MultiplayerPlayerState Convert(string state)
     {
-        if (state.Equals(MultiplayerPlayerState.Active.ToString())) return MultiplayerPlayerState.Active;
-        if (state.Equals(MultiplayerPlayerState.LeftMatch.ToString())) return MultiplayerPlayerState.LeftMatch;
-        if (state.Equals(MultiplayerPlayerState.Inactive.ToString())) return MultiplayerPlayerState.Inactive;
-        throw new ArgumentException("Der String konnte nicht umgewandelt werden");
+        return state switch
+        {
+            nameof(MultiplayerPlayerState.Active) => MultiplayerPlayerState.Active,
+            nameof(MultiplayerPlayerState.LeftMatch) => MultiplayerPlayerState.LeftMatch,
+            nameof(MultiplayerPlayerState.Inactive) => MultiplayerPlayerState.Inactive,
+            _ => throw new ArgumentException("Der String konnte nicht umgewandelt werden")
+        };
     }
 }

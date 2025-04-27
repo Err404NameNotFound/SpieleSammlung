@@ -76,7 +76,7 @@ public class SchafkopfMatch : SchafkopfMatchConfig
         ResetMode();
         _currentPlayerIndexes = Players.Count switch
         {
-            < 6 => [Players.Count-1, 0, 1, 2], //next match gleich zu begin ->  0, 1, 2, 3
+            < 6 => [Players.Count - 1, 0, 1, 2], //next match gleich zu begin ->  0, 1, 2, 3
             6 => [5, 1, 2, 4], //next match gleich zu begin ->  0, 2, 3, 5
             _ => [6, 1, 3, 5] //next match gleich zu begin ->  0, 2, 4, 6
         };
@@ -105,7 +105,9 @@ public class SchafkopfMatch : SchafkopfMatchConfig
 
     public Tuple<bool, bool> ChoseGameMode(SchafkopfMode mode, string color, int index)
     {
-        if (index != CurrentRound.CurrentPlayer) throw new IllegalMoveException("It is not this players turn");
+        if (index != CurrentRound.CurrentPlayer)
+            throw new IllegalMoveException("It is not this players turn");
+
         return ChoseGameMode(mode, color);
     }
 
@@ -160,7 +162,8 @@ public class SchafkopfMatch : SchafkopfMatchConfig
         if (!_isHost) throw new IllegalMoveException("A client cannot shuffle the cards.");
         PrepareShuffle(sameRound);
         List<int> cards = [];
-        for (int i = 0; i < Card.ALL_CARDS.Count; ++i) cards.Add(i);
+        for (int i = 0; i < Card.ALL_CARDS.Count; ++i)
+            cards.Add(i);
 
         List<string> msg = [codeClientShuffledCards];
         for (int i = 0; i < Card.ALL_CARDS.Count; ++i)
@@ -171,7 +174,8 @@ public class SchafkopfMatch : SchafkopfMatchConfig
             cards.RemoveAt(temp);
         }
 
-        foreach (var player in CurrentPlayers) player.UpdatePossibilities(this);
+        foreach (var player in CurrentPlayers)
+            player.UpdatePossibilities(this);
         msg.Add(sameRound.ToString());
         return msg;
     }
@@ -184,24 +188,26 @@ public class SchafkopfMatch : SchafkopfMatchConfig
             CurrentPlayers[i % PLAYER_PER_ROUND].PlayableCards.Add(Card.GetCard(int.Parse(msgParts[i + 1])));
         }
 
-        foreach (var player in CurrentPlayers) player.UpdatePossibilities(this);
+        foreach (var player in CurrentPlayers)
+            player.UpdatePossibilities(this);
     }
 
-    public bool PlayCard(int selected, int player)
-    {
-        return player == CurrentRound.CurrentPlayer && PlayCard(selected);
-    }
+    public bool PlayCard(int selected, int player) => player == CurrentRound.CurrentPlayer && PlayCard(selected);
 
     public bool PlayCard(int selected)
     {
-        if (!CurrentPlayers[CurrentRound.CurrentPlayer].PlayCard(selected, this)) return false;
+        if (!CurrentPlayers[CurrentRound.CurrentPlayer].PlayCard(selected, this))
+            return false;
+
         UpdatePlayableCards();
-        if (CurrentCardCount < PLAYER_PER_ROUND) CurrentRound.SetNextPlayer();
+        if (CurrentCardCount < PLAYER_PER_ROUND)
+            CurrentRound.SetNextPlayer();
         else
         {
             LastCards = CurrentRound.CurrentCards.ToList();
             NextRound();
-            if (IsGameOver) Evaluation();
+            if (IsGameOver)
+                Evaluation();
         }
 
         return true;
@@ -244,11 +250,13 @@ public class SchafkopfMatch : SchafkopfMatchConfig
 
 
         _isShufflePossible = false;
-        if (!sameRound) NextMatch();
+        if (!sameRound)
+            NextMatch();
         AmountShuffle = 0;
         _rounds = [new SchafkopfRound()];
         ResetMode();
-        for (int i = 0; i < PLAYER_PER_ROUND; ++i) CurrentPlayers[i].NewMatch(i, sameRound);
+        for (int i = 0; i < PLAYER_PER_ROUND; ++i)
+            CurrentPlayers[i].NewMatch(i, sameRound);
     }
 
     private void ChooseGame()
@@ -274,7 +282,8 @@ public class SchafkopfMatch : SchafkopfMatchConfig
                 throw new ArgumentOutOfRangeException();
         }
 
-        for (int i = 0; i < PLAYER_PER_ROUND; ++i) CurrentPlayers[i].SortCards(this);
+        for (int i = 0; i < PLAYER_PER_ROUND; ++i)
+            CurrentPlayers[i].SortCards(this);
         UpdatePlayableCards();
     }
 
@@ -282,7 +291,8 @@ public class SchafkopfMatch : SchafkopfMatchConfig
     {
         CalculateStichPoints();
         ++_teamsAnzStiche[CurrentPlayers[CurrentRound.NextStartPlayer].TeamIndex];
-        if (_rounds.Count < ROUNDS_COUNT) _rounds.Add(new SchafkopfRound(CurrentRound));
+        if (_rounds.Count < ROUNDS_COUNT)
+            _rounds.Add(new SchafkopfRound(CurrentRound));
         UpdatePlayableCards();
     }
 
@@ -328,11 +338,13 @@ public class SchafkopfMatch : SchafkopfMatchConfig
         List<int> team = [];
         for (int i = 0; i < CurrentPlayers.Count; ++i)
         {
-            if (CurrentPlayers[i].TeamIndex == teamNumber) team.Add(i);
+            if (CurrentPlayers[i].TeamIndex == teamNumber)
+                team.Add(i);
         }
 
         List<int> nextCards = [];
-        for (int i = 0; i < team.Count; ++i) nextCards.Add(0);
+        for (int i = 0; i < team.Count; ++i)
+            nextCards.Add(0);
 
         _laufende = 0;
         w = 0;
@@ -369,10 +381,14 @@ public class SchafkopfMatch : SchafkopfMatchConfig
         int score = ScoreOfThisMatch();
         for (int i = 0; i < Players.Count; ++i)
         {
-            if (Players[i].Number == -1) tmp[i] = 0;
-            else if (Players[i].TeamIndex == _loser) tmp[i] = -score;
-            else tmp[i] = score;
-            if (Mode != SchafkopfMode.Sauspiel && Players[i].TeamIndex == 0) tmp[i] *= 3;
+            if (Players[i].Number == -1)
+                tmp[i] = 0;
+            else if (Players[i].TeamIndex == _loser)
+                tmp[i] = -score;
+            else
+                tmp[i] = score;
+            if (Mode != SchafkopfMode.Sauspiel && Players[i].TeamIndex == 0)
+                tmp[i] *= 3;
             Players[i].Points += tmp[i];
         }
 
@@ -404,7 +420,8 @@ public class SchafkopfMatch : SchafkopfMatchConfig
         {
             summary.Append(" mit ");
             int w = 0;
-            while (CurrentPlayers[w].TeamIndex != teamIndex || w == player) ++w;
+            while (CurrentPlayers[w].TeamIndex != teamIndex || w == player)
+                ++w;
 
             summary.Append(CurrentPlayers[w].Name);
         }
@@ -418,7 +435,8 @@ public class SchafkopfMatch : SchafkopfMatchConfig
                 if (CurrentPlayers[w].TeamIndex == teamIndex && w != player)
                 {
                     summary.Append(CurrentPlayers[w].Name);
-                    if (1 == ++index) summary.Append(" und ");
+                    if (1 == ++index)
+                        summary.Append(" und ");
                 }
 
                 ++w;
@@ -432,7 +450,8 @@ public class SchafkopfMatch : SchafkopfMatchConfig
                 summary.Append(" und ").Append(_teamsAnzStiche[1]).Append(" Gegenstich");
             else
                 summary.Append(" und ").Append(_teamsAnzStiche[1]).Append(" Stich");
-            if (_teamsAnzStiche[1] > 1) summary.Append("en");
+            if (_teamsAnzStiche[1] > 1)
+                summary.Append("en");
         }
 
         summary.Append(loser == teamIndex ? " verloren" : " gewonnen").Append("\n\n");
@@ -457,14 +476,16 @@ public class SchafkopfMatch : SchafkopfMatchConfig
         _loser = 1;
         if (Mode is SchafkopfMode.WenzTout or SchafkopfMode.SoloTout)
         {
-            if (_teamsAnzStiche[1] > 0) _loser = 0;
+            if (_teamsAnzStiche[1] > 0)
+                _loser = 0;
             points *= 2;
             summary.Append("\n*2 tout");
         }
         else
         {
             count = CurrentPlayers.Count(player => player.Kontra);
-            if ((count == 1 && _teams[0] < _teams[1]) || _teams[0] <= _teams[1]) _loser = 0;
+            if ((count == 1 && _teams[0] < _teams[1]) || _teams[0] <= _teams[1])
+                _loser = 0;
 
             // if (_teams[_loser] < 30 || _loser != count % 2 && _teams[_loser] < 31)
             if (_loser == 0 && _teams[_loser] < 31 || _loser == 1 && _teams[_loser] < 30)
@@ -482,23 +503,17 @@ public class SchafkopfMatch : SchafkopfMatchConfig
             }
         }
 
-        foreach (var player in CurrentPlayers)
+        foreach (var _ in CurrentPlayers.Where(player => player.Aufgestellt))
         {
-            if (player.Aufgestellt)
-            {
-                points *= 2;
-                summary.Append("\n*2 aufgestellt");
-            }
+            points *= 2;
+            summary.Append("\n*2 aufgestellt");
         }
 
         count = 0;
-        foreach (var player in CurrentPlayers)
+        foreach (var _ in CurrentPlayers.Where(player => player.Kontra))
         {
-            if (player.Kontra)
-            {
-                points *= 2;
-                summary.Append(++count == 1 ? "\n*2 Kontra" : "\n*2 Re");
-            }
+            points *= 2;
+            summary.Append(++count == 1 ? "\n*2 Kontra" : "\n*2 Re");
         }
 
         summary.Append("\n_________________\n").Append(points);

@@ -19,7 +19,8 @@ public class SchafkopfMatchConfig
             Trumpf = Card.HERZ;
             SauspielFarbe = color;
         }
-        else Trumpf = color;
+        else
+            Trumpf = color;
     }
 
     public override string ToString()

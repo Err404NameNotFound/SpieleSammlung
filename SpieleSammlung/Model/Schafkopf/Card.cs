@@ -94,8 +94,10 @@ public class Card
         bool notFound = true;
         while (w < 4 && notFound)
         {
-            if (COLOR_NAMES[w].Contains(color)) notFound = false;
-            else ++w;
+            if (COLOR_NAMES[w].Contains(color))
+                notFound = false;
+            else 
+                ++w;
         }
 
         return w;
@@ -109,16 +111,20 @@ public class Card
         {
             while (w < 8 && notFound)
             {
-                if (NUMBER_NAMES[NumbersWenz[w]].Contains(number)) notFound = false;
-                else ++w;
+                if (NUMBER_NAMES[NumbersWenz[w]].Contains(number)) 
+                    notFound = false;
+                else 
+                    ++w;
             }
         }
         else
         {
             while (w < 8 && notFound)
             {
-                if (NUMBER_NAMES[w].Contains(number)) notFound = false;
-                else ++w;
+                if (NUMBER_NAMES[w].Contains(number)) 
+                    notFound = false;
+                else 
+                    ++w;
             }
         }
 
@@ -133,7 +139,10 @@ public class Card
             values[i] = new Tuple<Card, int>(cards[i], cards[i].GetSortValueOfThisCard(match));
         }
         Array.Sort(values, (tuple1, tuple2) => -tuple1.Item2.CompareTo(tuple2.Item2));
-        for (int i = 0; i < cards.Count; ++i) cards[i] = values[i].Item1;
+        for (int i = 0; i < cards.Count; ++i)
+        {
+            cards[i] = values[i].Item1;
+        }
     }
 
     #endregion
@@ -171,25 +180,26 @@ public class Card
             case SchafkopfMode.Sauspiel or SchafkopfMode.Solo or SchafkopfMode.SoloTout:
                 switch (Number)
                 {
-                    // 6x Semi, 6x Trumpf, 4x Ober, 4x Unter -> 20+1 Werte -> 
+                    // 6x Semi, 6x Trumpf, 4x Ober, 4x Unter → 20 + 1 Werte → 
                     case OBER: return 20 - ColorNameToInt(Color);
                     case UNTER: return 16 - ColorNameToInt(Color);
                     default:
                     {
                         if (!(Color.Equals(match.Trumpf) || Color.Equals(semiTrumpf)))
-                        {
                             return 0;
-                        }
 
                         return (Color.Equals(match.Trumpf) ? 7 : 1) + NumberNameToInt(Number);
                     }
                 }
             case SchafkopfMode.Wenz or SchafkopfMode.WenzTout:
                 // 7x Semi, 4x Unter -> 11+1 Werte
-                if (IsUnter()) return 12 - ColorNameToInt(Color);
+                if (IsUnter()) 
+                    return 12 - ColorNameToInt(Color);
+                
                 return Color.Equals(semiTrumpf) ? NumberNameToInt(Number, true) + 1 : 0;
             case SchafkopfMode.Weiter:
-            default: throw new Exception(CALCULATION_NOT_POSSIBLE);
+            default: 
+                throw new Exception(CALCULATION_NOT_POSSIBLE);
         }
     }
 
@@ -199,7 +209,9 @@ public class Card
         {
             case SchafkopfMode.Wenz or SchafkopfMode.WenzTout:
             {
-                if (IsUnter()) return 31 - ColorNameToInt(Color);
+                if (IsUnter()) 
+                    return 31 - ColorNameToInt(Color);
+                
                 return (3 - ColorNameToInt(Color)) * 7 + NumberNameToInt(Number, true);
             }
             case SchafkopfMode.Sauspiel or SchafkopfMode.Solo or SchafkopfMode.SoloTout:
@@ -215,20 +227,26 @@ public class Card
                         if (match.Mode is SchafkopfMode.Solo or SchafkopfMode.SoloTout)
                         {
                             if (GetColor(0).Equals(match.Trumpf))
-                            {
                                 factor = 3 - ColorNameToInt(Color);
-                            }
-                            else if (Color.Equals(GetColor(0))) factor = 2;
-                            else if (Color.Equals(GetColor(3))) factor = 0;
-                            else if (Color.Equals(GetColor(1))) factor = 1;
-                            else factor = match.Trumpf.Equals(GetColor(1)) ? 1 : 0;
+                            else if (Color.Equals(GetColor(0))) 
+                                factor = 2;
+                            else if (Color.Equals(GetColor(3))) 
+                                factor = 0;
+                            else if (Color.Equals(GetColor(1))) 
+                                factor = 1;
+                            else 
+                                factor = match.Trumpf.Equals(GetColor(1)) ? 1 : 0;
                         }
                         else
                         {
-                            if (Color.Equals(match.SauspielFarbe)) factor = 2;
-                            else if (Color.Equals(GetColor(0))) factor = 1;
-                            else if (Color.Equals(GetColor(3))) factor = 0;
-                            else factor = match.SauspielFarbe.Equals(GetColor(0)) ? 1 : 0;
+                            if (Color.Equals(match.SauspielFarbe)) 
+                                factor = 2;
+                            else if (Color.Equals(GetColor(0))) 
+                                factor = 1;
+                            else if (Color.Equals(GetColor(3))) 
+                                factor = 0;
+                            else 
+                                factor = match.SauspielFarbe.Equals(GetColor(0)) ? 1 : 0;
                         }
 
                         return factor * 6 + NumberNameToInt(Number);
