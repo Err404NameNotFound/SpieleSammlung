@@ -30,9 +30,12 @@ public partial class KniffelPointsVisual
         KniffelPlayer p = _players[index];
         for (int i = 0; i < _fields.Count; ++i)
         {
-            if (p.Fields[i].IsEmpty()) _fields[i].Content = "";
-            else if (p.Fields[i].Value == 0) _fields[i].Content = "-";
-            else _fields[i].Content = p.Fields[i].Value;
+            if (p.Fields[i].IsEmpty())
+                _fields[i].Content = "";
+            else if (p.Fields[i].Value == 0)
+                _fields[i].Content = "-";
+            else
+                _fields[i].Content = p.Fields[i].Value;
         }
     }
 
@@ -57,9 +60,7 @@ public partial class KniffelPointsVisual
         for (int i = 1; i < _players.Count; ++i)
         {
             if (_players[i].Fields[_fields.Count - 1].Value > _players[max].Fields[_fields.Count - 1].Value)
-            {
                 max = i;
-            }
         }
 
         CBoxPlayerNames.SelectedIndex = max;

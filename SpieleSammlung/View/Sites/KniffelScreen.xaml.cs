@@ -1,12 +1,10 @@
 ﻿using SpieleSammlung.Model;
 using SpieleSammlung.Model.Kniffel;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Threading;
 using SpieleSammlung.Model.Kniffel.Fields;
 using SpieleSammlung.View.UserControls.Kniffel;
 
@@ -84,15 +82,9 @@ public partial class KniffelScreen
         FieldsChoose.ShowPlayer(FieldsChoose.CBoxPlayerNames.SelectedIndex);
     }
 
-    private void ShowCurrentPlayer()
-    {
-        ShowPlayer(_game.ActivePlayer);
-    }
+    private void ShowCurrentPlayer() => ShowPlayer(_game.ActivePlayer);
 
-    private void RefreshPlayer()
-    {
-        ShowPlayer(Fields.CBoxPlayerNames.SelectedIndex);
-    }
+    private void RefreshPlayer() => ShowPlayer(Fields.CBoxPlayerNames.SelectedIndex);
 
     private void NextPlayer()
     {
@@ -107,26 +99,24 @@ public partial class KniffelScreen
             DoBotMoveIfRequired();
         }
         else
-        {
             ShowGameOverScreen();
-        }
     }
 
     private void DoBotSleep() => Thread.Sleep(2000);
 
     private void DoBotMoveIfRequired()
     {
-        if (_game.CurrentPlayer.IsBot)
-        {
-            DoBotSleep();
-            ModelLog.AppendLine("Move of Player \"" + _game.CurrentPlayer + "\" started");
-            BtnNewTry.IsEnabled = false;
-            AllowUiToUpdate();
-            _game.DoBotMove(AnimationBetweenBotMoves, ShowShuffledDices);
-            EnableNextPlayer();
-            ModelLog.AppendLine("Move of the last player ended");
-            ModelLog.AppendSeparatorLine(1);
-        }
+        if (!_game.CurrentPlayer.IsBot)
+            return;
+
+        DoBotSleep();
+        ModelLog.AppendLine("Move of Player \"" + _game.CurrentPlayer + "\" started");
+        BtnNewTry.IsEnabled = false;
+        Util.AllowUiToUpdate();
+        _game.DoBotMove(AnimationBetweenBotMoves, ShowShuffledDices);
+        EnableNextPlayer();
+        ModelLog.AppendLine("Move of the last player ended");
+        ModelLog.AppendSeparatorLine(1);
     }
 
     private void AnimationBetweenBotMoves(int[] selected)
@@ -137,7 +127,7 @@ public partial class KniffelScreen
         }
 
         ShuffleAnimation(selected);
-        AllowUiToUpdate();
+        Util.AllowUiToUpdate();
         DoBotSleep();
     }
 
@@ -236,9 +226,7 @@ public partial class KniffelScreen
         while (w < 5)
         {
             if (_dices[w].IsChecked)
-            {
                 index.Add(w);
-            }
 
             ++w;
         }
@@ -249,21 +237,6 @@ public partial class KniffelScreen
     #endregion
 
     #region Shuffle Animation
-
-    private static void AllowUiToUpdate()
-    {
-        DispatcherFrame frame = new DispatcherFrame();
-        Dispatcher.CurrentDispatcher.BeginInvoke(DispatcherPriority.Render, new DispatcherOperationCallback(
-            delegate
-            {
-                frame.Continue = false;
-                return null;
-            }), null);
-
-        Dispatcher.PushFrame(frame);
-        Application.Current.Dispatcher.Invoke(DispatcherPriority.Background,
-            new Action(delegate { }));
-    }
 
     private void ShuffleValues(IEnumerable<int> selectedIndexes)
     {
@@ -280,7 +253,7 @@ public partial class KniffelScreen
         while (Mouse.LeftButton == MouseButtonState.Pressed || _watch.ElapsedMilliseconds < millis)
         {
             ShuffleValues(index);
-            AllowUiToUpdate();
+            Util.AllowUiToUpdate();
         }
 
         _watch.Stop();
@@ -297,9 +270,7 @@ public partial class KniffelScreen
 
         LblRemainingShuffle.Content = _game.RemainingShuffles.ToString();
         if (_game.RemainingShuffles <= 0)
-        {
             BtnNewTry.IsEnabled = false;
-        }
 
         UpdateFieldComboBoxes();
     }
@@ -318,9 +289,7 @@ public partial class KniffelScreen
             ShowShuffledDices();
         }
         else
-        {
             DoBotMoveIfRequired(); // TODO: find better solution to making first bot move
-        }
     }
 
     private void BtnKillField_Click(object sender, RoutedEventArgs e)
@@ -341,10 +310,7 @@ public partial class KniffelScreen
         }
     }
 
-    private void BtnNextPlayer_Click(object sender, RoutedEventArgs e)
-    {
-        NextPlayer();
-    }
+    private void BtnNextPlayer_Click(object sender, RoutedEventArgs e) => NextPlayer();
 
     #endregion
 }

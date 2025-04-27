@@ -27,10 +27,7 @@ public partial class GameModeSelector
 
     public event OnColorChanged ColorChanged;
 
-    public GameModeSelector()
-    {
-        InitializeComponent();
-    }
+    public GameModeSelector() => InitializeComponent();
 
     public List<SchafkopfMatchPossibility> Source
     {
@@ -69,9 +66,7 @@ public partial class GameModeSelector
                 {
                     BtnSelectMode.Visibility = Visibility.Visible;
                     if (_state == GameSelectorState.Visible)
-                    {
                         BtnSelectMode.IsChecked = false;
-                    }
 
                     CbMode.IsEnabled = true;
                     CbColor.IsEnabled = true;
@@ -91,16 +86,15 @@ public partial class GameModeSelector
         }
     }
 
-    private void CbColor_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        ColorHasChanged();
-    }
+    private void CbColor_SelectionChanged(object sender, SelectionChangedEventArgs e) => ColorHasChanged();
 
     private void BtnSelectMode_Click(object sender, RoutedEventArgs e)
     {
         if (BtnSelectMode.IsChecked == true)
         {
-            if (ModeSelected == null) throw new NotSupportedException("This should have been set");
+            if (ModeSelected == null) 
+                throw new NotSupportedException("This should have been set");
+            
             ModeSelected(CreateEventArgs());
         }
         else
@@ -126,10 +120,8 @@ public partial class GameModeSelector
     {
         SchafkopfMode modePlayer = SelectedMode;
         string colorPlayer = CbColor.SelectedItem.ToString();
-        if (mode > modePlayer && modePlayer != SchafkopfMode.Weiter)
-        {
+        if (mode > modePlayer && modePlayer != SchafkopfMode.Weiter) 
             State = GameSelectorState.Visible;
-        }
 
         if (!CbMode.IsEnabled && modePlayer >= match.MinimumGame) return;
         player.RemovePossibility(SchafkopfMode.Sauspiel);

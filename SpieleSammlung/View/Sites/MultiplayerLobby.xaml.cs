@@ -54,10 +54,7 @@ public partial class MultiplayerLobby
         ChangeCurrentPlayer(0);
     }
 
-    private void Got_Loaded(object sender, RoutedEventArgs e)
-    {
-        Keyboard.Focus(PlayerName);
-    }
+    private void Got_Loaded(object sender, RoutedEventArgs e) => Keyboard.Focus(PlayerName);
 
     private void BtnHost_Click(object sender, RoutedEventArgs e)
     {
@@ -178,9 +175,7 @@ public partial class MultiplayerLobby
     {
         int w = 0;
         while (w < _players.Count && !_players[w].Id.Equals(id))
-        {
             ++w;
-        }
 
         if (w == _players.Count)
         {
@@ -365,10 +360,8 @@ public partial class MultiplayerLobby
         }
     }
 
-    private void BtnKickPlayer_Click(object sender, RoutedEventArgs e)
-    {
+    private void BtnKickPlayer_Click(object sender, RoutedEventArgs e) =>
         _connection.DisconnectPlayer(_players[PlayerList.SelectedIndex].Id);
-    }
 
     private void BtnRenamePlayer_Click(object sender, RoutedEventArgs e)
     {
@@ -382,32 +375,22 @@ public partial class MultiplayerLobby
         if (e.Key == Key.Return && _nameOk)
         {
             if (_hostPortOk)
-            {
                 BtnHost_Click(BtnHost, null);
-            }
             else
-            {
-                {
-                    BtnJoin_Click(BtnJoin, null);
-                }
-            }
+                BtnJoin_Click(BtnJoin, null);
         }
     }
 
     private void HostPort_KeyDown(object sender, KeyEventArgs e)
     {
-        if (e.Key == Key.Return && _nameOk && _hostPortOk)
-        {
+        if (e.Key == Key.Return && _nameOk && _hostPortOk) 
             BtnHost_Click(BtnHost, null);
-        }
     }
 
     private void LblChangedName_KeyDown(object sender, KeyEventArgs e)
     {
-        if (e.Key == Key.Return && !LblChangedName.Text.Equals(""))
-        {
+        if (e.Key == Key.Return && !LblChangedName.Text.Equals("")) 
             BtnRenamePlayer_Click(BtnRenamePlayer, null);
-        }
     }
 
     private void IP_KeyDown(object sender, KeyEventArgs e)
@@ -415,13 +398,9 @@ public partial class MultiplayerLobby
         if (e.Key == Key.Return && _ipOk)
         {
             if (_portOk)
-            {
                 BtnTryJoin_Click(BtnTryJoin, null);
-            }
             else
-            {
                 Port.Focus();
-            }
         }
     }
 
@@ -430,25 +409,15 @@ public partial class MultiplayerLobby
         if (e.Key == Key.Return && _portOk)
         {
             if (_ipOk)
-            {
                 BtnTryJoin_Click(BtnTryJoin, null);
-            }
             else
-            {
                 Ip.Focus();
-            }
         }
     }
 
-    private void BtnMovePlayerUp_Click(object sender, RoutedEventArgs e)
-    {
-        BtnMove(PlayerList.SelectedIndex, PlayerList.SelectedIndex - 1);
-    }
+    private void BtnMovePlayerUp_Click(object sender, RoutedEventArgs e) => BtnMove(PlayerList.SelectedIndex, PlayerList.SelectedIndex - 1);
 
-    private void BtnMovePlayerDown_Click(object sender, RoutedEventArgs e)
-    {
-        BtnMove(PlayerList.SelectedIndex, PlayerList.SelectedIndex + 1);
-    }
+    private void BtnMovePlayerDown_Click(object sender, RoutedEventArgs e) => BtnMove(PlayerList.SelectedIndex, PlayerList.SelectedIndex + 1);
 
     private void BtnMove(int first, int second)
     {

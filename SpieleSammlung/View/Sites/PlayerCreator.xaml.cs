@@ -40,9 +40,7 @@ public partial class PlayerCreator
         LBoxPlayerNames.Items.RemoveAt(temp);
         LBoxPlayerNames.SelectedIndex = temp - 1;
         if (LBoxPlayerNames.SelectedIndex == -1 && LBoxPlayerNames.Items.Count != 0)
-        {
             LBoxPlayerNames.SelectedIndex = 0;
-        }
 
         Update();
     }
@@ -51,18 +49,14 @@ public partial class PlayerCreator
     {
         int temp = LBoxPlayerNames.SelectedIndex;
         if (temp != -1 && temp > 0)
-        {
             Switch(temp, temp - 1);
-        }
     }
 
     private void BtnPlayerDown_Click(object sender, RoutedEventArgs e)
     {
         int selected = LBoxPlayerNames.SelectedIndex;
         if (selected != -1 && selected < LBoxPlayerNames.Items.Count - 1)
-        {
             Switch(selected, selected + 1);
-        }
     }
 
     private void Switch(int first, int second)
@@ -86,9 +80,7 @@ public partial class PlayerCreator
         if (LBoxPlayerNames.Items.Count >= _maxPlayer) return;
         bool add = false;
         if (player != null)
-        {
             add = true;
-        }
         else if (PcTxtBoxPlayerName.Text.Length > 0)
         {
             if (IsNameNotAlreadyInList(PcTxtBoxPlayerName.Text))
@@ -99,7 +91,9 @@ public partial class PlayerCreator
             }
         }
 
-        if (!add) return;
+        if (!add)
+            return;
+
         _players.Add(player);
         LBoxPlayerNames.Items.Add(player);
         PcTxtBoxPlayerName.Focus();
@@ -123,9 +117,7 @@ public partial class PlayerCreator
     private void BtnPlayerDone_Click(object sender, RoutedEventArgs e)
     {
         if (LBoxPlayerNames.Items.Count >= _minPlayer && LBoxPlayerNames.Items.Count <= _maxPlayer)
-        {
             StartMatch?.Invoke(_mode, _players);
-        }
     }
 
     private void LblPlayerName_Loaded(object sender, RoutedEventArgs e) => PcTxtBoxPlayerName.Focus();

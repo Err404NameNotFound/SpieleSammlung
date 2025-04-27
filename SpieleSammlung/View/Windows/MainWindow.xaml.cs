@@ -246,8 +246,5 @@ public partial class MainWindow
         ChooseScreen(MainWindowView.StartScreen);
     }
 
-    private void LostConnectionToHost()
-    {
-        BtnCancel.Content = Properties.Resources.Main_Btn_LeaveMatch;
-    }
+    private void LostConnectionToHost() => BtnCancel.Content = Properties.Resources.Main_Btn_LeaveMatch;
 }

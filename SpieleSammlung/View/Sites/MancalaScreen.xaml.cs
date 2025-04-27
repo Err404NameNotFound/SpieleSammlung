@@ -1,9 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Threading;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Threading;
 using SpieleSammlung.Model.Mancala;
 using SpieleSammlung.View.UserControls.Mancala;
 
@@ -21,12 +18,14 @@ public partial class MancalaScreen
         _fields = new MancalaField[_mancala.FieldsCount];
         for (int i = -2; i < length; ++i)
             GridBoardVisual.ColumnDefinitions.Add(new ColumnDefinition());
+        
         SetField(0, 0, 0, false);
         SetField(_mancala.Player2Index, 0, _mancala.Player2Index, false);
         Grid.SetRowSpan(_fields[_mancala.Player1Index], 2);
         Grid.SetRowSpan(_fields[_mancala.Player2Index], 2);
         for (int i = _mancala.Player1Index + 1; i < _mancala.Player2Index; ++i)
             SetField(i, 0, i, _mancala.CurrentIsFirst);
+        
         for (int i = _mancala.Player2Index + 1; i < _mancala.FieldsCount; ++i)
             SetField(i, 1, 2 * _mancala.Player2Index - i, !_mancala.CurrentIsFirst);
     }
@@ -46,7 +45,8 @@ public partial class MancalaScreen
     {
         for (int i = 0; i < _fields.Length; ++i)
             _fields[i].Count = _mancala[i];
-        AllowUiToUpdate();
+
+        Util.AllowUiToUpdate();
         Thread.Sleep(500);
     }
 
@@ -83,21 +83,5 @@ public partial class MancalaScreen
         int option = bot.CalculateIndexOfBestOption(_mancala);
         if (option != -1)
             _fields[_mancala.OptionsOfCurrentPlayer[option]].IsPreferredOptionByBot = true;
-    }
-
-
-    private static void AllowUiToUpdate()
-    {
-        DispatcherFrame frame = new DispatcherFrame();
-        Dispatcher.CurrentDispatcher.BeginInvoke(DispatcherPriority.Render, new DispatcherOperationCallback(
-            delegate
-            {
-                frame.Continue = false;
-                return null;
-            }), null);
-
-        Dispatcher.PushFrame(frame);
-        Application.Current.Dispatcher.Invoke(DispatcherPriority.Background,
-            new Action(delegate { }));
     }
 }

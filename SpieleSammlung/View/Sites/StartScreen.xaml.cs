@@ -12,10 +12,7 @@ public partial class StartScreen
 
     public event OnChoseMode ChoseModeEvent;
 
-    public StartScreen()
-    {
-        InitializeComponent();
-    }
+    public StartScreen() => InitializeComponent();
 
     private void BtnZufallszahlen_Click(object sender, RoutedEventArgs e)
     {
@@ -27,28 +24,14 @@ public partial class StartScreen
         //NavigationService.Navigate(new PlayerCreator(GameMode.Lotto));
     }
 
-    private void BtnMaexchen_Click(object sender, RoutedEventArgs e)
-    {
-        ChoseModeEvent(GameMode.Maexchen, 2, 100);
-    }
+    private void BtnMaexchen_Click(object sender, RoutedEventArgs e) => ChoseModeEvent(GameMode.Maexchen, 2, 100);
 
-    private void Btn4gewinnt_Click(object sender, RoutedEventArgs e)
-    {
-        ChoseModeEvent(GameMode.VierGewinnt, 1, 2);
-    }
+    private void Btn4gewinnt_Click(object sender, RoutedEventArgs e) => ChoseModeEvent(GameMode.VierGewinnt, 1, 2);
 
-    private void BtnKniffel_Click(object sender, RoutedEventArgs e)
-    {
+    private void BtnKniffel_Click(object sender, RoutedEventArgs e) =>
         ChoseModeEvent(GameMode.Kniffel, KniffelGame.MIN_PLAYER_COUNT, 10);
-    }
 
-    private void BtnSchafkopf_Click(object sender, RoutedEventArgs e)
-    {
-        ChoseModeEvent(GameMode.Schafkopf, 4, 7);
-    }
+    private void BtnSchafkopf_Click(object sender, RoutedEventArgs e) => ChoseModeEvent(GameMode.Schafkopf, 4, 7);
 
-    private void BtnMancala_Click(object sender, RoutedEventArgs e)
-    {
-        ChoseModeEvent(GameMode.Mancala, 2, 2);
-    }
+    private void BtnMancala_Click(object sender, RoutedEventArgs e) => ChoseModeEvent(GameMode.Mancala, 2, 2);
 }

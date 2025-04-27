@@ -53,12 +53,11 @@ public partial class CardHolder
                 //BACKUP if (i < 7) { Grid.ColumnDefinitions[i * 2 + 1].Width = new GridLength(1, GridUnitType.Star); }
             }
 
-            for (; i < 8; ++i)
-            {
+            for (; i < 8; ++i) 
                 _cardVisuals[i].Visibility = Visibility.Collapsed;
-            }
 
-            if (!_aufgestellt.HasValue) ChangeViewMode(false);
+            if (!_aufgestellt.HasValue) 
+                ChangeViewMode(false);
         }
     }
 
@@ -69,8 +68,11 @@ public partial class CardHolder
         get => Card1.IsClickable;
         set
         {
-            foreach (var card in _cardVisuals) card.IsClickable = value;
-            if (!value && HasSelectedCard) RemoveSelection();
+            foreach (var card in _cardVisuals) 
+                card.IsClickable = value;
+            
+            if (!value && HasSelectedCard) 
+                RemoveSelection();
         }
     }
 
@@ -83,7 +85,9 @@ public partial class CardHolder
     public void RemoveCard(int index)
     {
         _cards.RemoveAt(index);
-        for (int i = index; i < _cards.Count; ++i) _cardVisuals[i].Card = _cards[i];
+        for (int i = index; i < _cards.Count; ++i) 
+            _cardVisuals[i].Card = _cards[i];
+        
         _cardVisuals[_cards.Count].Visibility = Visibility.Collapsed;
         //BACKUP if (Cards.Count > 1) { Grid.ColumnDefinitions[cards.Count * 2 - 1].Width = new GridLength(0, GridUnitType.Star); } BACKUP
     }
@@ -119,13 +123,16 @@ public partial class CardHolder
 
     private void CardPressed(int index)
     {
-        if (SelectedCard != -1) _cardVisuals[SelectedCard].IsChecked = false;
+        if (SelectedCard != -1) 
+            _cardVisuals[SelectedCard].IsChecked = false;
+        
         if (_cardVisuals[index].IsChecked)
         {
             SelectedCard = index;
             CardClicked?.Invoke(this, new RoutedEventArgs());
         }
-        else SelectedCard = -1;
+        else 
+            SelectedCard = -1;
     }
 
     private void Card1_Checked(object sender, RoutedEventArgs e) => CardPressed(0);

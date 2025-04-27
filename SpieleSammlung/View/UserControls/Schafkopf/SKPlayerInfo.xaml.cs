@@ -48,15 +48,13 @@ public partial class SkPlayerInfo
         set => VisualKontra.Visibility = value ? Visibility.Visible : Visibility.Collapsed;
     }
 
-    public SkPlayerInfo()
-    {
-        InitializeComponent();
-    }
+    public SkPlayerInfo() => InitializeComponent();
 
     public void NewMatch()
     {
         Kontra = false;
-        if (!Aufgestellt) State = STATE_AUFSTELLEN;
+        if (!Aufgestellt) 
+            State = STATE_AUFSTELLEN;
     }
 
     public void NewMatch(string player)

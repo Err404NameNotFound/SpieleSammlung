@@ -54,9 +54,7 @@ public partial class Connect4Screen
     public void Shutdown()
     {
         if (IsCalculationRunning())
-        {
             _tokenSource.Cancel();
-        }
     }
 
     private bool IsCalculationRunning() => _calculation is { Status: TaskStatus.Running };
@@ -134,9 +132,7 @@ public partial class Connect4Screen
             }
 
             if (!_game.IsGameOver())
-            {
                 MachineMove();
-            }
         }
         else
         {
@@ -176,14 +172,10 @@ public partial class Connect4Screen
     private void UpdateUiAfterMachine(bool hideTile)
     {
         if (hideTile)
-        {
             HideStackTile();
-        }
 
         if (_game.IsGameOver() && _game.GetWinner() != Connect4Tile.Nobody)
-        {
             SetWinner(_game.GetWitness());
-        }
 
         UpdateField();
     }
@@ -256,9 +248,7 @@ public partial class Connect4Screen
         {
             _game = new Connect4(player, Connect4.SUGGESTED_MACHINE_LEVEL);
             if (player == Connect4Tile.Machine)
-            {
                 MachineMove();
-            }
 
             _currentPlayer = Connect4Tile.Player;
         }
@@ -272,13 +262,9 @@ public partial class Connect4Screen
         ResetField();
     }
 
-    private void Button_New_Click(object sender, System.Windows.RoutedEventArgs e)
-    {
+    private void Button_New_Click(object sender, System.Windows.RoutedEventArgs e) =>
         StartNewGame(_game.GetFirstPlayer());
-    }
 
-    private void Button_Switch_Click(object sender, System.Windows.RoutedEventArgs e)
-    {
+    private void Button_Switch_Click(object sender, System.Windows.RoutedEventArgs e) =>
         StartNewGame(_game.GetFirstPlayer().Opponent());
-    }
 }

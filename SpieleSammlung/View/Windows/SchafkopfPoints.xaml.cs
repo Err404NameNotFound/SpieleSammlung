@@ -79,8 +79,10 @@ public partial class SchafkopfPoints
         while (true)
         {
             bob.Append(_playerPoints[i].Name);
-            if (++i != _playerPoints.Count) bob.Append(SEPARATOR);
-            else break;
+            if (++i != _playerPoints.Count)
+                bob.Append(SEPARATOR);
+            else
+                break;
         }
 
         ret.Add(bob.ToString());
@@ -89,8 +91,10 @@ public partial class SchafkopfPoints
         while (true)
         {
             bob.Append(_playerPoints[i].Points);
-            if (++i != _playerPoints.Count) bob.Append(SEPARATOR);
-            else break;
+            if (++i != _playerPoints.Count)
+                bob.Append(SEPARATOR);
+            else
+                break;
         }
 
         ret.Add(bob.ToString());
@@ -144,13 +148,9 @@ public partial class SchafkopfPoints
         {
             bob.Append(table.Columns[col].ColumnName);
             if (++col != table.Columns.Count)
-            {
                 bob.Append(SEPARATOR);
-            }
             else
-            {
                 break;
-            }
         }
 
         ret.Add(bob.ToString());
@@ -162,13 +162,9 @@ public partial class SchafkopfPoints
             {
                 bob.Append(table.Rows[row][col]);
                 if (++col != table.Columns.Count)
-                {
                     bob.Append(SEPARATOR);
-                }
                 else
-                {
                     break;
-                }
             }
 
             ret.Add(bob.ToString());
@@ -178,8 +174,6 @@ public partial class SchafkopfPoints
         return ret;
     }
 
-    private void TabView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
+    private void TabView_SelectionChanged(object sender, SelectionChangedEventArgs e) =>
         BtnPrint.IsEnabled = _canPrint[TabView.SelectedIndex];
-    }
 }

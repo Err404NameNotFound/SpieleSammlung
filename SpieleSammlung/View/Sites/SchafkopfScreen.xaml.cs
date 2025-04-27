@@ -72,22 +72,19 @@ public partial class SchafkopfScreen
     {
         get
         {
-            if (!_allPlayerSeeAllCards)
+            if (_allPlayerSeeAllCards)
+                return _allPlayerSeeAllCards;
+
+            int i = 0;
+            while (i < PLAYER_PER_ROUND)
             {
-                int i = 0;
-                while (i < PLAYER_PER_ROUND)
-                {
-                    if (_playerInfos[i].State.Equals(SkPlayerInfo.STATE_AUFSTELLEN))
-                    {
-                        break;
-                    }
+                if (_playerInfos[i].State.Equals(SkPlayerInfo.STATE_AUFSTELLEN))
+                    break;
 
-                    ++i;
-                }
-
-                _allPlayerSeeAllCards = i == PLAYER_PER_ROUND;
+                ++i;
             }
 
+            _allPlayerSeeAllCards = i == PLAYER_PER_ROUND;
             return _allPlayerSeeAllCards;
         }
     }
@@ -161,8 +158,10 @@ public partial class SchafkopfScreen
 
         CanQuitNow = true;
         QuitAfterMatch = false;
-        if (connection.IsHost) ShuffleCards(false);
-        else if (reJoin) SendMessage(CODE_HOST_READY_FOR_INFO);
+        if (connection.IsHost)
+            ShuffleCards(false);
+        else if (reJoin)
+            SendMessage(CODE_HOST_READY_FOR_INFO);
     }
 
     #region Connection
@@ -196,17 +195,14 @@ public partial class SchafkopfScreen
                     if (e.Sender.Equals(_match.Players[i].Id))
                     {
                         if (GridRoundSummary.Visibility == Visibility.Visible)
-                        {
                             _connection.LostClients.Clear();
-                        }
 
-                        ApplyConnectionToUserLost(_connection.LostClients.Count, i,
-                            MultiplayerPlayerState.LeftMatch,
+                        ApplyConnectionToUserLost(_connection.LostClients.Count, i, MultiplayerPlayerState.LeftMatch,
                             "");
                         SendMessage(new List<string>
                         {
                             CODE_CLIENT_LOST_CONNECTION, _connection.LostClients.Count.ToString(), i.ToString(),
-                            MultiplayerPlayerState.LeftMatch.ToString(), ""
+                            nameof(MultiplayerPlayerState.LeftMatch), ""
                         });
                         break;
                     }
@@ -263,14 +259,17 @@ public partial class SchafkopfScreen
                         break;
                 }
 
-                if (redirect) _connection.RedirectClientMessage(e.Message, e.Sender);
+                if (redirect)
+                    _connection.RedirectClientMessage(e.Message, e.Sender);
                 if (newRound)
                 {
                     ModeSelector.State = GameSelectorState.Visible;
                     ShuffleCards(true);
                 }
-                else if (newGame) ShuffleCards(false);
-                else if (playCard) CardHolder_CardClicked(null, null);
+                else if (newGame)
+                    ShuffleCards(false);
+                else if (playCard)
+                    CardHolder_CardClicked(null, null);
 
                 break;
             }
@@ -340,18 +339,14 @@ public partial class SchafkopfScreen
 
     private void SendMessage(IEnumerable<string> message) => _connection.SendMessage(message, SEPARATOR);
 
-    private void SendMessage(string id, IEnumerable<string> message) =>
-        _connection.SendMessage(message, SEPARATOR, id);
+    private void SendMessage(string id, IEnumerable<string> message) => _connection.SendMessage(message, SEPARATOR, id);
 
     private void SendMessage(params string[] message) => _connection.SendMessage(message, SEPARATOR);
 
     public void EndConnection() => _connection.EndConnection();
 
-    private void DebugLog()
-    {
-        _connection.WriteLine(_match.WriteCurrentIndices().Append(", PlIndexCurRnd: ").Append(PlayerIndexCurRound)
-            .ToString());
-    }
+    private void DebugLog() => _connection.WriteLine(
+        _match.WriteCurrentIndices().Append(", PlIndexCurRnd: ").Append(PlayerIndexCurRound).ToString());
 
     private IEnumerable<string> GenerateRejoinInfo()
     {
@@ -414,22 +409,14 @@ public partial class SchafkopfScreen
                     _playerInfosSpectate[i].Aufgestellt = _match.CurrentPlayers[i].Aufgestellt;
                     _playerInfosSpectate[i].Kontra = _match.CurrentPlayers[i].Kontra;
                     if (state[i].Equals(SkPlayerInfo.STATE_EMPTY))
-                    {
                         _playerInfosSpectate[i].EmptyState();
-                    }
                     else
-                    {
                         _playerInfosSpectate[i].State = state[i];
-                    }
 
                     if (state[i].Equals(SkPlayerInfo.STATE_AUFSTELLEN))
-                    {
                         _chSpectate[i].Reset();
-                    }
                     else
-                    {
                         _chSpectate[i].ShowAllCards(_match.CurrentPlayers[i].Aufgestellt);
-                    }
 
                     _chSpectate[i].Cards = _match.CurrentPlayers[i].GetPlayableCards();
                 }
@@ -452,10 +439,9 @@ public partial class SchafkopfScreen
                     _playerInfos[index].Aufgestellt = _match.CurrentPlayers[i].Aufgestellt;
                     _playerInfos[index].Kontra = _match.CurrentPlayers[i].Kontra;
                     if (state[i].Equals(SkPlayerInfo.STATE_EMPTY))
-                    {
                         _playerInfos[i].EmptyState();
-                    }
-                    else _playerInfos[index].State = state[i];
+                    else
+                        _playerInfos[index].State = state[i];
                 }
 
                 if (_match.AmountShuffle == 3)
@@ -476,26 +462,20 @@ public partial class SchafkopfScreen
                     {
                         ApplyPossibilities();
                         if (_playerInfos[0].State.Equals(SkPlayerInfo.STATE_EMPTY))
-                        {
                             ModeSelector.State = GameSelectorState.Visible;
-                        }
                         else
                         {
                             if (_match.PlayerIndex == PlayerIndexCurRound)
                             {
                                 int w = 0;
                                 while (_match.Players[_playerIndex].Possibilities[w].Mode != _match.MinimumGame)
-                                {
                                     ++w;
-                                }
 
                                 ModeSelector.CbMode.SelectedIndex = w;
                                 int color = 0;
                                 while (!_match.Players[_playerIndex].Possibilities[w].Colors[color]
                                            .Equals(_match.Color))
-                                {
                                     ++color;
-                                }
 
                                 ModeSelector.CbColor.SelectedIndex = color;
                             }
@@ -532,21 +512,15 @@ public partial class SchafkopfScreen
         int index = int.Parse(msgParts[1]);
         _match.CurrentPlayers[index].Kontra = true;
         if (_isSpectating)
-        {
             _playerInfosSpectate[index].Kontra = true;
-        }
         else
         {
             _playerInfos[GetUiPlayerIndex(index)].Kontra = true;
             if (_match.CurrentPlayers[index].TeamIndex == _match.CurrentPlayers[PlayerIndexCurRound].TeamIndex)
-            {
                 BtnKontra.Visibility = Visibility.Hidden;
-            }
             else if (_match.CurrentPlayers[index].TeamIndex -
                      _match.CurrentPlayers[PlayerIndexCurRound].TeamIndex == 1)
-            {
                 BtnKontra.Visibility = Visibility.Visible;
-            }
         }
     }
 
@@ -554,29 +528,26 @@ public partial class SchafkopfScreen
     {
         int player = int.Parse(msgParts[1]);
         int selected = int.Parse(msgParts[2]);
-        if (PlayCard(player, selected))
-        {
-            if (_isSpectating)
-            {
-                _chSpectate[player].RemoveCard(selected);
-                return false;
-            }
+        if (!PlayCard(player, selected))
+            return false;
 
-            return !_match.IsGameOver;
+        if (_isSpectating)
+        {
+            _chSpectate[player].RemoveCard(selected);
+            return false;
         }
 
-        return false;
+        return !_match.IsGameOver;
     }
 
     private bool ApplyChoseGameOfOtherUser(IReadOnlyList<string> msgParts)
     {
         if (ChoseGameMode(int.Parse(msgParts[1]), SchafkopfMatchConfig.StringToSchafkopfMode(msgParts[2]),
                 msgParts[3]))
-        {
             return true;
-        }
 
-        if (!_isSpectating) ModeSelector.TrySelect();
+        if (!_isSpectating)
+            ModeSelector.TrySelect();
         return false;
     }
 
@@ -591,9 +562,7 @@ public partial class SchafkopfScreen
             _chSpectate[index].ShowAllCards(aufgestellt);
         }
         else
-        {
             _playerInfos[GetUiPlayerIndex(index)].Aufgestellt = aufgestellt;
-        }
     }
 
     private bool ApplyContinueOfOtherUser(IReadOnlyList<string> msgParts)
@@ -608,10 +577,14 @@ public partial class SchafkopfScreen
         string newId)
     {
         _match.Players[index].State = state;
-        if (state == MultiplayerPlayerState.Active) _match.Players[index].Id = newId;
-        if (ViewPlaying.Visibility == Visibility.Visible) _gridBeforeConnectionError = ViewPlaying;
-        else if (SpectatorView.Visibility == Visibility.Visible) _gridBeforeConnectionError = ViewPlaying;
-        else return;
+        if (state == MultiplayerPlayerState.Active)
+            _match.Players[index].Id = newId;
+        if (ViewPlaying.Visibility == Visibility.Visible)
+            _gridBeforeConnectionError = ViewPlaying;
+        else if (SpectatorView.Visibility == Visibility.Visible)
+            _gridBeforeConnectionError = ViewPlaying; // TODO should these two be the same
+        else
+            return;
 
         if (missingPlayerCount > 0)
         {
@@ -643,8 +616,10 @@ public partial class SchafkopfScreen
         {
             for (int i = 0; i < _playerInfosSpectate.Count; ++i)
             {
-                if (samePlayer) _playerInfosSpectate[i].NewMatch();
-                else _playerInfosSpectate[i].NewMatch(_match.CurrentPlayers[i].Name);
+                if (samePlayer)
+                    _playerInfosSpectate[i].NewMatch();
+                else
+                    _playerInfosSpectate[i].NewMatch(_match.CurrentPlayers[i].Name);
             }
 
             _playerInfosSpectate[_match.CurrentRound.CurrentPlayer].IsStartPlayer = true;
@@ -653,28 +628,29 @@ public partial class SchafkopfScreen
         {
             for (int i = 0; i < _playerInfos.Count; ++i)
             {
-                if (samePlayer) _playerInfos[GetUiPlayerIndex(i)].NewMatch();
-                else _playerInfos[GetUiPlayerIndex(i)].NewMatch(_match.CurrentPlayers[i].Name);
+                if (samePlayer)
+                    _playerInfos[GetUiPlayerIndex(i)].NewMatch();
+                else
+                    _playerInfos[GetUiPlayerIndex(i)].NewMatch(_match.CurrentPlayers[i].Name);
             }
 
             ApplyPossibilities();
             ModeSelector.State = GameSelectorState.Hidden;
             BtnKontra.Visibility = Visibility.Hidden;
-            if (VisualPlayer.Aufgestellt) CardHolder_ShowsAllCards(null, null);
+            if (VisualPlayer.Aufgestellt)
+                CardHolder_ShowsAllCards(null, null);
             _playerInfos[GetUiPlayerIndex(_match.CurrentRound.CurrentPlayer)].IsStartPlayer = true;
         }
 
         UpdateFocus(false);
     }
 
-    private void ApplyPossibilities()
-    {
-        ModeSelector.Source = _match.CurrentPlayers[PlayerIndexCurRound].Possibilities;
-    }
+    private void ApplyPossibilities() => ModeSelector.Source = _match.CurrentPlayers[PlayerIndexCurRound].Possibilities;
 
     private void MarkPlayableCards()
     {
-        if (!_isSpectating) CardHolder.MarkSelectableCards(_match.PlayableCards[PlayerIndexCurRound]);
+        if (!_isSpectating)
+            CardHolder.MarkSelectableCards(_match.PlayableCards[PlayerIndexCurRound]);
     }
 
     private void UpdateCardVisual(bool forceReset, bool tryReset)
@@ -683,13 +659,15 @@ public partial class SchafkopfScreen
         {
             for (int i = 0; i < PLAYER_PER_ROUND; ++i)
             {
-                if (forceReset || tryReset && !_chSpectate[i].Aufgestellt) _chSpectate[i].Reset();
+                if (forceReset || tryReset && !_chSpectate[i].Aufgestellt)
+                    _chSpectate[i].Reset();
                 _chSpectate[i].Cards = _match.CurrentPlayers[i].GetPlayableCards();
             }
         }
         else
         {
-            if (forceReset || tryReset && !CardHolder.Aufgestellt) CardHolder.Reset();
+            if (forceReset || tryReset && !CardHolder.Aufgestellt)
+                CardHolder.Reset();
             CardHolder.Cards = _match.CurrentPlayers[PlayerIndexCurRound].GetPlayableCards();
         }
     }
@@ -699,8 +677,12 @@ public partial class SchafkopfScreen
         int current = _match.CurrentRound.CurrentPlayer;
         if (_isSpectating)
         {
-            for (int i = 0; i < _playerInfosSpectate.Count; ++i) _playerInfosSpectate[i].Focused = i == current;
-            if (cardHolder != true) return;
+            for (int i = 0; i < _playerInfosSpectate.Count; ++i)
+                _playerInfosSpectate[i].Focused = i == current;
+
+            if (cardHolder != true)
+                return;
+
             for (int i = 0; i < _chSpectate.Count; ++i)
                 _chSpectate[i].Focused = i == current;
         }
@@ -709,8 +691,10 @@ public partial class SchafkopfScreen
             for (int i = 0; i < _playerInfos.Count; ++i)
                 _playerInfos[GetUiPlayerIndex(i)].Focused = i == current;
 
-            if (cardHolder == true) CardHolder.Focused = current == PlayerIndexCurRound;
-            else if (cardHolder.HasValue) ModeSelector.SetGameSelectorFocus(current == PlayerIndexCurRound);
+            if (cardHolder == true)
+                CardHolder.Focused = current == PlayerIndexCurRound;
+            else if (cardHolder.HasValue)
+                ModeSelector.SetGameSelectorFocus(current == PlayerIndexCurRound);
         }
     }
 
@@ -764,7 +748,8 @@ public partial class SchafkopfScreen
         BtnPlayerNextMatch.Visibility = Visibility.Visible;
         _cvNextMatch[_playerIndex].Visibility = Visibility.Collapsed;
         GridRoundSummary.Visibility = Visibility.Visible;
-        if (_points != null) UpdatePoints();
+        if (_points != null)
+            UpdatePoints();
 
         if (QuitAfterMatch)
         {
@@ -773,21 +758,6 @@ public partial class SchafkopfScreen
         }
 
         BtnPoints.IsEnabled = true;
-    }
-
-    private void AllowUiToUpdate()
-    {
-        DispatcherFrame frame = new DispatcherFrame();
-        Dispatcher.CurrentDispatcher.BeginInvoke(DispatcherPriority.Render, new DispatcherOperationCallback(
-            delegate
-            {
-                frame.Continue = false;
-                return null;
-            }), null);
-
-        Dispatcher.PushFrame(frame);
-        Application.Current.Dispatcher.Invoke(DispatcherPriority.Background,
-            new Action(delegate { }));
     }
 
     #endregion
@@ -801,14 +771,14 @@ public partial class SchafkopfScreen
     /// <param name="msgParts"></param> message for clients
     private void ShuffleCards(bool sameRound, IReadOnlyList<string> msgParts = null)
     {
-        if (!sameRound) BtnLastStich.IsEnabled = false;
+        if (!sameRound)
+            BtnLastStich.IsEnabled = false;
 
         GridRoundSummary.Visibility = Visibility.Collapsed;
         if (_connection.IsHost)
-        {
             SendMessage(_match.ShuffleCards(sameRound, CODE_CLIENT_SHUFFLED_CARDS));
-        }
-        else _match.ShuffleCards(msgParts, sameRound);
+        else
+            _match.ShuffleCards(msgParts, sameRound);
 
         //unnötig durch umstellung auf playInCurRou { get {...}} playerIndexCurRound = match.players[playerIndex].number;
         if (_match.Players[_playerIndex].Number == -1)
@@ -901,9 +871,7 @@ public partial class SchafkopfScreen
         else
         {
             if (!_isSpectating && mode != SchafkopfMode.Weiter)
-            {
                 ModeSelector.CheckIfSelectedStillValid(mode, _match, _match.CurrentPlayers[PlayerIndexCurRound]);
-            }
         }
 
         UpdateFocus(false);
@@ -919,71 +887,64 @@ public partial class SchafkopfScreen
     private bool PlayCard(int player, int selected)
     {
         Card card = _match.CurrentPlayers[player].PlayableCards[selected];
-        if (_match.PlayCard(selected, player))
+        if (!_match.PlayCard(selected, player))
+            return false;
+
+        if (_match.CurrentCardCount == 1)
         {
-            if (_match.CurrentCardCount == 1)
-            {
-                if (_isSpectating) CurrentCardsSpectate.Reset();
-                else
-                {
-                    CurrentCards.Reset();
-                    CardHolder.CanClickCards = _match.CurrentRound.CurrentPlayer != PlayerIndexCurRound;
-                }
-
-                MarkPlayableCards();
-            }
-
-            if (_isSpectating)
-                CurrentCardsSpectate.AddCard(card, _match.CurrentPlayers[player].Number);
+            if (_isSpectating) CurrentCardsSpectate.Reset();
             else
-                CurrentCards.AddCard(card, GetUiPlayerIndex(_match.CurrentPlayers[player].Number));
-
-            if (_match.CurrentCardCount is 0)
             {
-                FillLastStich(_match.PreviousRound);
-                BtnLastStich.IsEnabled = true;
+                CurrentCards.Reset();
+                CardHolder.CanClickCards = _match.CurrentRound.CurrentPlayer != PlayerIndexCurRound;
             }
 
+            MarkPlayableCards();
+        }
 
-            if (_match.IsGameOver)
-            {
-                FillLastStich(_match.PreviousRound);
-                CardHolder.Focused = false;
-                AllowUiToUpdate();
-                Thread.Sleep(1500);
-                ShowSummary();
-                return true;
-            }
+        if (_isSpectating)
+            CurrentCardsSpectate.AddCard(card, _match.CurrentPlayers[player].Number);
+        else
+            CurrentCards.AddCard(card, GetUiPlayerIndex(_match.CurrentPlayers[player].Number));
 
-            if (_match.CurrentCardCount == 0)
-            {
-                MarkPlayableCards();
-                CardHolder.CanClickCards = _match.CurrentRound.CurrentPlayer == PlayerIndexCurRound;
-            }
+        if (_match.CurrentCardCount is 0)
+        {
+            FillLastStich(_match.PreviousRound);
+            BtnLastStich.IsEnabled = true;
+        }
 
-            UpdateFocus(true);
+
+        if (_match.IsGameOver)
+        {
+            FillLastStich(_match.PreviousRound);
+            CardHolder.Focused = false;
+            Util.AllowUiToUpdate();
+            Thread.Sleep(1500);
+            ShowSummary();
             return true;
         }
 
-        return false;
+        if (_match.CurrentCardCount == 0)
+        {
+            MarkPlayableCards();
+            CardHolder.CanClickCards = _match.CurrentRound.CurrentPlayer == PlayerIndexCurRound;
+        }
+
+        UpdateFocus(true);
+        return true;
     }
 
     private bool StartNextMatch()
     {
         int w = 0;
         while (w < _match.Players.Count && _match.Players[w].ContinueMatch == true)
-        {
             ++w;
-        }
 
         return w == _match.Players.Count;
         //TODO handle player leaving the match
     }
 
-    private void UpdatePoints()
-    {
-        _points.Update(_match.PlayerPoints, _match.PointsSingle, _match.PointsCumulated);
-    }
+    private void UpdatePoints() => _points.Update(_match.PlayerPoints, _match.PointsSingle, _match.PointsCumulated);
 
     #endregion
 
@@ -1009,19 +970,19 @@ public partial class SchafkopfScreen
 
     private void CardHolder_CardClicked(object sender, EventArgs e)
     {
-        if (CardHolder.SelectedCard == -1) return;
-        if (_match.CurrentRound.CurrentPlayer == PlayerIndexCurRound && CardHolder.SelectedCard != -1)
-        {
-            if (BtnKontra.Visibility == Visibility.Visible) BtnKontra.Visibility = Visibility.Hidden;
+        if (CardHolder.SelectedCard == -1 || _match.CurrentRound.CurrentPlayer != PlayerIndexCurRound)
+            return;
 
+        if (BtnKontra.Visibility == Visibility.Visible)
+            BtnKontra.Visibility = Visibility.Hidden;
 
-            int selected = CardHolder.SelectedCard;
-            SendMessage(new List<string> { CODE_PLAY_CARD, PlayerIndexCurRound.ToString(), selected.ToString() });
-            if (PlayCard(PlayerIndexCurRound, selected))
-                CardHolder.RemoveSelectedCard();
-            if (_match.CurrentCardCount != 0)
-                CardHolder.CanClickCards = false;
-        }
+        int selected = CardHolder.SelectedCard;
+        SendMessage(new List<string> { CODE_PLAY_CARD, PlayerIndexCurRound.ToString(), selected.ToString() });
+        if (PlayCard(PlayerIndexCurRound, selected))
+            CardHolder.RemoveSelectedCard();
+
+        if (_match.CurrentCardCount != 0)
+            CardHolder.CanClickCards = false;
     }
 
     private void BtnLastStich_Click(object sender, RoutedEventArgs e)
@@ -1038,17 +999,12 @@ public partial class SchafkopfScreen
             _points.Closing += PointsWindowClosed;
         }
         else
-        {
             UpdatePoints();
-        }
 
         _points.Show();
     }
 
-    private void PointsWindowClosed(object sender, CancelEventArgs e)
-    {
-        _points = null;
-    }
+    private void PointsWindowClosed(object sender, CancelEventArgs e) => _points = null;
 
     private void BtnPlayerNextMatch_Click(object sender, RoutedEventArgs e)
     {
@@ -1057,13 +1013,8 @@ public partial class SchafkopfScreen
         _cvNextMatch[_playerIndex].IsChecked = true;
         _match.Players[_playerIndex].ContinueMatch = true;
         SendMessage(new List<string> { CODE_CONTINUE, _playerIndex.ToString(), "true" });
-        if (_connection.IsHost)
-        {
-            if (StartNextMatch())
-            {
-                ShuffleCards(false);
-            }
-        }
+        if (_connection.IsHost && StartNextMatch())
+            ShuffleCards(false);
     }
 
     private void BtnPlayerQuit_Click(object sender, RoutedEventArgs e)
@@ -1079,33 +1030,30 @@ public partial class SchafkopfScreen
     {
         int index = PlayerIndexCurRound;
         _match.CurrentPlayers[index].SortCards(new SchafkopfMatchConfig(e.Mode, e.Color));
-        if (_isSpectating) _chSpectate[index].Cards = _match.CurrentPlayers[index].GetPlayableCards();
-        else CardHolder.Cards = _match.CurrentPlayers[index].GetPlayableCards();
+        if (_isSpectating)
+            _chSpectate[index].Cards = _match.CurrentPlayers[index].GetPlayableCards();
+        else
+            CardHolder.Cards = _match.CurrentPlayers[index].GetPlayableCards();
     }
 
     private void ModeSelector_ModeSelected(GameModeSelectedEvent e)
     {
-        if (_match.CurrentRound.CurrentPlayer == PlayerIndexCurRound)
+        if (_match.CurrentRound.CurrentPlayer != PlayerIndexCurRound) return;
+
+        if (AllPlayerSeeAllCards)
         {
-            if (AllPlayerSeeAllCards)
+            ModeSelector.State = GameSelectorState.Selected;
+            SendMessage(new List<string>
+                { CODE_GAME_MODE, PlayerIndexCurRound.ToString(), e.Mode.ToString(), e.Color });
+            if (ChoseGameMode(PlayerIndexCurRound, e.Mode, e.Color))
             {
-                ModeSelector.State = GameSelectorState.Selected;
-                SendMessage(new List<string>
-                    { CODE_GAME_MODE, PlayerIndexCurRound.ToString(), e.Mode.ToString(), e.Color });
-                if (ChoseGameMode(PlayerIndexCurRound, e.Mode, e.Color))
-                {
-                    ModeSelector.State = GameSelectorState.Visible;
-                    if (_connection.IsHost)
-                    {
-                        ShuffleCards(true);
-                    }
-                }
-            }
-            else
-            {
-                ModeSelector.BtnSelectMode.IsChecked = false;
+                ModeSelector.State = GameSelectorState.Visible;
+                if (_connection.IsHost)
+                    ShuffleCards(true);
             }
         }
+        else
+            ModeSelector.BtnSelectMode.IsChecked = false;
     }
 
     #endregion

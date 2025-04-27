@@ -194,6 +194,7 @@
         <Compile Include="View\UserControls\Schafkopf\StichView.xaml.cs">
           <DependentUpon>StichView.xaml</DependentUpon>
         </Compile>
+        <Compile Include="View\Util.cs" />
         <Compile Include="View\Windows\LastStich.xaml.cs">
           <DependentUpon>LastStich.xaml</DependentUpon>
         </Compile>
@@ -385,9 +386,6 @@
     </ItemGroup>
     <ItemGroup>
         <Resource Include="Aroche-Delta-Games.ico" />
-    </ItemGroup>
-    <ItemGroup>
-      <Folder Include="View\" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
 </Project>

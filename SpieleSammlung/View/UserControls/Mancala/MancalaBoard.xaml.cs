@@ -17,6 +17,7 @@ public partial class MancalaBoard
         SetField(0, 0, 0);
         for (int i = _mancala.Player1Index + 1; i < _mancala.Player2Index; ++i)
             SetField(i, 0, i);
+        
         for (int i = _mancala.Player2Index + 1; i < _mancala.FieldsCount; ++i)
             SetField(i, 1, 2 * _mancala.Player2Index - i);
     }

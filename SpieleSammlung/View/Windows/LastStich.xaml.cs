@@ -40,8 +40,6 @@ public partial class LastStich
         GridStich.Children.Add(view);
     }
 
-    private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-    {
+    private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) =>
         GridStich.Children.Remove(_view);
-    }
 }

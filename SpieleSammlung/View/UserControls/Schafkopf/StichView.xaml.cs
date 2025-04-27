@@ -31,8 +31,6 @@ public partial class StichView
     {
         _cardCounter = 0;
         for (int i = 0; i < 4; ++i)
-        {
             _cardVisuals[i].Visibility = Visibility.Hidden;
-        }
     }
 }
