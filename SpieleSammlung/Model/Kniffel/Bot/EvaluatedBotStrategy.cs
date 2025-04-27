@@ -60,7 +60,7 @@ public class EvaluatedBotStrategy : BotStrategy
             threadPool[i].Start();
         }
 
-        // Wait for all of the threads to finish.
+        // Wait for all the threads to finish.
         foreach (Thread thread in threadPool) thread.Join();
 
         Scores.Merge(evaluators);

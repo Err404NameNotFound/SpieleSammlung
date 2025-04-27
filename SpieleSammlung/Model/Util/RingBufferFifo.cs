@@ -21,19 +21,12 @@ public class RingBufferFifo<T>
         _first.Next = next;
         _first = next;
         if (_size >= _capacity)
-        {
             _last = _last.Next;
-        }
         else
-        {
             ++_size;
-        }
     }
 
-    public T Peek()
-    {
-        return _last.Value;
-    }
+    public T Peek() => _last.Value;
 
     private class Node(T value)
     {
