@@ -15,6 +15,7 @@ public partial class CardHolder
     private List<Card> _cards;
     private readonly List<SelectableCard> _cardVisuals;
     private bool? _aufgestellt;
+    private const int INDEX_FIRST_CARD_SECOND_HALF = 4;
 
     public CardHolder()
     {
@@ -50,10 +51,9 @@ public partial class CardHolder
             {
                 _cardVisuals[i].Card = _cards[i];
                 _cardVisuals[i].Visibility = Visibility.Visible;
-                //BACKUP if (i < 7) { Grid.ColumnDefinitions[i * 2 + 1].Width = new GridLength(1, GridUnitType.Star); }
             }
 
-            for (; i < 8; ++i)
+            for (; i < _cardVisuals.Count; ++i)
                 _cardVisuals[i].Visibility = Visibility.Collapsed;
 
             if (!_aufgestellt.HasValue)
@@ -106,6 +106,7 @@ public partial class CardHolder
 
     public void MarkSelectableCards(IReadOnlyList<bool> playableCards)
     {
+        SelectedCard = -1;
         for (int i = 0; i < playableCards.Count; ++i)
         {
             _cardVisuals[i].IsClickable = playableCards[i];
@@ -187,10 +188,8 @@ public partial class CardHolder
 
         BtnAufstellen.Visibility = visibilityBtn;
         BtnShowRest.Visibility = visibilityBtn;
-        for (int i = 4; i < 8; ++i)
-        {
+        for (int i = INDEX_FIRST_CARD_SECOND_HALF; i < _cardVisuals.Count; ++i)
             _cardVisuals[i].Visibility = visibilityCards;
-        }
     }
 
     private void Grid_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -199,10 +198,8 @@ public partial class CardHolder
         {
             //2 * Padding Border + 2 * Thickness Border + 2 * 1 * Padding Cards + 6 * 2 * Padding Cards -> 2*5+2*2+2*5+6*2*5 = 84 
             double height = SelectableCard.HEIGHT_FACTOR * (CardsGrid.ActualWidth - 84) / _cards.Count;
-            for (int i = 0; i < 8; ++i)
-            {
-                _cardVisuals[i].MaxHeight = height;
-            }
+            foreach (var cardVisual in _cardVisuals)
+                cardVisual.MaxHeight = height;
         }
     }
 }

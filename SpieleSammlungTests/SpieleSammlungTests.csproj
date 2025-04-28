@@ -145,6 +145,7 @@
         <Compile Include="Utils\IntArrayComparer.cs"/>
         <Compile Include="Utils\RandomStub.cs"/>
         <Compile Include="View\Screens\Connect4Test.cs" />
+        <Compile Include="View\Screens\SchafkopfTest.cs" />
         <Compile Include="View\Util.cs" />
     </ItemGroup>
     <ItemGroup>

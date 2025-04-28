@@ -56,7 +56,7 @@ public partial class MultiplayerLobby
         ChangeCurrentPlayer(0);
     }
 
-    private void Got_Loaded(object sender, RoutedEventArgs e) => Keyboard.Focus(PlayerName);
+    private void Got_Loaded(object sender, RoutedEventArgs e) => Keyboard.Focus(MpTxtBoxPlayerName);
 
     private void BtnHost_Click(object sender, RoutedEventArgs e)
     {
@@ -64,9 +64,9 @@ public partial class MultiplayerLobby
         MpViewHost.Visibility = Visibility.Visible;
         _connection = new MpConnection("host", _port);
         _connection.HostEvent += HostEvents;
-        AddPlayer(PlayerName.Text, _connection.Id);
+        AddPlayer(MpTxtBoxPlayerName.Text, _connection.Id);
         PlayerList.SelectedIndex = 0;
-        BtnStartMatch.Focus();
+        MpBtnStartMatch.Focus();
     }
 
     private void HostEvents(MultiplayerEvent e)
@@ -150,12 +150,12 @@ public partial class MultiplayerLobby
         }
         else if (e.Type == MultiplayerEventTypes.CClientConnected)
         {
-            BtnStartMatch.IsEnabled = false;
-            BtnStartMatch.Visibility = Visibility.Hidden;
+            MpBtnStartMatch.IsEnabled = false;
+            MpBtnStartMatch.Visibility = Visibility.Hidden;
             HostTools.Visibility = Visibility.Hidden;
             MpViewClient.Visibility = Visibility.Collapsed;
             MpViewHost.Visibility = Visibility.Visible;
-            _connection.SendMessage("1" + SEPARATOR + PlayerName.Text);
+            _connection.SendMessage("1" + SEPARATOR + MpTxtBoxPlayerName.Text);
             if (!Directory.Exists(BASE_PATH))
                 Directory.CreateDirectory(BASE_PATH);
             
@@ -203,14 +203,14 @@ public partial class MultiplayerLobby
     {
         GridStateDecision.Visibility = Visibility.Collapsed;
         MpViewClient.Visibility = Visibility.Visible;
-        Ip.Focus();
+        MpTxtBoxIp.Focus();
         if (File.Exists(PATH_LAST_IP))
         {
             string[] lines = File.ReadAllLines(PATH_LAST_IP);
             try
             {
-                Ip.Text = lines[0];
-                Port.Text = lines[1];
+                MpTxtBoxIp.Text = lines[0];
+                MpTxtBoxPort.Text = lines[1];
             }
             catch (Exception)
             {
@@ -221,7 +221,7 @@ public partial class MultiplayerLobby
 
     private void BtnTryJoin_Click(object sender, RoutedEventArgs e)
     {
-        _connection = new MpConnection(new Random().Next(100, 999) + PlayerName.Text,
+        _connection = new MpConnection(new Random().Next(100, 999) + MpTxtBoxPlayerName.Text,
             ClientEvents, _port, _ip);
         LblError.Content = Properties.Resources.MP_ConnectionToHost;
         LblError.Visibility = Visibility.Visible;
@@ -229,7 +229,7 @@ public partial class MultiplayerLobby
 
     private void CheckIfJoinPossible()
     {
-        BtnTryJoin.IsEnabled = _ipOk && _portOk;
+        MpBtnTryJoin.IsEnabled = _ipOk && _portOk;
     }
 
     private bool IsIp(string ip)
@@ -261,25 +261,25 @@ public partial class MultiplayerLobby
 
     private void Name_TextChanged(object sender, TextChangedEventArgs e)
     {
-        _nameOk = !PlayerName.Text.Equals("");
+        _nameOk = !MpTxtBoxPlayerName.Text.Equals("");
         CheckPossibleMpStates();
     }
 
     private void CheckPossibleMpStates()
     {
-        BtnHost.IsEnabled = _nameOk && _hostPortOk;
-        BtnJoin.IsEnabled = _nameOk && !_hostPortOk;
+        MpBtnHost.IsEnabled = _nameOk && _hostPortOk;
+        MpBtnJoin.IsEnabled = _nameOk && !_hostPortOk;
     }
 
     private void IP_TextChanged(object sender, TextChangedEventArgs e)
     {
-        _ipOk = IsIp(Ip.Text);
+        _ipOk = IsIp(MpTxtBoxIp.Text);
         CheckIfJoinPossible();
     }
 
     private void Port_TextChanged(object sender, TextChangedEventArgs e)
     {
-        _portOk = IsPort(Port.Text);
+        _portOk = IsPort(MpTxtBoxPort.Text);
         CheckIfJoinPossible();
     }
 
@@ -289,13 +289,13 @@ public partial class MultiplayerLobby
         LblCurPlayer.Content = count;
         if (_currentPlayer >= _min && _currentPlayer <= _max && _connection.IsHost)
         {
-            BtnStartMatch.IsEnabled = true;
-            BtnStartMatch.Content = Properties.Resources.MP_StartMatch;
+            MpBtnStartMatch.IsEnabled = true;
+            MpBtnStartMatch.Content = Properties.Resources.MP_StartMatch;
         }
-        else if (BtnStartMatch.IsEnabled)
+        else if (MpBtnStartMatch.IsEnabled)
         {
-            BtnStartMatch.IsEnabled = false;
-            BtnStartMatch.Content = Properties.Resources.MP_WaitForOtherPlayers;
+            MpBtnStartMatch.IsEnabled = false;
+            MpBtnStartMatch.Content = Properties.Resources.MP_WaitForOtherPlayers;
         }
     }
 
@@ -345,7 +345,7 @@ public partial class MultiplayerLobby
 
     private void HostPort_TextChanged(object sender, TextChangedEventArgs e)
     {
-        _hostPortOk = IsPort(HostPort.Text);
+        _hostPortOk = IsPort(MpTxtBoxHostPort.Text);
         CheckPossibleMpStates();
     }
 
@@ -380,16 +380,16 @@ public partial class MultiplayerLobby
         if (e.Key == Key.Return && _nameOk)
         {
             if (_hostPortOk)
-                BtnHost_Click(BtnHost, null);
+                BtnHost_Click(MpBtnHost, null);
             else
-                BtnJoin_Click(BtnJoin, null);
+                BtnJoin_Click(MpBtnJoin, null);
         }
     }
 
     private void HostPort_KeyDown(object sender, KeyEventArgs e)
     {
         if (e.Key == Key.Return && _nameOk && _hostPortOk)
-            BtnHost_Click(BtnHost, null);
+            BtnHost_Click(MpBtnHost, null);
     }
 
     private void LblChangedName_KeyDown(object sender, KeyEventArgs e)
@@ -403,9 +403,9 @@ public partial class MultiplayerLobby
         if (e.Key == Key.Return && _ipOk)
         {
             if (_portOk)
-                BtnTryJoin_Click(BtnTryJoin, null);
+                BtnTryJoin_Click(MpBtnTryJoin, null);
             else
-                Port.Focus();
+                MpTxtBoxPort.Focus();
         }
     }
 
@@ -414,9 +414,9 @@ public partial class MultiplayerLobby
         if (e.Key == Key.Return && _portOk)
         {
             if (_ipOk)
-                BtnTryJoin_Click(BtnTryJoin, null);
+                BtnTryJoin_Click(MpBtnTryJoin, null);
             else
-                Ip.Focus();
+                MpTxtBoxIp.Focus();
         }
     }
 

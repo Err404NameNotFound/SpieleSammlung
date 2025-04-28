@@ -662,7 +662,7 @@ public partial class SchafkopfScreen
             {
                 if (forceReset || tryReset && !_chSpectate[i].Aufgestellt)
                     _chSpectate[i].Reset();
-                
+
                 _chSpectate[i].Cards = _match.CurrentPlayers[i].GetPlayableCards();
             }
         }
@@ -670,7 +670,7 @@ public partial class SchafkopfScreen
         {
             if (forceReset || tryReset && !CardHolder.Aufgestellt)
                 CardHolder.Reset();
-            
+
             CardHolder.Cards = _match.CurrentPlayers[PlayerIndexCurRound].GetPlayableCards();
         }
     }
@@ -733,7 +733,7 @@ public partial class SchafkopfScreen
         int i;
         for (i = 0; i < _match.Players.Count; ++i)
         {
-            if (evaluation) 
+            if (evaluation)
                 _match.Players[i].ContinueMatch = null;
             _cvNextMatch[i].IsChecked = _match.Players[i].ContinueMatch;
             _lblPlayerSummaryNames[i].Content = _match.Players[i].Name;
@@ -836,7 +836,6 @@ public partial class SchafkopfScreen
         {
             ModeSelector.State = GameSelectorState.Hidden;
             MarkPlayableCards();
-            CardHolder.CanClickCards = _match.CurrentRound.CurrentPlayer == PlayerIndexCurRound;
             UpdateCardVisual(false, false);
             UpdateFocus(true);
             if (_isSpectating)
@@ -896,19 +895,11 @@ public partial class SchafkopfScreen
             return false;
 
         if (mustRemoveCard)
-            CardHolder.RemoveSelectedCard();
-            
-        if (_match.CurrentCardCount == 1)
         {
-            if (_isSpectating)
-                CurrentCardsSpectate.Reset();
-            else
-            {
-                CurrentCards.Reset();
-                CardHolder.CanClickCards = _match.CurrentRound.CurrentPlayer != PlayerIndexCurRound;
-            }
+            if (!CardHolder.RemoveSelectedCard())
+                _connection.WriteLine("Card should have been removed but it wasn't");
 
-            MarkPlayableCards();
+            CardHolder.CanClickCards = false;
         }
 
         if (_isSpectating)
@@ -916,10 +907,20 @@ public partial class SchafkopfScreen
         else
             CurrentCards.AddCard(card, GetUiPlayerIndex(_match.CurrentPlayers[player].Number));
 
-        if (_match.CurrentCardCount is 0)
+        if (_match.CurrentCardCount == 1)
+        {
+            if (_isSpectating)
+                CurrentCardsSpectate.Reset();
+            else
+                CurrentCards.Reset();
+
+            MarkPlayableCards();
+        }
+        else if (_match.CurrentCardCount == 0)
         {
             FillLastStich(_match.PreviousRound);
             BtnLastStich.IsEnabled = true;
+            MarkPlayableCards();
         }
 
 
@@ -931,12 +932,6 @@ public partial class SchafkopfScreen
             Thread.Sleep(1500);
             ShowSummary();
             return true;
-        }
-
-        if (_match.CurrentCardCount == 0)
-        {
-            MarkPlayableCards();
-            CardHolder.CanClickCards = _match.CurrentRound.CurrentPlayer == PlayerIndexCurRound;
         }
 
         UpdateFocus(true);

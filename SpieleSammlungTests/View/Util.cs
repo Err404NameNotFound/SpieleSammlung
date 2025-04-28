@@ -1,4 +1,6 @@
+#nullable enable
 using System.Collections.Generic;
+using System.Threading;
 using TestStack.White;
 using TestStack.White.Factory;
 using TestStack.White.UIItems;
@@ -27,6 +29,30 @@ public class Util
         var textBox = Window.Get<TextBox>("PcTxtBoxPlayerName");
         textBox.Text = name;
         var btn = Window.Get<Button>("PcBtnAddPlayer");
+        btn.Click();
+    }
+
+    public void HostMatch(string name, string port)
+    {
+        TextBox playerName = Window.Get<TextBox>("MpTxtBoxPlayerName");
+        playerName.Text = name;
+        TextBox portNumber = Window.Get<TextBox>("MpTxtBoxHostPort");
+        portNumber.Text = port;
+        Button btn = Window.Get<Button>("MpBtnHost");
+        btn.Click();
+    }
+
+    public void JoinMatch(string name, string ip = "127.0.0.1", string port = "54321")
+    {
+        TextBox playerName = Window.Get<TextBox>("MpTxtBoxPlayerName");
+        playerName.Text = name;
+        Button btn = Window.Get<Button>("MpBtnJoin");
+        btn.Click();
+        TextBox ipBox = Window.Get<TextBox>("MpTxtBoxIp");
+        ipBox.Text = ip;
+        TextBox portNumber = Window.Get<TextBox>("MpTxtBoxPort");
+        portNumber.Text = port;
+        btn = Window.Get<Button>("MpBtnTryJoin");
         btn.Click();
     }
 

@@ -24,21 +24,21 @@
                         VerticalAlignment="Center" HorizontalAlignment="Center">
                 <Label Content="{x:Static properties:Resources.MP_Name}" VerticalAlignment="Center"
                        Background="White" />
-                <TextBox x:Name="PlayerName" Padding="5" Background="White" Margin="10" Width="400"
+                <TextBox x:Name="MpTxtBoxPlayerName" Padding="5" Background="White" Margin="10" Width="400"
                          TextChanged="Name_TextChanged" KeyDown="PlayerName_KeyDown" Loaded="Got_Loaded" />
             </StackPanel>
             <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal"
                         VerticalAlignment="Center" HorizontalAlignment="Center">
                 <Label Content="{x:Static properties:Resources.MP_Port}" VerticalAlignment="Center"
                        Background="White" />
-                <TextBox x:Name="HostPort" Padding="5" Background="White" Margin="10" Width="60"
+                <TextBox x:Name="MpTxtBoxHostPort" Padding="5" Background="White" Margin="10" Width="60"
                          TextChanged="HostPort_TextChanged" KeyDown="HostPort_KeyDown" />
             </StackPanel>
             <Button Grid.Row="3" Grid.Column="0" Padding="10" VerticalAlignment="Center" HorizontalAlignment="Right"
-                    Margin="0,0,50,0" x:Name="BtnHost" Content="{x:Static properties:Resources.MP_HostMatch}"
+                    Margin="0,0,50,0" x:Name="MpBtnHost" Content="{x:Static properties:Resources.MP_HostMatch}"
                     Click="BtnHost_Click" IsEnabled="False" />
             <Button Grid.Row="3" Grid.Column="1" Padding="10" VerticalAlignment="Center" HorizontalAlignment="Left"
-                    Margin="50,0,0,0" x:Name="BtnJoin" Content="{x:Static properties:Resources.MP_Btn_JoinMatch}"
+                    Margin="50,0,0,0" x:Name="MpBtnJoin" Content="{x:Static properties:Resources.MP_Btn_JoinMatch}"
                     Click="BtnJoin_Click" IsEnabled="False" />
         </Grid>
         <Grid x:Name="MpViewClient" Height="600" Visibility="Collapsed">
@@ -58,13 +58,13 @@
             </Grid.RowDefinitions>
             <Label Grid.Row="1" Grid.Column="1" Content="{x:Static properties:Resources.MP_HostIp}"
                    Background="White" VerticalAlignment="Center" />
-            <TextBox Grid.Row="1" Grid.Column="2" x:Name="Ip" Padding="5" Background="White" Margin="10"
+            <TextBox Grid.Row="1" Grid.Column="2" x:Name="MpTxtBoxIp" Padding="5" Background="White" Margin="10"
                      TextChanged="IP_TextChanged" KeyDown="IP_KeyDown" />
             <Label Grid.Row="2" Grid.Column="1" Content="{x:Static properties:Resources.MP_HostPort}"
                    Background="White" VerticalAlignment="Center" />
-            <TextBox Grid.Row="2" Grid.Column="2" x:Name="Port" Padding="5" Background="White" Margin="10"
+            <TextBox Grid.Row="2" Grid.Column="2" x:Name="MpTxtBoxPort" Padding="5" Background="White" Margin="10"
                      TextChanged="Port_TextChanged" KeyDown="Port_KeyDown" />
-            <Button Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" x:Name="BtnTryJoin" Click="BtnTryJoin_Click"
+            <Button Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" x:Name="MpBtnTryJoin" Click="BtnTryJoin_Click"
                     Content="{x:Static properties:Resources.MP_JoinMatch}" IsEnabled="False" Padding="10"
                     VerticalAlignment="Center" HorizontalAlignment="Center" />
             <Label Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" x:Name="LblError" Padding="10"
@@ -114,7 +114,7 @@
             </StackPanel>
             <ListBox Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" x:Name="PlayerList" Width="600"
                      SelectionChanged="PlayerList_SelectionChanged" SelectionMode="Single" />
-            <Button Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" x:Name="BtnStartMatch"
+            <Button Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" x:Name="MpBtnStartMatch"
                     Content="{x:Static properties:Resources.ML_Lbl_WaitForOtherPlayers}"
                     HorizontalAlignment="Center" VerticalAlignment="Center"
                     Padding="10" Margin="10" IsEnabled="False" Click="BtnStartMatch_Click" />
