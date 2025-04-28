@@ -662,6 +662,7 @@ public partial class SchafkopfScreen
             {
                 if (forceReset || tryReset && !_chSpectate[i].Aufgestellt)
                     _chSpectate[i].Reset();
+                
                 _chSpectate[i].Cards = _match.CurrentPlayers[i].GetPlayableCards();
             }
         }
@@ -669,6 +670,7 @@ public partial class SchafkopfScreen
         {
             if (forceReset || tryReset && !CardHolder.Aufgestellt)
                 CardHolder.Reset();
+            
             CardHolder.Cards = _match.CurrentPlayers[PlayerIndexCurRound].GetPlayableCards();
         }
     }
@@ -731,14 +733,15 @@ public partial class SchafkopfScreen
         int i;
         for (i = 0; i < _match.Players.Count; ++i)
         {
-            if (evaluation) _match.Players[i].ContinueMatch = null;
+            if (evaluation) 
+                _match.Players[i].ContinueMatch = null;
             _cvNextMatch[i].IsChecked = _match.Players[i].ContinueMatch;
             _lblPlayerSummaryNames[i].Content = _match.Players[i].Name;
             _lblPlayerSummaryPoints[i].Content = _match.Players[i].Points;
             _gridColsSummary[i].Width = new GridLength(1, GridUnitType.Star);
         }
 
-        for (; i < _match.Players.Count; ++i)
+        for (; i < _gridColsSummary.Count; ++i)
         {
             _gridColsSummary[i].Width = new GridLength(0, GridUnitType.Star);
         }
