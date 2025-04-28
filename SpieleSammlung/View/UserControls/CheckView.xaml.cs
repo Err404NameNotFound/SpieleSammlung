@@ -10,11 +10,11 @@ public partial class CheckView
 {
     private bool? _checked;
 
-    private readonly BitmapImage _imageUndecided = new(new Uri(@"..\..\Images\undecided.png", UriKind.Relative));
+    private readonly BitmapImage _imageUndecided = new(new Uri(@"..\Images\undecided.png", UriKind.Relative));
 
-    private readonly BitmapImage _imageChecked = new(new Uri(@"..\..\Images\checked.png", UriKind.Relative));
+    private readonly BitmapImage _imageChecked = new(new Uri(@"..\Images\checked.png", UriKind.Relative));
 
-    private readonly BitmapImage _imageUnchecked = new(new Uri(@"..\..\Images\crossed.png", UriKind.Relative));
+    private readonly BitmapImage _imageUnchecked = new(new Uri(@"..\Images\crossed.png", UriKind.Relative));
 
     public bool? IsChecked
     {
