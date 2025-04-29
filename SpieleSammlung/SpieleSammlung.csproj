@@ -325,7 +325,7 @@
         <Resource Include="View\Images\Battleships\Empty.png" />
         <Resource Include="View\Images\Battleships\O.png" />
         <Resource Include="View\Images\Battleships\X.png" />
-        <Resource Include="View\Images\check.png" />
+        <Resource Include="View\Images\checked.png" />
         <Resource Include="View\Images\Connect4\connect-4-background.png" />
         <Resource Include="View\Images\Connect4\EmptyCircleHighlighted.png" />
         <Resource Include="View\Images\Connect4\RedCircle.png" />
