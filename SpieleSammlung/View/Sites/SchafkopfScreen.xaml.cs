@@ -967,6 +967,9 @@ public partial class SchafkopfScreen
         VisualPlayer.Aufgestellt = _match.Players[_playerIndex].Aufgestellt =
             CardHolder.Aufgestellt || _match.Players[_playerIndex].Aufgestellt;
         SendMessage(CODE_VIEW_CARD, PlayerIndexCurRound.ToString(), CardHolder.Aufgestellt.ToString());
+        int index = PlayerIndexCurRound;
+        _match.CurrentPlayers[index].SortCards(new SchafkopfMatchConfig(SchafkopfMode.Sauspiel, Card.HERZ));
+        CardHolder.Cards = _match.CurrentPlayers[index].GetPlayableCards();
         ApplyPossibilities();
         ModeSelector.State = GameSelectorState.Visible;
         UpdateFocus(false);
@@ -1027,12 +1030,12 @@ public partial class SchafkopfScreen
 
     private void ModeSelector_ColorChanged(GameModeSelectedEvent e)
     {
+        if (_isSpectating)
+            throw new InvalidOperationException("Spectator should not be able to change color");
+        
         int index = PlayerIndexCurRound;
         _match.CurrentPlayers[index].SortCards(new SchafkopfMatchConfig(e.Mode, e.Color));
-        if (_isSpectating)
-            _chSpectate[index].Cards = _match.CurrentPlayers[index].GetPlayableCards();
-        else
-            CardHolder.Cards = _match.CurrentPlayers[index].GetPlayableCards();
+        CardHolder.Cards = _match.CurrentPlayers[index].GetPlayableCards();
     }
 
     private void ModeSelector_ModeSelected(GameModeSelectedEvent e)
