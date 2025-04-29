@@ -130,6 +130,7 @@
         <Compile Include="Model\Schafkopf\SchafkopfMode.cs" />
         <Compile Include="Model\Schafkopf\SchafkopfPlayer.cs" />
         <Compile Include="Model\Schafkopf\SchafkopfRound.cs" />
+        <Compile Include="Model\Util\ArrayHelp.cs" />
         <Compile Include="Model\Util\ArrayPrinter.cs" />
         <Compile Include="Model\Util\MathHelp.cs" />
         <Compile Include="Model\Util\MinMaxAvgEvaluator.cs" />

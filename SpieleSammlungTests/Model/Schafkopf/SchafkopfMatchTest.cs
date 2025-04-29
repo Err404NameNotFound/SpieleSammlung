@@ -2,12 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SpieleSammlung;
 using SpieleSammlung.Model;
 using SpieleSammlung.Model.Multiplayer;
 using SpieleSammlung.Model.Schafkopf;
 using SpieleSammlung.Model.Util;
-using SpieleSammlungTests.Utils;
+using ArrayHelp = SpieleSammlungTests.Utils.ArrayHelp;
 
 namespace SpieleSammlungTests.Model.Schafkopf;
 

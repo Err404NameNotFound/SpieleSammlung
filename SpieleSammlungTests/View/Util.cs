@@ -15,11 +15,13 @@ public class Util
 
     private bool _notClosed = true;
 
+    public bool KeepAlive { get; set; }
+
     ~Util() => Close();
 
     public void Close()
     {
-        if (!_notClosed) return;
+        if (!_notClosed || KeepAlive) return;
         App.Close();
         _notClosed = false;
     }

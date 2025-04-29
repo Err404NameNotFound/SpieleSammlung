@@ -29,7 +29,6 @@ public class SchafkopfTest
     {
         List<Util> games = SetUpMatch("Hans", "54321", ["Max", "Josef", "Peter"]);
         games[0].Window.Get<Button>("MpBtnStartMatch").Click();
-        Thread.Sleep(20000);
-        games.ForEach(u => u.Close());
+        games.ForEach(u => u.KeepAlive = true);
     }
 }

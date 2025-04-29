@@ -890,39 +890,39 @@ public partial class SchafkopfScreen
     private bool PlayCard(int player, int selected)
     {
         Card card = _match.CurrentPlayers[player].PlayableCards[selected];
-        bool mustRemoveCard = _match.CurrentRound.CurrentPlayer == PlayerIndexCurRound;
+        bool isCurrentPlayer = _match.CurrentRound.CurrentPlayer == PlayerIndexCurRound;
         if (!_match.PlayCard(selected, player))
             return false;
 
-        if (mustRemoveCard)
+        switch (_match.CurrentCardCount)
         {
-            if (!CardHolder.RemoveSelectedCard())
-                _connection.WriteLine("Card should have been removed but it wasn't");
+            case 1:
+            {
+                if (_isSpectating)
+                    CurrentCardsSpectate.Reset();
+                else
+                    CurrentCards.Reset();
 
-            CardHolder.CanClickCards = false;
+                MarkPlayableCards();
+                break;
+            }
+            case 0:
+                FillLastStich(_match.PreviousRound);
+                BtnLastStich.IsEnabled = true;
+                MarkPlayableCards();
+                break;
+        }
+
+        if (isCurrentPlayer)
+        {
+            CardHolder.RemoveCard(selected);
+            SendMessage(new List<string> { CODE_PLAY_CARD, PlayerIndexCurRound.ToString(), selected.ToString() });
         }
 
         if (_isSpectating)
             CurrentCardsSpectate.AddCard(card, _match.CurrentPlayers[player].Number);
         else
             CurrentCards.AddCard(card, GetUiPlayerIndex(_match.CurrentPlayers[player].Number));
-
-        if (_match.CurrentCardCount == 1)
-        {
-            if (_isSpectating)
-                CurrentCardsSpectate.Reset();
-            else
-                CurrentCards.Reset();
-
-            MarkPlayableCards();
-        }
-        else if (_match.CurrentCardCount == 0)
-        {
-            FillLastStich(_match.PreviousRound);
-            BtnLastStich.IsEnabled = true;
-            MarkPlayableCards();
-        }
-
 
         if (_match.IsGameOver)
         {
@@ -981,11 +981,7 @@ public partial class SchafkopfScreen
             BtnKontra.Visibility = Visibility.Hidden;
 
         int selected = CardHolder.SelectedCard;
-        SendMessage(new List<string> { CODE_PLAY_CARD, PlayerIndexCurRound.ToString(), selected.ToString() });
         PlayCard(PlayerIndexCurRound, selected);
-
-        if (_match.CurrentCardCount != 0)
-            CardHolder.CanClickCards = false;
     }
 
     private void BtnLastStich_Click(object sender, RoutedEventArgs e)

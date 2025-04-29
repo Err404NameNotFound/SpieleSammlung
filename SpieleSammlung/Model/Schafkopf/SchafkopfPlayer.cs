@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SpieleSammlung.Model.Util;
 
 namespace SpieleSammlung.Model.Schafkopf;
 
@@ -319,9 +320,12 @@ public class SchafkopfPlayer : MultiplayerPlayer
 
     public IReadOnlyList<bool> CheckPlayableCards(SchafkopfMatch match)
     {
-        return match.CurrentCardCount == 0
-            ? CheckPlayableCards(match, null, match.IsWegGelaufen)
-            : CheckPlayableCards(match, match.CurrentRound.CurrentCards[0], match.IsWegGelaufen);
+        if (match.CurrentRound.CurrentCards.Count == 0)
+            return CheckPlayableCards(match, null, match.IsWegGelaufen);
+        
+        return match.CurrentPlayers.Select(p => p.PlayableCards.Count).Max() == PlayableCards.Count
+            ? CheckPlayableCards(match, match.CurrentRound.CurrentCards[0], match.IsWegGelaufen)
+            : ArrayHelp.CreateArray(PlayableCards.Count, false);
     }
 
     private void RemovePlayableCard(int index)

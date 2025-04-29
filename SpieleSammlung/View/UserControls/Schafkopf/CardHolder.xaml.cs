@@ -91,19 +91,6 @@ public partial class CardHolder
         _cardVisuals[_cards.Count].Visibility = Visibility.Collapsed;
     }
 
-    public bool RemoveSelectedCard()
-    {
-        if (HasSelectedCard)
-        {
-            int storage = SelectedCard;
-            _cardVisuals[SelectedCard].IsChecked = false;
-            RemoveCard(storage);
-            return true;
-        }
-
-        return false;
-    }
-
     public void MarkSelectableCards(IReadOnlyList<bool> playableCards)
     {
         SelectedCard = -1;
