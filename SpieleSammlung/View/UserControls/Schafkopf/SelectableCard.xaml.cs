@@ -1,4 +1,5 @@
-﻿using SpieleSammlung.Model.Schafkopf;
+﻿using System.Windows.Media;
+using SpieleSammlung.Model.Schafkopf;
 
 namespace SpieleSammlung.View.UserControls.Schafkopf;
 
@@ -26,6 +27,10 @@ public partial class SelectableCard
     public bool IsClickable
     {
         get => ToggleBtn.IsEnabled;
-        set => ToggleBtn.IsEnabled = value;
+        set
+        {
+            ToggleBtn.IsEnabled = value;
+            CardBorder.BorderBrush = value ? Brushes.GreenYellow : Brushes.Transparent;
+        }
     }
 }

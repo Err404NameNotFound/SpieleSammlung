@@ -8,6 +8,8 @@
              d:DesignHeight="150" d:DesignWidth="87"
              Background="Transparent">
     <ToggleButton x:Name="ToggleBtn" Background="Transparent">
-        <schafkopf1:CardVisual x:Name="CardVisual" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <Border x:Name="CardBorder" BorderThickness="2" BorderBrush="Transparent">
+            <schafkopf1:CardVisual x:Name="CardVisual" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
     </ToggleButton>
 </UserControl>
