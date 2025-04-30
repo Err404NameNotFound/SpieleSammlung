@@ -1,11 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SpieleSammlung;
 using SpieleSammlung.Model.Schafkopf;
 using static SpieleSammlung.Model.Util.ArrayPrinter;
 using static SpieleSammlung.Model.Schafkopf.CardColor;
-using static SpieleSammlung.Model.Schafkopf.CardNumber;
 
 namespace SpieleSammlungTests.Model.Schafkopf;
 

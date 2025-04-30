@@ -1,6 +1,5 @@
 #nullable enable
 using System.Collections.Generic;
-using System.Threading;
 using TestStack.White;
 using TestStack.White.Factory;
 using TestStack.White.UIItems;

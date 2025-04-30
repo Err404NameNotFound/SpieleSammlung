@@ -1,5 +1,3 @@
-using System;
-
 namespace SpieleSammlung.Model.Schafkopf;
 
 public enum CardNumber

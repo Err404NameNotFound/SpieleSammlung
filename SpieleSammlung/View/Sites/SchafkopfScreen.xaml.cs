@@ -9,7 +9,6 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Threading;
 using SpieleSammlung.View.Enums;
 using SpieleSammlung.View.UserControls;
 using SpieleSammlung.View.UserControls.Schafkopf;

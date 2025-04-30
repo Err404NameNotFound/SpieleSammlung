@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using SpieleSammlung.Model.Kniffel.Fields;
 using SpieleSammlung.Model.Util;

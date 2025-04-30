@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using SpieleSammlung.Model.Kniffel.Bot;
 using SpieleSammlung.Model.Kniffel.Fields;
 using SpieleSammlung.Model.Util;
