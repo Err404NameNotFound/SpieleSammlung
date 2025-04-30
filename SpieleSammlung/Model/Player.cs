@@ -1,4 +1,8 @@
-﻿using System;
+﻿#region
+
+using System;
+
+#endregion
 
 namespace SpieleSammlung.Model;
 
@@ -7,15 +11,11 @@ namespace SpieleSammlung.Model;
 /// </summary>
 public class Player
 {
-    /// <summary>
-    /// Name of the Player.
-    /// </summary>
-    public string Name { get; }
+    private const string BOT_INDICATOR = "[Bot]";
 
-    /// <summary>
-    /// Flag if the player is a bot.
-    /// </summary>
-    public bool IsBot { private set; get; }
+    private static readonly string[] BotNames = ["Bob", "Hans", "Otto", "Heinz", "Franz", "Josef"];
+
+    private static readonly Random Rng = new();
 
     /// <summary>
     /// Creates a new instance and sets its values.
@@ -26,11 +26,16 @@ public class Player
 
     public Player() => (IsBot, Name) = (true, GenerateRandomBotName());
 
-    private const string BOT_INDICATOR = "[Bot]";
+    /// <summary>
+    /// Name of the Player.
+    /// </summary>
+    public string Name { get; }
 
-    private static readonly string[] BotNames = ["Bob", "Hans", "Otto", "Heinz", "Franz", "Josef"];
+    /// <summary>
+    /// Flag if the player is a bot.
+    /// </summary>
+    public bool IsBot { private set; get; }
 
-    private static readonly Random Rng = new();
     private static string GenerateRandomBotName() => BOT_INDICATOR + " " + BotNames[Rng.Next(0, BotNames.Length)];
 
     public override string ToString() => $"{Name}";

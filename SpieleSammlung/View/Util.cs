@@ -1,6 +1,10 @@
+#region
+
 using System;
 using System.Windows;
 using System.Windows.Threading;
+
+#endregion
 
 namespace SpieleSammlung.View;
 

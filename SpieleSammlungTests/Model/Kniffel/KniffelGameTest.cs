@@ -1,11 +1,15 @@
-﻿using System;
+﻿#region
+
+using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SpieleSammlung.Model;
 using SpieleSammlung.Model.Kniffel;
-using System.Collections.Generic;
 using SpieleSammlung.Model.Kniffel.Bot;
 using SpieleSammlung.Model.Kniffel.Fields;
 using SpieleSammlungTests.Utils;
+
+#endregion
 
 namespace SpieleSammlungTests.Model.Kniffel;
 

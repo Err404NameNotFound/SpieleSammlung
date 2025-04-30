@@ -1,7 +1,11 @@
+#region
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SpieleSammlung.Model.Schafkopf;
 using SpieleSammlung.Properties;
 using static SpieleSammlung.Model.Schafkopf.CardColor;
+
+#endregion
 
 namespace SpieleSammlungTests.Model.Schafkopf;
 

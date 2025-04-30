@@ -1,5 +1,5 @@
-﻿using SpieleSammlung.Model.Multiplayer;
-using SpieleSammlung.Model.Schafkopf;
+﻿#region
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,12 +9,16 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using SpieleSammlung.Model.Multiplayer;
+using SpieleSammlung.Model.Schafkopf;
 using SpieleSammlung.View.Enums;
 using SpieleSammlung.View.UserControls;
 using SpieleSammlung.View.UserControls.Schafkopf;
 using SpieleSammlung.View.Windows;
 using static SpieleSammlung.Model.Schafkopf.CardColor;
 using static SpieleSammlung.Model.Schafkopf.SchafkopfMatch;
+
+#endregion
 
 namespace SpieleSammlung.View.Sites;
 
@@ -23,6 +27,58 @@ namespace SpieleSammlung.View.Sites;
 /// </summary>
 public partial class SchafkopfScreen
 {
+    public SchafkopfScreen(IEnumerable<MultiplayerPlayer> players, int index, MpConnection connection,
+        bool reJoin = false)
+    {
+        InitializeComponent();
+
+        //UI Playing
+        _playerInfos = [VisualPlayer, VisualPlayerLeft, VisualPlayerTop, VisualPlayerRight];
+        ModeSelector.ColorChanged += ModeSelector_ColorChanged;
+        ModeSelector.ModeSelected += ModeSelector_ModeSelected;
+        //UI Summary
+        _lblPlayerSummaryNames =
+        [
+            LblPlayer1Review, LblPlayer2Review, LblPlayer3Review, LblPlayer4Review, LblPlayer5Review,
+            LblPlayer6Review, LblPlayer7Review
+        ];
+        _lblPlayerSummaryPoints =
+        [
+            LblPlayer1Points, LblPlayer2Points, LblPlayer3Points, LblPlayer4Points, LblPlayer5Points,
+            LblPlayer6Points, LblPlayer7Points
+        ];
+        _cvNextMatch = [CvPlayer1, CvPlayer2, CvPlayer3, CvPlayer4, CvPlayer5, CvPlayer6, CvPlayer7];
+        _gridColsSummary =
+        [
+            SummaryColumnP1, SummaryColumnP2, SummaryColumnP3, SummaryColumnP4, SummaryColumnP5, SummaryColumnP6,
+            SummaryColumnP7
+        ];
+        //UI Spectate
+        _chSpectate = [ChPlayer1, ChPlayer2, ChPlayer3, ChPlayer4];
+        for (int i = 0; i < PLAYER_PER_ROUND; ++i)
+        {
+            _chSpectate[i].BtnAufstellen.IsEnabled = _chSpectate[i].BtnShowRest.IsEnabled = false;
+        }
+
+        _playerInfosSpectate = [PlayerInfo1, PlayerInfo2, PlayerInfo3, PlayerInfo4];
+
+
+        //Data
+        _connection = connection;
+        _playerIndex = index;
+        if (connection.IsHost) connection.HostEvent += HostEvents;
+        else connection.ClientEvent += ClientEvents;
+
+        _match = new SchafkopfMatch(players, connection.IsHost);
+
+        CanQuitNow = true;
+        QuitAfterMatch = false;
+        if (connection.IsHost)
+            ShuffleCards(false);
+        else if (reJoin)
+            SendMessage(CODE_HOST_READY_FOR_INFO);
+    }
+
     #region Events
 
     public delegate void OnQuitMatch();
@@ -112,58 +168,6 @@ public partial class SchafkopfScreen
     private StichView _lastStichView;
 
     #endregion
-
-    public SchafkopfScreen(IEnumerable<MultiplayerPlayer> players, int index, MpConnection connection,
-        bool reJoin = false)
-    {
-        InitializeComponent();
-
-        //UI Playing
-        _playerInfos = [VisualPlayer, VisualPlayerLeft, VisualPlayerTop, VisualPlayerRight];
-        ModeSelector.ColorChanged += ModeSelector_ColorChanged;
-        ModeSelector.ModeSelected += ModeSelector_ModeSelected;
-        //UI Summary
-        _lblPlayerSummaryNames =
-        [
-            LblPlayer1Review, LblPlayer2Review, LblPlayer3Review, LblPlayer4Review, LblPlayer5Review,
-            LblPlayer6Review, LblPlayer7Review
-        ];
-        _lblPlayerSummaryPoints =
-        [
-            LblPlayer1Points, LblPlayer2Points, LblPlayer3Points, LblPlayer4Points, LblPlayer5Points,
-            LblPlayer6Points, LblPlayer7Points
-        ];
-        _cvNextMatch = [CvPlayer1, CvPlayer2, CvPlayer3, CvPlayer4, CvPlayer5, CvPlayer6, CvPlayer7];
-        _gridColsSummary =
-        [
-            SummaryColumnP1, SummaryColumnP2, SummaryColumnP3, SummaryColumnP4, SummaryColumnP5, SummaryColumnP6,
-            SummaryColumnP7
-        ];
-        //UI Spectate
-        _chSpectate = [ChPlayer1, ChPlayer2, ChPlayer3, ChPlayer4];
-        for (int i = 0; i < PLAYER_PER_ROUND; ++i)
-        {
-            _chSpectate[i].BtnAufstellen.IsEnabled = _chSpectate[i].BtnShowRest.IsEnabled = false;
-        }
-
-        _playerInfosSpectate = [PlayerInfo1, PlayerInfo2, PlayerInfo3, PlayerInfo4];
-
-
-        //Data
-        _connection = connection;
-        _playerIndex = index;
-        if (connection.IsHost) connection.HostEvent += HostEvents;
-        else connection.ClientEvent += ClientEvents;
-
-        _match = new SchafkopfMatch(players, connection.IsHost);
-
-        CanQuitNow = true;
-        QuitAfterMatch = false;
-        if (connection.IsHost)
-            ShuffleCards(false);
-        else if (reJoin)
-            SendMessage(CODE_HOST_READY_FOR_INFO);
-    }
 
     #region Connection
 

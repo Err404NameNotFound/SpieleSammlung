@@ -1,10 +1,28 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Text;
+
+#endregion
 
 namespace SpieleSammlung.Model.Kniffel.Count;
 
 public class ValueOrderedList : OrderedList
 {
+    public ValueOrderedList()
+    {
+        Count = 0;
+        Counters = new DiceCounter[Dice.HIGHEST_VALUE - Dice.LOWEST_VALUE];
+        for (int i = 0; i < Counters.Length; ++i)
+        {
+            Counters[i] = new DiceCounter(i + 1, 0);
+        }
+    }
+
+    public ValueOrderedList(OrderedList other) : base(other)
+    {
+    }
+
     public DiceCounter this[int index]
     {
         get
@@ -30,20 +48,6 @@ public class ValueOrderedList : OrderedList
         }
 
         return i;
-    }
-
-    public ValueOrderedList()
-    {
-        Count = 0;
-        Counters = new DiceCounter[Dice.HIGHEST_VALUE - Dice.LOWEST_VALUE];
-        for (int i = 0; i < Counters.Length; ++i)
-        {
-            Counters[i] = new DiceCounter(i + 1, 0);
-        }
-    }
-
-    public ValueOrderedList(OrderedList other) : base(other)
-    {
     }
 
     public void IncCount(int value)

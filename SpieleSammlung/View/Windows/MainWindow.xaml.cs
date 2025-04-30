@@ -1,4 +1,6 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading.Tasks;
@@ -9,6 +11,8 @@ using SpieleSammlung.Model.Multiplayer;
 using SpieleSammlung.View.Enums;
 using SpieleSammlung.View.Sites;
 
+#endregion
+
 namespace SpieleSammlung.View.Windows;
 
 /// <summary>
@@ -17,32 +21,14 @@ namespace SpieleSammlung.View.Windows;
 public partial class MainWindow
 {
     private readonly StartScreen _viewStart;
-    private PlayerCreator _viewPlayerCreator;
-    private MultiplayerLobby _viewMultiplayerLobby;
-    private SchafkopfScreen _viewSchafkopfScreen;
-    private KniffelScreen _viewKniffelScreen;
-    private Connect4Screen _viewConnect4Screen;
-    private MancalaScreen _viewMancalaScreen;
 
     private MainWindowView _view;
-
-    private UserControl CurrentView
-    {
-        get
-        {
-            return _view switch
-            {
-                MainWindowView.StartScreen => _viewStart,
-                MainWindowView.PlayerCreator => _viewPlayerCreator,
-                MainWindowView.MultiplayerLobby => _viewMultiplayerLobby,
-                MainWindowView.Schafkopf => _viewSchafkopfScreen,
-                MainWindowView.Kniffel => _viewKniffelScreen,
-                MainWindowView.VierGewinnt => _viewConnect4Screen,
-                MainWindowView.Mancala => _viewMancalaScreen,
-                _ => throw new ArgumentException("This game mode has not been fully implemented")
-            };
-        }
-    }
+    private Connect4Screen _viewConnect4Screen;
+    private KniffelScreen _viewKniffelScreen;
+    private MancalaScreen _viewMancalaScreen;
+    private MultiplayerLobby _viewMultiplayerLobby;
+    private PlayerCreator _viewPlayerCreator;
+    private SchafkopfScreen _viewSchafkopfScreen;
 
     public MainWindow()
     {
@@ -60,6 +46,24 @@ public partial class MainWindow
         ShowUserControl(_viewStart);
         ModelLog.WriteToConsole = false;
         ModelLog.WriteToFile = true;
+    }
+
+    private UserControl CurrentView
+    {
+        get
+        {
+            return _view switch
+            {
+                MainWindowView.StartScreen => _viewStart,
+                MainWindowView.PlayerCreator => _viewPlayerCreator,
+                MainWindowView.MultiplayerLobby => _viewMultiplayerLobby,
+                MainWindowView.Schafkopf => _viewSchafkopfScreen,
+                MainWindowView.Kniffel => _viewKniffelScreen,
+                MainWindowView.VierGewinnt => _viewConnect4Screen,
+                MainWindowView.Mancala => _viewMancalaScreen,
+                _ => throw new ArgumentException("This game mode has not been fully implemented")
+            };
+        }
     }
 
     private void ShowUserControl(UIElement control)
@@ -207,7 +211,7 @@ public partial class MainWindow
                 _viewKniffelScreen = new KniffelScreen(playerNames);
                 break;
             case GameMode.Mancala:
-                _viewMancalaScreen = new MancalaScreen(true);
+                _viewMancalaScreen = new MancalaScreen();
                 break;
             case GameMode.Schafkopf:
                 throw new ArgumentOutOfRangeException(nameof(mode), mode,

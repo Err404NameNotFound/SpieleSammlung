@@ -1,30 +1,21 @@
+#region
+
 using System;
 using System.Collections.Generic;
 using SpieleSammlung.Model.Util;
+
+#endregion
 
 namespace SpieleSammlung.Model.Mancala;
 
 public class MancalaGame : ICloneable
 {
-    private readonly int _stoneCount;
-    private readonly int _minStoneCountForWin;
     private readonly int[] _fields;
     private readonly bool _isCaptureMode;
     private readonly Action<int> _miniMoveAnimation;
+    private readonly int _minStoneCountForWin;
     private readonly Action<int> _stealAnimation;
-
-    public int this[int index] => _fields[index];
-    public int Player1Index { get; }
-    public int Player2Index { get; }
-    public IReadOnlyList<int> OptionsOfCurrentPlayer { private set; get; }
-    public bool CurrentIsFirst { get; private set; }
-    public int CurrentPlayer => CurrentIsFirst ? Player1Index : Player2Index;
-    public int PointsPlayer1 => _fields[Player1Index];
-    public int PointsPlayer2 => _fields[Player2Index];
-    public bool Player1IsWinner => _fields[Player1Index] > _minStoneCountForWin;
-    public bool Player2IsWinner => _fields[Player2Index] > _minStoneCountForWin;
-    public bool IsGameOver => _fields[Player1Index] + _fields[Player2Index] == _stoneCount;
-    public int FieldsCount => _fields.Length;
+    private readonly int _stoneCount;
 
     public MancalaGame(Action<int> betweenMoveAnimation, Action<int> stealAnimation, bool isCapture,
         int stonesPerField, int lengthHalfField)
@@ -72,6 +63,21 @@ public class MancalaGame : ICloneable
         CurrentIsFirst = copy.CurrentIsFirst;
         OptionsOfCurrentPlayer = copy.OptionsOfCurrentPlayer;
     }
+
+    public int this[int index] => _fields[index];
+    public int Player1Index { get; }
+    public int Player2Index { get; }
+    public IReadOnlyList<int> OptionsOfCurrentPlayer { private set; get; }
+    public bool CurrentIsFirst { get; private set; }
+    public int CurrentPlayer => CurrentIsFirst ? Player1Index : Player2Index;
+    public int PointsPlayer1 => _fields[Player1Index];
+    public int PointsPlayer2 => _fields[Player2Index];
+    public bool Player1IsWinner => _fields[Player1Index] > _minStoneCountForWin;
+    public bool Player2IsWinner => _fields[Player2Index] > _minStoneCountForWin;
+    public bool IsGameOver => _fields[Player1Index] + _fields[Player2Index] == _stoneCount;
+    public int FieldsCount => _fields.Length;
+
+    public object Clone() => new MancalaGame(this);
 
     public void DoMove(int indexOfField)
     {
@@ -177,6 +183,4 @@ public class MancalaGame : ICloneable
         int digits = (int)ArrayPrinter.GetNeededDigits(_fields);
         return ArrayPrinter.PaddedArrayString(i => _fields[i].ToString(), _fields.Length, digits);
     }
-
-    public object Clone() => new MancalaGame(this, true);
 }

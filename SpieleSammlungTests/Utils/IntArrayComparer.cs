@@ -1,5 +1,9 @@
+#region
+
 using System.Collections.Generic;
 using SpieleSammlung.Model.Kniffel;
+
+#endregion
 
 namespace SpieleSammlungTests.Utils;
 

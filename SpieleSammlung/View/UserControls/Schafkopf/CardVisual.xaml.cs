@@ -1,6 +1,10 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Windows.Media.Imaging;
 using SpieleSammlung.Model.Schafkopf;
+
+#endregion
 
 namespace SpieleSammlung.View.UserControls.Schafkopf;
 
@@ -9,12 +13,12 @@ namespace SpieleSammlung.View.UserControls.Schafkopf;
 /// </summary>
 public partial class CardVisual
 {
+    private Card _card;
+
     public CardVisual()
     {
         InitializeComponent();
     }
-
-    private Card _card;
 
     public Card Card
     {

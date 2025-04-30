@@ -1,4 +1,8 @@
-﻿using SpieleSammlung.Properties;
+﻿#region
+
+using SpieleSammlung.Properties;
+
+#endregion
 
 namespace SpieleSammlung.Model.Kniffel.Fields;
 
@@ -7,6 +11,12 @@ namespace SpieleSammlung.Model.Kniffel.Fields;
 /// </summary>
 public class KniffelPointsTable
 {
+    #region private member
+
+    private readonly KniffelField[] _fields;
+
+    #endregion
+
     #region constants and static readonly fields.
 
     /// <summary>The minimum sum for the top 6 fields for receiving the bonus.</summary>
@@ -63,12 +73,6 @@ public class KniffelPointsTable
 
     /// <summary>Indexes of the fields that can change their value only once.</summary>
     private static readonly int[] UnChangeableFields;
-
-    #endregion
-
-    #region private member
-
-    private readonly KniffelField[] _fields;
 
     #endregion
 

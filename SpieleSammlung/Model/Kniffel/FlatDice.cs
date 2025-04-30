@@ -1,12 +1,18 @@
+#region
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using SpieleSammlung.Model.Kniffel.Fields;
 
+#endregion
+
 namespace SpieleSammlung.Model.Kniffel;
 
 public class FlatDice
 {
+    public override string ToString() => "{ " + string.Join(", ", _dices) + " }";
+
     #region private member
 
     private readonly int[] _dices = new int[Dice.DICE_COUNT];
@@ -211,6 +217,4 @@ public class FlatDice
     }
 
     #endregion
-
-    public override string ToString() => "{ " + string.Join(", ", _dices) + " }";
 }

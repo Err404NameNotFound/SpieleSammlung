@@ -1,16 +1,14 @@
-﻿using System.Text;
+﻿#region
+
+using System.Text;
+
+#endregion
 
 namespace SpieleSammlung.Model.Connect4;
 
 /// <summary>Represents a point in a 2-dimensional coordinate system with integers.</summary>
 public class Coordinates2D
 {
-    /// <value>X-coordinate of the point.</value>
-    public int X { get; }
-
-    /// <value>Y-coordinate of the point.</value>
-    public int Y { get; }
-
     /// <summary>Initiates a new Instance</summary>
     /// <param name="x">X-coordinate of the point.</param>
     /// <param name="y">Y-coordinate of the point.</param>
@@ -19,6 +17,12 @@ public class Coordinates2D
         X = x;
         Y = y;
     }
+
+    /// <value>X-coordinate of the point.</value>
+    public int X { get; }
+
+    /// <value>Y-coordinate of the point.</value>
+    public int Y { get; }
 
 
     /// <summary>

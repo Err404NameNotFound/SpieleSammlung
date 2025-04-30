@@ -1,9 +1,21 @@
-﻿using System;
+﻿#region
+
+using System;
+
+#endregion
 
 namespace SpieleSammlung.Model.Kniffel.Count;
 
 public class CountOrderedList : OrderedList
 {
+    public CountOrderedList()
+    {
+    }
+
+    public CountOrderedList(OrderedList other) : base(other)
+    {
+    }
+
     public DiceCounter this[int index]
     {
         get
@@ -13,14 +25,6 @@ public class CountOrderedList : OrderedList
 
             return Counters[index];
         }
-    }
-
-    public CountOrderedList()
-    {
-    }
-
-    public CountOrderedList(OrderedList other) : base(other)
-    {
     }
 
     public void IncCount(int value)

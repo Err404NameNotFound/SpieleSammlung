@@ -1,8 +1,12 @@
-﻿using SpieleSammlung.Model;
+﻿#region
+
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
+using SpieleSammlung.Model;
 using SpieleSammlung.View.Enums;
+
+#endregion
 
 namespace SpieleSammlung.View.Sites;
 
@@ -11,14 +15,12 @@ namespace SpieleSammlung.View.Sites;
 /// </summary>
 public partial class PlayerCreator
 {
-    private readonly GameMode _mode;
-    private readonly int _minPlayer;
-    private readonly int _maxPlayer;
-    private readonly List<Player> _players;
-
     public delegate void OnStartMatch(GameMode mode, List<Player> players);
 
-    public event OnStartMatch StartMatch;
+    private readonly int _maxPlayer;
+    private readonly int _minPlayer;
+    private readonly GameMode _mode;
+    private readonly List<Player> _players;
 
     public PlayerCreator(GameMode mode, int min, int max)
     {
@@ -30,6 +32,8 @@ public partial class PlayerCreator
         _players = [];
         Update();
     }
+
+    public event OnStartMatch StartMatch;
 
     private void BtnPlayerAdd_Click(object sender, RoutedEventArgs e) => AddPlayer();
 

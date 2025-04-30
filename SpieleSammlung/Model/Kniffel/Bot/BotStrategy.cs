@@ -1,12 +1,24 @@
+#region
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using SpieleSammlung.Model.Kniffel.Fields;
 
+#endregion
+
 namespace SpieleSammlung.Model.Kniffel.Bot;
 
 public class BotStrategy
 {
+    public override string ToString()
+    {
+        return "Not reached: " + string.Join(", ", BestIndexToKillBonusNotReached) +
+               "\nreached: " + string.Join(", ", BestIndexToKillBonusReached) +
+               "\nIndex: " + IndexBestOptionFinder + "\nMin values: {Chance " + MinFieldValueChance +
+               ", Pair 3: " + MinFieldValuePair3 + ", Pair 4: " + MinFieldValuePair4 + "}";
+    }
+
     #region Constructors
 
     /// <summary>
@@ -197,12 +209,4 @@ public class BotStrategy
     }
 
     #endregion
-
-    public override string ToString()
-    {
-        return "Not reached: " + string.Join(", ", BestIndexToKillBonusNotReached) +
-               "\nreached: " + string.Join(", ", BestIndexToKillBonusReached) +
-               "\nIndex: " + IndexBestOptionFinder + "\nMin values: {Chance " + MinFieldValueChance +
-               ", Pair 3: " + MinFieldValuePair3 + ", Pair 4: " + MinFieldValuePair4 + "}";
-    }
 }

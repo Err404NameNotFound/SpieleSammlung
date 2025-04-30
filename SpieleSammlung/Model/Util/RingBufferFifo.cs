@@ -3,9 +3,9 @@ namespace SpieleSammlung.Model.Util;
 public class RingBufferFifo<T>
 {
     private readonly int _capacity;
-    private int _size;
     private Node _first;
     private Node _last;
+    private int _size;
 
     public RingBufferFifo(int size, T initialValue)
     {

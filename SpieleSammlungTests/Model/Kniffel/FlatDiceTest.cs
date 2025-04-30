@@ -1,29 +1,27 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SpieleSammlung.Model.Kniffel;
-using SpieleSammlungTests.Utils;
+﻿#region
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SpieleSammlung.Model;
+using SpieleSammlung.Model.Kniffel;
 using SpieleSammlung.Model.Kniffel.Fields;
+using SpieleSammlungTests.Utils;
+
+#endregion
 
 namespace SpieleSammlungTests.Model.Kniffel;
 
 [TestClass]
 public class FlatDiceTest
 {
+    private const double DELTA = 0.00000000001;
     private static readonly HashSet<int[]> AllCombinations;
     private static readonly HashSet<int[]> KniffelCombinations;
-    private const double DELTA = 0.00000000001;
-    private readonly RandomStub _rng;
-    private readonly FlatDice _dice;
     private static KniffelPlayer _player;
-
-    public FlatDiceTest()
-    {
-        _rng = new RandomStub();
-        _dice = new FlatDice(_rng);
-    }
+    private readonly FlatDice _dice;
+    private readonly RandomStub _rng;
 
     static FlatDiceTest()
     {
@@ -56,6 +54,12 @@ public class FlatDiceTest
         {
             KniffelCombinations.Add(ArrayHelp.CreateIntArray(Dice.DICE_COUNT, i));
         }
+    }
+
+    public FlatDiceTest()
+    {
+        _rng = new RandomStub();
+        _dice = new FlatDice(_rng);
     }
 
     [TestInitialize]
@@ -144,7 +148,7 @@ public class FlatDiceTest
         const string message = "Small Street should be possible with dice: {0}";
         TestAllCombinations(inputs, true, message, dice => dice.IsSmallStreetPossible());
     }
-        
+
     [TestMethod]
     public void TestSmallStreetNotPossible()
     {
@@ -239,7 +243,7 @@ public class FlatDiceTest
         Assert.AreEqual(4, dice.GenerateDiceValue());
         Assert.AreEqual(1, dice.GenerateDiceValue());
     }
-        
+
     [TestMethod]
     public void TestSumOfAllDiceCorrect()
     {
@@ -335,7 +339,7 @@ public class FlatDiceTest
             dice.Shuffle();
         }
     }
-        
+
     [TestMethod]
     public void TestAlwaysAll32OptionCalculated()
     {
@@ -432,9 +436,9 @@ public class FlatDiceTest
             Assert.AreEqual(0, option.Count);
         }
     }
-        
+
     #region HelpMethods
-        
+
     private static void TestAllCombinations(IEnumerable<int[]> inputs, object expected, string messageTemplate,
         CalculateActual2 calculate)
     {

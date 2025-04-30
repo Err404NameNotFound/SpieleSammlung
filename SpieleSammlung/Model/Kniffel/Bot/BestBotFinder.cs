@@ -1,5 +1,9 @@
+#region
+
 using System;
 using SpieleSammlung.Model.Util;
+
+#endregion
 
 namespace SpieleSammlung.Model.Kniffel.Bot;
 

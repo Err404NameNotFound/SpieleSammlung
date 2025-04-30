@@ -1,16 +1,20 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Collections.Generic;
+
+#endregion
 
 namespace SpieleSammlungTests.Utils;
 
 public class RandomStub : Random
 {
-    private readonly Queue<int> _ints = new();
     private readonly Queue<double> _doubles = new();
-    private bool _constantInt;
+    private readonly Queue<int> _ints = new();
     private bool _constantDouble;
-    private int _constantIntValue;
     private double _constantDoubleValue;
+    private bool _constantInt;
+    private int _constantIntValue;
 
     public RandomStub(params int[] values) => SetNext(values);
     public RandomStub(IEnumerable<int> values) => SetNext(values);

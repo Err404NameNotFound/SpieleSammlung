@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿#region
+
+using System.Collections.Generic;
+
+#endregion
 
 namespace SpieleSammlung.Model.Connect4;
 

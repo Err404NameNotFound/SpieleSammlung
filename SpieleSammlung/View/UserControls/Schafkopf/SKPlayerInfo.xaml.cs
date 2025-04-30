@@ -1,5 +1,9 @@
-﻿using System.Windows;
+﻿#region
+
+using System.Windows;
 using System.Windows.Media;
+
+#endregion
 
 namespace SpieleSammlung.View.UserControls.Schafkopf;
 
@@ -10,6 +14,8 @@ public partial class SkPlayerInfo
 {
     public static readonly string STATE_EMPTY = Properties.Resources.SKPlayerInfo_empty;
     public static readonly string STATE_AUFSTELLEN = Properties.Resources.SKPlayerInfo_Aufstellen;
+
+    public SkPlayerInfo() => InitializeComponent();
 
     public bool IsStartPlayer
     {
@@ -48,7 +54,11 @@ public partial class SkPlayerInfo
         set => VisualKontra.Visibility = value ? Visibility.Visible : Visibility.Collapsed;
     }
 
-    public SkPlayerInfo() => InitializeComponent();
+    public bool Focused
+    {
+        get => BorderFocused.BorderBrush == Brushes.Red;
+        set => BorderFocused.BorderBrush = value ? Brushes.Red : Brushes.Transparent;
+    }
 
     public void NewMatch()
     {
@@ -68,11 +78,5 @@ public partial class SkPlayerInfo
     {
         LblPLayerState.Visibility = Visibility.Collapsed;
         LblPLayerState.Content = STATE_EMPTY;
-    }
-
-    public bool Focused
-    {
-        get => BorderFocused.BorderBrush == Brushes.Red;
-        set => BorderFocused.BorderBrush = value ? Brushes.Red : Brushes.Transparent;
     }
 }

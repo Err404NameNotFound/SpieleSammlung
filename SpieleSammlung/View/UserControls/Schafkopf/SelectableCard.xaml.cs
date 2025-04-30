@@ -1,5 +1,9 @@
-﻿using System.Windows.Media;
+﻿#region
+
+using System.Windows.Media;
 using SpieleSammlung.Model.Schafkopf;
+
+#endregion
 
 namespace SpieleSammlung.View.UserControls.Schafkopf;
 
@@ -8,9 +12,8 @@ namespace SpieleSammlung.View.UserControls.Schafkopf;
 /// </summary>
 public partial class SelectableCard
 {
-    public SelectableCard() => InitializeComponent();
-
     public const double HEIGHT_FACTOR = 150.0 / 87.0;
+    public SelectableCard() => InitializeComponent();
 
     public bool IsChecked
     {

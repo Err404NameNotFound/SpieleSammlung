@@ -1,4 +1,9 @@
-﻿using SpieleSammlung.Model.Connect4;
+﻿#region
+
+using System.Windows;
+using SpieleSammlung.Model.Connect4;
+
+#endregion
 
 namespace SpieleSammlung.View.UserControls.Connect4;
 
@@ -8,8 +13,6 @@ namespace SpieleSammlung.View.UserControls.Connect4;
 public partial class Connect4Field
 {
     public delegate void FieldClickedEvent(int column);
-
-    public event FieldClickedEvent FieldClicked;
 
     public Connect4Field(int col, Connect4Tile color = Connect4Tile.Nobody)
     {
@@ -33,5 +36,7 @@ public partial class Connect4Field
         set => BtnImage.Highlighted = value;
     }
 
-    private void Btn_Click(object sender, System.Windows.RoutedEventArgs e) => FieldClicked?.Invoke(Column);
+    public event FieldClickedEvent FieldClicked;
+
+    private void Btn_Click(object sender, RoutedEventArgs e) => FieldClicked?.Invoke(Column);
 }

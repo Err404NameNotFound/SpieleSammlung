@@ -1,7 +1,11 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+
+#endregion
 
 namespace SpieleSammlung.Model.Connect4;
 
@@ -13,6 +17,18 @@ internal class Connect4 : Board
     /// deciding its next move. The higher the value the better the machine plays.
     /// </summary>
     public const int SUGGESTED_MACHINE_LEVEL = 4;
+
+    /// <summary>
+    ///Index of the player used while calculating the value of the board.
+    ///Must be either 0 or 1 and mustn't be the same as {@code INDEX_MACHINE}.
+    /// </summary>
+    private const int INDEX_PLAYER = 1;
+
+    /// <summary>
+    ///Index of the machine used while calculating the value of the board.
+    ///Must be either 0 or 1 and mustn't be the same as {@code INDEX_PLAYER}.
+    /// </summary>
+    private const int INDEX_MACHINE = 0;
 
     /// <summary>
     /// All possible directions for iterating through the field. For example for
@@ -29,32 +45,35 @@ internal class Connect4 : Board
         new(1, 1) //  moves up and right
     ];
 
-    /// <summary>
-    ///Index of the player used while calculating the value of the board.
-    ///Must be either 0 or 1 and mustn't be the same as {@code INDEX_MACHINE}.
-    /// </summary>
-    private const int INDEX_PLAYER = 1;
-
-    /// <summary>
-    ///Index of the machine used while calculating the value of the board.
-    ///Must be either 0 or 1 and mustn't be the same as {@code INDEX_PLAYER}.
-    /// </summary>
-    private const int INDEX_MACHINE = 0;
-
     /// <summary>Player that started the game.</summary>
     private readonly Connect4Tile _firstPlayer;
+
+    /// <summary>Flag if the board is full.</summary>
+    private bool _allColsFull;
 
     /// <summary>Stores which slot is occupied by which player.</summary>
     private Connect4Tile[,] _board;
 
+    /// <summary>Stores how many tiles each player has in each column.</summary>
+    private int[,] _columnCounts;
+
+    /// <summary>
+    /// Stores which is the next free index in each column starting at value 0.
+    /// If the column is full the value is {@code ROWS}.
+    /// </summary>
+    private int[] _columnFills;
+
     /// <summary>The index of the player that has to make the next move.</summary>
     private Connect4Tile _currentPlayer;
 
+    /// <summary>
+    /// Stores how many groups of tiles in a straight line each player has for each group size.
+    /// Index 0 is for groups of the size 2, index 1 for size 3 and index 2 for size 4.
+    /// </summary>
+    private int[,] _groupCounts;
+
     /// <summary>Actual difficulty level of the machine.</summary>
     private int _machineLevel;
-
-    /// <summary>Flag if the board is full.</summary>
-    private bool _allColsFull;
 
     /// <summary>Winner of the match.</summary>
     private Connect4Tile _winner;
@@ -64,21 +83,6 @@ internal class Connect4 : Board
     /// Is <c>Connect4Tile.NOBODY</c> until the winner is decided.
     /// </summary>
     private List<Coordinates2D> _witness;
-
-    /// <summary>
-    /// Stores which is the next free index in each column starting at value 0.
-    /// If the column is full the value is {@code ROWS}.
-    /// </summary>
-    private int[] _columnFills;
-
-    /// <summary>Stores how many tiles each player has in each column.</summary>
-    private int[,] _columnCounts;
-
-    /// <summary>
-    /// Stores how many groups of tiles in a straight line each player has for each group size.
-    /// Index 0 is for groups of the size 2, index 1 for size 3 and index 2 for size 4.
-    /// </summary>
-    private int[,] _groupCounts;
 
     /// <summary>Initiates a new Connect 4 game.</summary>
     /// <param name="starter">either <c>Connect4Tile.PLAYER</c> or <c>Connect4Tile.MACHINE</c></param>      

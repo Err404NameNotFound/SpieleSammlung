@@ -1,5 +1,9 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Text;
+
+#endregion
 
 namespace SpieleSammlung.Model.Connect4;
 

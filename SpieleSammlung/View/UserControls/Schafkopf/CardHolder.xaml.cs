@@ -1,9 +1,13 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Media;
 using SpieleSammlung.Model.Schafkopf;
+
+#endregion
 
 namespace SpieleSammlung.View.UserControls.Schafkopf;
 
@@ -12,10 +16,10 @@ namespace SpieleSammlung.View.UserControls.Schafkopf;
 /// </summary>
 public partial class CardHolder
 {
-    private List<Card> _cards;
+    private const int INDEX_FIRST_CARD_SECOND_HALF = 4;
     private readonly List<SelectableCard> _cardVisuals;
     private bool? _aufgestellt;
-    private const int INDEX_FIRST_CARD_SECOND_HALF = 4;
+    private List<Card> _cards;
 
     public CardHolder()
     {
@@ -25,16 +29,6 @@ public partial class CardHolder
         BtnAufstellen.Width = BtnShowRest.Width;
         ChangeViewMode(false);
     }
-
-    [Browsable(true)]
-    [Category("Action")]
-    [Description("Invoked when user clicks a card")]
-    public event EventHandler CardClicked;
-
-    [Browsable(true)]
-    [Category("Action")]
-    [Description("Invoked when user clicks a card")]
-    public event EventHandler ShowsAllCards;
 
     public int SelectedCard { get; private set; }
 
@@ -81,6 +75,16 @@ public partial class CardHolder
         get => Border.BorderBrush == Brushes.Red;
         set => Border.BorderBrush = value ? Brushes.Red : Brushes.Transparent;
     }
+
+    [Browsable(true)]
+    [Category("Action")]
+    [Description("Invoked when user clicks a card")]
+    public event EventHandler CardClicked;
+
+    [Browsable(true)]
+    [Category("Action")]
+    [Description("Invoked when user clicks a card")]
+    public event EventHandler ShowsAllCards;
 
     public void RemoveCard(int index)
     {

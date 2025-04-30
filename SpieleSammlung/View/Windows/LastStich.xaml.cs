@@ -1,6 +1,11 @@
-﻿using System.Windows;
+﻿#region
+
+using System.ComponentModel;
+using System.Windows;
 using SpieleSammlung.Model.Schafkopf;
 using SpieleSammlung.View.UserControls.Schafkopf;
+
+#endregion
 
 namespace SpieleSammlung.View.Windows;
 
@@ -40,6 +45,6 @@ public partial class LastStich
         GridStich.Children.Add(view);
     }
 
-    private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) =>
+    private void Window_Closing(object sender, CancelEventArgs e) =>
         GridStich.Children.Remove(_view);
 }

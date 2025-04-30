@@ -1,5 +1,9 @@
+#region
+
 using System;
 using System.Diagnostics;
+
+#endregion
 
 namespace SpieleSammlung.Model.Util;
 
@@ -9,8 +13,6 @@ public class ProgressPrinter
                                         "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b" +
                                         "\b\b\b\b\b\b\b\b\b\b\b";
 
-    private static readonly string FormatStringBetween = "{0,-" + CLEAR_STRING.Length + "}";
-
     private const string CLEAR_STRING_AFTER = "                           ";
     private const int BUFFER_SIZE = 60;
     private const long UPDATE_EVERY_SECOND = 1000;
@@ -18,13 +20,15 @@ public class ProgressPrinter
     private const long HOUR = 3600 * 1000;
     private const long MINUTE = 60 * 1000;
     private const long SECOND = 1000;
-    private readonly long _startTime;
+
+    private static readonly string FormatStringBetween = "{0,-" + CLEAR_STRING.Length + "}";
     private readonly bool _byTime;
     private readonly long _end;
-    private readonly RingBufferFifo<long> _timeBuffer;
     private readonly RingBufferFifo<long> _iterationBuffer;
-    private readonly Stopwatch _watch;
+    private readonly long _startTime;
     private readonly long _stepSize;
+    private readonly RingBufferFifo<long> _timeBuffer;
+    private readonly Stopwatch _watch;
     private long _nextUpdate;
 
     private ProgressPrinter(long end, bool byTime)

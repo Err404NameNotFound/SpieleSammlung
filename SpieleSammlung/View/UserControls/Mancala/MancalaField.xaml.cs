@@ -1,7 +1,11 @@
+#region
+
 using System;
 using System.Windows;
 using System.Windows.Media;
 using SpieleSammlung.Model.Mancala;
+
+#endregion
 
 namespace SpieleSammlung.View.UserControls.Mancala;
 
@@ -9,10 +13,16 @@ public partial class MancalaField
 {
     public delegate void OnFieldSelectedEvent(MancalaFieldClickedEvent e);
 
-    public event OnFieldSelectedEvent FieldSelected;
+    private readonly int _index;
 
     private int _count;
-    private readonly int _index;
+
+    public MancalaField(int index = -1, int count = -1)
+    {
+        InitializeComponent();
+        _index = index;
+        Count = count;
+    }
 
     public bool IsSelectable
     {
@@ -54,12 +64,7 @@ public partial class MancalaField
         }
     }
 
-    public MancalaField(int index = -1, int count = -1)
-    {
-        InitializeComponent();
-        _index = index;
-        Count = count;
-    }
+    public event OnFieldSelectedEvent FieldSelected;
 
     private void FieldValueDisplay_OnClick(object sender, RoutedEventArgs e)
     {

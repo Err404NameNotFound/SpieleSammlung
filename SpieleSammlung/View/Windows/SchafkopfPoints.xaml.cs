@@ -1,10 +1,14 @@
-﻿using System.Collections.Generic;
+﻿#region
+
+using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using SpieleSammlung.Model.Schafkopf;
+
+#endregion
 
 namespace SpieleSammlung.View.Windows;
 
@@ -13,10 +17,6 @@ namespace SpieleSammlung.View.Windows;
 /// </summary>
 public partial class SchafkopfPoints
 {
-    private DataTable _single;
-    private DataTable _cumulated;
-    private IReadOnlyList<PointsStorage> _playerPoints;
-
     private const char SEPARATOR = ';';
     private const string BASE_PATH = "./SchafkopfResults";
     private const string PUNKTE_CSV = BASE_PATH + "/punkte.csv";
@@ -26,6 +26,9 @@ public partial class SchafkopfPoints
 
     private readonly List<Label> _lblNames;
     private readonly List<Label> _lblPoints;
+    private DataTable _cumulated;
+    private IReadOnlyList<PointsStorage> _playerPoints;
+    private DataTable _single;
 
     public SchafkopfPoints(IReadOnlyList<PointsStorage> playerPoints, DataTable single, DataTable cumulated)
     {

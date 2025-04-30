@@ -1,5 +1,9 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Windows.Media.Imaging;
+
+#endregion
 
 namespace SpieleSammlung.View.UserControls;
 
@@ -8,13 +12,14 @@ namespace SpieleSammlung.View.UserControls;
 /// </summary>
 public partial class CheckView
 {
-    private bool? _checked;
-
-    private readonly BitmapImage _imageUndecided = new(new Uri(@"..\Images\undecided.png", UriKind.Relative));
-
     private readonly BitmapImage _imageChecked = new(new Uri(@"..\Images\checked.png", UriKind.Relative));
 
     private readonly BitmapImage _imageUnchecked = new(new Uri(@"..\Images\crossed.png", UriKind.Relative));
+
+    private readonly BitmapImage _imageUndecided = new(new Uri(@"..\Images\undecided.png", UriKind.Relative));
+    private bool? _checked;
+
+    public CheckView() => InitializeComponent();
 
     public bool? IsChecked
     {
@@ -25,6 +30,4 @@ public partial class CheckView
             Visual.Source = value == null ? _imageUndecided : value.Value ? _imageChecked : _imageUnchecked;
         }
     }
-
-    public CheckView() => InitializeComponent();
 }

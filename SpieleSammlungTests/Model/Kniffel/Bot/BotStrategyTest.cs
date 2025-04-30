@@ -1,3 +1,5 @@
+#region
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,15 +10,17 @@ using SpieleSammlung.Model.Kniffel.Bot;
 using SpieleSammlung.Model.Kniffel.Fields;
 using SpieleSammlungTests.Utils;
 
+#endregion
+
 namespace SpieleSammlungTests.Model.Kniffel.Bot;
 
 [TestClass]
 public class BotStrategyTest
 {
-    private readonly BotStrategy _strategy = new();
-    private readonly KniffelPlayer _player = new(new Player());
     private static readonly List<Player> Players = [new(), new()];
     private static readonly IntArrayComparer Comparer = new();
+    private readonly KniffelPlayer _player = new(new Player());
+    private readonly BotStrategy _strategy = new();
 
     [TestMethod]
     public void TestTriesToImproveToBigStreetShuffle1()

@@ -1,13 +1,17 @@
+#region
+
 using System.Collections.Generic;
 using System.Windows.Controls;
 using SpieleSammlung.Model.Mancala;
+
+#endregion
 
 namespace SpieleSammlung.View.UserControls.Mancala;
 
 public partial class MancalaBoard
 {
-    private readonly MancalaGame _mancala;
     private readonly MancalaField[] _fields;
+    private readonly MancalaGame _mancala;
 
     public MancalaBoard(int stonesPerField = 4, int length = 6)
     {

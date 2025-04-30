@@ -1,3 +1,5 @@
+#region
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,16 +10,13 @@ using static SpieleSammlung.Model.Schafkopf.CardColor;
 using static SpieleSammlung.Model.Schafkopf.CardNumber;
 using static SpieleSammlung.Model.Util.ArrayPrinter;
 
+#endregion
+
 namespace SpieleSammlungTests.Model.Schafkopf;
 
 [TestClass]
 public class CardTest
 {
-    private static void TestToString(CardColor color, CardNumber number)
-    {
-        Assert.AreEqual($"{color} {number}", GetCard(color, number).ToString());
-    }
-
     private static readonly IReadOnlyCollection<CardColor> SauspielColors = new List<CardColor>
         { Eichel, Gras, Schelle };
 
@@ -80,6 +79,11 @@ public class CardTest
             14, 11, 23, 20
         }
     };
+
+    private static void TestToString(CardColor color, CardNumber number)
+    {
+        Assert.AreEqual($"{color} {number}", GetCard(color, number).ToString());
+    }
 
     [TestMethod]
     public void TestToStringGrasSau() => TestToString(Gras, Sau);

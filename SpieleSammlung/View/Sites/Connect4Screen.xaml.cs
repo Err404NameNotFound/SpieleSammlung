@@ -1,11 +1,16 @@
-﻿using SpieleSammlung.Model;
-using SpieleSammlung.Model.Connect4;
+﻿#region
+
 using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
+using SpieleSammlung.Model;
+using SpieleSammlung.Model.Connect4;
 using SpieleSammlung.View.UserControls.Connect4;
+
+#endregion
 
 namespace SpieleSammlung.View.Sites;
 
@@ -17,17 +22,17 @@ public partial class Connect4Screen
     private const string NAME_BOT = "bot";
 
     private readonly Connect4Field[,] _fields;
+    private readonly bool _isSinglePlayer;
     private readonly Connect4Visual[][,] _stack;
-    private int _nextStackTile;
+
+    private Task _calculation;
+    private Connect4Tile _currentPlayer;
 
     private Board _game;
     private Connect4Multiplayer _mpGame;
-    private readonly bool _isSinglePlayer;
-    private Connect4Tile _currentPlayer;
-
-    private Task _calculation;
-    private CancellationTokenSource _tokenSource;
+    private int _nextStackTile;
     private CancellationToken _token;
+    private CancellationTokenSource _tokenSource;
 
 
     public Connect4Screen(Player player) : this(player.Name, NAME_BOT, true)
@@ -262,9 +267,9 @@ public partial class Connect4Screen
         ResetField();
     }
 
-    private void Button_New_Click(object sender, System.Windows.RoutedEventArgs e) =>
+    private void Button_New_Click(object sender, RoutedEventArgs e) =>
         StartNewGame(_game.GetFirstPlayer());
 
-    private void Button_Switch_Click(object sender, System.Windows.RoutedEventArgs e) =>
+    private void Button_Switch_Click(object sender, RoutedEventArgs e) =>
         StartNewGame(_game.GetFirstPlayer().Opponent());
 }

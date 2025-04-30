@@ -1,15 +1,20 @@
-﻿using System.Collections.Generic;
+﻿#region
+
+using System.Collections.Generic;
+
+#endregion
 
 namespace SpieleSammlung.Model.Schafkopf;
 
 public class SchafkopfMatchPossibility(SchafkopfMode m, IReadOnlyList<CardColor?> c)
 {
-    public SchafkopfMode Mode { get; } = m;
     public readonly IReadOnlyList<CardColor?> Colors = c;
 
     public SchafkopfMatchPossibility(SchafkopfMode m) : this(m, new List<CardColor?> { null })
     {
     }
+
+    public SchafkopfMode Mode { get; } = m;
 
     public override string ToString()
     {

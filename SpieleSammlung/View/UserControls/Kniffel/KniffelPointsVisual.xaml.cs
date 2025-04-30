@@ -1,6 +1,10 @@
-﻿using System.Collections.Generic;
+﻿#region
+
+using System.Collections.Generic;
 using System.Windows.Controls;
 using SpieleSammlung.Model.Kniffel;
+
+#endregion
 
 namespace SpieleSammlung.View.UserControls.Kniffel;
 

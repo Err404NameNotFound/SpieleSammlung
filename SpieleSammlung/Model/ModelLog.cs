@@ -1,17 +1,25 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Collections.Generic;
 using System.IO;
+
+#endregion
 
 namespace SpieleSammlung.Model;
 
 public static class ModelLog
 {
-    public static readonly string PATH;
     public const string SEPARATOR0 = "********************";
     public const string SEPARATOR1 = "--------------------";
     public const string SEPARATOR2 = "++++++++++++++++++++";
     public const string SEPARATOR_DEFAULT = "####################";
     public const string NEWLINE = "\r\n";
+    public static readonly string PATH;
+
+    private static bool _writeToConsole;
+
+    private static bool _writeToFile;
 
     static ModelLog()
     {
@@ -19,10 +27,6 @@ public static class ModelLog
             Directory.CreateDirectory("./Log");
         PATH = "./Log/Log_" + DateTime.Now.ToString("dd_MM_yy-HH_mm_ss") + ".txt";
     }
-
-    private static bool _writeToConsole;
-
-    private static bool _writeToFile;
 
     public static bool Writes { private set; get; } = _writeToConsole || _writeToFile;
 

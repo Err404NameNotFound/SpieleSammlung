@@ -1,6 +1,10 @@
+#region
+
 using System;
 using NUnit.Framework;
 using SpieleSammlung.Model.Util;
+
+#endregion
 
 namespace SpieleSammlungTests.Model.Util;
 
@@ -9,6 +13,7 @@ namespace SpieleSammlungTests.Model.Util;
 public class MathHelpTest
 {
     private const double EPSILON = 1e-5;
+
     [Test]
     public void TestLogBase2()
     {
@@ -19,6 +24,6 @@ public class MathHelpTest
     public void TestLogBase10()
     {
         double result = MathHelp.Log(1000, 10);
-        Assert.True(Math.Abs(3.0-result)<EPSILON, "Expected: 3, Actual:"+result);
+        Assert.True(Math.Abs(3.0 - result) < EPSILON, "Expected: 3, Actual:" + result);
     }
 }

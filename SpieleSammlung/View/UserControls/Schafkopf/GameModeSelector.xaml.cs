@@ -1,4 +1,6 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -7,6 +9,8 @@ using System.Windows.Media;
 using SpieleSammlung.Model.Schafkopf;
 using SpieleSammlung.View.Enums;
 
+#endregion
+
 namespace SpieleSammlung.View.UserControls.Schafkopf;
 
 /// <summary>
@@ -14,21 +18,17 @@ namespace SpieleSammlung.View.UserControls.Schafkopf;
 /// </summary>
 public partial class GameModeSelector
 {
-    private List<SchafkopfMatchPossibility> _possibilities;
-    private GameSelectorState _state;
-
-    private SchafkopfMode SelectedMode =>
-        SchafkopfMatchConfig.StringToSchafkopfMode(CbMode.SelectedItem.ToString());
+    public delegate void OnColorChanged(GameModeSelectedEvent e);
 
     public delegate void OnModeSelectedEvent(GameModeSelectedEvent e);
 
-    public event OnModeSelectedEvent ModeSelected;
-
-    public delegate void OnColorChanged(GameModeSelectedEvent e);
-
-    public event OnColorChanged ColorChanged;
+    private List<SchafkopfMatchPossibility> _possibilities;
+    private GameSelectorState _state;
 
     public GameModeSelector() => InitializeComponent();
+
+    private SchafkopfMode SelectedMode =>
+        SchafkopfMatchConfig.StringToSchafkopfMode(CbMode.SelectedItem.ToString());
 
     public List<SchafkopfMatchPossibility> Source
     {
@@ -75,6 +75,10 @@ public partial class GameModeSelector
             }
         }
     }
+
+    public event OnModeSelectedEvent ModeSelected;
+
+    public event OnColorChanged ColorChanged;
 
 
     private void CbMode_SelectionChanged(object sender, SelectionChangedEventArgs e)

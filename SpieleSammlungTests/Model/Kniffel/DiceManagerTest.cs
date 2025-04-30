@@ -1,30 +1,28 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SpieleSammlung.Model.Kniffel;
-using SpieleSammlungTests.Utils;
+﻿#region
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SpieleSammlung.Model;
+using SpieleSammlung.Model.Kniffel;
 using SpieleSammlung.Model.Kniffel.Fields;
+using SpieleSammlungTests.Utils;
 using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
+
+#endregion
 
 namespace SpieleSammlungTests.Model.Kniffel;
 
 [TestClass]
 public class DiceManagerTest
 {
+    private const double DELTA = 0.00000000001;
     private static readonly HashSet<int[]> AllCombinations;
     private static readonly HashSet<int[]> KniffelCombinations;
-    private const double DELTA = 0.00000000001;
-    private readonly RandomStub _rng;
-    private readonly DiceManager _dice;
     private static KniffelPlayer _player;
-
-    public DiceManagerTest()
-    {
-        _rng = new RandomStub();
-        _dice = new DiceManager(_rng);
-    }
+    private readonly DiceManager _dice;
+    private readonly RandomStub _rng;
 
     static DiceManagerTest()
     {
@@ -57,6 +55,12 @@ public class DiceManagerTest
         {
             KniffelCombinations.Add(ArrayHelp.CreateIntArray(Dice.DICE_COUNT, i));
         }
+    }
+
+    public DiceManagerTest()
+    {
+        _rng = new RandomStub();
+        _dice = new DiceManager(_rng);
     }
 
     [TestInitialize]

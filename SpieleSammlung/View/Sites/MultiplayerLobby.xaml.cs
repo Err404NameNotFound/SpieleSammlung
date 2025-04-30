@@ -1,12 +1,17 @@
-﻿using SpieleSammlung.Model.Multiplayer;
+﻿#region
+
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Net.Sockets;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using SpieleSammlung.Model.Multiplayer;
 using SpieleSammlung.View.Enums;
+
+#endregion
 
 namespace SpieleSammlung.View.Sites;
 
@@ -15,27 +20,25 @@ namespace SpieleSammlung.View.Sites;
 /// </summary>
 public partial class MultiplayerLobby
 {
-    private bool _ipOk;
-    private bool _portOk;
-    private bool _hostPortOk;
-    private bool _nameOk;
-    private readonly GameMode _mode;
-    private readonly List<MultiplayerPlayer> _players;
-    private int _currentPlayer;
-    private readonly int _min;
-    private readonly int _max;
-    private int _port;
-    private string _ip;
-    private MpConnection _connection;
+    public delegate void OnStartMatch(GameMode mode, List<MultiplayerPlayer> players, int index,
+        MpConnection connection, bool rejoin);
+
     public const char SEPARATOR = ';';
     public const string CLIENT_LATE_JOIN = "6";
     private const string BASE_PATH = "./LogMP";
     private const string PATH_LAST_IP = BASE_PATH + "/lastIP.txt";
-
-    public delegate void OnStartMatch(GameMode mode, List<MultiplayerPlayer> players, int index,
-        MpConnection connection, bool rejoin);
-
-    public event OnStartMatch StartMatch;
+    private readonly int _max;
+    private readonly int _min;
+    private readonly GameMode _mode;
+    private readonly List<MultiplayerPlayer> _players;
+    private MpConnection _connection;
+    private int _currentPlayer;
+    private bool _hostPortOk;
+    private string _ip;
+    private bool _ipOk;
+    private bool _nameOk;
+    private int _port;
+    private bool _portOk;
 
     public MultiplayerLobby(GameMode m, int minP, int maxP)
     {
@@ -55,6 +58,8 @@ public partial class MultiplayerLobby
 
         ChangeCurrentPlayer(0);
     }
+
+    public event OnStartMatch StartMatch;
 
     private void Got_Loaded(object sender, RoutedEventArgs e) => Keyboard.Focus(MpTxtBoxPlayerName);
 
@@ -237,7 +242,7 @@ public partial class MultiplayerLobby
         if (!IPAddress.TryParse(ip, out IPAddress address)) return false;
         switch (address.AddressFamily)
         {
-            case System.Net.Sockets.AddressFamily.InterNetwork:
+            case AddressFamily.InterNetwork:
                 _ip = ip;
                 return true;
             default:

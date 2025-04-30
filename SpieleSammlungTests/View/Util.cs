@@ -1,18 +1,22 @@
 #nullable enable
+
+#region
+
 using System.Collections.Generic;
 using TestStack.White;
 using TestStack.White.Factory;
 using TestStack.White.UIItems;
 using TestStack.White.UIItems.WindowItems;
 
+#endregion
+
 namespace SpieleSammlungTests.View;
 
 public class Util
 {
+    private bool _notClosed = true;
     private Application App { get; } = Application.Launch("SpieleSammlung.exe");
     public Window Window => App.GetWindow("Spiele Sammlung", InitializeOption.NoCache);
-
-    private bool _notClosed = true;
 
     public bool KeepAlive { get; set; }
 

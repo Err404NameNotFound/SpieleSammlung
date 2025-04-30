@@ -1,5 +1,9 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Windows.Media.Imaging;
+
+#endregion
 
 namespace SpieleSammlung.View.UserControls.Kniffel;
 
@@ -8,9 +12,8 @@ namespace SpieleSammlung.View.UserControls.Kniffel;
 /// </summary>
 public partial class SelectableDice
 {
-    public SelectableDice() => InitializeComponent();
-
     private int _diceValue = 1;
+    public SelectableDice() => InitializeComponent();
 
     public bool IsChecked
     {

@@ -1,6 +1,10 @@
+#region
+
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestStack.White.UIItems;
+
+#endregion
 
 namespace SpieleSammlungTests.View.Screens;
 
@@ -20,6 +24,7 @@ public class SchafkopfTest
             tmp.JoinMatch(player);
             utilList.Add(tmp);
         }
+
         return utilList;
     }
 

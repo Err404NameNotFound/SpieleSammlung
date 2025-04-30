@@ -1,4 +1,8 @@
-﻿using SpieleSammlung.Model.Kniffel.Fields;
+﻿#region
+
+using SpieleSammlung.Model.Kniffel.Fields;
+
+#endregion
 
 namespace SpieleSammlung.Model.Kniffel;
 
@@ -8,6 +12,16 @@ namespace SpieleSammlung.Model.Kniffel;
 /// </summary>
 public class WriteOption
 {
+    /// <summary>Creates a new instance and sets its values.</summary>
+    /// <param name="index"><c>Index</c> of the field</param>
+    /// <param name="value">Possible <c>value</c> for the field</param>
+    public WriteOption(int index, int value) =>
+        (Index, Value, ValueD, DoublePrecision) = (index, value, value, false);
+
+    /// <inheritdoc cref="WriteOption(int, int)"/>
+    public WriteOption(int index, double value) =>
+        (Index, Value, ValueD, DoublePrecision) = (index, (int)value, value, true);
+
     /// <value>Index of the field.</value>
     public int Index { get; }
 
@@ -18,16 +32,6 @@ public class WriteOption
     public double ValueD { get; }
 
     private bool DoublePrecision { get; }
-
-    /// <summary>Creates a new instance and sets its values.</summary>
-    /// <param name="index"><c>Index</c> of the field</param>
-    /// <param name="value">Possible <c>value</c> for the field</param>
-    public WriteOption(int index, int value) =>
-        (Index, Value, ValueD, DoublePrecision) = (index, value, value, false);
-
-    /// <inheritdoc cref="WriteOption(int, int)"/>
-    public WriteOption(int index, double value) =>
-        (Index, Value, ValueD, DoublePrecision) = (index, (int)value, value, true);
 
     public override string ToString()
     {

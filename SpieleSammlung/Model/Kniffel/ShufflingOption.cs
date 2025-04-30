@@ -1,6 +1,10 @@
-﻿using System.Collections.Generic;
+﻿#region
+
+using System.Collections.Generic;
 using System.Text;
 using SpieleSammlung.Model.Kniffel.Fields;
+
+#endregion
 
 namespace SpieleSammlung.Model.Kniffel;
 

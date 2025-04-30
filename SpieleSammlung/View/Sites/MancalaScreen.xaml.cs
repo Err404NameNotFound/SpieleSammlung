@@ -1,15 +1,19 @@
+#region
+
 using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Controls;
 using SpieleSammlung.Model.Mancala;
 using SpieleSammlung.View.UserControls.Mancala;
 
+#endregion
+
 namespace SpieleSammlung.View.Sites;
 
 public partial class MancalaScreen
 {
-    private readonly MancalaGame _mancala;
     private readonly MancalaField[] _fields;
+    private readonly MancalaGame _mancala;
 
     public MancalaScreen(bool isCapture = true, int stonesPerField = 4, int length = 6)
     {

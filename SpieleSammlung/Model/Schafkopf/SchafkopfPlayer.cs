@@ -1,17 +1,44 @@
-﻿using SpieleSammlung.Model.Multiplayer;
+﻿#region
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using SpieleSammlung.Model.Multiplayer;
 using SpieleSammlung.Model.Util;
 using static SpieleSammlung.Model.Schafkopf.CardColor;
 using static SpieleSammlung.Model.Schafkopf.CardNumber;
+
+#endregion
 
 namespace SpieleSammlung.Model.Schafkopf;
 
 public class SchafkopfPlayer : MultiplayerPlayer
 {
+    public SchafkopfPlayer(string id, string name) : base(id, name)
+    {
+        PlayableCards = [];
+        _playedCards = [];
+        Points = 0;
+        NewMatch(-1, false);
+        State = MultiplayerPlayerState.Active;
+        Possibilities = [];
+    }
+
+    public PointsStorage PlayerPoints => new(Name, Points);
+
+    public static MultiplayerPlayerState Convert(string state)
+    {
+        return state switch
+        {
+            nameof(MultiplayerPlayerState.Active) => MultiplayerPlayerState.Active,
+            nameof(MultiplayerPlayerState.LeftMatch) => MultiplayerPlayerState.LeftMatch,
+            nameof(MultiplayerPlayerState.Inactive) => MultiplayerPlayerState.Inactive,
+            _ => throw new ArgumentException("Der String konnte nicht umgewandelt werden")
+        };
+    }
+
     #region Properties and Members
 
     private readonly List<Card> _playedCards;
@@ -26,16 +53,6 @@ public class SchafkopfPlayer : MultiplayerPlayer
     public MultiplayerPlayerState State { get; set; }
 
     #endregion
-
-    public SchafkopfPlayer(string id, string name) : base(id, name)
-    {
-        PlayableCards = [];
-        _playedCards = [];
-        Points = 0;
-        NewMatch(-1, false);
-        State = MultiplayerPlayerState.Active;
-        Possibilities = [];
-    }
 
     #region CalculatingPossibilites
 
@@ -407,17 +424,4 @@ public class SchafkopfPlayer : MultiplayerPlayer
     }
 
     #endregion
-
-    public PointsStorage PlayerPoints => new(Name, Points);
-
-    public static MultiplayerPlayerState Convert(string state)
-    {
-        return state switch
-        {
-            nameof(MultiplayerPlayerState.Active) => MultiplayerPlayerState.Active,
-            nameof(MultiplayerPlayerState.LeftMatch) => MultiplayerPlayerState.LeftMatch,
-            nameof(MultiplayerPlayerState.Inactive) => MultiplayerPlayerState.Inactive,
-            _ => throw new ArgumentException("Der String konnte nicht umgewandelt werden")
-        };
-    }
 }

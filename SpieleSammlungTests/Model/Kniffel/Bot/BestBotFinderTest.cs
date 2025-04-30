@@ -1,13 +1,16 @@
+#region
+
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SpieleSammlung.Model.Kniffel.Bot;
+
+#endregion
 
 namespace SpieleSammlungTests.Model.Kniffel.Bot;
 
 [TestClass]
 public class BestBotFinderTest
 {
-        
     [TestMethod]
     public void Test2_Main()
     {

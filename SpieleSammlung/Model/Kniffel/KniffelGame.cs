@@ -1,14 +1,35 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Collections.Generic;
 using SpieleSammlung.Model.Kniffel.Bot;
 using SpieleSammlung.Model.Kniffel.Fields;
 using SpieleSammlung.Model.Util;
+
+#endregion
 
 namespace SpieleSammlung.Model.Kniffel;
 
 /// <summary>For playing a Kniffel match.</summary>
 public class KniffelGame
 {
+    public int RandomDiceValue() => _diceGenerator.GenerateDiceValue();
+
+    public void DoBotMoveInstant() => DoBotMove(_ => { }, () => { });
+
+    public void DoBotMove(Action<int[]> shuffleAnimation, Action displayShuffledDice)
+    {
+        int[] selected;
+        while (AreShufflesLeft && (selected = _botStrategy.GenerateIndexToShuffleForNextBestMove(this)).Length > 0)
+        {
+            shuffleAnimation(selected);
+            Shuffle(selected);
+            displayShuffledDice();
+        }
+
+        _botStrategy.ChooseBestField(this);
+    }
+
     #region constants and static fields
 
     /// <summary>This is the minimum number of players for a game. Otherwise the game cannot be initiated.</summary>
@@ -266,21 +287,4 @@ public class KniffelGame
     }
 
     #endregion
-
-    public int RandomDiceValue() => _diceGenerator.GenerateDiceValue();
-
-    public void DoBotMoveInstant() => DoBotMove(_ => { }, () => { });
-
-    public void DoBotMove(Action<int[]> shuffleAnimation, Action displayShuffledDice)
-    {
-        int[] selected;
-        while (AreShufflesLeft && (selected = _botStrategy.GenerateIndexToShuffleForNextBestMove(this)).Length > 0)
-        {
-            shuffleAnimation(selected);
-            Shuffle(selected);
-            displayShuffledDice();
-        }
-
-        _botStrategy.ChooseBestField(this);
-    }
 }

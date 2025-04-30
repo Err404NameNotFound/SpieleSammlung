@@ -4,8 +4,6 @@ public abstract class OrderedList
 {
     protected DiceCounter[] Counters;
 
-    public int Count { get; protected set; }
-
     protected OrderedList()
     {
         Count = 0;
@@ -22,6 +20,8 @@ public abstract class OrderedList
                 Counters[i] = new DiceCounter(other.Counters[i]);
         }
     }
+
+    public int Count { get; protected set; }
 
     /// <summary>String representation in form { Counter 1, Counter 2, ... }.</summary>
     public abstract override string ToString();

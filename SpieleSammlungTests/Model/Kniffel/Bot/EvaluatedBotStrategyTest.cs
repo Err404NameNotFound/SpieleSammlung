@@ -1,15 +1,19 @@
+#region
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SpieleSammlung.Model.Kniffel;
 using SpieleSammlung.Model.Kniffel.Bot;
 using SpieleSammlungTests.Utils;
+
+#endregion
 
 namespace SpieleSammlungTests.Model.Kniffel.Bot;
 
 [TestClass]
 public class EvaluatedBotStrategyTest
 {
-    private readonly EvaluatedBotStrategy _strategy = new();
     private static readonly RandomStub Rng;
+    private readonly EvaluatedBotStrategy _strategy = new();
 
     static EvaluatedBotStrategyTest()
     {
@@ -28,7 +32,8 @@ public class EvaluatedBotStrategyTest
     {
         RandomStub rng = new RandomStub();
         rng.SetOutputConstant(6);
-        Assert.AreEqual(30 * 4 + KniffelGame.VALUE_KNIFFEL, _strategy.RecalculateFitness(repetitions: 2, threads: 1, random: rng));
+        Assert.AreEqual(30 * 4 + KniffelGame.VALUE_KNIFFEL,
+            _strategy.RecalculateFitness(repetitions: 2, threads: 1, random: rng));
     }
 
     [TestMethod]
@@ -36,7 +41,8 @@ public class EvaluatedBotStrategyTest
     {
         RandomStub rng = new RandomStub();
         rng.SetOutputConstant(6);
-        Assert.AreEqual(30 * 4 + KniffelGame.VALUE_KNIFFEL, _strategy.RecalculateFitness(repetitions: 10, threads: 4, random: rng));
+        Assert.AreEqual(30 * 4 + KniffelGame.VALUE_KNIFFEL,
+            _strategy.RecalculateFitness(repetitions: 10, threads: 4, random: rng));
     }
 
     [TestMethod]

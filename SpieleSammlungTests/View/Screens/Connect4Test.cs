@@ -1,4 +1,7 @@
 #nullable enable
+
+#region
+
 using System.Linq;
 using Castle.Core.Internal;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -9,6 +12,8 @@ using Assert = NUnit.Framework.Assert;
 using Button = TestStack.White.UIItems.Button;
 using Label = TestStack.White.UIItems.Label;
 
+#endregion
+
 namespace SpieleSammlungTests.View.Screens;
 
 [TestClass]
@@ -16,7 +21,7 @@ public class Connect4Test
 {
     private const string PLAYER_NAME = "somePlayerName47230";
     private const string BOT_NAME = "bot";
-    private IUIItem[,] _fields = new IUIItem[0,0];
+    private IUIItem[,] _fields = new IUIItem[0, 0];
 
     private static Util SetUpMatch(string player1, string? player2 = null)
     {
@@ -36,7 +41,8 @@ public class Connect4Test
     {
         IUIItem[]? fields = util.Window.GetMultiple(SearchCriteria.All)
             .FindAll(c => c.PrimaryIdentification == "Connect4Field");
-        IOrderedEnumerable<IUIItem> sortedFields = fields.OrderBy(f => f.Bounds.Bottom).ThenByDescending(f => f.Bounds.Left);
+        IOrderedEnumerable<IUIItem> sortedFields =
+            fields.OrderBy(f => f.Bounds.Bottom).ThenByDescending(f => f.Bounds.Left);
         IUIItem[,] ret = new IUIItem[Board.ROWS, Board.COLS];
         int r = 0, c = 0;
         foreach (var c4F in sortedFields)
@@ -46,17 +52,18 @@ public class Connect4Test
                 c = 0;
                 ++r;
             }
+
             ret[r, c] = c4F;
         }
-        
+
         return ret;
     }
 
     private void KlickField(Util util, int row, int col)
     {
-        if (_fields.IsNullOrEmpty()) 
+        if (_fields.IsNullOrEmpty())
             _fields = FindUiFields(util);
-        var field = _fields[row,col];
+        var field = _fields[row, col];
         field.Click();
     }
 

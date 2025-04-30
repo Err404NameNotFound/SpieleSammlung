@@ -1,12 +1,16 @@
-﻿using SpieleSammlung.Model;
-using SpieleSammlung.Model.Kniffel;
+﻿#region
+
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using System.Windows;
 using System.Windows.Input;
+using SpieleSammlung.Model;
+using SpieleSammlung.Model.Kniffel;
 using SpieleSammlung.Model.Kniffel.Fields;
 using SpieleSammlung.View.UserControls.Kniffel;
+
+#endregion
 
 namespace SpieleSammlung.View.Sites;
 
@@ -15,35 +19,6 @@ namespace SpieleSammlung.View.Sites;
 /// </summary>
 public partial class KniffelScreen
 {
-    #region private member
-
-    /// <summary>
-    /// UI Elements resembling the dices.
-    /// </summary>
-    private readonly List<SelectableDice> _dices;
-
-    /// <summary>
-    /// UI Elements active after the end of the match. Another display to compare the points of each player.
-    /// </summary>
-    private readonly List<KniffelPointsVisual> _afterMatchPoints;
-
-    /// <summary>
-    /// Model running the logic of a Kniffel match.
-    /// </summary>
-    private readonly KniffelGame _game;
-
-    /// <summary>
-    /// Timing for the shuffle animation.
-    /// </summary>
-    private readonly Stopwatch _watch;
-
-    /// <summary>
-    /// Stored for performance to prevent cloning for every access.
-    /// </summary>
-    private readonly int[] _allDices = FlatDice.AllDices;
-
-    #endregion
-
     #region Constructor
 
     /// <summary>
@@ -71,6 +46,35 @@ public partial class KniffelScreen
         ShowCurrentPlayer();
         UpdateRoundNumber();
     }
+
+    #endregion
+
+    #region private member
+
+    /// <summary>
+    /// UI Elements resembling the dices.
+    /// </summary>
+    private readonly List<SelectableDice> _dices;
+
+    /// <summary>
+    /// UI Elements active after the end of the match. Another display to compare the points of each player.
+    /// </summary>
+    private readonly List<KniffelPointsVisual> _afterMatchPoints;
+
+    /// <summary>
+    /// Model running the logic of a Kniffel match.
+    /// </summary>
+    private readonly KniffelGame _game;
+
+    /// <summary>
+    /// Timing for the shuffle animation.
+    /// </summary>
+    private readonly Stopwatch _watch;
+
+    /// <summary>
+    /// Stored for performance to prevent cloning for every access.
+    /// </summary>
+    private readonly int[] _allDices = FlatDice.AllDices;
 
     #endregion
 

@@ -1,6 +1,10 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Windows.Media.Imaging;
 using SpieleSammlung.Model.Connect4;
+
+#endregion
 
 namespace SpieleSammlung.View.UserControls.Connect4;
 
@@ -11,6 +15,18 @@ public partial class Connect4Visual
 {
     private Connect4Tile _color;
     private bool _highlighted;
+
+    public Connect4Visual(Connect4Tile color = Connect4Tile.Nobody)
+    {
+        InitializeComponent();
+        Color = color;
+    }
+
+    public Connect4Visual()
+    {
+        InitializeComponent();
+        Color = 0;
+    }
 
     public Connect4Tile Color
     {
@@ -48,17 +64,5 @@ public partial class Connect4Visual
     private void SetImage()
     {
         BtnImage.Source = new BitmapImage(new Uri(@"../../Images/Connect4/" + GetImageName(), UriKind.Relative));
-    }
-
-    public Connect4Visual(Connect4Tile color = Connect4Tile.Nobody)
-    {
-        InitializeComponent();
-        Color = color;
-    }
-
-    public Connect4Visual()
-    {
-        InitializeComponent();
-        Color = 0;
     }
 }

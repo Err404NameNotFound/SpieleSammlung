@@ -5,12 +5,6 @@
 /// </summary>
 public class DiceCounter
 {
-    /// <value>Value of the dice.</value>
-    public int Value { get; }
-
-    /// <value>Amount of times a die with this value occured.</value>
-    public int Count { get; private set; }
-
     /// <summary>
     /// Initiates a new instance whith <c cref="Count">Count</c> 1 and <c cref="Value">Value</c> <paramref name="value"/>.
     /// </summary>
@@ -21,6 +15,12 @@ public class DiceCounter
     /// <summary>Clones the given object.</summary>
     /// <param name="other">Object to be cloned.</param>
     public DiceCounter(DiceCounter other) => (Value, Count) = (other.Value, other.Count);
+
+    /// <value>Value of the dice.</value>
+    public int Value { get; }
+
+    /// <value>Amount of times a die with this value occured.</value>
+    public int Count { get; private set; }
 
     /// <summary>Increases the count by one.</summary>
     public void IncCount() => ++Count;

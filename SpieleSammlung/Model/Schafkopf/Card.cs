@@ -1,7 +1,11 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Collections.Generic;
 using static SpieleSammlung.Model.Schafkopf.CardColor;
 using static SpieleSammlung.Model.Schafkopf.CardNumber;
+
+#endregion
 
 namespace SpieleSammlung.Model.Schafkopf;
 

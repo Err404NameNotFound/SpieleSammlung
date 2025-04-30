@@ -1,6 +1,10 @@
+#region
+
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SpieleSammlung.Model.Kniffel.Fields;
+
+#endregion
 
 namespace SpieleSammlungTests.Model.Kniffel.Fields;
 

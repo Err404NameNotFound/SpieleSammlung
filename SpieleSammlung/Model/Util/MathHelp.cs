@@ -1,5 +1,9 @@
+#region
+
 using System;
 using System.Linq;
+
+#endregion
 
 namespace SpieleSammlung.Model.Util;
 

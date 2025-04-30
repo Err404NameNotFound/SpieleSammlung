@@ -1,15 +1,15 @@
+#region
+
 using System;
 using SpieleSammlung.Properties;
 using static SpieleSammlung.Model.Schafkopf.CardColor;
+
+#endregion
 
 namespace SpieleSammlung.Model.Schafkopf;
 
 public class SchafkopfMatchConfig
 {
-    public CardColor? Trumpf { get; protected set; }
-    public CardColor? SauspielFarbe { get; protected set; }
-    public SchafkopfMode Mode { get; protected set; }
-
     protected SchafkopfMatchConfig()
     {
     }
@@ -29,6 +29,10 @@ public class SchafkopfMatchConfig
         else
             Trumpf = color;
     }
+
+    public CardColor? Trumpf { get; protected set; }
+    public CardColor? SauspielFarbe { get; protected set; }
+    public SchafkopfMode Mode { get; protected set; }
 
     public override string ToString()
     {

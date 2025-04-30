@@ -1,6 +1,10 @@
-﻿using System.Windows;
+﻿#region
+
+using System.Windows;
 using SpieleSammlung.Model.Kniffel;
 using SpieleSammlung.View.Enums;
+
+#endregion
 
 namespace SpieleSammlung.View.Sites;
 
@@ -11,9 +15,9 @@ public partial class StartScreen
 {
     public delegate void OnChoseMode(GameMode chosenMode, int min, int max);
 
-    public event OnChoseMode ChoseModeEvent;
-
     public StartScreen() => InitializeComponent();
+
+    public event OnChoseMode ChoseModeEvent;
 
     private void BtnZufallszahlen_Click(object sender, RoutedEventArgs e)
     {

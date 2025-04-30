@@ -1,44 +1,38 @@
-﻿using NetComm;
+﻿#region
+
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using NetComm;
 using SpieleSammlung.Properties;
+
+#endregion
 
 namespace SpieleSammlung.Model.Multiplayer;
 
 public class MpConnection
 {
-    private Host _host;
-    private Client _client;
-    public string Id { get; }
+    public delegate void OnClientEventHandler(MultiplayerEvent e);
 
-    public readonly List<MultiplayerPlayer> LostClients;
-    private readonly List<MultiplayerPlayer> _activeClients;
+    public delegate void OnHostEventHandler(MultiplayerEvent e);
 
-    private readonly string _path;
     private const string BASE_PATH = "LogMP";
     private const string HOST_LOG_NAME = "host";
     private const string CLIENT_LOG_NAME = "client";
     private const string FILE_ENDING = ".txt";
     private static readonly string Sep = Path.DirectorySeparatorChar.ToString();
     private static readonly string PathHost = string.Concat(BASE_PATH, Sep, HOST_LOG_NAME, FILE_ENDING);
+    private readonly List<MultiplayerPlayer> _activeClients;
 
-    public delegate void OnClientEventHandler(MultiplayerEvent e);
+    private readonly string _path;
 
-    public event OnClientEventHandler ClientEvent;
-
-    public delegate void OnHostEventHandler(MultiplayerEvent e);
-
-    public event OnHostEventHandler HostEvent;
+    public readonly List<MultiplayerPlayer> LostClients;
+    private Client _client;
+    private Host _host;
 
     private MultiplayerEvent _mpEvent;
-
-    public bool IsHost { get; }
-
-    public bool IsConnected => _client.isConnected;
-    public bool IsConnecting { get; private set; }
 
     static MpConnection()
     {
@@ -72,9 +66,6 @@ public class MpConnection
             _path = PathHost;
     }
 
-    private string HostFileName(int n) => $".{Sep}{BASE_PATH}{Sep}{HOST_LOG_NAME}_{n}{FILE_ENDING}";
-    private string ClientFileName(string n) => $".{Sep}{BASE_PATH}{Sep}{CLIENT_LOG_NAME}_{n}{FILE_ENDING}";
-
     public MpConnection(string player, OnClientEventHandler handler, int port, string ip)
     {
         Id = player;
@@ -91,6 +82,20 @@ public class MpConnection
         IsConnecting = true;
         _client.Connect(ip, port, Id);
     }
+
+    public string Id { get; }
+
+    public bool IsHost { get; }
+
+    public bool IsConnected => _client.isConnected;
+    public bool IsConnecting { get; private set; }
+
+    public event OnClientEventHandler ClientEvent;
+
+    public event OnHostEventHandler HostEvent;
+
+    private string HostFileName(int n) => $".{Sep}{BASE_PATH}{Sep}{HOST_LOG_NAME}_{n}{FILE_ENDING}";
+    private string ClientFileName(string n) => $".{Sep}{BASE_PATH}{Sep}{CLIENT_LOG_NAME}_{n}{FILE_ENDING}";
 
     private static string ConvertBytesToString(byte[] bytes) => Encoding.ASCII.GetString(bytes);
 

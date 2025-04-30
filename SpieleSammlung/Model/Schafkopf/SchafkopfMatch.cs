@@ -1,16 +1,31 @@
-﻿using SpieleSammlung.Model.Multiplayer;
+﻿#region
+
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using SpieleSammlung.Model.Multiplayer;
 using SpieleSammlung.Model.Util;
 using static SpieleSammlung.Model.Schafkopf.CardColor;
+
+#endregion
 
 namespace SpieleSammlung.Model.Schafkopf;
 
 public class SchafkopfMatch : SchafkopfMatchConfig
 {
+    public StringBuilder WriteCurrentIndices()
+    {
+        StringBuilder bob = new StringBuilder(20);
+        bob.Append("curPlayers: [");
+        bob.Append(string.Join(", ", _currentPlayerIndexes));
+        bob.Append("] -> curNames: [");
+        bob.Append(ArrayPrinter.ArrayString(i => CurrentPlayers[i].Name, CurrentPlayers.Count));
+        bob.Append("]");
+        return bob;
+    }
+
     #region Constants
 
     public const int PLAYER_PER_ROUND = 4;
@@ -645,15 +660,4 @@ public class SchafkopfMatch : SchafkopfMatchConfig
     }
 
     #endregion
-
-    public StringBuilder WriteCurrentIndices()
-    {
-        StringBuilder bob = new StringBuilder(20);
-        bob.Append("curPlayers: [");
-        bob.Append(string.Join(", ", _currentPlayerIndexes));
-        bob.Append("] -> curNames: [");
-        bob.Append(ArrayPrinter.ArrayString(i => CurrentPlayers[i].Name, CurrentPlayers.Count));
-        bob.Append("]");
-        return bob;
-    }
 }

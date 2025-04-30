@@ -1,7 +1,11 @@
-﻿using System.Collections.Generic;
+﻿#region
+
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using SpieleSammlung.Model.Schafkopf;
+
+#endregion
 
 namespace SpieleSammlung.View.UserControls.Schafkopf;
 

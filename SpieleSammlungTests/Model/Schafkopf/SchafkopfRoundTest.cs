@@ -1,5 +1,9 @@
+#region
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SpieleSammlung.Model.Schafkopf;
+
+#endregion
 
 namespace SpieleSammlungTests.Model.Schafkopf;
 
@@ -16,7 +20,7 @@ public class SchafkopfRoundTest
         Assert.AreEqual(0, round.HighestValue);
         Assert.AreEqual(null, round.SemiTrumpf);
     }
-        
+
     [TestMethod]
     public void TestNextRound()
     {
@@ -31,7 +35,7 @@ public class SchafkopfRoundTest
         Assert.AreEqual(0, round.HighestValue);
         Assert.AreEqual(null, round.SemiTrumpf);
     }
-        
+
     [TestMethod]
     public void TestNextRoundHighestCardChanged()
     {

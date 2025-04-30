@@ -1,25 +1,36 @@
+#region
+
 using System;
 using System.Collections.Generic;
 using System.Threading;
 using SpieleSammlung.Model.Kniffel.Fields;
 using SpieleSammlung.Model.Util;
 
+#endregion
+
 namespace SpieleSammlung.Model.Kniffel.Bot;
 
 public class EvaluatedBotStrategy : BotStrategy
 {
+    #region Private Members
+
+    private MinMaxAvgEvaluator Scores { get; } = new(false);
+
+    #endregion
+
+    public override string ToString() => ToString(FitnessReady);
+
+    public string ToString(bool containFitness)
+    {
+        return containFitness ? base.ToString() + "\nFitness: " + Fitness : base.ToString();
+    }
+
     #region Static fields and constants
 
     public const int REPETITIONS = 50000;
     public const int THREADS = 6;
     private static readonly List<Player> Players = [new(), new()];
     public static Random rng = new();
-
-    #endregion
-
-    #region Private Members
-
-    private MinMaxAvgEvaluator Scores { get; } = new(false);
 
     #endregion
 
@@ -163,11 +174,4 @@ public class EvaluatedBotStrategy : BotStrategy
     private static int DistinctRandomInt(int current, int length) => (rng.Next(1, length) + current) % length;
 
     #endregion
-
-    public override string ToString() => ToString(FitnessReady);
-
-    public string ToString(bool containFitness)
-    {
-        return containFitness ? base.ToString() + "\nFitness: " + Fitness : base.ToString();
-    }
 }

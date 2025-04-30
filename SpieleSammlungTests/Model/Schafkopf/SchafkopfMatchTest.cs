@@ -1,3 +1,5 @@
+#region
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +10,8 @@ using SpieleSammlung.Model.Schafkopf;
 using SpieleSammlung.Model.Util;
 using ArrayHelp = SpieleSammlungTests.Utils.ArrayHelp;
 using static SpieleSammlung.Model.Schafkopf.CardColor;
+
+#endregion
 
 namespace SpieleSammlungTests.Model.Schafkopf;
 
@@ -358,7 +362,6 @@ public class SchafkopfMatchTest
     [TestMethod]
     public void ReturnsFalseWhenNotCurrentPlayerPlaysCard()
     {
-            
         SchafkopfMatch match = new SchafkopfMatch(Players, new Random(42), true);
         match.ShuffleCards();
         match.ChoseGameMode(SchafkopfMode.SoloTout, Gras);
@@ -418,7 +421,6 @@ public class SchafkopfMatchTest
         {
             match.FullSummary(-1);
         }
-            
     }
 
     [TestMethod]
@@ -433,7 +435,7 @@ public class SchafkopfMatchTest
 
     [TestMethod]
     public void Temp2() => ListCards(98, new SchafkopfMatchConfig(SchafkopfMode.SoloTout, Herz));
-        
+
     private static void AssertCardsAreEqual(SchafkopfMatch host, SchafkopfMatch client)
     {
         Assert.AreEqual(host.CurrentPlayers.Count, client.CurrentPlayers.Count);
