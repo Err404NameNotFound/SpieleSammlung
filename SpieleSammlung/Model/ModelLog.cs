@@ -101,22 +101,22 @@ public static class ModelLog
                 File.WriteAllLines(PATH, texts);
         }
 
-        if (WriteToConsole)
-        {
-            foreach (var text in texts)
-                Console.WriteLine(text);
-        }
+        if (WriteToConsole) 
+            texts.ForEach(Console.WriteLine);
     }
 
     private static void PrintTextFormatted(string text, bool append, params object[] args)
     {
         if (WriteToFile)
         {
-            if (append) File.AppendAllText(PATH, string.Format(text, args));
-            else File.WriteAllText(PATH, string.Format(text, args));
+            if (append) 
+                File.AppendAllText(PATH, string.Format(text, args));
+            else 
+                File.WriteAllText(PATH, string.Format(text, args));
         }
 
-        if (WriteToConsole) Console.Write(text, args);
+        if (WriteToConsole) 
+            Console.Write(text, args);
     }
 
     public static void DeleteLogFile()

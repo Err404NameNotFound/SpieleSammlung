@@ -41,10 +41,7 @@ public class ShufflingOption
         Average = 0;
         AverageWrite = 0;
         Count = 0;
-        foreach (WriteOption t in options)
-        {
-            AddOption(t);
-        }
+        options.ForEach(AddOption);
     }
 
     public ShufflingOption(Dice dice, List<WriteOption> options) => Initialize(dice, options);
@@ -52,10 +49,7 @@ public class ShufflingOption
     public ShufflingOption(Dice dice, List<WriteOption> options, List<int> killOptions)
     {
         Initialize(dice, options);
-        foreach (var t in killOptions)
-        {
-            AddOption(new WriteOption(t, 0));
-        }
+        killOptions.ForEach(option => AddOption(new WriteOption(option, 0)));
     }
 
     private void AddOption(WriteOption option)

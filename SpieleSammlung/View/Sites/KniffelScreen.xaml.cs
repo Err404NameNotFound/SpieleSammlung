@@ -56,8 +56,10 @@ public partial class KniffelScreen
         _watch = new Stopwatch();
         _dices = [Dice1, Dice2, Dice3, Dice4, Dice5];
         _game = new KniffelGame(names);
-        foreach (var dice in _dices) dice.IsChecked = false;
-        foreach (var player in names) Fields.CBoxPlayerNames.Items.Add(player);
+        foreach (var dice in _dices) 
+            dice.IsChecked = false;
+        foreach (var player in names) 
+            Fields.CBoxPlayerNames.Items.Add(player);
         Fields.FillPlayerList(_game.Players);
         FieldsChoose.FillPlayerList(_game.Players);
         FieldsChoose.CBoxPlayerNames.SelectedIndex = 0;
@@ -144,9 +146,9 @@ public partial class KniffelScreen
     {
         PlayingView.Visibility = Visibility.Collapsed;
         int index = 4;
-        List<KniffelPlayer> player = _game.Players;
+        var player = _game.Players;
         int w = 2;
-        while (player.Count < w + 3 && w >= 0)
+        while (player.Length < w + 3 && w >= 0)
         {
             --index;
             _afterMatchPoints[w].Visibility = Visibility.Collapsed;
@@ -155,7 +157,7 @@ public partial class KniffelScreen
 
         FieldsChoose.CBoxPlayerNames.SelectedIndex = index;
         w = 0;
-        while (player.Count > w + 2 && w < _afterMatchPoints.Count)
+        while (player.Length > w + 2 && w < _afterMatchPoints.Count)
         {
             _afterMatchPoints[w].FillPlayerList(player);
             _afterMatchPoints[w].CBoxPlayerNames.IsEnabled = true;

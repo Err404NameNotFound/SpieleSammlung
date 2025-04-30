@@ -10,7 +10,7 @@ namespace SpieleSammlung.View.UserControls.Kniffel;
 public partial class KniffelPointsVisual
 {
     private readonly List<Label> _fields;
-    private List<KniffelPlayer> _players;
+    private KniffelPlayer[] _players;
 
     public KniffelPointsVisual()
     {
@@ -39,7 +39,7 @@ public partial class KniffelPointsVisual
         }
     }
 
-    public void FillPlayerList(List<KniffelPlayer> p)
+    public void FillPlayerList(KniffelPlayer[] p)
     {
         CBoxPlayerNames.Items.Clear();
         _players = p;
@@ -57,7 +57,7 @@ public partial class KniffelPointsVisual
     public void SelectHighest()
     {
         int max = 0;
-        for (int i = 1; i < _players.Count; ++i)
+        for (int i = 1; i < _players.Length; ++i)
         {
             if (_players[i].Fields[_fields.Count - 1].Value > _players[max].Fields[_fields.Count - 1].Value)
                 max = i;

@@ -193,10 +193,7 @@ public class MpConnection
         }
         else
         {
-            foreach (var user in _host.Users)
-            {
-                _host.DisconnectUser(user);
-            }
+            _host.Users.ForEach(DisconnectPlayer);
 
             _host.CloseConnection();
             _host.onConnection -= Server_onConnection;
@@ -216,9 +213,10 @@ public class MpConnection
         if (_host == null)
             throw new Exception("Clients können nicht redirecten");
 
+        byte[] bytes = ConvertStringToBytes(message);
         foreach (string user in _host.Users.Where(s => !s.Equals(id)))
         {
-            _host.SendData(user, ConvertStringToBytes(message));
+            _host.SendData(user, bytes);
         }
     }
 }

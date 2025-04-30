@@ -8,7 +8,7 @@ public class SchafkopfRound
     #region Member and Properties
 
     public readonly List<Card> CurrentCards;
-    public string SemiTrumpf { get; set; }
+    public CardColor? SemiTrumpf { get; set; }
     public int NextStartPlayer { get; private set; }
     public int HighestValue { get; private set; }
     private int _currentPlayer;
@@ -24,7 +24,7 @@ public class SchafkopfRound
     {
         StartPlayer = NextStartPlayer = startPlayer;
         CurrentCards = [];
-        SemiTrumpf = "";
+        SemiTrumpf = null;
         _currentPlayer = NextStartPlayer;
         HighestValue = 0;
     }
@@ -46,7 +46,7 @@ public class SchafkopfRound
             CurrentCards.Add(Card.GetCard(int.Parse(msgParts[++index])));
         }
 
-        SemiTrumpf = msgParts[++index];
+        SemiTrumpf = Card.ParseNullableColor(msgParts[++index]);
         NextStartPlayer = int.Parse(msgParts[++index]);
         HighestValue = int.Parse(msgParts[++index]);
         _currentPlayer = int.Parse(msgParts[++index]);
@@ -76,7 +76,7 @@ public class SchafkopfRound
             bob.Append(card.Index).Append(separator);
         }
 
-        bob.Append(SemiTrumpf).Append(separator);
+        bob.Append(Card.StringifyColor(SemiTrumpf)).Append(separator);
         bob.Append(NextStartPlayer).Append(separator);
         bob.Append(HighestValue).Append(separator);
         bob.Append(_currentPlayer).Append(separator);

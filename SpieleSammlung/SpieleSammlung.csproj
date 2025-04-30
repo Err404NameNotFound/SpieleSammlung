@@ -122,6 +122,8 @@
         <Compile Include="Model\Multiplayer\MultiplayerPlayerState.cs" />
         <Compile Include="Model\Player.cs" />
         <Compile Include="Model\Schafkopf\Card.cs" />
+        <Compile Include="Model\Schafkopf\CardColor.cs" />
+        <Compile Include="Model\Schafkopf\CardNumber.cs" />
         <Compile Include="Model\Schafkopf\GameModeSelectedEvent.cs" />
         <Compile Include="Model\Schafkopf\PointsStorage.cs" />
         <Compile Include="Model\Schafkopf\SchafkopfMatch.cs" />

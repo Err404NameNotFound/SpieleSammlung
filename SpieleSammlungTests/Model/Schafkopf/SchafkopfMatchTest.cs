@@ -7,6 +7,7 @@ using SpieleSammlung.Model.Multiplayer;
 using SpieleSammlung.Model.Schafkopf;
 using SpieleSammlung.Model.Util;
 using ArrayHelp = SpieleSammlungTests.Utils.ArrayHelp;
+using static SpieleSammlung.Model.Schafkopf.CardColor;
 
 namespace SpieleSammlungTests.Model.Schafkopf;
 
@@ -30,10 +31,10 @@ public class SchafkopfMatchTest
         SchafkopfMatch match = new SchafkopfMatch(Players, new Random(42), true);
         match.ShuffleCards();
         match.CurrentPlayers[0].Aufgestellt = true;
-        match.ChoseGameMode(SchafkopfMode.SoloTout, Card.GRAS);
-        match.ChoseGameMode(SchafkopfMode.Weiter, "");
-        match.ChoseGameMode(SchafkopfMode.Weiter, "");
-        match.ChoseGameMode(SchafkopfMode.Weiter, "");
+        match.ChoseGameMode(SchafkopfMode.SoloTout, Gras);
+        match.ChoseGameMode(SchafkopfMode.Weiter, null);
+        match.ChoseGameMode(SchafkopfMode.Weiter, null);
+        match.ChoseGameMode(SchafkopfMode.Weiter, null);
         AssertGameStopsWhenAlwaysPlayingFirstCard(match);
         AssertMessagesCorrect(match, "\n\n+50 SoloTout\n*2 tout\n*2 aufgestellt\n_________________\n200",
             "Du hast das SoloTout mit 120 Augen gewonnen",
@@ -49,10 +50,10 @@ public class SchafkopfMatchTest
         SchafkopfMatch match = new SchafkopfMatch(Players, new Random(98), true);
         match.ShuffleCards();
         match.CurrentPlayers[3].Aufgestellt = true;
-        match.ChoseGameMode(SchafkopfMode.Weiter, "");
-        match.ChoseGameMode(SchafkopfMode.Weiter, "");
-        match.ChoseGameMode(SchafkopfMode.Weiter, "");
-        match.ChoseGameMode(SchafkopfMode.SoloTout, Card.HERZ);
+        match.ChoseGameMode(SchafkopfMode.Weiter, null);
+        match.ChoseGameMode(SchafkopfMode.Weiter, null);
+        match.ChoseGameMode(SchafkopfMode.Weiter, null);
+        match.ChoseGameMode(SchafkopfMode.SoloTout, Herz);
         List<int> clone = AllZero.ToList();
         clone[23] = 1;
         clone[27] = 1;
@@ -72,10 +73,10 @@ public class SchafkopfMatchTest
         SchafkopfMatch match = new SchafkopfMatch(Players, new Random(98), true);
         match.ShuffleCards();
         match.CurrentPlayers[3].Aufgestellt = true;
-        match.ChoseGameMode(SchafkopfMode.Weiter, "");
-        match.ChoseGameMode(SchafkopfMode.Weiter, "");
-        match.ChoseGameMode(SchafkopfMode.Weiter, "");
-        match.ChoseGameMode(SchafkopfMode.Solo, Card.HERZ);
+        match.ChoseGameMode(SchafkopfMode.Weiter, null);
+        match.ChoseGameMode(SchafkopfMode.Weiter, null);
+        match.ChoseGameMode(SchafkopfMode.Weiter, null);
+        match.ChoseGameMode(SchafkopfMode.Solo, Herz);
         List<int> clone = AllZero.ToList();
         clone[23] = 1;
         clone[27] = 1;
@@ -95,10 +96,10 @@ public class SchafkopfMatchTest
         SchafkopfMatch match = new SchafkopfMatch(Players, new Random(98), true);
         match.ShuffleCards();
         match.CurrentPlayers[3].Aufgestellt = true;
-        match.ChoseGameMode(SchafkopfMode.Weiter, "");
-        match.ChoseGameMode(SchafkopfMode.Weiter, "");
-        match.ChoseGameMode(SchafkopfMode.Weiter, "");
-        match.ChoseGameMode(SchafkopfMode.Solo, Card.HERZ);
+        match.ChoseGameMode(SchafkopfMode.Weiter, null);
+        match.ChoseGameMode(SchafkopfMode.Weiter, null);
+        match.ChoseGameMode(SchafkopfMode.Weiter, null);
+        match.ChoseGameMode(SchafkopfMode.Solo, Herz);
         AssertGameStopsWithTheseCards(match, AllZero);
         AssertMessagesCorrect(match,
             "\n\n+50 Solo\n+20 Schneiderschwarz\n*2 aufgestellt\n_________________\n140",
@@ -115,10 +116,10 @@ public class SchafkopfMatchTest
         SchafkopfMatch match = new SchafkopfMatch(Players, new Random(13), true);
         match.ShuffleCards();
         match.CurrentPlayers[3].Aufgestellt = true;
-        match.ChoseGameMode(SchafkopfMode.Weiter, "");
-        match.ChoseGameMode(SchafkopfMode.Weiter, "");
-        match.ChoseGameMode(SchafkopfMode.Weiter, "");
-        match.ChoseGameMode(SchafkopfMode.Sauspiel, Card.SCHELLE);
+        match.ChoseGameMode(SchafkopfMode.Weiter, null);
+        match.ChoseGameMode(SchafkopfMode.Weiter, null);
+        match.ChoseGameMode(SchafkopfMode.Weiter, null);
+        match.ChoseGameMode(SchafkopfMode.Sauspiel, Schelle);
         List<string> cards =
         [
             "Eichel Neun", "Eichel Acht", "Eichel Zehn", "Eichel Sau", //player 0 (21)
@@ -146,10 +147,10 @@ public class SchafkopfMatchTest
         match.ShuffleCards();
         match.CurrentPlayers[2].Aufgestellt = true;
         match.CurrentPlayers[3].Aufgestellt = true;
-        match.ChoseGameMode(SchafkopfMode.Weiter, "");
-        match.ChoseGameMode(SchafkopfMode.Weiter, "");
-        match.ChoseGameMode(SchafkopfMode.Weiter, "");
-        match.ChoseGameMode(SchafkopfMode.Wenz, "");
+        match.ChoseGameMode(SchafkopfMode.Weiter, null);
+        match.ChoseGameMode(SchafkopfMode.Weiter, null);
+        match.ChoseGameMode(SchafkopfMode.Weiter, null);
+        match.ChoseGameMode(SchafkopfMode.Wenz, null);
         List<string> cards =
         [
             "Gras Neun", "Gras Acht", "Gras Unter", "Gras Zehn", // winner: 2, points: 12 (start at 0)
@@ -177,10 +178,10 @@ public class SchafkopfMatchTest
         SchafkopfMatch match = new SchafkopfMatch(Players, new Random(89), true);
         match.ShuffleCards();
         match.CurrentPlayers[0].Aufgestellt = true;
-        match.ChoseGameMode(SchafkopfMode.Wenz, "", 0);
-        match.ChoseGameMode(SchafkopfMode.Weiter, "", 1);
-        match.ChoseGameMode(SchafkopfMode.Weiter, "", 2);
-        match.ChoseGameMode(SchafkopfMode.Weiter, "", 3);
+        match.ChoseGameMode(SchafkopfMode.Wenz, (CardColor?)null, 0);
+        match.ChoseGameMode(SchafkopfMode.Weiter, (CardColor?)null, 1);
+        match.ChoseGameMode(SchafkopfMode.Weiter, (CardColor?)null, 2);
+        match.ChoseGameMode(SchafkopfMode.Weiter, (CardColor?)null, 3);
         match.CurrentPlayers[3].Kontra = true;
         List<string> cards =
         [
@@ -220,10 +221,10 @@ public class SchafkopfMatchTest
         SchafkopfMatch match = new SchafkopfMatch(Players, new Random(89), true);
         match.ShuffleCards();
         match.CurrentPlayers[0].Aufgestellt = true;
-        match.ChoseGameMode(SchafkopfMode.Wenz, "", 0);
-        match.ChoseGameMode(SchafkopfMode.Weiter, "", 1);
-        match.ChoseGameMode(SchafkopfMode.Weiter, "", 2);
-        match.ChoseGameMode(SchafkopfMode.Weiter, "", 3);
+        match.ChoseGameMode(SchafkopfMode.Wenz, (CardColor?)null, 0);
+        match.ChoseGameMode(SchafkopfMode.Weiter, (CardColor?)null, 1);
+        match.ChoseGameMode(SchafkopfMode.Weiter, (CardColor?)null, 2);
+        match.ChoseGameMode(SchafkopfMode.Weiter, (CardColor?)null, 3);
         match.CurrentPlayers[3].Kontra = true;
         List<string> cards =
         [
@@ -262,16 +263,16 @@ public class SchafkopfMatchTest
         SchafkopfMatch match = new SchafkopfMatch(Players, new Random(98), true);
         match.ShuffleCards();
         match.CurrentPlayers[3].Aufgestellt = true;
-        match.ChoseGameMode(SchafkopfMode.Weiter, "");
-        match.ChoseGameMode(SchafkopfMode.Weiter, "");
+        match.ChoseGameMode(SchafkopfMode.Weiter, null);
+        match.ChoseGameMode(SchafkopfMode.Weiter, null);
         SchafkopfMatch clientMatch = new SchafkopfMatch(Players.ToList(), false);
         const char separator = ';';
         const char fineSeparator = '|';
         string restoreString = "test" + separator + match.InfoForRejoin(separator, fineSeparator.ToString());
         clientMatch.RestoreFromInfo(restoreString.Split(separator), fineSeparator);
         match = clientMatch;
-        match.ChoseGameMode(SchafkopfMode.Weiter, "");
-        match.ChoseGameMode(SchafkopfMode.SoloTout, Card.HERZ);
+        match.ChoseGameMode(SchafkopfMode.Weiter, null);
+        match.ChoseGameMode(SchafkopfMode.SoloTout, Herz);
         List<int> clone = AllZero.ToList();
         clone[23] = 1;
         clone[27] = 1;
@@ -291,8 +292,8 @@ public class SchafkopfMatchTest
     {
         SchafkopfMatch match = new SchafkopfMatch(Players, true);
         match.ShuffleCards();
-        match.ChoseGameMode(SchafkopfMode.Weiter, "");
-        match.ChoseGameMode(SchafkopfMode.Weiter, "", 3);
+        match.ChoseGameMode(SchafkopfMode.Weiter, null);
+        match.ChoseGameMode(SchafkopfMode.Weiter, (CardColor?)null, 3);
     }
 
     [TestMethod]
@@ -300,10 +301,10 @@ public class SchafkopfMatchTest
     {
         SchafkopfMatch match = new SchafkopfMatch(Players, new Random(5), true);
         match.ShuffleCards();
-        match.ChoseGameMode(SchafkopfMode.Weiter, "");
-        match.ChoseGameMode(SchafkopfMode.Weiter, "");
-        match.ChoseGameMode(SchafkopfMode.Sauspiel, Card.EICHEL);
-        match.ChoseGameMode(SchafkopfMode.Weiter, "");
+        match.ChoseGameMode(SchafkopfMode.Weiter, null);
+        match.ChoseGameMode(SchafkopfMode.Weiter, null);
+        match.ChoseGameMode(SchafkopfMode.Sauspiel, Eichel);
+        match.ChoseGameMode(SchafkopfMode.Weiter, null);
         List<string> cards =
         [
             "Schelle Koenig", "Schelle Unter", "Schelle Acht",
@@ -330,10 +331,10 @@ public class SchafkopfMatchTest
     {
         SchafkopfMatch match = new SchafkopfMatch(Players, new Random(5), true);
         match.ShuffleCards();
-        match.ChoseGameMode(SchafkopfMode.Weiter, "");
-        match.ChoseGameMode(SchafkopfMode.Weiter, "");
-        match.ChoseGameMode(SchafkopfMode.Sauspiel, Card.EICHEL);
-        match.ChoseGameMode(SchafkopfMode.Weiter, "");
+        match.ChoseGameMode(SchafkopfMode.Weiter, null);
+        match.ChoseGameMode(SchafkopfMode.Weiter, null);
+        match.ChoseGameMode(SchafkopfMode.Sauspiel, Eichel);
+        match.ChoseGameMode(SchafkopfMode.Weiter, null);
         List<string> cards =
         [
             "Eichel Acht", "Eichel Sau", "Eichel Koenig", "Herz Sau", // winner: 3, points: 26 (start at 0)
@@ -360,10 +361,10 @@ public class SchafkopfMatchTest
             
         SchafkopfMatch match = new SchafkopfMatch(Players, new Random(42), true);
         match.ShuffleCards();
-        match.ChoseGameMode(SchafkopfMode.SoloTout, Card.GRAS);
-        match.ChoseGameMode(SchafkopfMode.Weiter, "");
-        match.ChoseGameMode(SchafkopfMode.Weiter, "");
-        match.ChoseGameMode(SchafkopfMode.Weiter, "");
+        match.ChoseGameMode(SchafkopfMode.SoloTout, Gras);
+        match.ChoseGameMode(SchafkopfMode.Weiter, null);
+        match.ChoseGameMode(SchafkopfMode.Weiter, null);
+        match.ChoseGameMode(SchafkopfMode.Weiter, null);
         int index = match.CurrentRound.CurrentPlayer;
         Assert.IsFalse(match.PlayCard(0, 1));
         Assert.AreEqual(index, match.CurrentRound.CurrentPlayer);
@@ -384,7 +385,7 @@ public class SchafkopfMatchTest
     {
         SchafkopfMatch match = new SchafkopfMatch(Players, true);
         match.ShuffleCards();
-        match.ChoseGameMode(SchafkopfMode.Sauspiel, Card.GRAS);
+        match.ChoseGameMode(SchafkopfMode.Sauspiel, Gras);
         match.ShuffleCards();
     }
 
@@ -403,10 +404,10 @@ public class SchafkopfMatchTest
         SchafkopfMatch match = new SchafkopfMatch(Players, new Random(42), true);
         match.ShuffleCards();
         match.CurrentPlayers[0].Aufgestellt = true;
-        match.ChoseGameMode(SchafkopfMode.SoloTout, Card.GRAS);
-        match.ChoseGameMode(SchafkopfMode.Weiter, "");
-        match.ChoseGameMode(SchafkopfMode.Weiter, "");
-        match.ChoseGameMode(SchafkopfMode.Weiter, "");
+        match.ChoseGameMode(SchafkopfMode.SoloTout, Gras);
+        match.ChoseGameMode(SchafkopfMode.Weiter, null);
+        match.ChoseGameMode(SchafkopfMode.Weiter, null);
+        match.ChoseGameMode(SchafkopfMode.Weiter, null);
         AssertGameStopsWhenAlwaysPlayingFirstCard(match);
         try
         {
@@ -431,7 +432,7 @@ public class SchafkopfMatchTest
     }
 
     [TestMethod]
-    public void Temp2() => ListCards(98, new SchafkopfMatchConfig(SchafkopfMode.SoloTout, Card.HERZ));
+    public void Temp2() => ListCards(98, new SchafkopfMatchConfig(SchafkopfMode.SoloTout, Herz));
         
     private static void AssertCardsAreEqual(SchafkopfMatch host, SchafkopfMatch client)
     {
@@ -535,7 +536,7 @@ public class SchafkopfMatchTest
 
     private static void ListCards(int seed, bool listUnsorted = false)
     {
-        ListCards(seed, new SchafkopfMatchConfig(SchafkopfMode.Sauspiel, Card.EICHEL), listUnsorted);
+        ListCards(seed, new SchafkopfMatchConfig(SchafkopfMode.Sauspiel, Eichel), listUnsorted);
     }
 
     private static void ListCards(int seed, SchafkopfMatchConfig matchSort, bool listUnsorted = false)

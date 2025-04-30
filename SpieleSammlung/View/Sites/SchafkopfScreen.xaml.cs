@@ -14,6 +14,7 @@ using SpieleSammlung.View.Enums;
 using SpieleSammlung.View.UserControls;
 using SpieleSammlung.View.UserControls.Schafkopf;
 using SpieleSammlung.View.Windows;
+using static SpieleSammlung.Model.Schafkopf.CardColor;
 using static SpieleSammlung.Model.Schafkopf.SchafkopfMatch;
 
 namespace SpieleSammlung.View.Sites;
@@ -410,7 +411,7 @@ public partial class SchafkopfScreen
                     _playerInfosSpectate[i].Aufgestellt = _match.CurrentPlayers[i].Aufgestellt;
                     _playerInfosSpectate[i].Kontra = _match.CurrentPlayers[i].Kontra;
                     if (state[i].Equals(SkPlayerInfo.STATE_EMPTY))
-                        _playerInfosSpectate[i].EmptyState();
+                        _playerInfosSpectate[i].ClearState();
                     else
                         _playerInfosSpectate[i].State = state[i];
 
@@ -440,7 +441,7 @@ public partial class SchafkopfScreen
                     _playerInfos[index].Aufgestellt = _match.CurrentPlayers[i].Aufgestellt;
                     _playerInfos[index].Kontra = _match.CurrentPlayers[i].Kontra;
                     if (state[i].Equals(SkPlayerInfo.STATE_EMPTY))
-                        _playerInfos[i].EmptyState();
+                        _playerInfos[i].ClearState();
                     else
                         _playerInfos[index].State = state[i];
                 }
@@ -840,10 +841,7 @@ public partial class SchafkopfScreen
             UpdateFocus(true);
             if (_isSpectating)
             {
-                for (int i = 0; i < PLAYER_PER_ROUND; ++i)
-                {
-                    _playerInfosSpectate[i].EmptyState();
-                }
+                _playerInfosSpectate.ForEach(info => info.ClearState());
 
                 _playerInfosSpectate[_match.PlayerIndex].State = _match.ToString();
                 _playerInfosSpectate[_match.CurrentRound.CurrentPlayer].IsStartPlayer = false;
@@ -862,10 +860,7 @@ public partial class SchafkopfScreen
                 }
 
                 int uiIndex = GetUiPlayerIndex(_match.PlayerIndex);
-                for (int i = 0; i < PLAYER_PER_ROUND; ++i)
-                {
-                    _playerInfos[i].EmptyState();
-                }
+                _playerInfos.ForEach(info => info.ClearState());
 
                 _playerInfos[uiIndex].State = _match.ToString();
                 _playerInfos[GetUiPlayerIndex(_match.CurrentRound.CurrentPlayer)].IsStartPlayer = false;
@@ -968,7 +963,7 @@ public partial class SchafkopfScreen
             CardHolder.Aufgestellt || _match.Players[_playerIndex].Aufgestellt;
         SendMessage(CODE_VIEW_CARD, PlayerIndexCurRound.ToString(), CardHolder.Aufgestellt.ToString());
         int index = PlayerIndexCurRound;
-        _match.CurrentPlayers[index].SortCards(new SchafkopfMatchConfig(SchafkopfMode.Sauspiel, Card.HERZ));
+        _match.CurrentPlayers[index].SortCards(new SchafkopfMatchConfig(SchafkopfMode.Sauspiel, Herz));
         CardHolder.Cards = _match.CurrentPlayers[index].GetPlayableCards();
         ApplyPossibilities();
         ModeSelector.State = GameSelectorState.Visible;
@@ -1032,7 +1027,7 @@ public partial class SchafkopfScreen
     {
         if (_isSpectating)
             throw new InvalidOperationException("Spectator should not be able to change color");
-        
+
         int index = PlayerIndexCurRound;
         _match.CurrentPlayers[index].SortCards(new SchafkopfMatchConfig(e.Mode, e.Color));
         CardHolder.Cards = _match.CurrentPlayers[index].GetPlayableCards();

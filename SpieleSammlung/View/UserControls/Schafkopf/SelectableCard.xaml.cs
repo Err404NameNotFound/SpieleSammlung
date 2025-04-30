@@ -20,7 +20,6 @@ public partial class SelectableCard
 
     public Card Card
     {
-        get => CardVisual.Card;
         set => CardVisual.Card = value;
     }
 

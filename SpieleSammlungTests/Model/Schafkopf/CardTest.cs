@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SpieleSammlung;
 using SpieleSammlung.Model.Schafkopf;
 using static SpieleSammlung.Model.Schafkopf.Card;
+using static SpieleSammlung.Model.Schafkopf.CardColor;
+using static SpieleSammlung.Model.Schafkopf.CardNumber;
 using static SpieleSammlung.Model.Util.ArrayPrinter;
 
 namespace SpieleSammlungTests.Model.Schafkopf;
@@ -12,18 +14,19 @@ namespace SpieleSammlungTests.Model.Schafkopf;
 [TestClass]
 public class CardTest
 {
-    private static void TestToString(string color, string number)
+    private static void TestToString(CardColor color, CardNumber number)
     {
         Assert.AreEqual($"{color} {number}", GetCard(color, number).ToString());
     }
 
-    private static readonly IReadOnlyCollection<string> SauspielColors = new List<string> { EICHEL, GRAS, SCHELLE };
+    private static readonly IReadOnlyCollection<CardColor> SauspielColors = new List<CardColor>
+        { Eichel, Gras, Schelle };
 
-    private static readonly IReadOnlyList<string> NumbersShort = new List<string>
-        { SIEBEN, ACHT, NEUN, KOENIG, ZEHN, SAU };
+    private static readonly IReadOnlyList<CardNumber> NumbersShort = new List<CardNumber>
+        { Sieben, Acht, Neun, Koenig, Zehn, Sau };
 
-    private static readonly IReadOnlyList<string> WenzNumbers = new List<string>
-        { SIEBEN, ACHT, NEUN, OBER, KOENIG, ZEHN, SAU };
+    private static readonly IReadOnlyList<CardNumber> WenzNumbers = new List<CardNumber>
+        { Sieben, Acht, Neun, Ober, Koenig, Zehn, Sau };
 
     private static readonly IReadOnlyList<int[]> ShuffledCards = new List<int[]>
     {
@@ -80,156 +83,161 @@ public class CardTest
     };
 
     [TestMethod]
-    public void TestToStringGrasSau() => TestToString(GRAS, SAU);
+    public void TestToStringGrasSau() => TestToString(Gras, Sau);
 
     [TestMethod]
-    public void TestToStringHerzKoenigSau() => TestToString(HERZ, KOENIG);
+    public void TestToStringHerzKoenigSau() => TestToString(Herz, Koenig);
 
     [TestMethod]
-    public void TestToStringHerzOber() => TestToString(HERZ, OBER);
+    public void TestToStringHerzOber() => TestToString(Herz, Ober);
 
     [TestMethod]
-    public void TestToStringGrasUnter() => TestToString(GRAS, UNTER);
+    public void TestToStringGrasUnter() => TestToString(Gras, Unter);
 
     [TestMethod]
-    public void TestToStringSchelleZehn() => TestToString(SCHELLE, ZEHN);
+    public void TestToStringSchelleZehn() => TestToString(Schelle, Zehn);
 
     [TestMethod]
-    public void TestToStringSchelleNeun() => TestToString(SCHELLE, NEUN);
+    public void TestToStringSchelleNeun() => TestToString(Schelle, Neun);
 
     [TestMethod]
-    public void TestToStringHerzAcht() => TestToString(HERZ, ACHT);
+    public void TestToStringHerzAcht() => TestToString(Herz, Acht);
 
     [TestMethod]
-    public void TestToStringEichelSieben() => TestToString(EICHEL, SIEBEN);
+    public void TestToStringEichelSieben() => TestToString(Eichel, Sieben);
 
     [TestMethod]
     public void TestFirstCardIsEichelSieben()
     {
-        Assert.AreEqual(EICHEL + " " + SIEBEN, GetCard(0).ToString());
+        Assert.AreEqual(Eichel + " " + Sieben, GetCard(0).ToString());
     }
 
     [TestMethod]
     public void TestFirstCardIsSchellenOber()
     {
-        Assert.AreEqual(SCHELLE + " " + OBER, GetCard(31).ToString());
+        Assert.AreEqual(Schelle + " " + Ober, GetCard(31).ToString());
     }
 
     [TestMethod]
-    public void TestGetColor0IsEichel() => Assert.AreEqual(EICHEL, GetColor(0));
+    public void TestGetColor0IsEichel() => Assert.AreEqual(Eichel, GetColor(0));
 
     [TestMethod]
-    public void TestGetColor1IsGras() => Assert.AreEqual(GRAS, GetColor(1));
+    public void TestGetColor1IsGras() => Assert.AreEqual(Gras, GetColor(1));
 
     [TestMethod]
-    public void TestGetColor2IsHerz() => Assert.AreEqual(HERZ, GetColor(2));
+    public void TestGetColor2IsHerz() => Assert.AreEqual(Herz, GetColor(2));
 
     [TestMethod]
-    public void TestGetColor3IsSchelle() => Assert.AreEqual(SCHELLE, GetColor(3));
+    public void TestGetColor3IsSchelle() => Assert.AreEqual(Schelle, GetColor(3));
 
     [TestMethod]
-    public void TestPoints7Schelle() => Assert.AreEqual(0, GetCard(SCHELLE, SIEBEN).Points);
+    public void TestPoints7Schelle() => Assert.AreEqual(0, GetCard(Schelle, Sieben).Points);
 
     [TestMethod]
-    public void TestPoints8Herz() => Assert.AreEqual(0, GetCard(HERZ, ACHT).Points);
+    public void TestPoints8Herz() => Assert.AreEqual(0, GetCard(Herz, Acht).Points);
 
     [TestMethod]
-    public void TestPoints9Gras() => Assert.AreEqual(0, GetCard(GRAS, NEUN).Points);
+    public void TestPoints9Gras() => Assert.AreEqual(0, GetCard(Gras, Neun).Points);
 
     [TestMethod]
-    public void TestPoints10Eichel() => Assert.AreEqual(10, GetCard(EICHEL, ZEHN).Points);
+    public void TestPoints10Eichel() => Assert.AreEqual(10, GetCard(Eichel, Zehn).Points);
 
     [TestMethod]
-    public void TestPointsUnterEichel() => Assert.AreEqual(2, GetCard(EICHEL, UNTER).Points);
+    public void TestPointsUnterEichel() => Assert.AreEqual(2, GetCard(Eichel, Unter).Points);
 
     [TestMethod]
-    public void TestPointsOberEichel() => Assert.AreEqual(3, GetCard(EICHEL, OBER).Points);
+    public void TestPointsOberEichel() => Assert.AreEqual(3, GetCard(Eichel, Ober).Points);
 
     [TestMethod]
-    public void TestPointsKoenigEichel() => Assert.AreEqual(4, GetCard(EICHEL, KOENIG).Points);
+    public void TestPointsKoenigEichel() => Assert.AreEqual(4, GetCard(Eichel, Koenig).Points);
 
     [TestMethod]
-    public void TestPointsSauEichel() => Assert.AreEqual(11, GetCard(EICHEL, SAU).Points);
+    public void TestPointsSauEichel() => Assert.AreEqual(11, GetCard(Eichel, Sau).Points);
 
     [TestMethod]
     public void TestEveryIndexCorrect()
     {
-        for (int i = 0; i < ALL_CARDS.Count; ++i) Assert.AreEqual(i, GetCard(i).Index);
+        for (int i = 0; i < ALL_CARDS.Count; ++i)
+            Assert.AreEqual(i, GetCard(i).Index);
     }
 
     [TestMethod]
     public void TestUnterOrNeunIsOber()
     {
-        foreach (string color in COLOR_NAMES)
+        foreach (var color in COLOR_NAMES)
         {
-            Assert.IsFalse(GetCard(color, UNTER).IsOber());
-            Assert.IsFalse(GetCard(color, NEUN).IsOber());
+            Assert.IsFalse(GetCard(color, Unter).IsOber());
+            Assert.IsFalse(GetCard(color, Neun).IsOber());
         }
     }
 
     [TestMethod]
     public void TestOberIsOber()
     {
-        foreach (string color in COLOR_NAMES) Assert.IsTrue(GetCard(color, OBER).IsOber());
+        foreach (var color in COLOR_NAMES)
+            Assert.IsTrue(GetCard(color, Ober).IsOber());
     }
 
     [TestMethod]
     public void TestOberOrSiebenIsUnter()
     {
-        foreach (string color in COLOR_NAMES)
+        foreach (var color in COLOR_NAMES)
         {
-            Assert.IsFalse(GetCard(color, OBER).IsUnter());
-            Assert.IsFalse(GetCard(color, SIEBEN).IsUnter());
+            Assert.IsFalse(GetCard(color, Ober).IsUnter());
+            Assert.IsFalse(GetCard(color, Sieben).IsUnter());
         }
     }
 
     [TestMethod]
     public void TestUnterIsUnter()
     {
-        foreach (string color in COLOR_NAMES) Assert.IsTrue(GetCard(color, UNTER).IsUnter());
+        foreach (var color in COLOR_NAMES)
+            Assert.IsTrue(GetCard(color, Unter).IsUnter());
     }
 
     [TestMethod]
     public void TestKoenigOrZehnIsSau()
     {
-        foreach (string color in COLOR_NAMES)
+        foreach (var color in COLOR_NAMES)
         {
-            Assert.IsFalse(GetCard(color, KOENIG).IsSau());
-            Assert.IsFalse(GetCard(color, ZEHN).IsSau());
+            Assert.IsFalse(GetCard(color, Koenig).IsSau());
+            Assert.IsFalse(GetCard(color, Zehn).IsSau());
         }
     }
 
     [TestMethod]
     public void TestSauIsSau()
     {
-        foreach (string color in COLOR_NAMES) Assert.IsTrue(GetCard(color, SAU).IsSau());
+        foreach (var color in COLOR_NAMES)
+            Assert.IsTrue(GetCard(color, Sau).IsSau());
     }
 
     [TestMethod]
     public void TestIsTrumpfOberUnterSauspiel()
     {
-        SchafkopfMatchConfig match = new SchafkopfMatchConfig(SchafkopfMode.Sauspiel, GRAS);
-        foreach (string color in COLOR_NAMES)
+        SchafkopfMatchConfig match = new SchafkopfMatchConfig(SchafkopfMode.Sauspiel, Gras);
+        foreach (var color in COLOR_NAMES)
         {
-            Assert.IsTrue(GetCard(color, OBER).IsTrumpf(match));
-            Assert.IsTrue(GetCard(color, UNTER).IsTrumpf(match));
+            Assert.IsTrue(GetCard(color, Ober).IsTrumpf(match));
+            Assert.IsTrue(GetCard(color, Unter).IsTrumpf(match));
         }
     }
 
     [TestMethod]
     public void TestIsTrumpfHerzSauspiel()
     {
-        SchafkopfMatchConfig match = new SchafkopfMatchConfig(SchafkopfMode.Sauspiel, SCHELLE);
-        foreach (string number in NUMBER_NAMES) Assert.IsTrue(GetCard(HERZ, number).IsTrumpf(match));
+        SchafkopfMatchConfig match = new SchafkopfMatchConfig(SchafkopfMode.Sauspiel, Schelle);
+        foreach (var number in NUMBER_NAMES)
+            Assert.IsTrue(GetCard(Herz, number).IsTrumpf(match));
     }
 
     [TestMethod]
     public void TestIsNotTrumpfSauspiel()
     {
-        SchafkopfMatchConfig match = new SchafkopfMatchConfig(SchafkopfMode.Sauspiel, EICHEL);
-        foreach (string number in NUMBER_NAMES.Where(number => !number.Equals(OBER) && !number.Equals(UNTER)))
+        SchafkopfMatchConfig match = new SchafkopfMatchConfig(SchafkopfMode.Sauspiel, Eichel);
+        foreach (var number in NUMBER_NAMES.Where(number => !number.Equals(Ober) && !number.Equals(Unter)))
         {
-            foreach (string color in SauspielColors)
+            foreach (var color in SauspielColors)
             {
                 Card card = GetCard(color, number);
                 Assert.IsFalse(card.IsTrumpf(match), $"{card} should not be Trumpf for a {match}");
@@ -240,16 +248,16 @@ public class CardTest
     [TestMethod]
     public void TestIsTrumpfOberUnterSoloAndSoloTout()
     {
-        foreach (string trumpf in COLOR_NAMES)
+        foreach (var trumpf in COLOR_NAMES)
         {
             SchafkopfMatchConfig match1 = new SchafkopfMatchConfig(SchafkopfMode.Solo, trumpf);
             SchafkopfMatchConfig match2 = new SchafkopfMatchConfig(SchafkopfMode.SoloTout, trumpf);
-            foreach (string color in COLOR_NAMES)
+            foreach (var color in COLOR_NAMES)
             {
-                Assert.IsTrue(GetCard(color, OBER).IsTrumpf(match1));
-                Assert.IsTrue(GetCard(color, UNTER).IsTrumpf(match1));
-                Assert.IsTrue(GetCard(color, OBER).IsTrumpf(match2));
-                Assert.IsTrue(GetCard(color, UNTER).IsTrumpf(match2));
+                Assert.IsTrue(GetCard(color, Ober).IsTrumpf(match1));
+                Assert.IsTrue(GetCard(color, Unter).IsTrumpf(match1));
+                Assert.IsTrue(GetCard(color, Ober).IsTrumpf(match2));
+                Assert.IsTrue(GetCard(color, Unter).IsTrumpf(match2));
             }
         }
     }
@@ -257,14 +265,14 @@ public class CardTest
     [TestMethod]
     public void TestIsTrumpUnterWenzAndWenzTout()
     {
-        foreach (string trumpf in COLOR_NAMES)
+        foreach (var trumpf in COLOR_NAMES)
         {
             SchafkopfMatchConfig match1 = new SchafkopfMatchConfig(SchafkopfMode.Wenz, trumpf);
             SchafkopfMatchConfig match2 = new SchafkopfMatchConfig(SchafkopfMode.WenzTout, trumpf);
-            foreach (string color in COLOR_NAMES)
+            foreach (var color in COLOR_NAMES)
             {
-                Assert.IsTrue(GetCard(color, UNTER).IsTrumpf(match1));
-                Assert.IsTrue(GetCard(color, UNTER).IsTrumpf(match2));
+                Assert.IsTrue(GetCard(color, Unter).IsTrumpf(match1));
+                Assert.IsTrue(GetCard(color, Unter).IsTrumpf(match2));
             }
         }
     }
@@ -272,13 +280,13 @@ public class CardTest
     [TestMethod]
     public void TestIsNotTrumpWenzAndWenzTout()
     {
-        foreach (string trumpf in COLOR_NAMES)
+        foreach (var trumpf in COLOR_NAMES)
         {
             SchafkopfMatchConfig match1 = new SchafkopfMatchConfig(SchafkopfMode.Wenz, trumpf);
             SchafkopfMatchConfig match2 = new SchafkopfMatchConfig(SchafkopfMode.WenzTout, trumpf);
-            foreach (string color in COLOR_NAMES)
+            foreach (var color in COLOR_NAMES)
             {
-                foreach (string number in NUMBER_NAMES.Where(number => !number.Equals(UNTER)))
+                foreach (var number in NUMBER_NAMES.Where(number => !number.Equals(Unter)))
                 {
                     Assert.IsFalse(GetCard(color, number).IsTrumpf(match1));
                     Assert.IsFalse(GetCard(color, number).IsTrumpf(match2));
@@ -290,7 +298,7 @@ public class CardTest
     [TestMethod]
     public void TestExceptionThrownForWeiterAtIsTrumpf()
     {
-        foreach (string color in COLOR_NAMES)
+        foreach (var color in COLOR_NAMES)
         {
             foreach (Card card in ALL_CARDS)
             {
@@ -316,16 +324,16 @@ public class CardTest
         TestGetValueOfThisCardNoValue(COLOR_NAMES, SchafkopfMode.SoloTout);
     }
 
-    private static void TestGetValueOfThisCardNoValue(IReadOnlyCollection<string> gameColors, SchafkopfMode mode)
+    private static void TestGetValueOfThisCardNoValue(IReadOnlyCollection<CardColor> gameColors, SchafkopfMode mode)
     {
-        foreach (string gameColor in gameColors)
+        foreach (var gameColor in gameColors)
         {
             SchafkopfMatchConfig match = new SchafkopfMatchConfig(mode, gameColor);
-            foreach (string semiTrumpf in COLOR_NAMES)
+            foreach (var semiTrumpf in COLOR_NAMES)
             {
-                foreach (string number in NUMBER_NAMES.Where(s => !s.Equals(OBER) && !s.Equals(UNTER)))
+                foreach (var number in NUMBER_NAMES.Where(s => !s.Equals(Ober) && !s.Equals(Unter)))
                 {
-                    foreach (string color in gameColors.Where(c => !c.Equals(semiTrumpf) && !c.Equals(gameColor)))
+                    foreach (var color in gameColors.Where(c => !c.Equals(semiTrumpf) && !c.Equals(gameColor)))
                     {
                         Assert.AreEqual(0, GetCard(color, number).GetValueOfThisCard(match, semiTrumpf));
                     }
@@ -342,17 +350,17 @@ public class CardTest
         TestGetValueOfThisCardOberUnter(COLOR_NAMES, SchafkopfMode.SoloTout);
     }
 
-    private static void TestGetValueOfThisCardOberUnter(IEnumerable<string> gameColors, SchafkopfMode mode)
+    private static void TestGetValueOfThisCardOberUnter(IEnumerable<CardColor> gameColors, SchafkopfMode mode)
     {
-        foreach (string gameColor in gameColors)
+        foreach (var gameColor in gameColors)
         {
             SchafkopfMatchConfig match = new SchafkopfMatchConfig(mode, gameColor);
-            foreach (string semiTrumpf in COLOR_NAMES)
+            foreach (var semiTrumpf in COLOR_NAMES)
             {
                 for (var i = 0; i < COLOR_NAMES.Count; i++)
                 {
-                    Assert.AreEqual(20 - i, GetCard(COLOR_NAMES[i], OBER).GetValueOfThisCard(match, semiTrumpf));
-                    Assert.AreEqual(16 - i, GetCard(COLOR_NAMES[i], UNTER).GetValueOfThisCard(match, semiTrumpf));
+                    Assert.AreEqual(20 - i, GetCard(COLOR_NAMES[i], Ober).GetValueOfThisCard(match, semiTrumpf));
+                    Assert.AreEqual(16 - i, GetCard(COLOR_NAMES[i], Unter).GetValueOfThisCard(match, semiTrumpf));
                 }
             }
         }
@@ -366,12 +374,12 @@ public class CardTest
         TestGetValueOfThisCardSemiTrumpf(COLOR_NAMES, SchafkopfMode.SoloTout);
     }
 
-    private static void TestGetValueOfThisCardSemiTrumpf(IEnumerable<string> gameColors, SchafkopfMode mode)
+    private static void TestGetValueOfThisCardSemiTrumpf(IEnumerable<CardColor> gameColors, SchafkopfMode mode)
     {
-        foreach (string gameColor in gameColors)
+        foreach (var gameColor in gameColors)
         {
             SchafkopfMatchConfig match = new SchafkopfMatchConfig(mode, gameColor);
-            foreach (string semiTrumpf in COLOR_NAMES.Where(s => !s.Equals(match.Trumpf)))
+            foreach (var semiTrumpf in COLOR_NAMES.Where(s => !s.Equals(match.Trumpf)))
             {
                 for (int i = 0; i < NumbersShort.Count; ++i)
                 {
@@ -392,16 +400,18 @@ public class CardTest
         TestGetValueOfThisCardTrumpf(COLOR_NAMES, SchafkopfMode.SoloTout);
     }
 
-    private static void TestGetValueOfThisCardTrumpf(IEnumerable<string> gameColors, SchafkopfMode mode)
+    private static void TestGetValueOfThisCardTrumpf(IEnumerable<CardColor> gameColors, SchafkopfMode mode)
     {
-        foreach (string gameColor in gameColors)
+        foreach (var gameColor in gameColors)
         {
             SchafkopfMatchConfig match = new SchafkopfMatchConfig(mode, gameColor);
-            foreach (string semiTrumpf in COLOR_NAMES.Where(s => !s.Equals(match.Trumpf)))
+            Assert.IsTrue(match.Trumpf != null, "match.Trumpf != null");
+            CardColor trumpf = (CardColor)match.Trumpf;
+            foreach (var semiTrumpf in COLOR_NAMES.Where(s => !s.Equals(match.Trumpf)))
             {
                 for (int i = 0; i < NumbersShort.Count; ++i)
                 {
-                    Card card = GetCard(match.Trumpf, NumbersShort[i]);
+                    Card card = GetCard(trumpf, NumbersShort[i]);
                     int actual = card.GetValueOfThisCard(match, semiTrumpf);
                     const string message = "For {0} in a {1} with first color {2}";
                     Assert.AreEqual(7 + i, actual, message, card, match, semiTrumpf);
@@ -413,16 +423,16 @@ public class CardTest
     [TestMethod]
     public void TestGetValueOfThisCardWenzNoValue()
     {
-        foreach (string color in COLOR_NAMES)
+        foreach (var color in COLOR_NAMES)
         {
             const string message = "{0} should have other value for {1} with first color {2}";
             SchafkopfMatchConfig match1 = new SchafkopfMatchConfig(SchafkopfMode.Wenz, color);
             SchafkopfMatchConfig match2 = new SchafkopfMatchConfig(SchafkopfMode.WenzTout, color);
-            foreach (string semiTrumpf in COLOR_NAMES)
+            foreach (var semiTrumpf in COLOR_NAMES)
             {
-                foreach (string number in WenzNumbers)
+                foreach (var number in WenzNumbers)
                 {
-                    foreach (string cardColor in COLOR_NAMES.Where(c => !c.Equals(semiTrumpf)))
+                    foreach (var cardColor in COLOR_NAMES.Where(c => !c.Equals(semiTrumpf)))
                     {
                         Card card = GetCard(cardColor, number);
                         Assert.AreEqual(0, card.GetValueOfThisCard(match1, semiTrumpf), message, card, match1,
@@ -438,12 +448,12 @@ public class CardTest
     [TestMethod]
     public void TestGetValueOfThisCardWenzSemiTrumpf()
     {
-        foreach (string color in COLOR_NAMES)
+        foreach (var color in COLOR_NAMES)
         {
             const string message = "{0} should have other value for {1} with first color {2}";
             SchafkopfMatchConfig match1 = new SchafkopfMatchConfig(SchafkopfMode.Wenz, color);
             SchafkopfMatchConfig match2 = new SchafkopfMatchConfig(SchafkopfMode.WenzTout, color);
-            foreach (string semiTrumpf in COLOR_NAMES)
+            foreach (var semiTrumpf in COLOR_NAMES)
             {
                 for (int i = 0; i < WenzNumbers.Count; ++i)
                 {
@@ -460,17 +470,17 @@ public class CardTest
     [TestMethod]
     public void TestGetValueOfThisCardWenzUnter()
     {
-        foreach (string gameColor in COLOR_NAMES)
+        foreach (var gameColor in COLOR_NAMES)
         {
             const string message = "{0} should have other value for {1} with first color {2}";
             SchafkopfMatchConfig match1 = new SchafkopfMatchConfig(SchafkopfMode.Wenz, gameColor);
             SchafkopfMatchConfig match2 = new SchafkopfMatchConfig(SchafkopfMode.WenzTout, gameColor);
-            foreach (string semiTrumpf in COLOR_NAMES)
+            foreach (var semiTrumpf in COLOR_NAMES)
             {
                 for (int i = 0; i < COLOR_NAMES.Count; i++)
                 {
                     var color = COLOR_NAMES[i];
-                    Card card = GetCard(color, UNTER);
+                    Card card = GetCard(color, Unter);
                     int actual1 = card.GetValueOfThisCard(match1, semiTrumpf);
                     int actual2 = card.GetValueOfThisCard(match2, semiTrumpf);
                     Assert.AreEqual(12 - i, actual1, message, card, match1, semiTrumpf);
@@ -483,9 +493,9 @@ public class CardTest
     [TestMethod]
     public void TestExceptionThrownForWeiterAtGetValueForCard()
     {
-        foreach (string color in COLOR_NAMES)
+        foreach (var color in COLOR_NAMES)
         {
-            foreach (string semiTrumpf in COLOR_NAMES)
+            foreach (var semiTrumpf in COLOR_NAMES)
             {
                 foreach (Card card in ALL_CARDS)
                 {
@@ -512,9 +522,9 @@ public class CardTest
             7, 15, 23, 31, 6, 14, 22, 30, 21, 20, 19, 18, 17, 16, 5, 4, 3, 2, 1, 0, 13, 12, 11, 10, 9, 8, 29, 28,
             27, 26, 25, 24
         ];
-        AssertSortsCardsCorrect(expected, new SchafkopfMatchConfig(SchafkopfMode.Sauspiel, EICHEL));
-        AssertSortsCardsCorrect(expected, new SchafkopfMatchConfig(SchafkopfMode.Solo, HERZ));
-        AssertSortsCardsCorrect(expected, new SchafkopfMatchConfig(SchafkopfMode.SoloTout, HERZ));
+        AssertSortsCardsCorrect(expected, new SchafkopfMatchConfig(SchafkopfMode.Sauspiel, Eichel));
+        AssertSortsCardsCorrect(expected, new SchafkopfMatchConfig(SchafkopfMode.Solo, Herz));
+        AssertSortsCardsCorrect(expected, new SchafkopfMatchConfig(SchafkopfMode.SoloTout, Herz));
     }
 
     [TestMethod]
@@ -525,7 +535,7 @@ public class CardTest
             7, 15, 23, 31, 6, 14, 22, 30, 21, 20, 19, 18, 17, 16, 13, 12, 11, 10, 9, 8, 5, 4, 3, 2, 1, 0, 29, 28,
             27, 26, 25, 24
         ];
-        AssertSortsCardsCorrect(expected, new SchafkopfMatchConfig(SchafkopfMode.Sauspiel, GRAS));
+        AssertSortsCardsCorrect(expected, new SchafkopfMatchConfig(SchafkopfMode.Sauspiel, Gras));
     }
 
     [TestMethod]
@@ -536,7 +546,7 @@ public class CardTest
             7, 15, 23, 31, 6, 14, 22, 30, 21, 20, 19, 18, 17, 16, 29, 28, 27, 26, 25, 24, 5, 4, 3, 2, 1, 0, 13, 12,
             11, 10, 9, 8
         ];
-        AssertSortsCardsCorrect(expected, new SchafkopfMatchConfig(SchafkopfMode.Sauspiel, SCHELLE));
+        AssertSortsCardsCorrect(expected, new SchafkopfMatchConfig(SchafkopfMode.Sauspiel, Schelle));
     }
 
     [TestMethod]
@@ -547,7 +557,7 @@ public class CardTest
             7, 15, 23, 31, 6, 14, 22, 30, 5, 4, 3, 2, 1, 0, 13, 12, 11, 10, 9, 8, 21, 20, 19, 18, 17, 16, 29, 28,
             27, 26, 25, 24
         ];
-        AssertSortsCardsCorrect(expected, new SchafkopfMatchConfig(SchafkopfMode.Solo, EICHEL));
+        AssertSortsCardsCorrect(expected, new SchafkopfMatchConfig(SchafkopfMode.Solo, Eichel));
     }
 
     [TestMethod]
@@ -558,7 +568,7 @@ public class CardTest
             7, 15, 23, 31, 6, 14, 22, 30, 13, 12, 11, 10, 9, 8, 5, 4, 3, 2, 1, 0, 21, 20, 19, 18, 17, 16, 29, 28,
             27, 26, 25, 24
         ];
-        AssertSortsCardsCorrect(expected, new SchafkopfMatchConfig(SchafkopfMode.Solo, GRAS));
+        AssertSortsCardsCorrect(expected, new SchafkopfMatchConfig(SchafkopfMode.Solo, Gras));
     }
 
     [TestMethod]
@@ -569,7 +579,7 @@ public class CardTest
             7, 15, 23, 31, 6, 14, 22, 30, 29, 28, 27, 26, 25, 24, 5, 4, 3, 2, 1, 0, 13, 12, 11, 10, 9, 8, 21, 20,
             19, 18, 17, 16
         ];
-        AssertSortsCardsCorrect(expected, new SchafkopfMatchConfig(SchafkopfMode.Solo, SCHELLE));
+        AssertSortsCardsCorrect(expected, new SchafkopfMatchConfig(SchafkopfMode.Solo, Schelle));
     }
 
     [TestMethod]
@@ -580,15 +590,15 @@ public class CardTest
             6, 14, 22, 30, 5, 4, 3, 7, 2, 1, 0, 13, 12, 11, 15, 10, 9, 8, 21, 20, 19, 23, 18, 17, 16, 29, 28, 27,
             31, 26, 25, 24
         ];
-        AssertSortsCardsCorrect(expected, new SchafkopfMatchConfig(SchafkopfMode.Wenz, null));
-        AssertSortsCardsCorrect(expected, new SchafkopfMatchConfig(SchafkopfMode.WenzTout, null));
+        AssertSortsCardsCorrect(expected, new SchafkopfMatchConfig(SchafkopfMode.Wenz, (CardColor?)null));
+        AssertSortsCardsCorrect(expected, new SchafkopfMatchConfig(SchafkopfMode.WenzTout, (CardColor?)null));
     }
 
     [TestMethod]
     [ExpectedException(typeof(NotSupportedException))]
     public void TestCannotSortCardsForWeiter()
     {
-        SortCards(new SchafkopfMatchConfig(SchafkopfMode.Weiter, HERZ), ALL_CARDS.ToList());
+        SortCards(new SchafkopfMatchConfig(SchafkopfMode.Weiter, Herz), ALL_CARDS.ToList());
     }
 
     private static List<Card> CardIndexToList(IReadOnlyCollection<int> cards)

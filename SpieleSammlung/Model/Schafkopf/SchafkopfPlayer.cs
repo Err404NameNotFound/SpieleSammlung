@@ -1,9 +1,12 @@
 ﻿using SpieleSammlung.Model.Multiplayer;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using SpieleSammlung.Model.Util;
+using static SpieleSammlung.Model.Schafkopf.CardColor;
+using static SpieleSammlung.Model.Schafkopf.CardNumber;
 
 namespace SpieleSammlung.Model.Schafkopf;
 
@@ -42,37 +45,26 @@ public class SchafkopfPlayer : MultiplayerPlayer
     {
         Possibilities = [new SchafkopfMatchPossibility(SchafkopfMode.Weiter)];
         if (minimumGame == SchafkopfMode.SoloTout) return;
-        List<string> solo = SoloPossibilities();
+        IReadOnlyList<CardColor?> solo = SoloPossibilities();
         if (minimumGame != SchafkopfMode.WenzTout)
         {
             // add WenzTout
             if (minimumGame != SchafkopfMode.Solo)
             {
-                List<string> temp;
                 if (minimumGame != SchafkopfMode.Wenz)
                 {
                     if (minimumGame != SchafkopfMode.Sauspiel)
                     {
-                        temp = [];
-                        for (int i = 0; i < Card.COLOR_NAMES.Count; ++i)
-                        {
-                            if (CanPlaySauspielWithColor(Card.COLOR_NAMES[i]))
-                                temp.Add(Card.COLOR_NAMES[i]);
-
-                            if (i == 1)
-                                i = 2; // skip Card.Heart
-                        }
-
+                        var temp = Card.COLOR_NAMES.Where(CanPlaySauspielWithColor).Where(c => c != Herz).ToList();
                         if (temp.Count > 0)
-                            Possibilities.Add(new SchafkopfMatchPossibility(SchafkopfMode.Sauspiel, temp));
+                            Possibilities.Add(new SchafkopfMatchPossibility(SchafkopfMode.Sauspiel,
+                                temp.Select(c => (CardColor?)c).ToList()));
                     }
 
                     Possibilities.Add(new SchafkopfMatchPossibility(SchafkopfMode.Wenz));
                 }
 
-                temp = solo.ToList();
-
-                Possibilities.Add(new SchafkopfMatchPossibility(SchafkopfMode.Solo, temp));
+                Possibilities.Add(new SchafkopfMatchPossibility(SchafkopfMode.Solo, solo));
             }
 
             if (HasEichelUnter())
@@ -83,23 +75,14 @@ public class SchafkopfPlayer : MultiplayerPlayer
             Possibilities.Add(new SchafkopfMatchPossibility(SchafkopfMode.SoloTout, solo));
     }
 
-    private bool HasEichelUnter() => PlayableCards.Any(card => card.IsUnter() && card.Color == Card.EICHEL);
+    private bool HasEichelUnter() => PlayableCards.Any(card => card.IsUnter() && card.Color == Eichel);
 
-    private bool HasEichelOber() => PlayableCards.Any(card => card.IsOber() && card.Color == Card.EICHEL);
+    private bool HasEichelOber() => PlayableCards.Any(card => card.IsOber() && card.Color == Eichel);
 
-    private List<string> SoloPossibilities()
+    private IReadOnlyList<CardColor?> SoloPossibilities()
     {
-        List<string> temp = [];
-        for (int i = 0; i < 4; ++i)
-        {
-            if (CanPlaySoloWithColor(Card.GetColor(i)))
-                temp.Add(Card.GetColor(i));
-        }
-
-        if (temp.Count == 0)
-            temp = [Card.EICHEL, Card.GRAS, Card.HERZ, Card.SCHELLE];
-
-        return temp;
+        List<CardColor> temp = Card.COLOR_NAMES.Where(CanPlaySoloWithColor).ToList();
+        return (temp.Count == 0 ? Card.COLOR_NAMES : temp).Select(c => (CardColor?)c).ToList();
     }
 
     public int PossibilityIndexOf(SchafkopfMode mode)
@@ -115,12 +98,12 @@ public class SchafkopfPlayer : MultiplayerPlayer
         return -1;
     }
 
-    public int PossibilityIndexOf(int index, string color)
+    public int PossibilityIndexOf(int index, CardColor? color)
     {
         int w = 0;
         while (w < Possibilities[index].Colors.Count)
         {
-            if (Possibilities[index].Colors[w].Equals(color))
+            if (Possibilities[index].Colors[w] == color)
                 return w;
             ++w;
         }
@@ -135,7 +118,7 @@ public class SchafkopfPlayer : MultiplayerPlayer
             Possibilities.RemoveAt(tmp);
     }
 
-    private bool CanPlaySoloWithColor(string color)
+    private bool CanPlaySoloWithColor(CardColor color)
     {
         int w = 0;
         while (w < PlayableCards.Count)
@@ -150,7 +133,7 @@ public class SchafkopfPlayer : MultiplayerPlayer
         return false;
     }
 
-    private bool CanPlaySauspielWithColor(string color)
+    private bool CanPlaySauspielWithColor(CardColor color)
     {
         int w = 0;
         bool hasColor = false;
@@ -213,7 +196,7 @@ public class SchafkopfPlayer : MultiplayerPlayer
         return true;
     }
 
-    private int FirstIndexOfColor(string color, SchafkopfMatchConfig match)
+    private int FirstIndexOfColor(CardColor color, SchafkopfMatchConfig match)
     {
         int w = 0;
         while (w < PlayableCards.Count)
@@ -226,7 +209,7 @@ public class SchafkopfPlayer : MultiplayerPlayer
         return -1;
     }
 
-    private bool HasColor(string color, SchafkopfMatchConfig match) => FirstIndexOfColor(color, match) != -1;
+    private bool HasColor(CardColor color, SchafkopfMatchConfig match) => FirstIndexOfColor(color, match) != -1;
 
     private bool HasTrumpf(SchafkopfMatchConfig match)
     {
@@ -247,13 +230,17 @@ public class SchafkopfPlayer : MultiplayerPlayer
         if (match.Mode != SchafkopfMode.Sauspiel)
             return false;
 
-        int index = FirstIndexOfColor(match.SauspielFarbe, match);
-        return index != -1 && PlayableCards[index].Number.Equals("Sau");
+        if (match.SauspielFarbe == null)
+            throw new Exception("this should not happen");
+
+        int index = FirstIndexOfColor((CardColor)match.SauspielFarbe, match);
+        return index != -1 && PlayableCards[index].Number == Sau;
     }
 
     private bool KannWeglaufen(SchafkopfMatchConfig match)
     {
-        int index = FirstIndexOfColor(match.SauspielFarbe, match);
+        Debug.Assert(match.SauspielFarbe != null, "match.SauspielFarbe != null");
+        int index = FirstIndexOfColor((CardColor)match.SauspielFarbe, match);
         int end = index + 4;
         if (index == -1 || PlayableCards.Count < end)
             return false;
@@ -322,7 +309,7 @@ public class SchafkopfPlayer : MultiplayerPlayer
     {
         if (match.CurrentRound.CurrentCards.Count == 0)
             return CheckPlayableCards(match, null, match.IsWegGelaufen);
-        
+
         return match.CurrentPlayers.Select(p => p.PlayableCards.Count).Max() == PlayableCards.Count
             ? CheckPlayableCards(match, match.CurrentRound.CurrentCards[0], match.IsWegGelaufen)
             : ArrayHelp.CreateArray(PlayableCards.Count, false);
@@ -396,8 +383,8 @@ public class SchafkopfPlayer : MultiplayerPlayer
         {
             SchafkopfMode mode = SchafkopfMatchConfig.StringToSchafkopfMode(msgParts[++index]);
             int colorCount = int.Parse(msgParts[++index]);
-            List<string> colors = [];
-            for (int color = 0; color < colorCount; ++color) colors.Add(msgParts[++index]);
+            List<CardColor?> colors = [];
+            for (int color = 0; color < colorCount; ++color) colors.Add(Card.ParseNullableColor(msgParts[++index]));
             Possibilities.Add(new SchafkopfMatchPossibility(mode, colors));
         }
 

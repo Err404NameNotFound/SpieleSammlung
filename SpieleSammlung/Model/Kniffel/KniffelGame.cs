@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using SpieleSammlung.Model.Kniffel.Bot;
 using SpieleSammlung.Model.Kniffel.Fields;
+using SpieleSammlung.Model.Util;
 
 namespace SpieleSammlung.Model.Kniffel;
 
@@ -10,7 +12,7 @@ public class KniffelGame
 {
     #region constants and static fields
 
-    /// <summary>This is the minimum amount of players for a game. Otherwise the game cannot be initiated.</summary>
+    /// <summary>This is the minimum number of players for a game. Otherwise the game cannot be initiated.</summary>
     public const int MIN_PLAYER_COUNT = 2;
 
     /// <summary>Amount of times a player can shuffle the dices.</summary>
@@ -34,19 +36,19 @@ public class KniffelGame
     /// <value>Amount of times the current player can roll the dice again.</value>
     public int RemainingShuffles { private set; get; }
 
-    /// <value>States if current player can roll the dice again.</value>
+    /// <value>States if the current player can roll the dice again.</value>
     public bool AreShufflesLeft => RemainingShuffles > 0;
 
-    /// <value>States if current player can not roll the dice again.</value>
+    /// <value>States if the current player cannot roll the dice again.</value>
     public bool AreNoShufflesLeft => RemainingShuffles <= 0;
 
     /// <value>Players of this match.</value>
-    public List<KniffelPlayer> Players { get; }
+    public KniffelPlayer[] Players { get; }
 
     /// <summary>The Current Player of this match</summary>
     public KniffelPlayer CurrentPlayer => Players[ActivePlayer];
 
-    /// <summary>A copy of the Dice of this game</summary>
+    /// <summary>A copy of this games' dice</summary>
     public FlatDice Dice => new(_dice);
 
     #endregion
@@ -126,11 +128,7 @@ public class KniffelGame
             throw new ArgumentException("There are not enough players in this list. " +
                                         $"A kniffel game needs at least {MIN_PLAYER_COUNT} players");
 
-        Players = [];
-        foreach (var player in names)
-        {
-            Players.Add(new KniffelPlayer(player));
-        }
+        Players = ArrayHelp.CreateArray(names, name => new KniffelPlayer(name));
 
         Round = 0;
         ActivePlayer = 0;
@@ -200,7 +198,7 @@ public class KniffelGame
         Players[ActivePlayer].Fields.UpdateSums();
         RemainingShuffles = INITIAL_SHUFFLE_COUNT;
         ++ActivePlayer;
-        ActivePlayer %= Players.Count;
+        ActivePlayer %= Players.Length;;
         if (ActivePlayer == 0)
             ++Round;
 

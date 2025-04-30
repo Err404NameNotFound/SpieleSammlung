@@ -34,7 +34,7 @@ public class KniffelGameTest
         int count = 0;
         while (_continuousGame.IsGameNotOver())
         {
-            for (int i = 0; i < _continuousGame.Players.Count; ++i)
+            for (int i = 0; i < _continuousGame.Players.Length; ++i)
             {
                 PlayTurn(_continuousGame);
             }

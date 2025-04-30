@@ -1,34 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using static SpieleSammlung.Model.Schafkopf.CardColor;
+using static SpieleSammlung.Model.Schafkopf.CardNumber;
 
 namespace SpieleSammlung.Model.Schafkopf;
 
 public class Card
 {
-    #region Constants
-
-    public const string SAU = "Sau";
-    public const string KOENIG = "Koenig";
-    public const string OBER = "Ober";
-    public const string UNTER = "Unter";
-    public const string ZEHN = "Zehn";
-    public const string NEUN = "Neun";
-    public const string ACHT = "Acht";
-    public const string SIEBEN = "Sieben";
-    public const string EICHEL = "Eichel";
-    public const string GRAS = "Gras";
-    public const string HERZ = "Herz";
-    public const string SCHELLE = "Schelle";
     private const string CALCULATION_NOT_POSSIBLE = "Calculation not possible for mode shuffle";
-
-    #endregion
 
     #region Static fields
 
-    public static readonly IReadOnlyList<string> COLOR_NAMES = new List<string> { EICHEL, GRAS, HERZ, SCHELLE };
+    public static readonly IReadOnlyList<CardColor> COLOR_NAMES = new List<CardColor> { Eichel, Gras, Herz, Schelle };
 
-    public static readonly IReadOnlyList<string> NUMBER_NAMES = new List<string>
-        { SIEBEN, ACHT, NEUN, KOENIG, ZEHN, SAU, UNTER, OBER };
+    public static readonly IReadOnlyList<CardNumber> NUMBER_NAMES = new List<CardNumber>
+        { Sieben, Acht, Neun, Koenig, Zehn, Sau, Unter, Ober };
 
     public static readonly IReadOnlyList<Card> ALL_CARDS = GenerateAllCards();
 
@@ -38,8 +24,8 @@ public class Card
 
     #region Fields
 
-    public string Color { get; }
-    public string Number { get; }
+    public CardColor Color { get; }
+    public CardNumber Number { get; }
     public int Points { get; }
     public int Index { get; }
 
@@ -47,31 +33,35 @@ public class Card
 
     #region Constructors
 
-    private Card(int c, int n)
+    private Card(CardColor color, CardNumber number, int index)
     {
-        Color = GetColor(c);
-        Number = IntToNumber(n);
-        int temp = NumberNameToInt(Number);
-        Points = temp switch
+        Color = color;
+        Number = number;
+        Points = Number switch
         {
-            < 3 => 0,
-            3 => 4,
-            4 => 10,
-            5 => 11,
-            6 => 2,
-            _ => 3
+            Sieben => 0,
+            Acht => 0,
+            Neun => 0,
+            Koenig => 4,
+            Zehn => 10,
+            Sau => 11,
+            Unter => 2,
+            Ober => 3,
+            _ => throw new ArgumentOutOfRangeException()
         };
-        Index = c * 8 + n;
+        Index = index;
     }
 
     private static Card[] GenerateAllCards()
     {
-        Card[] cards = new Card[32];
-        for (int i = 0; i < 4; ++i)
+        Card[] cards = new Card[COLOR_NAMES.Count * NUMBER_NAMES.Count];
+        int i = 0;
+        foreach (var color in COLOR_NAMES)
         {
-            for (int j = 0; j < 8; ++j)
+            foreach (var number in NUMBER_NAMES)
             {
-                cards[8 * i + j] = new Card(i, j);
+                cards[i] = new Card(color, number, i);
+                ++i;
             }
         }
 
@@ -82,51 +72,44 @@ public class Card
 
     #region Static methods
 
-    public static Card GetCard(string color, string number)
-        => ALL_CARDS[ColorNameToInt(color) * 8 + NumberNameToInt(number)];
+    public static CardColor ParseColor(string color) => (CardColor)Enum.Parse(typeof(CardColor), color);
+    public static CardNumber ParseNumber(string number) => (CardNumber)Enum.Parse(typeof(CardColor), number);
+
+    public static CardColor? ParseNullableColor(string color) =>
+        string.IsNullOrEmpty(color) || color == "null" ? null : ParseColor(color);
+
+    public static CardNumber? ParseNullableNumber(string number) =>
+        string.IsNullOrEmpty(number) || number == "null" ? null : ParseNumber(number);
+
+    public static string StringifyColor(CardColor? color) => color == null ? "null" : color.ToString();
+    public static string StringifyNumber(CardNumber? number) => number == null ? "null" : number.ToString();
+
+    public static Card GetCard(string color, string number) =>
+        GetCard((int)ParseColor(color), (int)ParseNumber(number));
+
+    public static Card GetCard(CardColor color, CardNumber number) =>
+        GetCard(ColorNameToInt(color), NumberNameToInt(number));
+
+    public static Card GetCard(int colorIndex, int numberIndex) => ALL_CARDS[colorIndex * 8 + numberIndex];
 
     public static Card GetCard(int index) => ALL_CARDS[index];
-    public static string GetColor(int index) => COLOR_NAMES[index];
-    private static string IntToNumber(int c) => NUMBER_NAMES[c];
+    public static CardColor GetColor(int index) => COLOR_NAMES[index];
 
-    private static int ColorNameToInt(string color)
+    private static int ColorNameToInt(CardColor color) => (int)color;
+
+    private static int NumberNameToInt(CardNumber number, bool wenz = false)
     {
+        if (!wenz)
+            return (int)number;
+
         int w = 0;
         bool notFound = true;
-        while (w < 4 && notFound)
+        while (w < NUMBER_NAMES.Count && notFound)
         {
-            if (COLOR_NAMES[w].Contains(color))
+            if (NUMBER_NAMES[NumbersWenz[w]] == number)
                 notFound = false;
             else
                 ++w;
-        }
-
-        return w;
-    }
-
-    private static int NumberNameToInt(string number, bool wenz = false)
-    {
-        int w = 0;
-        bool notFound = true;
-        if (wenz)
-        {
-            while (w < 8 && notFound)
-            {
-                if (NUMBER_NAMES[NumbersWenz[w]].Contains(number))
-                    notFound = false;
-                else
-                    ++w;
-            }
-        }
-        else
-        {
-            while (w < 8 && notFound)
-            {
-                if (NUMBER_NAMES[w].Contains(number))
-                    notFound = false;
-                else
-                    ++w;
-            }
         }
 
         return w;
@@ -151,12 +134,12 @@ public class Card
 
     #region Calculated Properties
 
-    public bool IsOber() => Number.Equals(OBER);
-    public bool IsUnter() => Number.Equals(UNTER);
-    public bool IsSau() => Number.Equals(SAU);
+    public bool IsOber() => Number == Ober;
+    public bool IsUnter() => Number == Unter;
+    public bool IsSau() => Number == Sau;
 
     public bool IsGesuchte(SchafkopfMatchConfig match) => Color.Equals(match.SauspielFarbe) && IsSau();
-    public bool IsNotGesuchte(SchafkopfMatchConfig match) => !Color.Equals(match.SauspielFarbe) || !Number.Equals(SAU);
+    public bool IsNotGesuchte(SchafkopfMatchConfig match) => !Color.Equals(match.SauspielFarbe) || Number != Sau;
 
     public override string ToString() => $"{Color} {Number}";
 
@@ -175,7 +158,7 @@ public class Card
 
     public int GetValueOfThisCard(SchafkopfMatch match) => GetValueOfThisCard(match, match.CurrentRound.SemiTrumpf);
 
-    public int GetValueOfThisCard(SchafkopfMatchConfig match, string semiTrumpf)
+    public int GetValueOfThisCard(SchafkopfMatchConfig match, CardColor? semiTrumpf)
     {
         switch (match.Mode)
         {
@@ -183,15 +166,22 @@ public class Card
                 switch (Number)
                 {
                     // 6x Semi, 6x Trumpf, 4x Ober, 4x Unter → 20 + 1 Werte → 
-                    case OBER: return 20 - ColorNameToInt(Color);
-                    case UNTER: return 16 - ColorNameToInt(Color);
-                    default:
+                    case Ober: return 20 - ColorNameToInt(Color);
+                    case Unter: return 16 - ColorNameToInt(Color);
+                    case Sieben:
+                    case Acht:
+                    case Neun:
+                    case Koenig:
+                    case Zehn:
+                    case Sau:
                     {
                         if (!(Color.Equals(match.Trumpf) || Color.Equals(semiTrumpf)))
                             return 0;
 
                         return (Color.Equals(match.Trumpf) ? 7 : 1) + NumberNameToInt(Number);
                     }
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
             case SchafkopfMode.Wenz or SchafkopfMode.WenzTout:
                 // 7x Semi, 4x Unter -> 11+1 Werte
@@ -219,8 +209,8 @@ public class Card
             case SchafkopfMode.Sauspiel or SchafkopfMode.Solo or SchafkopfMode.SoloTout:
                 switch (Number)
                 {
-                    case OBER: return 31 - ColorNameToInt(Color);
-                    case UNTER: return 27 - ColorNameToInt(Color);
+                    case Ober: return 31 - ColorNameToInt(Color);
+                    case Unter: return 27 - ColorNameToInt(Color);
                     default:
                     {
                         if (Color.Equals(match.Trumpf)) return 18 + NumberNameToInt(Number);

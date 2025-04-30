@@ -93,9 +93,9 @@ public partial class GameModeSelector
     {
         if (BtnSelectMode.IsChecked == true)
         {
-            if (ModeSelected == null) 
+            if (ModeSelected == null)
                 throw new NotSupportedException("This should have been set");
-            
+
             ModeSelected(CreateEventArgs());
         }
         else
@@ -121,7 +121,7 @@ public partial class GameModeSelector
     {
         SchafkopfMode modePlayer = SelectedMode;
         string colorPlayer = CbColor.SelectedItem.ToString();
-        if (mode > modePlayer && modePlayer != SchafkopfMode.Weiter) 
+        if (mode > modePlayer && modePlayer != SchafkopfMode.Weiter)
             State = GameSelectorState.Visible;
 
         if (!CbMode.IsEnabled && modePlayer >= match.MinimumGame) return;
@@ -147,7 +147,8 @@ public partial class GameModeSelector
         if (modePlayer > mode)
         {
             CbMode.SelectedIndex = player.PossibilityIndexOf(modePlayer);
-            CbColor.SelectedIndex = player.PossibilityIndexOf(CbMode.SelectedIndex, colorPlayer);
+            CbColor.SelectedIndex =
+                player.PossibilityIndexOf(CbMode.SelectedIndex, Card.ParseNullableColor(colorPlayer));
         }
     }
 

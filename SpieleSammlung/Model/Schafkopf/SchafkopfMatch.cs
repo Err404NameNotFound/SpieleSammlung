@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using SpieleSammlung.Model.Util;
+using static SpieleSammlung.Model.Schafkopf.CardColor;
 
 namespace SpieleSammlung.Model.Schafkopf;
 
@@ -27,7 +28,7 @@ public class SchafkopfMatch : SchafkopfMatchConfig
     public DataTable PointsCumulated { get; }
 
     public SchafkopfMode MinimumGame { get; private set; }
-    public string Color { get; private set; }
+    public CardColor? Color { get; private set; }
     public int AmountShuffle { get; private set; }
     public int PlayerIndex { get; private set; }
     public bool IsWegGelaufen { get; private set; }
@@ -104,6 +105,9 @@ public class SchafkopfMatch : SchafkopfMatchConfig
     #region Public Methods
 
     public Tuple<bool, bool> ChoseGameMode(SchafkopfMode mode, string color, int index)
+        => ChoseGameMode(mode, Card.ParseNullableColor(color), index);
+
+    public Tuple<bool, bool> ChoseGameMode(SchafkopfMode mode, CardColor? color, int index)
     {
         if (index != CurrentRound.CurrentPlayer)
             throw new IllegalMoveException("It is not this players turn");
@@ -111,7 +115,10 @@ public class SchafkopfMatch : SchafkopfMatchConfig
         return ChoseGameMode(mode, color);
     }
 
-    public Tuple<bool, bool> ChoseGameMode(SchafkopfMode mode, string color)
+    public Tuple<bool, bool> ChooseGameMode(SchafkopfMode mode, string color) =>
+        ChoseGameMode(mode, Card.ParseNullableColor(color));
+
+    public Tuple<bool, bool> ChoseGameMode(SchafkopfMode mode, CardColor? color)
     {
         if (mode > MinimumGame)
         {
@@ -262,18 +269,19 @@ public class SchafkopfMatch : SchafkopfMatchConfig
     private void ChooseGame()
     {
         Mode = MinimumGame;
-        if (Mode != SchafkopfMode.Sauspiel) SauspielFarbe = "";
+        if (Mode != SchafkopfMode.Sauspiel)
+            SauspielFarbe = null;
         switch (Mode)
         {
             case SchafkopfMode.Sauspiel:
-                Trumpf = Card.HERZ;
+                Trumpf = Herz;
                 SauspielFarbe = Color;
                 break;
             case SchafkopfMode.Solo or SchafkopfMode.SoloTout:
                 Trumpf = Color;
                 break;
             case SchafkopfMode.Wenz or SchafkopfMode.WenzTout:
-                Trumpf = "";
+                Trumpf = null;
                 break;
             case SchafkopfMode.Weiter:
                 //TODO handle this case, probably shuffle or nextMatch
@@ -300,8 +308,8 @@ public class SchafkopfMatch : SchafkopfMatchConfig
     {
         Mode = SchafkopfMode.Weiter;
         MinimumGame = SchafkopfMode.Weiter;
-        SauspielFarbe = "";
-        Trumpf = "";
+        SauspielFarbe = null;
+        Trumpf = null;
     }
 
     private void UpdatePlayableCards()
@@ -536,21 +544,17 @@ public class SchafkopfMatch : SchafkopfMatchConfig
     {
         StringBuilder bob = new StringBuilder();
         foreach (var player in Players)
-        {
             bob.Append(player.InfoForRejoin(fineSeparator)).Append(separator);
-        }
 
-        for (int i = 0; i < PLAYER_PER_ROUND; ++i)
-        {
-            bob.Append(_currentPlayerIndexes[i]).Append(fineSeparator);
-        }
+        foreach (var index in _currentPlayerIndexes)
+            bob.Append(index).Append(fineSeparator);
 
         bob.Append(Mode.ToString()).Append(fineSeparator);
-        bob.Append(Trumpf).Append(fineSeparator);
-        bob.Append(SauspielFarbe).Append(fineSeparator);
+        bob.Append(Card.StringifyColor(Trumpf)).Append(fineSeparator);
+        bob.Append(Card.StringifyColor(SauspielFarbe)).Append(fineSeparator);
         bob.Append(IsWegGelaufen.ToString()).Append(fineSeparator);
         bob.Append(MinimumGame.ToString()).Append(fineSeparator);
-        bob.Append(Color).Append(fineSeparator);
+        bob.Append(Card.StringifyColor(Color)).Append(fineSeparator);
         bob.Append(AmountShuffle).Append(fineSeparator);
         bob.Append(PlayerIndex).Append(fineSeparator);
         bob.Append(_teams[0]).Append(fineSeparator);
@@ -560,12 +564,11 @@ public class SchafkopfMatch : SchafkopfMatchConfig
         bob.Append(_laufende).Append(fineSeparator);
         bob.Append(_loser).Append(fineSeparator);
         if (LastCards == null || LastCards.Count < 1)
-        {
             bob.Append("null").Append(fineSeparator);
-        }
         else
         {
-            foreach (var card in LastCards) bob.Append(card.Index).Append(fineSeparator);
+            foreach (var card in LastCards)
+                bob.Append(card.Index).Append(fineSeparator);
         }
 
         bob.Append(_rounds.Count).Append(fineSeparator);
@@ -592,22 +595,23 @@ public class SchafkopfMatch : SchafkopfMatchConfig
     private void RestoreFromInfo(string info, char separator)
     {
         SchafkopfPlayer[] newList = new SchafkopfPlayer[PLAYER_PER_ROUND];
-        foreach (var player in Players.Where(player => player.Number != -1)) newList[player.Number] = player;
+        foreach (var player in Players.Where(player => player.Number != -1))
+            newList[player.Number] = player;
         CurrentPlayers = newList;
 
         string[] msgParts = info.Split(separator);
         int index = -1;
-        for (int i = 0; i < PLAYER_PER_ROUND; ++i)
+        for (int i = 0; i < _currentPlayerIndexes.Length; ++i)
         {
             _currentPlayerIndexes[i] = int.Parse(msgParts[++index]);
         }
 
         Mode = StringToSchafkopfMode(msgParts[++index]);
-        Trumpf = msgParts[++index];
-        SauspielFarbe = msgParts[++index];
+        Trumpf = Card.ParseNullableColor(msgParts[++index]);
+        SauspielFarbe = Card.ParseNullableColor(msgParts[++index]);
         IsWegGelaufen = bool.Parse(msgParts[++index]);
         MinimumGame = StringToSchafkopfMode(msgParts[++index]);
-        Color = msgParts[++index];
+        Color = Card.ParseNullableColor(msgParts[++index]);
         AmountShuffle = int.Parse(msgParts[++index]);
         PlayerIndex = int.Parse(msgParts[++index]);
         _teams[0] = int.Parse(msgParts[++index]);
@@ -637,9 +641,7 @@ public class SchafkopfMatch : SchafkopfMatchConfig
         _matchSummary = msgParts[++index];
         _generalPointsSummary = msgParts[index + 1];
         if (Mode != SchafkopfMode.Weiter)
-        {
             UpdatePlayableCards();
-        }
     }
 
     #endregion

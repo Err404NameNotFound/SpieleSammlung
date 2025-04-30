@@ -4,6 +4,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SpieleSammlung;
 using SpieleSammlung.Model.Schafkopf;
 using static SpieleSammlung.Model.Util.ArrayPrinter;
+using static SpieleSammlung.Model.Schafkopf.CardColor;
+using static SpieleSammlung.Model.Schafkopf.CardNumber;
 
 namespace SpieleSammlungTests.Model.Schafkopf;
 
@@ -12,12 +14,12 @@ public class SchafkopfPlayerTest
 {
     private static readonly SchafkopfPlayer Player = new("id", "name");
 
-    private static readonly IReadOnlyList<string> SauspielColors = [Card.EICHEL, Card.GRAS, Card.SCHELLE];
+    private static readonly IReadOnlyList<CardColor?> SauspielColors = [Eichel, Gras, Schelle];
 
     private static readonly IReadOnlyList<bool> AllEightTrue = new List<bool>
         { true, true, true, true, true, true, true, true };
 
-    private static readonly IReadOnlyList<string> NoColors = new List<string> { "" };
+    private static readonly IReadOnlyList<CardColor?> NoColors = new List<CardColor?> { null };
 
     [TestMethod]
     public void TestConstructor()
@@ -33,7 +35,7 @@ public class SchafkopfPlayerTest
     public void TestCardsSortedCorrectlyAufEichel()
     {
         SetCards(4, 16, 31, 1, 23, 7, 25, 26);
-        Player.SortCards(new SchafkopfMatchConfig(SchafkopfMode.Sauspiel, Card.EICHEL));
+        Player.SortCards(new SchafkopfMatchConfig(SchafkopfMode.Sauspiel, Eichel));
         AssertCardsEqual([7, 23, 31, 16, 4, 1, 26, 25], Player.PlayableCards);
     }
 
@@ -41,7 +43,7 @@ public class SchafkopfPlayerTest
     public void TestCardsSortedCorrectlyAufGras()
     {
         SetCards(16, 2, 11, 19, 23, 30, 28, 9);
-        Player.SortCards(new SchafkopfMatchConfig(SchafkopfMode.Sauspiel, Card.GRAS));
+        Player.SortCards(new SchafkopfMatchConfig(SchafkopfMode.Sauspiel, Gras));
         AssertCardsEqual([23, 30, 19, 16, 11, 9, 2, 28], Player.PlayableCards);
     }
 
@@ -49,7 +51,7 @@ public class SchafkopfPlayerTest
     public void TestCardsSortedCorrectlyAufSchelle()
     {
         SetCards(12, 11, 16, 3, 7, 29, 28, 9);
-        Player.SortCards(new SchafkopfMatchConfig(SchafkopfMode.Sauspiel, Card.SCHELLE));
+        Player.SortCards(new SchafkopfMatchConfig(SchafkopfMode.Sauspiel, Schelle));
         AssertCardsEqual([7, 16, 29, 28, 3, 12, 11, 9], Player.PlayableCards);
     }
 
@@ -57,7 +59,7 @@ public class SchafkopfPlayerTest
     public void TestCardsSortedCorrectlyGrasSolo()
     {
         SetCards(6, 31, 7, 14, 15, 30, 23, 22);
-        Player.SortCards(new SchafkopfMatchConfig(SchafkopfMode.Solo, Card.GRAS));
+        Player.SortCards(new SchafkopfMatchConfig(SchafkopfMode.Solo, Gras));
         AssertCardsEqual([7, 15, 23, 31, 6, 14, 22, 30], Player.PlayableCards);
     }
 
@@ -76,7 +78,7 @@ public class SchafkopfPlayerTest
         Player.UpdatePossibilities(SchafkopfMode.Weiter);
         AssertPossibilityCountCorrect(3);
         AssertPossibilityIsWenz(1);
-        AssertPossibilityCorrect(SchafkopfMode.Solo, [Card.GRAS], 2);
+        AssertPossibilityCorrect(SchafkopfMode.Solo, [Gras], 2);
     }
 
     [TestMethod]
@@ -86,7 +88,7 @@ public class SchafkopfPlayerTest
         Player.UpdatePossibilities(SchafkopfMode.Weiter);
         AssertPossibilityCountCorrect(4);
         AssertPossibilityIsWenz(1);
-        string[] colors = [Card.EICHEL, Card.HERZ];
+        CardColor?[] colors = [Eichel, Herz];
         AssertPossibilityCorrect(SchafkopfMode.Solo, colors, 2);
         AssertPossibilityCorrect(SchafkopfMode.SoloTout, colors, 3);
     }
@@ -98,7 +100,7 @@ public class SchafkopfPlayerTest
         Player.UpdatePossibilities(SchafkopfMode.Weiter);
         AssertPossibilityCountCorrect(5);
         AssertPossibilityIsWenz(1);
-        string[] colors = [Card.GRAS, Card.HERZ, Card.SCHELLE];
+        CardColor?[] colors = [Gras, Herz, Schelle];
         AssertPossibilityCorrect(SchafkopfMode.Solo, colors, 2);
         AssertPossibilityIsWenzTout(3);
         AssertPossibilityCorrect(SchafkopfMode.SoloTout, colors, 4);
@@ -184,7 +186,7 @@ public class SchafkopfPlayerTest
     {
         const string message = "The mode of this match is not Sauspiel, so the player can't have the \"Gesuchte\".";
         SetCards(5, 4, 13, 12, 21, 20, 29, 28);
-        SchafkopfMatchConfig match = new SchafkopfMatchConfig(SchafkopfMode.Solo, Card.HERZ);
+        SchafkopfMatchConfig match = new SchafkopfMatchConfig(SchafkopfMode.Solo, Herz);
         Assert.IsFalse(Player.HasGesuchte(match), message);
         match = new SchafkopfMatchConfig(SchafkopfMode.WenzTout, "");
         Assert.IsFalse(Player.HasGesuchte(match), message);
@@ -195,7 +197,7 @@ public class SchafkopfPlayerTest
     {
         const string message = "The player has all \"Sau's\" but not the required one (Cards: {0}).";
         SetCards(0, 4, 13, 12, 21, 20, 29, 28);
-        SchafkopfMatchConfig match = new SchafkopfMatchConfig(SchafkopfMode.Sauspiel, Card.EICHEL);
+        SchafkopfMatchConfig match = new SchafkopfMatchConfig(SchafkopfMode.Sauspiel, Eichel);
         Assert.IsFalse(Player.HasGesuchte(match), message, ArrayString(Player.PlayableCards));
     }
 
@@ -204,7 +206,7 @@ public class SchafkopfPlayerTest
     {
         const string message = "The player has all \"Sau's\" but not the required one (Cards: {0}).";
         SetCards(7, 6, 13, 12, 21, 20, 29, 28);
-        SchafkopfMatchConfig match = new SchafkopfMatchConfig(SchafkopfMode.Sauspiel, Card.EICHEL);
+        SchafkopfMatchConfig match = new SchafkopfMatchConfig(SchafkopfMode.Sauspiel, Eichel);
         Assert.IsFalse(Player.HasGesuchte(match), message, ArrayString(Player.PlayableCards));
     }
 
@@ -213,7 +215,7 @@ public class SchafkopfPlayerTest
     {
         const string message = "The player has the \"Gesuchte\" (Cards: {0})";
         SetCards(7, 4, 13, 12, 21, 20, 29, 28);
-        SchafkopfMatchConfig match = new SchafkopfMatchConfig(SchafkopfMode.Sauspiel, Card.GRAS);
+        SchafkopfMatchConfig match = new SchafkopfMatchConfig(SchafkopfMode.Sauspiel, Gras);
         Assert.IsTrue(Player.HasGesuchte(match), message, ArrayString(Player.PlayableCards));
     }
 
@@ -221,7 +223,7 @@ public class SchafkopfPlayerTest
     public void TestCheckPlayableCardsHasRightLength()
     {
         SetCards(0, 1, 2, 3, 4, 5, 6, 7);
-        SchafkopfMatchConfig match = new SchafkopfMatchConfig(SchafkopfMode.Sauspiel, Card.GRAS);
+        SchafkopfMatchConfig match = new SchafkopfMatchConfig(SchafkopfMode.Sauspiel, Gras);
         IReadOnlyList<bool> result;
         while (Player.PlayableCards.Count > 0)
         {
@@ -238,42 +240,42 @@ public class SchafkopfPlayerTest
     public void TestCanRunAwayLastCardRightColor()
     {
         SetCards(5);
-        AssertCheckPlayableCardsCorrectArgs(SchafkopfMode.Sauspiel, Card.EICHEL, Card.ALL_CARDS[0], false, true);
+        AssertCheckPlayableCardsCorrectArgs(SchafkopfMode.Sauspiel, Eichel, Card.ALL_CARDS[0], false, true);
     }
 
     [TestMethod]
     public void TestCanRunAwayLastCardWrongColor()
     {
         SetCards(5);
-        AssertCheckPlayableCardsCorrectArgs(SchafkopfMode.Sauspiel, Card.EICHEL, Card.ALL_CARDS[8], false, true);
+        AssertCheckPlayableCardsCorrectArgs(SchafkopfMode.Sauspiel, Eichel, Card.ALL_CARDS[8], false, true);
     }
 
     [TestMethod]
     public void TestCanRunAwayLastCardFirstCardNotWegGelaufen()
     {
         SetCards(5);
-        AssertCheckPlayableCardsCorrectArgs(SchafkopfMode.Sauspiel, Card.EICHEL, null, false, true);
+        AssertCheckPlayableCardsCorrectArgs(SchafkopfMode.Sauspiel, Eichel, null, false, true);
     }
 
     [TestMethod]
     public void TestCanRunAwayLastCardFirstCardWegGelaufen()
     {
         SetCards(5);
-        AssertCheckPlayableCardsCorrectArgs(SchafkopfMode.Sauspiel, Card.EICHEL, null, true, true);
+        AssertCheckPlayableCardsCorrectArgs(SchafkopfMode.Sauspiel, Eichel, null, true, true);
     }
 
     [TestMethod]
     public void TestCanRunAwayPlaysFirstCard()
     {
         SetCards(7, 15, 6, 5, 4, 3, 2, 11);
-        AssertCheckPlayableCardsCorrect(SchafkopfMode.Sauspiel, Card.EICHEL, null, false, AllEightTrue);
+        AssertCheckPlayableCardsCorrect(SchafkopfMode.Sauspiel, Eichel, null, false, AllEightTrue);
     }
 
     [TestMethod]
     public void TestCanRunAwayFirstCardNotEichel()
     {
         SetCards(7, 15, 6, 5, 4, 3, 2, 13);
-        AssertCheckPlayableCardsCorrectArgs(SchafkopfMode.Sauspiel, Card.EICHEL, Card.ALL_CARDS[12], false,
+        AssertCheckPlayableCardsCorrectArgs(SchafkopfMode.Sauspiel, Eichel, Card.ALL_CARDS[12], false,
             false, false, false, false, false, false, false, true);
     }
 
@@ -281,7 +283,7 @@ public class SchafkopfPlayerTest
     public void TestCanRunAwayFirstCardEichel()
     {
         SetCards(7, 15, 6, 5, 4, 3, 2, 11);
-        AssertCheckPlayableCardsCorrectArgs(SchafkopfMode.Sauspiel, Card.EICHEL, Card.ALL_CARDS[0], false,
+        AssertCheckPlayableCardsCorrectArgs(SchafkopfMode.Sauspiel, Eichel, Card.ALL_CARDS[0], false,
             false, false, false, true, false, false, false, false);
     }
 
@@ -289,14 +291,14 @@ public class SchafkopfPlayerTest
     public void TestCanPlayAnyCardAsFirstBecauseNoGesuchte()
     {
         SetCards(7, 15, 6, 5, 4, 3, 2, 11);
-        AssertCheckPlayableCardsCorrect(SchafkopfMode.Sauspiel, Card.SCHELLE, null, false, AllEightTrue);
+        AssertCheckPlayableCardsCorrect(SchafkopfMode.Sauspiel, Schelle, null, false, AllEightTrue);
     }
 
     [TestMethod]
     public void TestHasRunAwayCanPlayOtherCardsThanSau()
     {
         SetCards(7, 15, 6, 5, 4, 11);
-        AssertCheckPlayableCardsCorrectArgs(SchafkopfMode.Sauspiel, Card.EICHEL, Card.ALL_CARDS[0], true,
+        AssertCheckPlayableCardsCorrectArgs(SchafkopfMode.Sauspiel, Eichel, Card.ALL_CARDS[0], true,
             false, false, false, true, true, false);
     }
 
@@ -304,7 +306,7 @@ public class SchafkopfPlayerTest
     public void TestHasRunAwayCanPlaySauAfterWeglaufen()
     {
         SetCards(5, 4, 11);
-        AssertCheckPlayableCardsCorrectArgs(SchafkopfMode.Sauspiel, Card.EICHEL, Card.ALL_CARDS[7], true,
+        AssertCheckPlayableCardsCorrectArgs(SchafkopfMode.Sauspiel, Eichel, Card.ALL_CARDS[7], true,
             true, true, true);
     }
 
@@ -312,7 +314,7 @@ public class SchafkopfPlayerTest
     public void TestCanPlayAnyCardAsFirstCardForWenz()
     {
         SetCards(4, 5, 1, 31, 23, 12, 19);
-        AssertCheckPlayableCardsCorrectArgs(SchafkopfMode.Sauspiel, Card.EICHEL, null, false,
+        AssertCheckPlayableCardsCorrectArgs(SchafkopfMode.Sauspiel, Eichel, null, false,
             true, true, true, true, true, true, true);
     }
 
@@ -320,7 +322,7 @@ public class SchafkopfPlayerTest
     public void TestMustPlayUnterAtWenz()
     {
         SetCards(14, 5, 4, 3, 31);
-        AssertCheckPlayableCardsCorrectArgs(SchafkopfMode.Wenz, "", Card.ALL_CARDS[6], false,
+        AssertCheckPlayableCardsCorrectArgs(SchafkopfMode.Wenz, null, Card.ALL_CARDS[6], false,
             true, false, false, false, false);
     }
 
@@ -328,9 +330,9 @@ public class SchafkopfPlayerTest
     public void TestSoloToutMustPlayTrumpf()
     {
         SetCards(31, 30, 29, 24, 5, 4, 21, 20);
-        AssertCheckPlayableCardsCorrectArgs(SchafkopfMode.SoloTout, Card.SCHELLE, Card.ALL_CARDS[7], false,
+        AssertCheckPlayableCardsCorrectArgs(SchafkopfMode.SoloTout, Schelle, Card.ALL_CARDS[7], false,
             true, true, true, true, false, false, false, false);
-        AssertCheckPlayableCardsCorrectArgs(SchafkopfMode.SoloTout, Card.SCHELLE, Card.ALL_CARDS[25], false,
+        AssertCheckPlayableCardsCorrectArgs(SchafkopfMode.SoloTout, Schelle, Card.ALL_CARDS[25], false,
             true, true, true, true, false, false, false, false);
     }
 
@@ -338,9 +340,9 @@ public class SchafkopfPlayerTest
     public void TestSoloToutMustPlayColor()
     {
         SetCards(31, 30, 5, 4, 29, 24, 21, 20);
-        AssertCheckPlayableCardsCorrectArgs(SchafkopfMode.SoloTout, Card.EICHEL, Card.ALL_CARDS[21], false,
+        AssertCheckPlayableCardsCorrectArgs(SchafkopfMode.SoloTout, Eichel, Card.ALL_CARDS[21], false,
             false, false, false, false, false, false, true, true);
-        AssertCheckPlayableCardsCorrectArgs(SchafkopfMode.SoloTout, Card.EICHEL, Card.ALL_CARDS[24], false,
+        AssertCheckPlayableCardsCorrectArgs(SchafkopfMode.SoloTout, Eichel, Card.ALL_CARDS[24], false,
             false, false, false, false, true, true, false, false);
     }
 
@@ -354,7 +356,10 @@ public class SchafkopfPlayerTest
         AssertPossibilityCorrect(SchafkopfMode.WenzTout, NoColors, index);
     }
 
-    private static void AssertPossibilityCorrect(SchafkopfMode mode, IReadOnlyList<string> colors, int index)
+    private static void AssertPossibilityCorrect(SchafkopfMode mode, IReadOnlyList<CardColor> colors, int index)
+        => AssertPossibilityCorrect(mode, colors.Select(c => (CardColor?)c).ToList(), index);
+
+    private static void AssertPossibilityCorrect(SchafkopfMode mode, IReadOnlyList<CardColor?> colors, int index)
     {
         SchafkopfMatchPossibility possibility = Player.Possibilities[index];
         Assert.AreEqual(mode, possibility.Mode);
@@ -391,13 +396,13 @@ public class SchafkopfPlayerTest
             ArrayString(expected), ArrayString(i => actual[i].Index.ToString(), actual.Count));
     }
 
-    private static void AssertCheckPlayableCardsCorrectArgs(SchafkopfMode mode, string color, Card firstCard,
+    private static void AssertCheckPlayableCardsCorrectArgs(SchafkopfMode mode, CardColor? color, Card firstCard,
         bool isWegGelaufen, params bool[] expected)
     {
         AssertCheckPlayableCardsCorrect(mode, color, firstCard, isWegGelaufen, expected);
     }
 
-    private static void AssertCheckPlayableCardsCorrect(SchafkopfMode mode, string color, Card firstCard,
+    private static void AssertCheckPlayableCardsCorrect(SchafkopfMode mode, CardColor? color, Card firstCard,
         bool isWegGelaufen, IReadOnlyList<bool> expected)
     {
         SchafkopfMatchConfig match = new SchafkopfMatchConfig(mode, color);

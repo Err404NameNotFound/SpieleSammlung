@@ -37,7 +37,7 @@ public partial class SkPlayerInfo
         get => VisualAufgestellt.Visibility == Visibility.Visible;
         set
         {
-            EmptyState();
+            ClearState();
             VisualAufgestellt.Visibility = value ? Visibility.Visible : Visibility.Collapsed;
         }
     }
@@ -64,7 +64,7 @@ public partial class SkPlayerInfo
         PlayerName = player;
     }
 
-    public void EmptyState()
+    public void ClearState()
     {
         LblPLayerState.Visibility = Visibility.Collapsed;
         LblPLayerState.Content = STATE_EMPTY;

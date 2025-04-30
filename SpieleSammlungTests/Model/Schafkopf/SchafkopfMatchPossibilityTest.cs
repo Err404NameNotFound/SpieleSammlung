@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SpieleSammlung;
 using SpieleSammlung.Model.Schafkopf;
+using static SpieleSammlung.Model.Schafkopf.CardColor;
 
 namespace SpieleSammlungTests.Model.Schafkopf;
 
@@ -26,7 +26,7 @@ public class SchafkopfMatchPossibilityTest
     public void TestToStringConstructorWithList()
     {
         const SchafkopfMode mode = SchafkopfMode.Sauspiel;
-        List<string> colors = [Card.GRAS, Card.EICHEL, Card.SCHELLE];
+        List<CardColor?> colors = [Gras, Eichel, Schelle];
         SchafkopfMatchPossibility possibility = new SchafkopfMatchPossibility(mode, colors);
         Assert.AreEqual(mode + ": " + string.Join(", ", colors), possibility.ToString());
     }
@@ -35,7 +35,7 @@ public class SchafkopfMatchPossibilityTest
     public void TestToStringConstructorWithListSoloTout()
     {
         const SchafkopfMode mode = SchafkopfMode.SoloTout;
-        List<string> colors = [Card.GRAS, Card.EICHEL, Card.SCHELLE, Card.HERZ];
+        List<CardColor?> colors = [Gras, Eichel, Schelle, Herz];
         SchafkopfMatchPossibility possibility = new SchafkopfMatchPossibility(mode, colors);
         Assert.AreEqual(mode + ": " + string.Join(", ", colors), possibility.ToString());
     }

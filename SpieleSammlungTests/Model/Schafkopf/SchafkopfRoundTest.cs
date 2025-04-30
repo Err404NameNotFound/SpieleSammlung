@@ -14,7 +14,7 @@ public class SchafkopfRoundTest
         Assert.AreEqual(0, round.NextStartPlayer);
         Assert.AreEqual(0, round.CurrentPlayer);
         Assert.AreEqual(0, round.HighestValue);
-        Assert.AreEqual("", round.SemiTrumpf);
+        Assert.AreEqual(null, round.SemiTrumpf);
     }
         
     [TestMethod]
@@ -29,7 +29,7 @@ public class SchafkopfRoundTest
         Assert.AreEqual(1, round.NextStartPlayer);
         Assert.AreEqual(1, round.CurrentPlayer);
         Assert.AreEqual(0, round.HighestValue);
-        Assert.AreEqual("", round.SemiTrumpf);
+        Assert.AreEqual(null, round.SemiTrumpf);
     }
         
     [TestMethod]
@@ -48,6 +48,6 @@ public class SchafkopfRoundTest
         Assert.AreEqual(2, round.NextStartPlayer);
         Assert.AreEqual(0, round.CurrentPlayer);
         Assert.AreEqual(20, round.HighestValue);
-        Assert.AreEqual("", round.SemiTrumpf);
+        Assert.AreEqual(null, round.SemiTrumpf);
     }
 }

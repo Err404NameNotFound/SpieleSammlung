@@ -1,24 +1,29 @@
 using System;
 using SpieleSammlung.Properties;
+using static SpieleSammlung.Model.Schafkopf.CardColor;
 
 namespace SpieleSammlung.Model.Schafkopf;
 
 public class SchafkopfMatchConfig
 {
-    public string Trumpf { get; protected set; }
-    public string SauspielFarbe { get; protected set; }
+    public CardColor? Trumpf { get; protected set; }
+    public CardColor? SauspielFarbe { get; protected set; }
     public SchafkopfMode Mode { get; protected set; }
 
     protected SchafkopfMatchConfig()
     {
     }
 
-    public SchafkopfMatchConfig(SchafkopfMode mode, string color)
+    public SchafkopfMatchConfig(SchafkopfMode mode, string color) : this (mode, Card.ParseNullableColor(color))
+    {
+    }
+
+    public SchafkopfMatchConfig(SchafkopfMode mode, CardColor? color)
     {
         Mode = mode;
         if (mode == SchafkopfMode.Sauspiel)
         {
-            Trumpf = Card.HERZ;
+            Trumpf = Herz;
             SauspielFarbe = color;
         }
         else
