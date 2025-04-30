@@ -118,9 +118,9 @@ public class KniffelPointsTable
     public KniffelPointsTable()
     {
         _fields = new KniffelField[FIELD_NAMES.Length];
-        foreach (var field in ChangeableFields) 
+        foreach (var field in ChangeableFields)
             _fields[field] = new KniffelFieldSum();
-        foreach (var field in UnChangeableFields) 
+        foreach (var field in UnChangeableFields)
             _fields[field] = new KniffelFieldSingle();
     }
 

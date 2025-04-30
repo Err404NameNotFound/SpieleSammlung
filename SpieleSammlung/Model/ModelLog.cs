@@ -101,7 +101,7 @@ public static class ModelLog
                 File.WriteAllLines(PATH, texts);
         }
 
-        if (WriteToConsole) 
+        if (WriteToConsole)
             texts.ForEach(Console.WriteLine);
     }
 
@@ -109,13 +109,13 @@ public static class ModelLog
     {
         if (WriteToFile)
         {
-            if (append) 
+            if (append)
                 File.AppendAllText(PATH, string.Format(text, args));
-            else 
+            else
                 File.WriteAllText(PATH, string.Format(text, args));
         }
 
-        if (WriteToConsole) 
+        if (WriteToConsole)
             Console.Write(text, args);
     }
 

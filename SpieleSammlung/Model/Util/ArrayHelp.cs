@@ -19,15 +19,15 @@ public static class ArrayHelp
         T[] array = new T[length];
         for (int i = 0; i < length; ++i)
             array[i] = generator();
-        return array;   
+        return array;
     }
 
-    public static T[] CreateArray<TS,T>(IReadOnlyCollection<TS> original, Func<TS,T> generator)
+    public static T[] CreateArray<TS, T>(IReadOnlyCollection<TS> original, Func<TS, T> generator)
     {
         T[] array = new T[original.Count];
         int i = 0;
         foreach (TS item in original)
             array[i++] = generator(item);
-        return array;   
+        return array;
     }
 }

@@ -198,7 +198,7 @@ public class KniffelGame
         Players[ActivePlayer].Fields.UpdateSums();
         RemainingShuffles = INITIAL_SHUFFLE_COUNT;
         ++ActivePlayer;
-        ActivePlayer %= Players.Length;;
+        ActivePlayer %= Players.Length;
         if (ActivePlayer == 0)
             ++Round;
 

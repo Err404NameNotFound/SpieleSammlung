@@ -45,7 +45,7 @@ public class MpConnection
         if (!Directory.Exists(BASE_PATH))
             Directory.CreateDirectory(BASE_PATH);
     }
-    
+
     public MpConnection(string player, int port)
     {
         Id = player;
@@ -122,7 +122,7 @@ public class MpConnection
     private void Server_lostConnection(string id)
     {
         int i = 0;
-        while (!_activeClients[i].Id.Equals(id)) 
+        while (!_activeClients[i].Id.Equals(id))
             ++i;
 
         LostClients.Add(_activeClients[i]);

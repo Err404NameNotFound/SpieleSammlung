@@ -158,7 +158,7 @@ public partial class MultiplayerLobby
             _connection.SendMessage("1" + SEPARATOR + MpTxtBoxPlayerName.Text);
             if (!Directory.Exists(BASE_PATH))
                 Directory.CreateDirectory(BASE_PATH);
-            
+
             File.WriteAllText(PATH_LAST_IP, _ip + Properties.Resources.Newline + _port);
         }
         else if (e.Type == MultiplayerEventTypes.CClientDisconnected)

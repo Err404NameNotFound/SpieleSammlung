@@ -14,7 +14,7 @@ public class SchafkopfMatchConfig
     {
     }
 
-    public SchafkopfMatchConfig(SchafkopfMode mode, string color) : this (mode, Card.ParseNullableColor(color))
+    public SchafkopfMatchConfig(SchafkopfMode mode, string color) : this(mode, Card.ParseNullableColor(color))
     {
     }
 

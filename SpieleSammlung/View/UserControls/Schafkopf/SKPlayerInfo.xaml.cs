@@ -53,7 +53,7 @@ public partial class SkPlayerInfo
     public void NewMatch()
     {
         Kontra = false;
-        if (!Aufgestellt) 
+        if (!Aufgestellt)
             State = STATE_AUFSTELLEN;
     }
 

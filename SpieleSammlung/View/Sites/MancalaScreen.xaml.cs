@@ -18,14 +18,14 @@ public partial class MancalaScreen
         _fields = new MancalaField[_mancala.FieldsCount];
         for (int i = -2; i < length; ++i)
             GridBoardVisual.ColumnDefinitions.Add(new ColumnDefinition());
-        
+
         SetField(0, 0, 0, false);
         SetField(_mancala.Player2Index, 0, _mancala.Player2Index, false);
         Grid.SetRowSpan(_fields[_mancala.Player1Index], 2);
         Grid.SetRowSpan(_fields[_mancala.Player2Index], 2);
         for (int i = _mancala.Player1Index + 1; i < _mancala.Player2Index; ++i)
             SetField(i, 0, i, _mancala.CurrentIsFirst);
-        
+
         for (int i = _mancala.Player2Index + 1; i < _mancala.FieldsCount; ++i)
             SetField(i, 1, 2 * _mancala.Player2Index - i, !_mancala.CurrentIsFirst);
     }

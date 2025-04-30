@@ -24,13 +24,13 @@
                 Click="Btn4gewinnt_Click" x:Name="BtnChooseConnect4" />
         <Button Grid.Column="0" Grid.Row="2" Width="150" Height="50"
                 Content="{x:Static properties:Resources.SS_Kniffel}"
-                Click="BtnKniffel_Click" x:Name="BtnChooseKniffel"/>
+                Click="BtnKniffel_Click" x:Name="BtnChooseKniffel" />
         <Button Grid.Column="1" Grid.Row="1" Width="150" Height="50"
                 Content="{x:Static properties:Resources.SS_Schafkopf}"
                 Click="BtnSchafkopf_Click" x:Name="BtnChooseSchafkopf" />
         <Button Grid.Column="1" Grid.Row="2" Width="150" Height="50"
                 Content="{x:Static properties:Resources.SS_Mancala}"
-                Click="BtnMancala_Click" x:Name="BtnChooseMancala"/>
+                Click="BtnMancala_Click" x:Name="BtnChooseMancala" />
         <StackPanel Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal"
                     HorizontalAlignment="Center">
             <Button Width="150" Height="50" Margin="25,0" IsEnabled="False"

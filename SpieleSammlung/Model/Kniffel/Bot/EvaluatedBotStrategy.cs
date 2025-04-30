@@ -62,7 +62,7 @@ public class EvaluatedBotStrategy : BotStrategy
         }
 
         // Wait for all the threads to finish.
-        foreach (Thread thread in threadPool) 
+        foreach (Thread thread in threadPool)
             thread.Join();
 
         Scores.Merge(evaluators);
@@ -93,7 +93,7 @@ public class EvaluatedBotStrategy : BotStrategy
     private void EvaluateOneRound(MinMaxAvgEvaluator evaluator, Random random)
     {
         var game = new KniffelGame(Players, random, this);
-        while (game.IsGameNotOver()) 
+        while (game.IsGameNotOver())
             game.DoBotMoveInstant();
 
         foreach (var player in game.Players)

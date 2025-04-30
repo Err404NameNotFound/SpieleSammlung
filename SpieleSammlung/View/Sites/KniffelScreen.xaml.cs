@@ -56,9 +56,9 @@ public partial class KniffelScreen
         _watch = new Stopwatch();
         _dices = [Dice1, Dice2, Dice3, Dice4, Dice5];
         _game = new KniffelGame(names);
-        foreach (var dice in _dices) 
+        foreach (var dice in _dices)
             dice.IsChecked = false;
-        foreach (var player in names) 
+        foreach (var player in names)
             Fields.CBoxPlayerNames.Items.Add(player);
         Fields.FillPlayerList(_game.Players);
         FieldsChoose.FillPlayerList(_game.Players);
