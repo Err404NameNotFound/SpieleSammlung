@@ -395,8 +395,5 @@
     <ItemGroup>
         <Resource Include="Aroche-Delta-Games.ico"/>
     </ItemGroup>
-    <ItemGroup>
-        <Content Include="fehlerTodos.txt"/>
-    </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
 </Project>
